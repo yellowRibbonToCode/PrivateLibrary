@@ -5,7 +5,7 @@ Open Project
 
 ## Wiki
 
-https://github.com/innovationacademy-kr/PrivateLibrary/wiki
+https://github.com/yellowRibbonToCode/PrivateLibrary/wiki
 ## project process
 
 https://github.com/yellowRibbonToCode/PrivateLibrary/projects/1
