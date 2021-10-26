@@ -21,6 +21,10 @@
 		73C09B3D2725250A0048BC85 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C09B3C2725250A0048BC85 /* MapView.swift */; };
 		73C09B402725279D0048BC85 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C09B3F2725279D0048BC85 /* DetailView.swift */; };
 		73C09B4927252F980048BC85 /* ModelData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C09B4827252F980048BC85 /* ModelData.swift */; };
+		EE34568A2727C71A0058E84B /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3456892727C71A0058E84B /* HomeView.swift */; };
+		EE34568C2727C7F80058E84B /* ImageRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE34568B2727C7F80058E84B /* ImageRow.swift */; };
+		EE34568E2727D3050058E84B /* ImageHView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE34568D2727D3050058E84B /* ImageHView.swift */; };
+		EE3456902727D4A00058E84B /* ImageGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE34568F2727D4A00058E84B /* ImageGridView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +44,10 @@
 		73C09B3C2725250A0048BC85 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		73C09B3F2725279D0048BC85 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		73C09B4827252F980048BC85 /* ModelData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelData.swift; sourceTree = "<group>"; };
+		EE3456892727C71A0058E84B /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		EE34568B2727C7F80058E84B /* ImageRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageRow.swift; sourceTree = "<group>"; };
+		EE34568D2727D3050058E84B /* ImageHView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageHView.swift; sourceTree = "<group>"; };
+		EE34568F2727D4A00058E84B /* ImageGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageGridView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,6 +135,10 @@
 				732B94BD2726C379005A7416 /* LoginView.swift */,
 				73C09B3F2725279D0048BC85 /* DetailView.swift */,
 				732AE1BC2727ADE1004D5A3C /* Icon.swift */,
+				EE3456892727C71A0058E84B /* HomeView.swift */,
+				EE34568B2727C7F80058E84B /* ImageRow.swift */,
+				EE34568D2727D3050058E84B /* ImageHView.swift */,
+				EE34568F2727D4A00058E84B /* ImageGridView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -214,10 +226,14 @@
 				73BFFFC427214EAE00375684 /* AppDelegate.swift in Sources */,
 				73C09B4927252F980048BC85 /* ModelData.swift in Sources */,
 				73B6F015272679C600446F4B /* ViewModel.swift in Sources */,
+				EE3456902727D4A00058E84B /* ImageGridView.swift in Sources */,
 				73C09B402725279D0048BC85 /* DetailView.swift in Sources */,
+				EE34568A2727C71A0058E84B /* HomeView.swift in Sources */,
 				73BFFFC627214EAE00375684 /* SceneDelegate.swift in Sources */,
 				73BFFFCB27214EAE00375684 /* PrivateLibrary.xcdatamodeld in Sources */,
+				EE34568C2727C7F80058E84B /* ImageRow.swift in Sources */,
 				73C09B3D2725250A0048BC85 /* MapView.swift in Sources */,
+				EE34568E2727D3050058E84B /* ImageHView.swift in Sources */,
 				732AE1BD2727ADE1004D5A3C /* Icon.swift in Sources */,
 				732B94BE2726C379005A7416 /* LoginView.swift in Sources */,
 			);
