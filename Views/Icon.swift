@@ -13,7 +13,16 @@ struct Icon: View {
             Image(systemName: "book.closed.fill")
                 .resizable()
                 .frame(width: 200.0, height: 200)
-                .foregroundColor(.mainBrown)
+
+                .foregroundColor(Color(hue: 0.377, saturation: 0.875, brightness: 0.4))
+                
+//                .aspectRatio(contentMode: .fit)
+//                .clipShape(Circle().inset(by: CGFloat(-50)))
+                .overlay(RoundedRectangle(cornerRadius: 10)
+                            .inset(by: CGFloat(-20))
+                            .stroke(Color(hue: 0.377, saturation: 0.875, brightness: 0.4), lineWidth: 20))
+//                .shadow(radius: 15)
+
             VStack (alignment: .leading){
 //                Text("Read")
 ////                Text("wRite")
@@ -30,6 +39,7 @@ struct Icon: View {
             .foregroundColor(.white)
 //            .fontWeight(.bold)
             .font(.largeTitle)
+
             .padding(.leading, 40)
             .padding(.bottom, 30)
         }
