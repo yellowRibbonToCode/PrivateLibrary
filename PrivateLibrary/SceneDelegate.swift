@@ -23,11 +23,18 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Create the SwiftUI view and set the context as the value for the managedObjectContext environment keyPath.
         // Add `@Environment(\.managedObjectContext)` in the views that will need the context.
 //        let contentView = ContentView().environment(\.managedObjectContext, context)
+<<<<<<< HEAD
+//        let contentView = DetailView(libModel: ModelData().library[0])
+
+        let contentView = LoginView()
+                            .environment(\.managedObjectContext, context)
+=======
 
 //        let contentView = DetailView(libModel: ModelData().library[0])
 //                    .environment(\.managedObjectContext, context)
         let contentView = LoginView()
 
+>>>>>>> main
         //            .environmentObject(DateFormatter.ContentDateFormatter)
 //            .environmentObject(ModelData())
 
