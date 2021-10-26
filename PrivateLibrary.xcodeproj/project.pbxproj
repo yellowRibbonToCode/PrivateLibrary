@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+
 		732B94BE2726C379005A7416 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 732B94BD2726C379005A7416 /* LoginView.swift */; };
 		732BF58E27267CC800DC18E3 /* libData.json in Resources */ = {isa = PBXBuildFile; fileRef = 732BF58D27267CC800DC18E3 /* libData.json */; };
 		73B6F01127264CA300446F4B /* Icon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73B6F01027264CA300446F4B /* Icon.swift */; };
@@ -25,9 +26,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+
 		732B94BD2726C379005A7416 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		732BF58D27267CC800DC18E3 /* libData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = libData.json; sourceTree = "<group>"; };
 		73B6F01027264CA300446F4B /* Icon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Icon.swift; sourceTree = "<group>"; };
+
 		73B6F014272679C600446F4B /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		73BC055927227DE90092B483 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		73BFFFC027214EAE00375684 /* PrivateLibrary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PrivateLibrary.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -58,6 +61,7 @@
 		7346DE8D272171FB0053C4C7 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+
 				73C09B4827252F980048BC85 /* ModelData.swift */,
 				73B6F014272679C600446F4B /* ViewModel.swift */,
 			);
@@ -68,6 +72,7 @@
 			isa = PBXGroup;
 			children = (
 				73BC055927227DE90092B483 /* Color.swift */,
+
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -119,9 +124,10 @@
 			isa = PBXGroup;
 			children = (
 				73C09B3C2725250A0048BC85 /* MapView.swift */,
+
 				732B94BD2726C379005A7416 /* LoginView.swift */,
 				73C09B3F2725279D0048BC85 /* DetailView.swift */,
-				73B6F01027264CA300446F4B /* Icon.swift */,
+
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -206,16 +212,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				73BC055A27227DE90092B483 /* Color.swift in Sources */,
+
 				73BFFFC427214EAE00375684 /* AppDelegate.swift in Sources */,
 				73C09B4927252F980048BC85 /* ModelData.swift in Sources */,
 				73B6F01127264CA300446F4B /* Icon.swift in Sources */,
+
 				73B6F015272679C600446F4B /* ViewModel.swift in Sources */,
 				73C09B402725279D0048BC85 /* DetailView.swift in Sources */,
 				73BFFFC627214EAE00375684 /* SceneDelegate.swift in Sources */,
 				73BFFFC827214EAE00375684 /* ContentView.swift in Sources */,
 				73BFFFCB27214EAE00375684 /* PrivateLibrary.xcdatamodeld in Sources */,
 				73C09B3D2725250A0048BC85 /* MapView.swift in Sources */,
+
 				732B94BE2726C379005A7416 /* LoginView.swift in Sources */,
+
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
