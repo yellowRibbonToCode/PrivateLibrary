@@ -24,8 +24,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Add `@Environment(\.managedObjectContext)` in the views that will need the context.
 //        let contentView = ContentView().environment(\.managedObjectContext, context)
 //        let contentView = DetailView(libModel: ModelData().library[0])
-//                    .environment(\.managedObjectContext, context)
+
         let contentView = LoginView()
+                            .environment(\.managedObjectContext, context)
         //            .environmentObject(DateFormatter.ContentDateFormatter)
 //            .environmentObject(ModelData())
 
