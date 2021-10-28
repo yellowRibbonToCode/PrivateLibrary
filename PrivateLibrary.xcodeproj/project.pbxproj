@@ -25,6 +25,7 @@
 		EE34568C2727C7F80058E84B /* ImageRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE34568B2727C7F80058E84B /* ImageRow.swift */; };
 		EE34568E2727D3050058E84B /* ImageHView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE34568D2727D3050058E84B /* ImageHView.swift */; };
 		EE3456902727D4A00058E84B /* ImageGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE34568F2727D4A00058E84B /* ImageGridView.swift */; };
+		EE3456922727E6890058E84B /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3456912727E6890058E84B /* TestView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +49,7 @@
 		EE34568B2727C7F80058E84B /* ImageRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageRow.swift; sourceTree = "<group>"; };
 		EE34568D2727D3050058E84B /* ImageHView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageHView.swift; sourceTree = "<group>"; };
 		EE34568F2727D4A00058E84B /* ImageGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageGridView.swift; sourceTree = "<group>"; };
+		EE3456912727E6890058E84B /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,6 +141,7 @@
 				EE34568B2727C7F80058E84B /* ImageRow.swift */,
 				EE34568D2727D3050058E84B /* ImageHView.swift */,
 				EE34568F2727D4A00058E84B /* ImageGridView.swift */,
+				EE3456912727E6890058E84B /* TestView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -228,6 +231,7 @@
 				73B6F015272679C600446F4B /* ViewModel.swift in Sources */,
 				EE3456902727D4A00058E84B /* ImageGridView.swift in Sources */,
 				73C09B402725279D0048BC85 /* DetailView.swift in Sources */,
+				EE3456922727E6890058E84B /* TestView.swift in Sources */,
 				EE34568A2727C71A0058E84B /* HomeView.swift in Sources */,
 				73BFFFC627214EAE00375684 /* SceneDelegate.swift in Sources */,
 				73BFFFCB27214EAE00375684 /* PrivateLibrary.xcdatamodeld in Sources */,
