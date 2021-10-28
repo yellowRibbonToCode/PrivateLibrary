@@ -19,12 +19,14 @@ struct ImageGridView: View {
                         NavigationLink(destination: DetailView(libModel: libModel)) {
                             
                             ImageRow(libModel: libModel)
-                            
-                            
+                                .frame(width: 200, height: 200)
+                                .padding([.top], 5)
+
                         }
                         
                     }
                 }
+                .padding([.leading, .trailing], 10)
             }
             
         }

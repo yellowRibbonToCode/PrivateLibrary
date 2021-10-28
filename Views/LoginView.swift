@@ -6,71 +6,96 @@
 //
 
 import SwiftUI
+import Firebase
+import FirebaseAuth
 
 struct LoginView: View {
     @State var username: String = ""
     @State var password: String = ""
+    @State private var loginSuccess: Bool = false
+    @State private var createUser: Bool = false
     
     
     var body: some View {
-        VStack (alignment: .center){
-            Icon()
-                .padding(.bottom, 50)
-            HStack {
-                Image(systemName: "envelope")
-                    .foregroundColor(Color(hue: 0.377, saturation: 0.875, brightness: 0.4))
-                TextField("E-Mail", text: $username)
-                    .padding()
-                    .frame(width: 230, height: 40)
-                    .disableAutocorrection(true)
-                    .keyboardType(.emailAddress)
-            }.overlay(
-                VStack{
-                Divider()
-                    .offset(x:0, y: 20)
-            })
-            HStack {
-                Image(systemName: "lock")
-                    .foregroundColor(Color(hue: 0.377, saturation: 0.875, brightness: 0.4))
-                SecureField("Password", text: $password)
-                    .padding()
-                    .frame(width: 230, height: 40)
-            }.overlay(
-                VStack{
-                Divider()
-                    .offset(x:0, y: 20)
-            })
-            //                .padding(.bottom, 20)
-            Button(action: {print("Button tapped")}) {
-                Text("LOGIN")
-                    .font(.headline)
-                    .foregroundColor(.white)
-                    .padding()
-                    .frame(width: 220, height: 40)
-                    .background(Color(hue: 0.377, saturation: 0.875, brightness: 0.4))
-                    .cornerRadius(15.0)
-            }
-            .padding(.top, 30)
-            Divider()
-                .padding(30)
-            Button(action: {print("Button tapped")}) {
-                Text("Register")
-                    .font(.headline)
-                    .foregroundColor(Color(hue: 0.377, saturation: 0.875, brightness: 0.4))
-                    .padding()
-                    .frame(width: 220, height: 40)
-                    .overlay(RoundedRectangle(cornerRadius: 15)
-                                .stroke(Color(hue: 0.377, saturation: 0.875, brightness: 0.4), lineWidth: 5))
-//                    .border(Color(hue: 0.377, saturation: 0.875, brightness: 0.4)
-//                            , width: 5)
-                
-            }
-            
+        if loginSuccess{
+            HomeView()
         }
-        .padding()
+        else if createUser{
+            RegistrationView()
+        }
+        else{
+            ZStack {
+                Image("books-bg")
+                    .grayscale(0.5)
+                    .blur(radius: 8)
+                VStack (alignment: .center){
+                    Group {
+                        HStack {
+                            Image(systemName: "envelope")
+                                .foregroundColor(.white)
+                            
+                            TextField("E-Mail", text: $username)
+                                .padding()
+                                .frame(width: 230, height: 40)
+                                .disableAutocorrection(true)
+                                .keyboardType(.emailAddress)
+                                .autocapitalization(.none)
+                                .background(Color.white
+                                                .opacity(0.5)
+                                                .cornerRadius(10))
+                        }
+                        .padding(.top, 10)
+                        .padding(.bottom, 10)
+                        
+                        HStack {
+                            Image(systemName: "lock")
+                                .foregroundColor(.white)
+                            SecureField("Password", text: $password)
+                                .padding()
+                                .frame(width: 230, height: 40)
+                                .background(Color.white
+                                                .opacity(0.5)
+                                                .cornerRadius(10))
+                        }
+                        .padding(.top, 10)
+                        .padding(.bottom, 20)
+                    }
+                    VStack {
+//                        Button(action: {loginSuccess = true}) {
+                        Button(action: {login()}) {
+                            Text("Login")
+                                .font(.headline)
+                                .fontWeight(.heavy)
+                                .foregroundColor(.white)
+                                .padding()
+                        }
+                        Button(action: {createUser = true}) {
+                            Text("Register")
+                                .font(.headline)
+                            
+                                .foregroundColor(.white)
+                                .fontWeight(.heavy)
+                                .padding()
+                        }
+                    }
+                    .padding()
+                }
+            }
+        }
+    }
+    
+    
+    func login(){
+        Auth.auth().signIn(withEmail: self.username, password: self.password) { (user, error) in
+            if user != nil{
+                print("login success")
+                print(username)
+            }else{
+                print(error)
+            }
+        }
     }
 }
-
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
         LoginView()
