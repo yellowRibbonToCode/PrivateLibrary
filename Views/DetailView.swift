@@ -110,6 +110,7 @@ struct DetailView: View {
                 Text(libModel.content)
                     .font(.body)
                     .padding()
+                    .padding([.leading, .trailing], 20)
                 HStack {
                     Spacer()
                     Text("\(libModel.createdDate, formatter: Self.taskDateFormat)")

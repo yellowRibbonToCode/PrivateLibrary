@@ -17,29 +17,12 @@ struct ImageGridView: View {
                     ForEach(ModelData().library) { libModel in
                         NavigationLink(destination: DetailView(libModel: libModel)) {
                             ImageRow(libModel: libModel)
-                                .frame(width: 100, height: 100)
-                                .padding(25)
-                                .foregroundColor(Color(red: 52/255, green: 57/255, blue: 133/255))
-                                .overlay(
-                                    RoundedRectangle(cornerRadius: 15)
-                                        .stroke(Color(red: 236/255, green: 234/255, blue: 235/255),
-                                                lineWidth: 4)
-                                        .shadow(color: Color(red: 192/255, green: 189/255, blue: 191/255),
-                                                radius: 2, x: -2, y: -2)
-                                        .clipShape(
-                                            RoundedRectangle(cornerRadius: 15)
-                                        )
-                                        .shadow(color: Color.white, radius: 3, x: 5, y: 5)
-                                        .clipShape(
-                                            RoundedRectangle(cornerRadius: 15)
-                                        )
-                                )
-                                .background(Color(red: 236/255, green: 234/255, blue: 235/255))
-                                .cornerRadius(20)
-                            
+                                .frame(width: 200, height: 200)
+                                .padding([.top], 5)
                         }
                     }
                 }
+                .padding([.leading, .trailing], 10)
             }
         }
     }

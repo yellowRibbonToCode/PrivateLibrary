@@ -10,4 +10,6 @@ import SwiftUI
 
 extension Color {
     static let mainBrown = Color("mainBrown")
+//    static let mainGreen = Color(red: 0.284, green: 0.118, blue: 0.118)
+    static let mainGreen = Color("mainGreen")
 }
