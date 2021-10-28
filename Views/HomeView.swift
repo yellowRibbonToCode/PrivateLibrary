@@ -10,7 +10,6 @@ import SwiftUI
 struct HomeView: View {
     
     @State var index = 0
-    
     var body: some View {
         VStack(spacing: 0){
             ZStack{
@@ -19,7 +18,7 @@ struct HomeView: View {
                     ImageGridView()
                 }
                 else if self.index == 1{
-                    Color.red
+                    TestView()
                 }
                 else if self.index == 2{
                     Color.blue
