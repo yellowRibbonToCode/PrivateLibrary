@@ -21,6 +21,7 @@ struct ImageRow: View {
                     .foregroundColor(.black)
                     .fontWeight(.heavy)
                     .font(.system(size: 24))
+                    .offset(y: 130)
             }
         }
         .frame(width: 250, height: 300)
