@@ -45,6 +45,7 @@
 		73C09B3D2725250A0048BC85 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C09B3C2725250A0048BC85 /* MapView.swift */; };
 		73C09B402725279D0048BC85 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C09B3F2725279D0048BC85 /* DetailView.swift */; };
 		73C09B4927252F980048BC85 /* ModelData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C09B4827252F980048BC85 /* ModelData.swift */; };
+
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -73,6 +74,7 @@
 		73C09B3C2725250A0048BC85 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		73C09B3F2725279D0048BC85 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		73C09B4827252F980048BC85 /* ModelData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelData.swift; sourceTree = "<group>"; };
+
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -184,6 +186,7 @@
 				73C09B3F2725279D0048BC85 /* DetailView.swift */,
 				732AE1BC2727ADE1004D5A3C /* Icon.swift */,
 				73BA894C27281D4400597308 /* RegistrationView.swift */,
+
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -303,6 +306,7 @@
 				73C09B402725279D0048BC85 /* DetailView.swift in Sources */,
 				73BA894D27281D4400597308 /* RegistrationView.swift in Sources */,
 				737EBDA92729565400C4513D /* UserModel.swift in Sources */,
+
 				73BFFFC627214EAE00375684 /* SceneDelegate.swift in Sources */,
 				73BFFFCB27214EAE00375684 /* PrivateLibrary.xcdatamodeld in Sources */,
 				73C09B3D2725250A0048BC85 /* MapView.swift in Sources */,
