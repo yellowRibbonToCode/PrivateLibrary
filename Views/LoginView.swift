@@ -85,12 +85,8 @@ struct LoginView: View {
                     VStack {
                         emailTextField()
                         passwordTextField()
-                    
                         loginButton()
                         registerButton()
-                        
-                            
-
                         Text(loginError ?? " ")
                             .font(.footnote)
                             .foregroundColor(.red)
