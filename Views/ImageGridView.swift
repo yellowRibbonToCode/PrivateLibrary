@@ -17,11 +17,17 @@ struct ImageGridView: View {
                     
                     ForEach(ModelData().library) { libModel in
                         NavigationLink(destination: DetailView(libModel: libModel)) {
+<<<<<<< HEAD
+                            ImageRow(libModel: libModel)
+                                .frame(width: 200, height: 200)
+                                .padding([.top], 5)
+=======
                             
                             ImageRow(libModel: libModel)
                                 .frame(width: 200, height: 200)
                                 .padding([.top], 5)
 
+>>>>>>> main
                         }
                         
                     }
