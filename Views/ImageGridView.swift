@@ -14,17 +14,29 @@ struct ImageGridView: View {
         NavigationView {
             ScrollView(.vertical) {
                 LazyVGrid(columns: columns) {
+                    
                     ForEach(ModelData().library) { libModel in
                         NavigationLink(destination: DetailView(libModel: libModel)) {
+<<<<<<< HEAD
                             ImageRow(libModel: libModel)
                                 .frame(width: 200, height: 200)
                                 .padding([.top], 5)
+=======
+                            
+                            ImageRow(libModel: libModel)
+                                .frame(width: 200, height: 200)
+                                .padding([.top], 5)
+
+>>>>>>> main
                         }
+                        
                     }
                 }
                 .padding([.leading, .trailing], 10)
             }
+            
         }
+        .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
     }
 }
 
