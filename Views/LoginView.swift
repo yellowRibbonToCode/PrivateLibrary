@@ -9,76 +9,94 @@ import SwiftUI
 import Firebase
 import FirebaseAuth
 
+
+
 struct LoginView: View {
     @State var username: String = ""
     @State var password: String = ""
     @State private var loginSuccess: Bool = false
-    @State private var createUser: Bool = false
+    @State var loginError: String?
     
     
+    fileprivate func emailTextField() -> some View {
+        return HStack {
+            Image(systemName: "envelope")
+                .foregroundColor(.white)
+            
+            TextField("E-Mail", text: $username)
+                .padding()
+                .frame(width: 230, height: 40)
+                .disableAutocorrection(true)
+                .keyboardType(.emailAddress)
+                .autocapitalization(.none)
+                .background(Color.white
+                                .opacity(0.5)
+                                .cornerRadius(10))
+        }
+        .padding(.top, 10)
+        .padding(.bottom, 10)
+    }
+    
+    fileprivate func passwordTextField() -> some View {
+        return HStack {
+            Image(systemName: "lock")
+                .foregroundColor(.white)
+            SecureField("Password", text: $password)
+                .padding()
+                .frame(width: 230, height: 40)
+                .background(Color.white
+                                .opacity(0.5)
+                                .cornerRadius(10))
+        }
+        .padding(.top, 10)
+        .padding(.bottom, 50)
+    }
+    
+    fileprivate func loginButton() -> some View {
+        return Button(action: {login()}) {
+            Text("Login")
+                .font(.headline)
+                .fontWeight(.heavy)
+                .foregroundColor(.white)
+                .padding()
+        }
+    }
+    
+    fileprivate func registerButton() -> some View {
+        return NavigationLink(destination: RegistrationView()) { Text("Register")
+                .font(.headline)
+                .foregroundColor(.white)
+                .fontWeight(.heavy)
+                .padding()
+        }
+    }
+
     var body: some View {
         if loginSuccess{
             HomeView()
         }
-        else if createUser{
-            RegistrationView()
-        }
         else{
+            NavigationView {
             ZStack {
                 Image("books-bg")
                     .grayscale(0.5)
                     .blur(radius: 8)
                 VStack (alignment: .center){
-                    Group {
-                        HStack {
-                            Image(systemName: "envelope")
-                                .foregroundColor(.white)
-                            
-                            TextField("E-Mail", text: $username)
-                                .padding()
-                                .frame(width: 230, height: 40)
-                                .disableAutocorrection(true)
-                                .keyboardType(.emailAddress)
-                                .autocapitalization(.none)
-                                .background(Color.white
-                                                .opacity(0.5)
-                                                .cornerRadius(10))
-                        }
-                        .padding(.top, 10)
-                        .padding(.bottom, 10)
-                        
-                        HStack {
-                            Image(systemName: "lock")
-                                .foregroundColor(.white)
-                            SecureField("Password", text: $password)
-                                .padding()
-                                .frame(width: 230, height: 40)
-                                .background(Color.white
-                                                .opacity(0.5)
-                                                .cornerRadius(10))
-                        }
-                        .padding(.top, 10)
-                        .padding(.bottom, 20)
-                    }
                     VStack {
-//                        Button(action: {loginSuccess = true}) {
-                        Button(action: {login()}) {
-                            Text("Login")
-                                .font(.headline)
-                                .fontWeight(.heavy)
-                                .foregroundColor(.white)
-                                .padding()
-                        }
-                        Button(action: {createUser = true}) {
-                            Text("Register")
-                                .font(.headline)
+                        emailTextField()
+                        passwordTextField()
+                    
+                        loginButton()
+                        registerButton()
+                        
                             
-                                .foregroundColor(.white)
-                                .fontWeight(.heavy)
-                                .padding()
-                        }
+
+                        Text(loginError ?? " ")
+                            .font(.footnote)
+                            .foregroundColor(.red)
+                            .multilineTextAlignment(.center)
                     }
-                    .padding()
+                    }
                 }
             }
         }
@@ -90,8 +108,9 @@ struct LoginView: View {
             if user != nil{
                 print("login success")
                 print(username)
+                loginSuccess = true
             }else{
-                print(error)
+                loginError = error?.localizedDescription
             }
         }
     }
