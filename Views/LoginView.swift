@@ -70,32 +70,45 @@ struct LoginView: View {
                 .padding()
         }
     }
-
+    
+    fileprivate func forgotButton() -> some View {
+        return NavigationLink(destination: ForgotView()) { Text("Forgot Pass?")
+                .font(.subheadline)
+                .foregroundColor(.white)
+                .fontWeight(.heavy)
+        }
+    }
     var body: some View {
         if loginSuccess{
             HomeView()
         }
         else{
             NavigationView {
-            ZStack {
-                Image("books-bg")
-                    .grayscale(0.5)
-                    .blur(radius: 8)
-                VStack (alignment: .center){
-                    VStack {
-                        emailTextField()
-                        passwordTextField()
-                    
-                        loginButton()
-                        registerButton()
-                        
+                ZStack {
+                    Image("books-bg")
+                        .grayscale(0.5)
+                        .blur(radius: 8)
+                    VStack (alignment: .center){
+                        VStack {
+                            emailTextField()
+                            passwordTextField()
+                            HStack {
+                                Spacer()
+                                    .frame(width: 140)
+                                forgotButton()
+                                    .offset(x: 0, y: -40)
+                            }
                             
-
-                        Text(loginError ?? " ")
-                            .font(.footnote)
-                            .foregroundColor(.red)
-                            .multilineTextAlignment(.center)
-                    }
+                            loginButton()
+                            registerButton()
+                            
+                            
+                            
+                            Text(loginError ?? " ")
+                                .font(.footnote)
+                                .foregroundColor(.red)
+                                .multilineTextAlignment(.center)
+                        }
                     }
                 }
             }
