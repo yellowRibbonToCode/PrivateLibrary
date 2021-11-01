@@ -29,7 +29,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 //        let contentView = LoginView()
 //                            .environment(\.managedObjectContext, context)
         let contentView = LoginView()
-//        let contentView = DBTestList()
+//        let contentView = inputphoto()
         //            .environmentObject(DateFormatter.ContentDateFormatter)
 //            .environmentObject(ModelData())
 

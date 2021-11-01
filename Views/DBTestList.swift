@@ -8,12 +8,17 @@
 import SwiftUI
 import UIKit
 import Foundation
+import FirebaseAuth
 import FirebaseCore
 import FirebaseFirestore
 import FirebaseFirestoreSwift
+import FirebaseStorage
 
 var db: Firestore!
 
+class StorageManager: ObservableObject {
+    let storage = Storage.storage()
+}
 
 private func addAdaLovelace() {
     // [START add_ada_lovelace]
@@ -67,15 +72,51 @@ private func getCollection() {
 }
 
 struct DBTestList: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-    
-        .onAppear(perform: {
-            db = Firestore.firestore()
-            getCollection()
-        })
+//    db = Firestore.firestore()
+    let userId = Auth.auth().currentUser?.uid ?? "userId"
+    //    var username = db.collection("libData").document(userId).getDocument(source: .cache)
+    @State var username : String = " "
+    @State var email : String = " "
+    private func printdb() {
+        
+        db.collection("libData").document(userId).getDocument { (document, err) in
+            if let document = document {
+                print(userId)
+                print(document)
+                print(document.get("name") ?? " ")
+                print(document.get("email") ?? " ")
+                print(document.data()?["name"] ?? " ")
+                self.username = document.get("name") as! String
+                self.email = document.get("email") as! String
+            } else {
+                if let err = err {
+                    print("Error getting documents: \(err)")
+                }
+            }
+        }
     }
-    
+    var body: some View {
+        
+        VStack{
+            Text(userId as String)
+//            Button(action: {
+//                printdb()
+//            }, label:
+//                    {
+//                Text("printdb")
+//            })
+            Text(username)
+            Text(email)
+            Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+            
+                .onAppear(perform: {
+                    
+                    db = Firestore.firestore()
+                    printdb()
+                    getCollection()
+                })
+        }
+    }
 }
 
 struct DBTestList_Previews: PreviewProvider {
