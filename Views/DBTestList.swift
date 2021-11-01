@@ -8,14 +8,6 @@
 import SwiftUI
 import UIKit
 import Foundation
-<<<<<<< HEAD
-import FirebaseCore
-import FirebaseFirestore
-import FirebaseFirestoreSwift
-
-var db: Firestore!
-
-=======
 import FirebaseAuth
 import FirebaseCore
 import FirebaseFirestore
@@ -27,7 +19,6 @@ var db: Firestore!
 class StorageManager: ObservableObject {
     let storage = Storage.storage()
 }
->>>>>>> database
 
 private func addAdaLovelace() {
     // [START add_ada_lovelace]
@@ -81,17 +72,6 @@ private func getCollection() {
 }
 
 struct DBTestList: View {
-<<<<<<< HEAD
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-    
-        .onAppear(perform: {
-            db = Firestore.firestore()
-            getCollection()
-        })
-    }
-    
-=======
 //    db = Firestore.firestore()
     let userId = Auth.auth().currentUser?.uid ?? "userId"
     //    var username = db.collection("libData").document(userId).getDocument(source: .cache)
@@ -137,7 +117,6 @@ struct DBTestList: View {
                 })
         }
     }
->>>>>>> database
 }
 
 struct DBTestList_Previews: PreviewProvider {

@@ -27,16 +27,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when a new scene session is being created.
         // Use this method to select a configuration to create the new scene with.
         
-<<<<<<< HEAD
-        // [START default_firestore]
-        FirebaseApp.configure()
-        
-        let db = Firestore.firestore()
-        // [END default_firestore]
-        print(db) // silence warning
-        
-=======
->>>>>>> database
         
         return UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
     }
