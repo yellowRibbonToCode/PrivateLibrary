@@ -47,6 +47,7 @@
 		73C09B3D2725250A0048BC85 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C09B3C2725250A0048BC85 /* MapView.swift */; };
 		73C09B402725279D0048BC85 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C09B3F2725279D0048BC85 /* DetailView.swift */; };
 		73C09B4927252F980048BC85 /* ModelData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C09B4827252F980048BC85 /* ModelData.swift */; };
+		73D6A396272D7C9300C6585B /* DBTestList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D6A395272D7C9300C6585B /* DBTestList.swift */; };
 		EE9B91D4272D2E7B005BCFA5 /* ForgotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE9B91D3272D2E7A005BCFA5 /* ForgotView.swift */; };
 /* End PBXBuildFile section */
 
@@ -78,6 +79,7 @@
 		73C09B3C2725250A0048BC85 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		73C09B3F2725279D0048BC85 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		73C09B4827252F980048BC85 /* ModelData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelData.swift; sourceTree = "<group>"; };
+		73D6A395272D7C9300C6585B /* DBTestList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBTestList.swift; sourceTree = "<group>"; };
 		EE9B91D3272D2E7A005BCFA5 /* ForgotView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -184,6 +186,7 @@
 			isa = PBXGroup;
 			children = (
 				731FE1572727D9ED0013311D /* HomeView.swift */,
+				73D6A395272D7C9300C6585B /* DBTestList.swift */,
 				731FE1562727D9ED0013311D /* ImageGridView.swift */,
 				731FE1582727D9ED0013311D /* ImageHView.swift */,
 				731FE1592727D9ED0013311D /* ImageRow.swift */,
@@ -314,6 +317,7 @@
 				73C09B402725279D0048BC85 /* DetailView.swift in Sources */,
 				73BA894D27281D4400597308 /* RegistrationView.swift in Sources */,
 				737EBDA92729565400C4513D /* UserModel.swift in Sources */,
+				73D6A396272D7C9300C6585B /* DBTestList.swift in Sources */,
 				73BFFFC627214EAE00375684 /* SceneDelegate.swift in Sources */,
 				73BFFFCB27214EAE00375684 /* PrivateLibrary.xcdatamodeld in Sources */,
 				73C09B3D2725250A0048BC85 /* MapView.swift in Sources */,
