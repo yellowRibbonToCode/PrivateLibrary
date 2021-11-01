@@ -115,7 +115,6 @@ struct LoginView: View {
         }
     }
     
-    
     func login(){
         Auth.auth().signIn(withEmail: self.username, password: self.password) { (user, error) in
             if user != nil{
@@ -128,6 +127,7 @@ struct LoginView: View {
         }
     }
 }
+
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
         LoginView()

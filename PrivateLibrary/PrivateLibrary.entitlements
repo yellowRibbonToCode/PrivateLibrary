@@ -5,6 +5,7 @@
 	<key>keychain-access-groups</key>
 	<array>
 		<string>$(AppIdentifierPrefix)yellowRibbonToCode.PrivateLibrary</string>
+		<string>$(AppIdentifierPrefix)yellowRibbonToCode.PrivateLibrary</string>
 	</array>
 </dict>
 </plist>

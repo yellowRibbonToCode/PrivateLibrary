@@ -16,6 +16,7 @@ struct RegistrationView: View {
     @State var username: String = ""
     @State var registerError: String?
     @State var registerSuccess: Bool = false
+    @State var uid: String = ""
     
     fileprivate func emailTextField() -> some View {
         return HStack {
@@ -118,12 +119,17 @@ struct RegistrationView: View {
     
     //
     private func addUsername() {
+<<<<<<< HEAD
         var ref: DocumentReference? = nil
+=======
+//        var ref: DocumentReference? = nil
+>>>>>>> database
         var db: Firestore!
         
         db = Firestore.firestore()
         // [START add_alan_turing]
         // Add a second document with a generated ID.
+<<<<<<< HEAD
         ref = db.collection("libData").addDocument(data: [
             "email": email,
             "name": username
@@ -134,14 +140,38 @@ struct RegistrationView: View {
                 print("Document added with ID: \(ref!.documentID)")
             }
         }
+=======
+        do {
+            try db.collection("libData").document(uid as String).setData(from: [
+                "email": email,
+                "name": username])
+        } catch let error {
+            print("Error writing username to Firestore: \(error)")
+        }
+//        ref = db.collection("libData").addDocument(data: [
+//            "email": email,
+//            "name": username
+//        ]) { err in
+//            if let err = err {
+//                print("Error adding document: \(err)")
+//            } else {
+//                print("Document added with ID: \(ref!.documentID)")
+//            }
+//        }
+>>>>>>> database
         // [END add_alan_turing]
     }
     
     func signUp(){
         Auth.auth().createUser(withEmail: self.email, password: self.password) { (user, error) in
             if(user != nil){
-                print("register successs")
+//                print("register successs")
                 print(email)
+<<<<<<< HEAD
+=======
+//                print(user?.user.uid)
+                uid = user?.user.uid ?? " "
+>>>>>>> database
                 addUsername()
                 registerSuccess = true
             }else{

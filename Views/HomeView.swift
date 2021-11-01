@@ -6,11 +6,21 @@
 //
 
 import SwiftUI
+import Firebase
+import FirebaseAuth
+import FirebaseFirestore
+
 
 struct HomeView: View {
     
     @State var index = 0
+    //    var db: Firestore!
+    
+    
+    
     var body: some View {
+        
+        
         VStack(spacing: 0){
             ZStack{
                 if self.index == 0
