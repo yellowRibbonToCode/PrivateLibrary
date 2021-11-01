@@ -21,7 +21,7 @@ struct HomeView: View {
                     TestView()
                 }
                 else if self.index == 2{
-                    Color.blue
+                    DBTestList()
                 }
                 else{
                     Color.orange

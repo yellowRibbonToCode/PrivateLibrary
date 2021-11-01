@@ -7,6 +7,8 @@
 
 import SwiftUI
 import FirebaseAuth
+import FirebaseCore
+import FirebaseFirestore
 
 struct RegistrationView: View {
     @State var email: String = ""
@@ -115,12 +117,32 @@ struct RegistrationView: View {
     }
     
     //
+    private func addUsername() {
+        var ref: DocumentReference? = nil
+        var db: Firestore!
+        
+        db = Firestore.firestore()
+        // [START add_alan_turing]
+        // Add a second document with a generated ID.
+        ref = db.collection("libData").addDocument(data: [
+            "email": email,
+            "name": username
+        ]) { err in
+            if let err = err {
+                print("Error adding document: \(err)")
+            } else {
+                print("Document added with ID: \(ref!.documentID)")
+            }
+        }
+        // [END add_alan_turing]
+    }
     
     func signUp(){
         Auth.auth().createUser(withEmail: self.email, password: self.password) { (user, error) in
             if(user != nil){
                 print("register successs")
                 print(email)
+                addUsername()
                 registerSuccess = true
             }else{
                 registerError = error?.localizedDescription
