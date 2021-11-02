@@ -50,6 +50,7 @@
 		73C09B4927252F980048BC85 /* ModelData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C09B4827252F980048BC85 /* ModelData.swift */; };
 		73D6A396272D7C9300C6585B /* DBTestList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D6A395272D7C9300C6585B /* DBTestList.swift */; };
 		EE9B91D4272D2E7B005BCFA5 /* ForgotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE9B91D3272D2E7A005BCFA5 /* ForgotView.swift */; };
+		EEDCBFC42730313A0018B032 /* AddBookInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDCBFC32730313A0018B032 /* AddBookInfoView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -83,6 +84,7 @@
 		73C09B4827252F980048BC85 /* ModelData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelData.swift; sourceTree = "<group>"; };
 		73D6A395272D7C9300C6585B /* DBTestList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBTestList.swift; sourceTree = "<group>"; };
 		EE9B91D3272D2E7A005BCFA5 /* ForgotView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotView.swift; sourceTree = "<group>"; };
+		EEDCBFC32730313A0018B032 /* AddBookInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBookInfoView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -199,6 +201,7 @@
 				73BA894C27281D4400597308 /* RegistrationView.swift */,
 				EE9B91D3272D2E7A005BCFA5 /* ForgotView.swift */,
 				73569EB7272FA59D00A72153 /* Testinputphoto.swift */,
+				EEDCBFC32730313A0018B032 /* AddBookInfoView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -314,6 +317,7 @@
 				739EE4A0272BD6870041C35C /* NavigationBarGestureControl.swift in Sources */,
 				731FE15D2727D9ED0013311D /* ImageRow.swift in Sources */,
 				73BC055A27227DE90092B483 /* Color.swift in Sources */,
+				EEDCBFC42730313A0018B032 /* AddBookInfoView.swift in Sources */,
 				73BFFFC427214EAE00375684 /* AppDelegate.swift in Sources */,
 				73C09B4927252F980048BC85 /* ModelData.swift in Sources */,
 				73B6F015272679C600446F4B /* ViewModel.swift in Sources */,
