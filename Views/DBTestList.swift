@@ -72,7 +72,7 @@ private func getCollection() {
 }
 
 struct DBTestList: View {
-//    db = Firestore.firestore()
+    //    db = Firestore.firestore()
     let userId = Auth.auth().currentUser?.uid ?? "userId"
     //    var username = db.collection("libData").document(userId).getDocument(source: .cache)
     @State var username : String = " "
@@ -95,28 +95,75 @@ struct DBTestList: View {
             }
         }
     }
-    var body: some View {
+    
+    private func printLibData() {
         
-        VStack{
-            Text(userId as String)
-//            Button(action: {
-//                printdb()
-//            }, label:
-//                    {
-//                Text("printdb")
-//            })
-            Text(username)
-            Text(email)
-            Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-            
-                .onAppear(perform: {
+        db.collection("libData").getDocuments() { (querySnapshot, err) in
+            if let err = err {
+                print("Error getting documents: \(err)")
+            } else {
+                for document in querySnapshot!.documents {
+                    print(document.documentID)
+                    let booklist = db.collection("libData").document(document.documentID)
+                    booklist.collection("booklist").getDocuments() { (books, err) in
+                        if let err = err {
+                            print("error - \(err)")
+                        }
+                        else {
+                            for book in books!.documents {
+                                print("\(book.documentID) => \(book.data())")
+                            }
+                        }
+                    }
                     
-                    db = Firestore.firestore()
-                    printdb()
-                    getCollection()
-                })
+                    //                    if let booklist = db.collection("libData").document(document.documentID).collection("booklist").getDocuments() { (books, err) in
+                    //                        if let err = err {
+                    //                            print("Error getting documents: \(err)")
+                    //                        } else {
+                    //                            print (books ?? " ")
+                    //                        }
+                    //                    }
+                    //                    print("\(document.documentID) => \(document.data())")
+                }
+            }
         }
     }
+    
+    //    db.collection("libData")
+    //        .document()
+    //        .collection("booklist")
+    //        .getDocuments { (document, err) in
+    //            if let document = document {
+    //                print(document.get("bookname") ?? " ")
+    //                print(document.get("content") ?? " ")
+    //                print(document.get("subtitle") ?? " ")
+    //            }
+    //
+    //        }
+
+var body: some View {
+    
+    VStack{
+        Text(userId as String)
+        //            Button(action: {
+        //                printdb()
+        //            }, label:
+        //                    {
+        //                Text("printdb")
+        //            })
+        Text(username)
+        Text(email)
+        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        
+            .onAppear(perform: {
+                
+                db = Firestore.firestore()
+//                printdb()
+//                getCollection()
+                printLibData()
+            })
+    }
+}
 }
 
 struct DBTestList_Previews: PreviewProvider {
