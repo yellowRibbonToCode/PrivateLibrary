@@ -24,6 +24,8 @@ struct AddBookInfoView: View {
     @State var subtitle : String = " "
     @State var content : String = " "
     @State var setSuccess = false
+    @State var isShowPhotoLibrary = false
+    @State private var uploadImage : UIImage?
     
     
     
@@ -56,30 +58,67 @@ struct AddBookInfoView: View {
                 } else {
                     for document in querySnapshot!.documents {
                         print("\(document.documentID) => \(document.data())")
-                        
                     }
                 }
             }
     }
     
     private func setdb() {
-        db.collection("libData")
+        let doc = db.collection("libData")
             .document(userId)
             .collection("booklist")
-            .document().setData([
-                "bookname": bookname,
-                "subtitle": subtitle,
-                "content": content
-            ]) { err in
-                if let err = err {
-                    print("Error writing document: \(err)")
-                } else {
-                    printdb2()
-                    setSuccess = true
+            .document()
+        doc.setData([
+            "bookname": bookname,
+            "subtitle": subtitle,
+            "content": content
+        ])
+        { err in
+            if let err = err {
+                print("Error writing document: \(err)")
+            } else {
+                print(doc.documentID)
+                printdb2()
+                
+                //upload image
+                if let thisimage = uploadImage{
+                    upload_Image(image: thisimage, docID: doc.documentID)
                 }
+                
+                
+                setSuccess = true
             }
+        }
         
     }
+    
+    func resizeImage(image: UIImage, targetSize: CGSize) -> UIImage {
+        let rect = CGRect(x: 0, y: 0, width: targetSize.width, height: targetSize.height)
+        UIGraphicsBeginImageContextWithOptions(targetSize, false, 1.0)
+        image.draw(in: rect)
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return newImage!
+    }
+
+    func upload_Image(image:UIImage, docID: String){
+        let image : UIImage = resizeImage(image: image, targetSize: CGSize(width: 512, height: 512))
+        if let imageData = image.jpegData(compressionQuality: 1){
+            let storage = Storage.storage()
+            storage.reference().child("images/books/\(docID)").putData(imageData, metadata: nil){
+                (_, err) in
+                if let err = err {
+                    print("an error has occurred - \(err.localizedDescription)")
+                } else {
+                    print("image uploaded successfully")
+                }
+            }
+        } else {
+            print("coldn't unwrap/case image to data")
+        }
+    }
+    
+    
     
     var body: some View {
         if setSuccess {
@@ -87,10 +126,22 @@ struct AddBookInfoView: View {
         }
         else{
             HStack {
+                
+                
                 Spacer()
                 VStack{
                     Spacer()
                     VStack {
+                        
+                        if uploadImage != nil {
+                            Image(uiImage: uploadImage!)
+                                .resizable()
+                                .frame(minWidth: 0, maxWidth: .infinity)
+                                .edgesIgnoringSafeArea(.all)
+                                .frame(width: 300, height: 300)
+                        }
+                        
+                        
                         Text("bookname")
                         TextField("bookname", text: $bookname)
                             .frame(width: 230, height: 20)
@@ -105,29 +156,50 @@ struct AddBookInfoView: View {
                                 .lineSpacing(10)
                                 .frame(width: 230, height: 200)
                         }
-                    }
-                    .padding()
-                    .onAppear(perform: {
-                        db = Firestore.firestore()
-                        printdb()
-                    })
-                    Button(action: {
-                        setdb()
+                        Button(action: {
+                            self.isShowPhotoLibrary = true
+                        }) {
+                            HStack {
+                                Image(systemName: "photo")
+                                    .font(.system(size: 20))
+                                
+                                Text("Photo library")
+                                    .font(.headline)
+                            }
+                            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: 50)
+                            .background(Color.blue)
+                            .foregroundColor(.white)
+                            .cornerRadius(20)
+                            .padding(.horizontal)
+                        }
                         
-                    }, label: {
-                        Text("set")
-                    })
+                    }
+                    
+                    
+                        Button(action: {
+                            setdb()
+                            
+                        }, label: {
+                            Text("set")
+                        })
+                            .padding()
+                        Spacer()
+                    }
+                .sheet(isPresented: $isShowPhotoLibrary) {
+                    ImagePicker(sourceType: .photoLibrary, selectedImage: self.$uploadImage)
                         .padding()
+                        .onAppear(perform: {
+                            db = Firestore.firestore()
+                            printdb()
+                        })
                     Spacer()
                 }
-                Spacer()
+                
+                .background(Color.gray.opacity(0.5).cornerRadius(10))
+                .ignoresSafeArea()
             }
-            
-            .background(Color.gray.opacity(0.5).cornerRadius(10))
-            .ignoresSafeArea()
         }
     }
-    
 }
 struct AddBookInfoView_Previews: PreviewProvider {
     static var previews: some View {
