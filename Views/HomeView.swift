@@ -14,33 +14,44 @@ import FirebaseFirestore
 struct HomeView: View {
     
     @State var index = 0
+    @State var addbook = false
     //    var db: Firestore!
     
-    
-    
     var body: some View {
-        
-        
-        VStack(spacing: 0){
-            ZStack{
-                if self.index == 0
-                {
-                    ImageGridView()
-                }
-                else if self.index == 1{
-                    TestView()
-                }
-                else if self.index == 2{
-                    DBTestList()
-                }
-                else{
-                    Color.orange
-                }
-            }
-            CircleTab(index: self.$index)
+        if addbook {
+            AddBookInfoView()
         }
-        .edgesIgnoringSafeArea(.top)
+        else{
+            VStack {
+                Spacer()
+                VStack(spacing: 0){
+                    Button(action: {
+                        addbook = true
+                    }, label: {
+                        Text("add book")
+                    })
+                    ZStack{
+                        if self.index == 0
+                        {
+                            ImageGridView()
+                        }
+                        else if self.index == 1{
+                            TestView()
+                        }
+                        else if self.index == 2{
+                            DBTestList()
+                        }
+                        else{
+                            Color.orange
+                        }
+                    }
+                    CircleTab(index: self.$index)
+                }
+                .edgesIgnoringSafeArea(.top)
+            }
+        }
     }
+    
 }
 
 struct HomeView_Previews: PreviewProvider {
