@@ -13,11 +13,14 @@ struct ImageRow: View {
     var body: some View {
         VStack(alignment: .center) {
             ZStack{
-                libModel.image
+                if let image = libModel.image {
+                    image
                     .resizable()
                     .frame(width: 170, height: 200)
                     .clipped()
-                Text(libModel.bookName)
+                    
+                }
+                Text(libModel.title)
                     .foregroundColor(.black)
                     .fontWeight(.heavy)
                     .font(.system(size: 24))
@@ -37,7 +40,7 @@ struct ImageRow: View {
 struct ImageRow_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            ImageRow(libModel: ModelData().library[2])
+//            ImageRow(libModel: )
             //                        ImageRow(libModel: ModelData().library[2])
             
         }

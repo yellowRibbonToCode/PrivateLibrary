@@ -36,7 +36,7 @@ struct HomeView: View {
                             ImageGridView()
                         }
                         else if self.index == 1{
-                            TestView()
+//                            TestView()
                         }
                         else if self.index == 2{
                             DBTestList()

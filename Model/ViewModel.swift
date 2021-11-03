@@ -20,8 +20,8 @@ struct ViewModel: Identifiable{
     var title: String            // 한줄 요약
     var content: String             // 게시글 내용
 
-    var created: Date           // 작성일 Date
-    var edited: Date            // 수정일 Date
+    var created: Int           // 작성일 Date
+    var edited: Int            // 수정일 Date
 
     var price: Int?                  // 가격
     var exchange: Bool           // 교환 가능 여부

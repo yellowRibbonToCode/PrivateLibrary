@@ -126,7 +126,7 @@ struct RegistrationView: View {
         // [START add_alan_turing]
         // Add a second document with a generated ID.
         do {
-            try db.collection("libData").document(uid as String).setData(from: [
+            try db.collection("users").document(uid as String).setData(from: [
                 "email": email,
                 "name": username])
         } catch let error {
