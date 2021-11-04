@@ -17,6 +17,9 @@ struct DetailView: View {
         return formatter
     }()
     @State private var showAlert = false
+    
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    
     var body: some View {
         
         
@@ -121,6 +124,13 @@ struct DetailView: View {
                 }
             }
         }
+        .navigationBarBackButtonHidden(true)
+        .navigationBarItems(leading: Button(action: {
+            self.presentationMode.wrappedValue.dismiss()
+        }){
+            Image(systemName: "arrow.left")
+                .foregroundColor(.white)
+        })
         .navigationBarTitleDisplayMode(.automatic)
         .edgesIgnoringSafeArea(.top)
     }

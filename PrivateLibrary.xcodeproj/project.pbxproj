@@ -16,6 +16,8 @@
 		732B94BE2726C379005A7416 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 732B94BD2726C379005A7416 /* LoginView.swift */; };
 		732BF58E27267CC800DC18E3 /* libData.json in Resources */ = {isa = PBXBuildFile; fileRef = 732BF58D27267CC800DC18E3 /* libData.json */; };
 		73569EB8272FA59D00A72153 /* Testinputphoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73569EB7272FA59D00A72153 /* Testinputphoto.swift */; };
+		735B8DDE2733B7C300C9D079 /* AddBookInfoButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 735B8DDD2733B7C300C9D079 /* AddBookInfoButton.swift */; };
+		735B8DE02734083A00C9D079 /* AssetEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 735B8DDF2734083A00C9D079 /* AssetEnum.swift */; };
 		737EBDA72729542700C4513D /* libUser.json in Resources */ = {isa = PBXBuildFile; fileRef = 737EBDA62729542700C4513D /* libUser.json */; };
 		737EBDA92729565400C4513D /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 737EBDA82729565400C4513D /* UserModel.swift */; };
 		737EBDAE272A865D00C4513D /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 737EBDAD272A865D00C4513D /* FirebaseAnalytics */; };
@@ -67,6 +69,8 @@
 		732B94BD2726C379005A7416 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		732BF58D27267CC800DC18E3 /* libData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = libData.json; sourceTree = "<group>"; };
 		73569EB7272FA59D00A72153 /* Testinputphoto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Testinputphoto.swift; sourceTree = "<group>"; };
+		735B8DDD2733B7C300C9D079 /* AddBookInfoButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBookInfoButton.swift; sourceTree = "<group>"; };
+		735B8DDF2734083A00C9D079 /* AssetEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetEnum.swift; sourceTree = "<group>"; };
 		737EBDA62729542700C4513D /* libUser.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = libUser.json; sourceTree = "<group>"; };
 		737EBDA82729565400C4513D /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		737EBDCB272A878300C4513D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -134,6 +138,7 @@
 		7346DE8D272171FB0053C4C7 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				735B8DDF2734083A00C9D079 /* AssetEnum.swift */,
 				73C09B4827252F980048BC85 /* ModelData.swift */,
 				73B6F014272679C600446F4B /* ViewModel.swift */,
 				737EBDA82729565400C4513D /* UserModel.swift */,
@@ -204,6 +209,7 @@
 				731FE1562727D9ED0013311D /* ImageGridView.swift */,
 				8AE86A472733A6B200BE14DD /* EditView.swift */,
 				8AE86A452733A68800BE14DD /* CircleImageView.swift */,
+				735B8DDD2733B7C300C9D079 /* AddBookInfoButton.swift */,
 				731FE1582727D9ED0013311D /* ImageHView.swift */,
 				8AA55D9F27342AC000F3F8AA /* MyImageGridView.swift */,
 				8AE86A432733A66D00BE14DD /* ProfileScene.swift */,
@@ -329,6 +335,7 @@
 				8AE86A482733A6B200BE14DD /* EditView.swift in Sources */,
 				8AE86A462733A68800BE14DD /* CircleImageView.swift in Sources */,
 				8AE86A442733A66D00BE14DD /* ProfileScene.swift in Sources */,
+				735B8DDE2733B7C300C9D079 /* AddBookInfoButton.swift in Sources */,
 				73AA3568272CB90100196FA4 /* TestView.swift in Sources */,
 				731FE15A2727D9ED0013311D /* ImageGridView.swift in Sources */,
 				731FE15B2727D9ED0013311D /* HomeView.swift in Sources */,
@@ -343,6 +350,7 @@
 				73C09B402725279D0048BC85 /* DetailView.swift in Sources */,
 				73BA894D27281D4400597308 /* RegistrationView.swift in Sources */,
 				737EBDA92729565400C4513D /* UserModel.swift in Sources */,
+				735B8DE02734083A00C9D079 /* AssetEnum.swift in Sources */,
 				73D6A396272D7C9300C6585B /* DBTestList.swift in Sources */,
 				73BFFFC627214EAE00375684 /* SceneDelegate.swift in Sources */,
 				73BFFFCB27214EAE00375684 /* PrivateLibrary.xcdatamodeld in Sources */,

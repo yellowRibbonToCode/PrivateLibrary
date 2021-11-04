@@ -15,6 +15,7 @@ class SearchViewModel: ObservableObject {
     @Published var bookModels = [ViewModel]()
     @Published var bookImage = Image(systemName: "book")
     
+    
     func makeList() {
         db.collection("libData").getDocuments() {
             (books, err) in
@@ -40,19 +41,33 @@ class SearchViewModel: ObservableObject {
                         Storage.storage().reference().child("images/books/\(bookuid)").getData(maxSize: 100 * 200 * 200) {
                             (imageData, err) in
                             if let err = err as NSError? {
-                                print("an error has occurred - \(err.localizedDescription)")
-                                if (StorageErrorCode(rawValue: err.code) == .objectNotFound) {
-                                    self.bookModels.append(ViewModel(id: book.get("userid") as! String , name: book.get("username") as! String, email: book.get("useremail") as! String, bookname: book.get("bookname") as! String, author: book.get("author") as! String, title: book.get("title") as! String, content: book.get("content") as! String, created: book.get("created") as! Int, edited: book.get("edited") as! Int, price: book.get("price") as? Int , exchange: book.get("exchange") as! Bool, sell: book.get("sell") as! Bool, image: Image(systemName: "book")))
+                                let randInt = Int.random(in: 0...10)
+                                
+//                                print("an error has occurred - \(err.localizedDescription)")
+//                                if (StorageErrorCode(rawValue: err.code) == .objectNotFound) {
+                                self.bookModels.append(ViewModel(id: book.get("userid") as! String ,
+                                                                 name: book.get("username") as! String,
+                                                                 email: book.get("useremail") as! String,
+                                                                 bookname: book.get("bookname") as! String,
+                                                                 author: book.get("author") as! String,
+                                                                 title: book.get("title") as! String,
+                                                                 content: book.get("content") as! String,
+//                                                                 created: (book.get("created") as! Timestamp).dateValue(),
+//                                                                 edited: (book.get("edited") as! Timestamp).dateValue(),
+                                                                 price: book.get("price") as? Int,
+                                                                 exchange: book.get("exchange") as! Bool,
+                                                                 sell: book.get("sell") as! Bool,
+                                                                 image: Image(RandBookImage(rawValue: randInt)!.toString())))
                                 }
-                            } else {
-                                if let imageData = imageData {
-                                    self.bookImage = Image(uiImage: UIImage(data:imageData)!)
-                                    print("getdata: \(imageData)")
-                                    self.bookModels.append(ViewModel(id: book.get("userid") as! String , name: book.get("username") as! String, email: book.get("useremail") as! String, bookname: book.get("bookname") as! String, author: book.get("author") as! String, title: book.get("title") as! String, content: book.get("content") as! String, created: book.get("created") as! Int, edited: book.get("edited") as! Int, price: book.get("price") as? Int , exchange: book.get("exchange") as! Bool, sell: book.get("sell") as! Bool, image: self.bookImage))
-                                } else {
-                                    print("an error has occurred")
-                                }
-                            }
+//                            } else {
+//                                if let imageData = imageData {
+//                                    self.bookImage = Image(uiImage: UIImage(data:imageData)!)
+//                                    print("getdata: \(imageData)")
+//                                    self.bookModels.append(ViewModel(id: book.get("userid") as! String , name: book.get("username") as! String, email: book.get("useremail") as! String, bookname: book.get("bookname") as! String, author: book.get("author") as! String, title: book.get("title") as! String, content: book.get("content") as! String, created: book.get("created") as! Int, edited: book.get("edited") as! Int, price: book.get("price") as? Int , exchange: book.get("exchange") as! Bool, sell: book.get("sell") as! Bool, image: self.bookImage))
+//                                } else {
+//                                    print("an error has occurred")
+//                                }
+//                            }
                         }
                     }
                     getImage(bookuid: book.documentID)
@@ -78,6 +93,7 @@ struct ImageGridView: View {
                                 .frame(width: 200, height: 200)
                                 .padding([.top], 5)
                         }
+                        .foregroundColor(.black)
                     }
                 }
                 .onAppear(perform: {
@@ -86,8 +102,9 @@ struct ImageGridView: View {
                 })
                 .padding([.leading, .trailing], 10)
             }
+            .navigationBarTitle(Text("Books"))
         }
-        .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
+//        .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
     }
 }
 

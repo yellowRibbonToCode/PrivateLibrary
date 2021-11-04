@@ -1,11 +1,12 @@
 {
   "images" : [
     {
-      "filename" : "노인과바다-1.jpeg",
+      "filename" : "노인과바다-1.jpeg",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "노인과바다.jpeg",
       "idiom" : "universal",
       "scale" : "2x"
     },

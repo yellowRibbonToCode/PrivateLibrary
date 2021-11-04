@@ -1,11 +1,12 @@
 {
   "images" : [
     {
-      "filename" : "누가 똥-1.jpeg",
+      "filename" : "누가 똥-1.jpeg",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "누가 똥.jpeg",
       "idiom" : "universal",
       "scale" : "2x"
     },
