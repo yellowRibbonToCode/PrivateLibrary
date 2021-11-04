@@ -45,7 +45,7 @@ struct HomeView: View {
                 .padding([.bottom], 100)
                 .padding([.leading], 300)
             }
-//            .edgesIgnoringSafeArea(.top)
+            .edgesIgnoringSafeArea(.top)
         }
                 }
     
