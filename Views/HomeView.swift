@@ -18,18 +18,18 @@ struct HomeView: View {
     //    var db: Firestore!
     
     var body: some View {
-        if addbook {
-            AddBookInfoView()
-        }
-        else{
+//        if addbook {
+//            AddBookInfoView()
+//        }
+//        else{
             VStack {
                 Spacer()
                 VStack(spacing: 0){
-                    Button(action: {
-                        addbook = true
-                    }, label: {
-                        Text("add book")
-                    })
+//                    Button(action: {
+//                        addbook = true
+//                    }, label: {
+//                        Text("add book")
+//                    })
                     ZStack{
                         if self.index == 0
                         {
@@ -49,7 +49,7 @@ struct HomeView: View {
                 }
                 .edgesIgnoringSafeArea(.top)
             }
-        }
+//        }
     }
     
 }
