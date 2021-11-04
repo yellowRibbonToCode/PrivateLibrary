@@ -25,7 +25,8 @@ struct DetailView: View {
                 GeometryReader {g in
                     let yOffset = g.frame(in: .global).minY > 0 ? -g.frame(in: .global).minY :0
                     ZStack (alignment: Alignment(horizontal: .leading, vertical: .bottom)) {
-                        libModel.image
+                        if let image = libModel.image{
+                        image
                             .resizable()
                             .aspectRatio(contentMode: .fill)
                             .frame(width: g.size.width, height: g.size.height - yOffset)
@@ -35,12 +36,14 @@ struct DetailView: View {
                                     .opacity(0.5)
                                     .frame(width: g.size.width, height: g.size.height - yOffset)
                                     .offset(y: yOffset))
+                            
+                        }
                         HStack {
-                            Text(libModel.bookName)
+                            Text(libModel.bookname)
                                 .font(.largeTitle)
                                 .fontWeight(.heavy)
                             Spacer()
-                            Text(libModel.bookWriter)
+                            Text(libModel.author)
                                 .font(.headline)
                                 .padding([.trailing])
                             
@@ -77,7 +80,7 @@ struct DetailView: View {
                         .alert(isPresented: $showAlert){
                             Alert(title: Text("Alert"), message: Text("email address is copied"))
                         }
-                        .opacity(libModel.isChangable ? 1 : 0)
+                        .opacity(libModel.exchange ? 1 : 0)
                         Button {
                                 UIPasteboard.general.string = libModel.email
                                 showAlert.toggle()
@@ -95,7 +98,7 @@ struct DetailView: View {
                         .alert(isPresented: $showAlert){
                             Alert(title: Text("Alert"), message: Text("email address is copied"))
                         }
-                        .opacity(libModel.isTradable ? 1 : 0)
+                        .opacity(libModel.sell ? 1 : 0)
                         }
                     }
                     .padding([.trailing])
@@ -103,7 +106,7 @@ struct DetailView: View {
                 .padding([.top, .bottom])
                 Spacer()
                 Divider()
-                Text(libModel.abstract)
+                Text(libModel.title)
                     .font(.body)
                     .fontWeight(.heavy)
                     .padding()
@@ -113,8 +116,8 @@ struct DetailView: View {
                     .padding([.leading, .trailing], 20)
                 HStack {
                     Spacer()
-                    Text("\(libModel.createdDate, formatter: Self.taskDateFormat)")
-                        .padding([.trailing, .bottom])
+//                    Text("\(libModel.created, formatter: Self.taskDateFormat)")
+//                        .padding([.trailing, .bottom])
                 }
             }
         }
@@ -123,8 +126,8 @@ struct DetailView: View {
     }
 }
 
-struct DetailView_Previews: PreviewProvider {
-    static var previews: some View {
-        DetailView(libModel: ModelData().library[1])
-    }
-}
+//struct DetailView_Previews: PreviewProvider {
+//    static var previews: some View {
+////        DetailView(libModel: ModelData().library[1])
+//    }
+//}

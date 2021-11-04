@@ -257,7 +257,7 @@ struct AddBookInfoView: View {
                         .padding()
                         .onAppear(perform: {
                             db = Firestore.firestore()
-                            printdb()
+//                            printdb()
                         })
                     Spacer()
                 }

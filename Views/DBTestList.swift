@@ -115,32 +115,12 @@ struct DBTestList: View {
                             }
                         }
                     }
-                    
-                    //                    if let booklist = db.collection("libData").document(document.documentID).collection("booklist").getDocuments() { (books, err) in
-                    //                        if let err = err {
-                    //                            print("Error getting documents: \(err)")
-                    //                        } else {
-                    //                            print (books ?? " ")
-                    //                        }
-                    //                    }
-                    //                    print("\(document.documentID) => \(document.data())")
+                
                 }
             }
         }
     }
     
-    //    db.collection("libData")
-    //        .document()
-    //        .collection("booklist")
-    //        .getDocuments { (document, err) in
-    //            if let document = document {
-    //                print(document.get("bookname") ?? " ")
-    //                print(document.get("content") ?? " ")
-    //                print(document.get("subtitle") ?? " ")
-    //            }
-    //
-    //        }
-
 var body: some View {
     
     VStack{
