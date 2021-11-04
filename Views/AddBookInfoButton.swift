@@ -12,6 +12,7 @@ struct AddBookInfoButtonImage: View {
         ZStack{
             Circle()
                 .frame(width: 50, height: 50)
+                .foregroundColor(Color(hue: 0.074, saturation: 0.99, brightness: 0.492))
             Image(systemName: "plus")
                 .resizable()
                 .foregroundColor(.white)

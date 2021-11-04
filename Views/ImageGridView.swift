@@ -15,6 +15,7 @@ class SearchViewModel: ObservableObject {
     @Published var bookModels = [ViewModel]()
     @Published var bookImage = Image(systemName: "book")
     
+    
     func makeList() {
         db.collection("libData").getDocuments() {
             (books, err) in
@@ -40,6 +41,8 @@ class SearchViewModel: ObservableObject {
                         Storage.storage().reference().child("images/books/\(bookuid)").getData(maxSize: 100 * 200 * 200) {
                             (imageData, err) in
                             if let err = err as NSError? {
+                                let randInt = Int.random(in: 0...10)
+                                
 //                                print("an error has occurred - \(err.localizedDescription)")
 //                                if (StorageErrorCode(rawValue: err.code) == .objectNotFound) {
                                 self.bookModels.append(ViewModel(id: book.get("userid") as! String ,
@@ -54,7 +57,7 @@ class SearchViewModel: ObservableObject {
                                                                  price: book.get("price") as? Int,
                                                                  exchange: book.get("exchange") as! Bool,
                                                                  sell: book.get("sell") as! Bool,
-                                                                 image: Image(systemName: "book")))
+                                                                 image: Image(RandBookImage(rawValue: randInt)!.toString())))
                                 }
 //                            } else {
 //                                if let imageData = imageData {
@@ -90,6 +93,7 @@ struct ImageGridView: View {
                                 .frame(width: 200, height: 200)
                                 .padding([.top], 5)
                         }
+                        .foregroundColor(.black)
                     }
                 }
                 .onAppear(perform: {

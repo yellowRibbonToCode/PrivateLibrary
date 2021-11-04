@@ -1,11 +1,12 @@
 {
   "images" : [
     {
-      "filename" : "부의대이동-1.jpeg",
+      "filename" : "부의대이동-1.jpeg",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "부의대이동.jpeg",
       "idiom" : "universal",
       "scale" : "2x"
     },
