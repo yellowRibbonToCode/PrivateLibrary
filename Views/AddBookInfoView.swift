@@ -146,7 +146,8 @@ struct AddBookInfoView: View {
     
     var body: some View {
         if setSuccess {
-            HomeView()
+//            HomeView()
+            Text("testing")
         }
         else{
             HStack {

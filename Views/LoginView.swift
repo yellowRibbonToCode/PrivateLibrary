@@ -80,7 +80,8 @@ struct LoginView: View {
     }
     var body: some View {
         if loginSuccess{
-            HomeView()
+//            HomeView()
+            SushinListView(sushinListViewModel: SushinListViewModel())
         }
         else{
             NavigationView {
