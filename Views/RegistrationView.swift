@@ -81,11 +81,15 @@ struct RegistrationView: View {
         }
     }
     
+    
+    
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
     var body: some View {
         if registerSuccess{
-            LoginView()
+            VStack{}
+            .onAppear(){
+                self.presentationMode.wrappedValue.dismiss()}
         }
         else {
             ZStack {
