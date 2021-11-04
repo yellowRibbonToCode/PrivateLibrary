@@ -78,6 +78,7 @@ struct LoginView: View {
                 .fontWeight(.heavy)
         }
     }
+    
     var body: some View {
         if loginSuccess{
             HomeView()
@@ -101,9 +102,6 @@ struct LoginView: View {
                             
                             loginButton()
                             registerButton()
-                            
-                            
-                            
                             Text(loginError ?? " ")
                                 .font(.footnote)
                                 .foregroundColor(.red)
