@@ -42,7 +42,7 @@ struct HomeView: View {
                             DBTestList()
                         }
                         else{
-                            Color.orange
+                            ProfileScene()
                         }
                     }
                     CircleTab(index: self.$index)
