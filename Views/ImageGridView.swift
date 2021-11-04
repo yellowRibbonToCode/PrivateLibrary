@@ -42,7 +42,19 @@ class SearchViewModel: ObservableObject {
                             if let err = err as NSError? {
 //                                print("an error has occurred - \(err.localizedDescription)")
 //                                if (StorageErrorCode(rawValue: err.code) == .objectNotFound) {
-                                    self.bookModels.append(ViewModel(id: book.get("userid") as! String , name: book.get("username") as! String, email: book.get("useremail") as! String, bookname: book.get("bookname") as! String, author: book.get("author") as! String, title: book.get("title") as! String, content: book.get("content") as! String, created: book.get("created") as! Int, edited: book.get("edited") as! Int, price: book.get("price") as? Int , exchange: book.get("exchange") as! Bool, sell: book.get("sell") as! Bool, image: Image(systemName: "book")))
+                                self.bookModels.append(ViewModel(id: book.get("userid") as! String ,
+                                                                 name: book.get("username") as! String,
+                                                                 email: book.get("useremail") as! String,
+                                                                 bookname: book.get("bookname") as! String,
+                                                                 author: book.get("author") as! String,
+                                                                 title: book.get("title") as! String,
+                                                                 content: book.get("content") as! String,
+//                                                                 created: (book.get("created") as! Timestamp).dateValue(),
+//                                                                 edited: (book.get("edited") as! Timestamp).dateValue(),
+                                                                 price: book.get("price") as? Int,
+                                                                 exchange: book.get("exchange") as! Bool,
+                                                                 sell: book.get("sell") as! Bool,
+                                                                 image: Image(systemName: "book")))
                                 }
 //                            } else {
 //                                if let imageData = imageData {
