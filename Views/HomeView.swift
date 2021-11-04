@@ -18,39 +18,36 @@ struct HomeView: View {
     //    var db: Firestore!
     
     var body: some View {
-//        if addbook {
-//            AddBookInfoView()
-//        }
-//        else{
-            VStack {
-                Spacer()
-                VStack(spacing: 0){
-//                    Button(action: {
-//                        addbook = true
-//                    }, label: {
-//                        Text("add book")
-//                    })
-                    ZStack{
-                        if self.index == 0
-                        {
-                            ImageGridView()
-                        }
-                        else if self.index == 1{
-//                            TestView()
-                        }
-                        else if self.index == 2{
-                            DBTestList()
-                        }
-                        else{
-                            Color.orange
-                        }
-                    }
-                    CircleTab(index: self.$index)
+                if addbook {
+                    AddBookInfoView()
                 }
-                .edgesIgnoringSafeArea(.top)
+                else{
+        ZStack(alignment: .bottom){
+                if self.index == 0
+                {
+                    ImageGridView()
+                }
+                else if self.index == 1{
+                    //                            TestView()
+                }
+                else if self.index == 2{
+                    DBTestList()
+                }
+                else{
+                    Color.orange
+                }
+                CircleTab(index: self.$index)
+                Button(action: {
+                    addbook = true
+                }, label: {
+                    AddBookInfoButtonImage()
+                })
+                .padding([.bottom], 100)
+                .padding([.leading], 300)
             }
-//        }
-    }
+//            .edgesIgnoringSafeArea(.top)
+        }
+                }
     
 }
 
