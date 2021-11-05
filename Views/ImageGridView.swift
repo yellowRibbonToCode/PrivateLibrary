@@ -14,8 +14,8 @@ import FirebaseStorage
 class SearchViewModel: ObservableObject {
     @Published var bookModels = [ViewModel]()
     @Published var bookImage = Image(systemName: "book")
-    
-    
+
+
     func makeList() {
         db.collection("libData").getDocuments() {
             (books, err) in
@@ -24,6 +24,7 @@ class SearchViewModel: ObservableObject {
             }
             else {
                 guard let books = books?.documents else { return }
+                self.bookModels = [ViewModel]()
                 for book in books {
                     //                        print(book.get("userid") ?? "no userid")
                     //                        print(book.get("username") ?? "no username")
@@ -42,18 +43,19 @@ class SearchViewModel: ObservableObject {
                             (imageData, err) in
                             if let err = err as NSError? {
                                 let randInt = Int.random(in: 0...10)
-                                
+
 //                                print("an error has occurred - \(err.localizedDescription)")
 //                                if (StorageErrorCode(rawValue: err.code) == .objectNotFound) {
-                                self.bookModels.append(ViewModel(id:UUID(), useruid: book.get("userid") as! String ,
+                                print(err)
+                                self.bookModels.append(ViewModel(id: bookuid, useruid: book.get("userid") as! String ,
                                                                  name: book.get("username") as! String,
                                                                  email: book.get("useremail") as! String,
                                                                  bookname: book.get("bookname") as! String,
                                                                  author: book.get("author") as! String,
                                                                  title: book.get("title") as! String,
                                                                  content: book.get("content") as! String,
-//                                                                 created: (book.get("created") as! Timestamp).dateValue(),
-//                                                                 edited: (book.get("edited") as! Timestamp).dateValue(),
+                                                                 created: (book.get("created") as! Timestamp).dateValue(),
+                                                                 edited: (book.get("edited") as! Timestamp).dateValue(),
                                                                  price: book.get("price") as? Int,
                                                                  exchange: book.get("exchange") as! Bool,
                                                                  sell: book.get("sell") as! Bool,
@@ -86,7 +88,7 @@ struct ImageGridView: View {
         NavigationView {
             ScrollView(.vertical) {
                 LazyVGrid(columns: columns) {
-                    ForEach ( searchViewModel.bookModels ) {
+                    ForEach ( searchViewModel.bookModels.sorted { $0.created!.compare($1.created!) == .orderedDescending} ) {
                         Model in
                         NavigationLink(destination: DetailView(libModel: Model)) {
                             ImageRow(libModel: Model)

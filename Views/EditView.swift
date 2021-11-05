@@ -16,8 +16,8 @@ struct EditView: View {
     //    @State private var sourceType: UIImagePickerController.SourceType = .photoLibrary
     //    @State private var isImagePickerDisplay = false
     //
-    
-    
+
+
     var body: some View {
         NavigationView {
             ZStack{
@@ -69,12 +69,12 @@ struct EditView: View {
         }
         }
     }
-    
+
     fileprivate func nameTextField() -> some View {
         return HStack {
             Image(systemName: "person.circle")
                 .foregroundColor(.white)
-            
+
             TextField("Name", text: $changedName)
                 .padding()
                 .frame(width: 230, height: 40)
@@ -88,7 +88,7 @@ struct EditView: View {
         .padding(.top, 10)
         .padding(.bottom, 10)
     }
-    
+
 }
 
 //    fileprivate func editProfile() {

@@ -15,7 +15,7 @@ struct ViewModel: Identifiable{
     var id: String
     var name: String                // 작성자
     var email: String               // 이메일
-    
+
     var bookname: String            // 책 제목
     var author: String          // 책 저자
     var title: String            // 한줄 요약
@@ -28,5 +28,5 @@ struct ViewModel: Identifiable{
     var exchange: Bool           // 교환 가능 여부
     var sell: Bool            // 판매 가능 여부
     var image: Image?
-    
+
 }

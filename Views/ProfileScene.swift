@@ -18,12 +18,12 @@ struct Profile {
 struct ProfileScene: View {
     //    @Environment(\.editMode) var editMode
     @State private var showingEdit = false
-    
+
     @State var profile = Profile()
     //    private let userId = Auth.auth().currentUser!.uid
     //    private let users = Firestore.firestore().collection("users")
     //    private let storageRef = Storage.storage().reference()
-    
+
     var body: some View {
 //        ScrollView(.vertical) {
             VStack {
@@ -81,7 +81,7 @@ struct ProfileScene: View {
 //            MyGrid()
             ImageGridView()
         }
-        
+
         //    fileprivate func loadProfile() {
         //        let profileImageRef = storageRef.child("images/user_profile/\(userId)")
         //        profileImageRef.getData(maxSize: Int64(1 * 1024 * 1024)) { data, err in

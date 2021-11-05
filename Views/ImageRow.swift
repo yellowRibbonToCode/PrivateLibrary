@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ImageRow: View {
     var libModel: ViewModel
-    
+
     var body: some View {
         VStack(alignment: .center) {
             ZStack{
@@ -26,7 +26,7 @@ struct ImageRow: View {
                             .frame(width: 170, height: 70)
                             .foregroundColor(.white)
                             .opacity(0.7)
-                        
+
                         VStack {
                             Text(libModel.title)
                                 .font(.system(size: 17))
@@ -41,8 +41,8 @@ struct ImageRow: View {
                                     .frame(width: 17, height: 17)
                                     .padding(.leading, 5)
                                     .padding(.bottom, 2)
-                                
-                                
+
+
                                 Text("100")
                                     .font(.system(size: 13))
                                     .padding(.leading, -5)
@@ -72,14 +72,14 @@ struct ImageRow: View {
         .shadow(color: Color.black.opacity(0.4), radius: 10, x: 10, y: 10)
         .shadow(color: Color.white.opacity(0.7), radius: 10, x: -5, y: -5)
     }
-    
+
 }
 
 
 struct ImageRow_Previews: PreviewProvider {
     static var previews: some View {
-        ImageRow(libModel: ViewModel(id:UUID(),
-                                     useruid: "book_uid" ,
+        ImageRow(libModel: ViewModel(id: "asdfasdf",
+                                     useruid: "user_uid" ,
                                      name: "hekang",
                                      email: "hekang@hekang.com",
                                      bookname: "전문가를 위한 파이썬",
