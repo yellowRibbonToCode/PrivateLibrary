@@ -26,6 +26,7 @@ struct ProfileScene: View {
     
     var body: some View {
         ScrollView {
+
             HStack {
                 CircleImageView(image: profile.image ?? UIImage(systemName: "person")!, width: 100, height: 100)
                     .onAppear {
