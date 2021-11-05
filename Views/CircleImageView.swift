@@ -11,7 +11,7 @@ struct CircleImageView: View {
     let image: UIImage
     let width: CGFloat
     let height: CGFloat
-    
+
     var body: some View {
         Image(uiImage: image)
             .resizable()
