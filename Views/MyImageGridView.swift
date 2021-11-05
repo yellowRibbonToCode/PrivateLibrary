@@ -43,13 +43,13 @@ class MySearchViewModel: ObservableObject {
                             if let err = err as NSError? {
                                 print("an error has occurred - \(err.localizedDescription)")
                                 if (StorageErrorCode(rawValue: err.code) == .objectNotFound) {
-                                    self.bookModels.append(ViewModel(id: UUID(), useruid: book.get("userid") as! String , name: book.get("username") as! String, email: book.get("useremail") as! String, bookname: book.get("bookname") as! String, author: book.get("author") as! String, title: book.get("title") as! String, content: book.get("content") as! String, created: book.get("created") as? Date, edited: book.get("edited") as? Date, price: book.get("price") as? Int , exchange: book.get("exchange") as! Bool, sell: book.get("sell") as! Bool, image: Image(systemName: "book")))
+                                    self.bookModels.append(ViewModel(id: bookuid, useruid: book.get("userid") as! String , name: book.get("username") as! String, email: book.get("useremail") as! String, bookname: book.get("bookname") as! String, author: book.get("author") as! String, title: book.get("title") as! String, content: book.get("content") as! String, created: book.get("created") as? Date, edited: book.get("edited") as? Date, price: book.get("price") as? Int , exchange: book.get("exchange") as! Bool, sell: book.get("sell") as! Bool, image: Image(systemName: "book")))
                                 }
                             } else {
                                 if let imageData = imageData {
                                     self.bookImage = Image(uiImage: UIImage(data:imageData)!)
                                     print("getdata: \(imageData)")
-                                    self.bookModels.append(ViewModel(id: UUID(), useruid: book.get("userid") as! String , name: book.get("username") as! String, email: book.get("useremail") as! String, bookname: book.get("bookname") as! String, author: book.get("author") as! String, title: book.get("title") as! String, content: book.get("content") as! String, created: book.get("created") as? Date, edited: book.get("edited") as? Date, price: book.get("price") as? Int , exchange: book.get("exchange") as! Bool, sell: book.get("sell") as! Bool, image: self.bookImage))
+                                    self.bookModels.append(ViewModel(id: bookuid, useruid: book.get("userid") as! String , name: book.get("username") as! String, email: book.get("useremail") as! String, bookname: book.get("bookname") as! String, author: book.get("author") as! String, title: book.get("title") as! String, content: book.get("content") as! String, created: book.get("created") as? Date, edited: book.get("edited") as? Date, price: book.get("price") as? Int , exchange: book.get("exchange") as! Bool, sell: book.get("sell") as! Bool, image: self.bookImage))
                                 } else {
                                     print("an error has occurred")
                                 }

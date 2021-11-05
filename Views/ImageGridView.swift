@@ -24,6 +24,7 @@ class SearchViewModel: ObservableObject {
             }
             else {
                 guard let books = books?.documents else { return }
+                self.bookModels = [ViewModel]()
                 for book in books {
                     //                        print(book.get("userid") ?? "no userid")
                     //                        print(book.get("username") ?? "no username")
@@ -45,7 +46,8 @@ class SearchViewModel: ObservableObject {
                                 
 //                                print("an error has occurred - \(err.localizedDescription)")
 //                                if (StorageErrorCode(rawValue: err.code) == .objectNotFound) {
-                                self.bookModels.append(ViewModel(id:UUID(), useruid: book.get("userid") as! String ,
+                                print(err)
+                                self.bookModels.append(ViewModel(id: bookuid, useruid: book.get("userid") as! String ,
                                                                  name: book.get("username") as! String,
                                                                  email: book.get("useremail") as! String,
                                                                  bookname: book.get("bookname") as! String,
