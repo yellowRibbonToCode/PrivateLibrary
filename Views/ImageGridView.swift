@@ -45,7 +45,7 @@ class SearchViewModel: ObservableObject {
                                 
 //                                print("an error has occurred - \(err.localizedDescription)")
 //                                if (StorageErrorCode(rawValue: err.code) == .objectNotFound) {
-                                self.bookModels.append(ViewModel(id: book.get("userid") as! String ,
+                                self.bookModels.append(ViewModel(id:UUID(), useruid: book.get("userid") as! String ,
                                                                  name: book.get("username") as! String,
                                                                  email: book.get("useremail") as! String,
                                                                  bookname: book.get("bookname") as! String,

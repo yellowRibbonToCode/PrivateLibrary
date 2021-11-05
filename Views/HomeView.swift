@@ -85,7 +85,7 @@ struct CircleTab : View {
                         
                         Image(systemName: "house.fill")
                             .resizable()
-                            .frame(width: 30, height: 28)
+                            .frame(width: 25, height: 23)
                             .foregroundColor(Color(hue: 0.074, saturation: 0.99, brightness: 0.492))
                             .padding()
                             .background(Color(hue: 0.069, saturation: 0.193, brightness: 0.992))
@@ -121,7 +121,7 @@ struct CircleTab : View {
                         
                         Image(systemName: "magnifyingglass")
                             .resizable()
-                            .frame(width: 30, height: 28)
+                            .frame(width: 25, height: 23)
                             .foregroundColor(Color(hue: 0.074, saturation: 0.99, brightness: 0.492))
                             .padding()
                             .background(Color(hue: 0.069, saturation: 0.193, brightness: 0.992))
@@ -154,7 +154,7 @@ struct CircleTab : View {
                     else{
                         Image(systemName: "heart.fill")
                             .resizable()
-                            .frame(width: 30, height: 28)
+                            .frame(width: 25, height: 23)
                             .foregroundColor(Color(hue: 0.074, saturation: 0.99, brightness: 0.492))
                             .padding()
                             .background(Color(hue: 0.069, saturation: 0.193, brightness: 0.992))
@@ -187,7 +187,7 @@ struct CircleTab : View {
                     else{
                         Image(systemName: "person.fill")
                             .resizable()
-                            .frame(width: 30, height: 28)
+                            .frame(width: 25, height: 23)
                             .foregroundColor(Color(hue: 0.074, saturation: 0.99, brightness: 0.492))
                             .padding()
                             .background(Color(hue: 0.069, saturation: 0.193, brightness: 0.992))
