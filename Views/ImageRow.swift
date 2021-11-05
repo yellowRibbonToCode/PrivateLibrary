@@ -78,8 +78,8 @@ struct ImageRow: View {
 
 struct ImageRow_Previews: PreviewProvider {
     static var previews: some View {
-        ImageRow(libModel: ViewModel(id:UUID(),
-                                     useruid: "book_uid" ,
+        ImageRow(libModel: ViewModel(id: "asdfasdf",
+                                     useruid: "user_uid" ,
                                      name: "hekang",
                                      email: "hekang@hekang.com",
                                      bookname: "전문가를 위한 파이썬",

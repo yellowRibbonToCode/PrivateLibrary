@@ -11,7 +11,7 @@ import CoreLocation
 
 
 struct ViewModel: Identifiable{
-    var id: UUID                     // 고유 코드
+    var id: String                     // 고유 코드
     var useruid: String
     var name: String                // 작성자
     var email: String               // 이메일
