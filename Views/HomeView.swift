@@ -18,11 +18,11 @@ struct HomeView: View {
     //    var db: Firestore!
     
     var body: some View {
-                if addbook {
-                    AddBookInfoView()
-                }
-                else{
-        ZStack(alignment: .bottom){
+        if addbook {
+            AddBookInfoView()
+        }
+        else{
+            ZStack(alignment: .bottom){
                 if self.index == 0
                 {
                     ImageGridView()
@@ -34,7 +34,8 @@ struct HomeView: View {
                     DBTestList()
                 }
                 else{
-                    Color.orange
+                    //                    Color.orange
+                    ProfileScene()
                 }
                 CircleTab(index: self.$index)
                 Button(action: {
@@ -42,12 +43,12 @@ struct HomeView: View {
                 }, label: {
                     AddBookInfoButtonImage()
                 })
-                .padding([.bottom], 100)
-                .padding([.leading], 300)
+                    .padding([.bottom], 100)
+                    .padding([.leading], 300)
             }
             .edgesIgnoringSafeArea(.top)
         }
-                }
+    }
     
 }
 
@@ -85,7 +86,7 @@ struct CircleTab : View {
                         
                         Image(systemName: "house.fill")
                             .resizable()
-                            .frame(width: 30, height: 28)
+                            .frame(width: 25, height: 23)
                             .foregroundColor(Color(hue: 0.074, saturation: 0.99, brightness: 0.492))
                             .padding()
                             .background(Color(hue: 0.069, saturation: 0.193, brightness: 0.992))
@@ -121,7 +122,7 @@ struct CircleTab : View {
                         
                         Image(systemName: "magnifyingglass")
                             .resizable()
-                            .frame(width: 30, height: 28)
+                            .frame(width: 25, height: 23)
                             .foregroundColor(Color(hue: 0.074, saturation: 0.99, brightness: 0.492))
                             .padding()
                             .background(Color(hue: 0.069, saturation: 0.193, brightness: 0.992))
@@ -154,7 +155,7 @@ struct CircleTab : View {
                     else{
                         Image(systemName: "heart.fill")
                             .resizable()
-                            .frame(width: 30, height: 28)
+                            .frame(width: 25, height: 23)
                             .foregroundColor(Color(hue: 0.074, saturation: 0.99, brightness: 0.492))
                             .padding()
                             .background(Color(hue: 0.069, saturation: 0.193, brightness: 0.992))
@@ -187,7 +188,7 @@ struct CircleTab : View {
                     else{
                         Image(systemName: "person.fill")
                             .resizable()
-                            .frame(width: 30, height: 28)
+                            .frame(width: 25, height: 23)
                             .foregroundColor(Color(hue: 0.074, saturation: 0.99, brightness: 0.492))
                             .padding()
                             .background(Color(hue: 0.069, saturation: 0.193, brightness: 0.992))
