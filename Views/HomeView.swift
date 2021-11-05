@@ -33,7 +33,7 @@ struct HomeView: View {
                             Color.orange
                         }
                         else if self.index == 2{
-                            Color.orange
+                            SearchViewSushin()
                         }
                         else{
                             ProfileScene()

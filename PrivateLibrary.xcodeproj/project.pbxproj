@@ -56,6 +56,9 @@
 		8AE86A442733A66D00BE14DD /* ProfileScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE86A432733A66D00BE14DD /* ProfileScene.swift */; };
 		8AE86A462733A68800BE14DD /* CircleImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE86A452733A68800BE14DD /* CircleImageView.swift */; };
 		8AE86A482733A6B200BE14DD /* EditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE86A472733A6B200BE14DD /* EditView.swift */; };
+		EE3396F32735792200422B4B /* SearchViewSushin.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3396F22735792100422B4B /* SearchViewSushin.swift */; };
+		EE3396F52735794D00422B4B /* SushinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3396F42735794D00422B4B /* SushinView.swift */; };
+		EE3396F727358BDF00422B4B /* MakeListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3396F627358BDF00422B4B /* MakeListModel.swift */; };
 		EE9B91D4272D2E7B005BCFA5 /* ForgotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE9B91D3272D2E7A005BCFA5 /* ForgotView.swift */; };
 		EEDCBFC42730313A0018B032 /* AddBookInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDCBFC32730313A0018B032 /* AddBookInfoView.swift */; };
 /* End PBXBuildFile section */
@@ -97,6 +100,9 @@
 		8AE86A432733A66D00BE14DD /* ProfileScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScene.swift; sourceTree = "<group>"; };
 		8AE86A452733A68800BE14DD /* CircleImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleImageView.swift; sourceTree = "<group>"; };
 		8AE86A472733A6B200BE14DD /* EditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditView.swift; sourceTree = "<group>"; };
+		EE3396F22735792100422B4B /* SearchViewSushin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewSushin.swift; sourceTree = "<group>"; };
+		EE3396F42735794D00422B4B /* SushinView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SushinView.swift; sourceTree = "<group>"; };
+		EE3396F627358BDF00422B4B /* MakeListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeListModel.swift; sourceTree = "<group>"; };
 		EE9B91D3272D2E7A005BCFA5 /* ForgotView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotView.swift; sourceTree = "<group>"; };
 		EEDCBFC32730313A0018B032 /* AddBookInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBookInfoView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -142,6 +148,7 @@
 				73C09B4827252F980048BC85 /* ModelData.swift */,
 				73B6F014272679C600446F4B /* ViewModel.swift */,
 				737EBDA82729565400C4513D /* UserModel.swift */,
+				EE3396F627358BDF00422B4B /* MakeListModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -223,6 +230,8 @@
 				73569EB7272FA59D00A72153 /* Testinputphoto.swift */,
 				EEDCBFC32730313A0018B032 /* AddBookInfoView.swift */,
 				8AA55D9D273402BE00F3F8AA /* ImagePickerView.swift */,
+				EE3396F22735792100422B4B /* SearchViewSushin.swift */,
+				EE3396F42735794D00422B4B /* SushinView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -351,9 +360,12 @@
 				73BA894D27281D4400597308 /* RegistrationView.swift in Sources */,
 				737EBDA92729565400C4513D /* UserModel.swift in Sources */,
 				735B8DE02734083A00C9D079 /* AssetEnum.swift in Sources */,
+				EE3396F32735792200422B4B /* SearchViewSushin.swift in Sources */,
 				73D6A396272D7C9300C6585B /* DBTestList.swift in Sources */,
 				73BFFFC627214EAE00375684 /* SceneDelegate.swift in Sources */,
+				EE3396F52735794D00422B4B /* SushinView.swift in Sources */,
 				73BFFFCB27214EAE00375684 /* PrivateLibrary.xcdatamodeld in Sources */,
+				EE3396F727358BDF00422B4B /* MakeListModel.swift in Sources */,
 				73C09B3D2725250A0048BC85 /* MapView.swift in Sources */,
 				732AE1BD2727ADE1004D5A3C /* Icon.swift in Sources */,
 				8AA55D9E273402BE00F3F8AA /* ImagePickerView.swift in Sources */,
