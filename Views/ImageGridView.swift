@@ -54,8 +54,8 @@ class SearchViewModel: ObservableObject {
                                                                  author: book.get("author") as! String,
                                                                  title: book.get("title") as! String,
                                                                  content: book.get("content") as! String,
-//                                                                 created: (book.get("created") as! Timestamp).dateValue(),
-//                                                                 edited: (book.get("edited") as! Timestamp).dateValue(),
+                                                                 created: (book.get("created") as! Timestamp).dateValue(),
+                                                                 edited: (book.get("edited") as! Timestamp).dateValue(),
                                                                  price: book.get("price") as? Int,
                                                                  exchange: book.get("exchange") as! Bool,
                                                                  sell: book.get("sell") as! Bool,
@@ -88,7 +88,7 @@ struct ImageGridView: View {
         NavigationView {
             ScrollView(.vertical) {
                 LazyVGrid(columns: columns) {
-                    ForEach ( searchViewModel.bookModels ) {
+                    ForEach ( searchViewModel.bookModels.sorted { $0.created!.compare($1.created!) == .orderedDescending} ) {
                         Model in
                         NavigationLink(destination: DetailView(libModel: Model)) {
                             ImageRow(libModel: Model)

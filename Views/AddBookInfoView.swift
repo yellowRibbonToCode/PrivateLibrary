@@ -1,4 +1,3 @@
-
 //  AddBookInfoView.swift
 //  PrivateLibrary
 //
@@ -18,7 +17,7 @@ import FirebaseStorage
 // 터질까봐 수정안함
 // db.collection("users").document(userId).getDocument { (document, err) in
 //      if let document = document {
-
+//
 //          self.username = document.get("name") as! String
 //          self.email = document.get("email") as! String
 //        } else {
@@ -43,22 +42,20 @@ struct AddBookInfoView: View {
     @State var price : Int = 0
     @State var exchange : Bool = false
     @State var sell : Bool = false
-    @State var setSuccess = false
     @State var isShowPhotoLibrary = false
     
     @State private var image: UIImage?
     
-    private func printdb() {
-        
-        db.collection("libData").document(userId).getDocument { (document, err) in
+    private func setuserdb(doc: DocumentReference) {
+        db.collection("users").document(userId).getDocument { (document, err) in
             if let document = document {
-                print(userId)
-                print(document)
-                print(document.get("name") ?? " ")
-                print(document.get("email") ?? " ")
-                print(document.data()?["name"] ?? " ")
-                self.username = document.get("name") as! String
-                self.email = document.get("email") as! String
+                
+                username = document.get("name") as! String
+                email = document.get("email") as! String
+                doc.setData([
+                    "username": username,
+                    "useremail": email
+                ], merge: true)
             } else {
                 if let err = err {
                     print("Error getting documents: \(err)")
@@ -68,23 +65,21 @@ struct AddBookInfoView: View {
     }
     
     private func setdb() {
+//        setuserdb()
         let doc = db.collection("libData")
             .document()
+        setuserdb(doc: doc)
         doc.setData([
             "author": author,
             "bookname": bookname,
             "title": title,
             "content": content,
             "created": Date(),
-            "edited": Date()])
-        doc.setData([
+            "edited": Date(),
             "exchange": exchange,
             "price": price,
             "sell": sell,
-            "userid": userId,
-            "username": "username",
-            "useremail": "email"
-        ], merge: true)
+            "userid": userId], merge: true)
         { err in
             if let err = err {
                 print("Error writing document: \(err)")
@@ -98,7 +93,7 @@ struct AddBookInfoView: View {
                 //                }
                 
                 
-                setSuccess = true
+                //                setSuccess = true
             }
         }
         
@@ -130,110 +125,125 @@ struct AddBookInfoView: View {
         }
     }
     
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
     
     var body: some View {
-        if setSuccess {
-            HomeView()
-        }
-        else{
-            VStack(alignment: .center, spacing: 10) {
-                Button(action: {
-                    self.isShowPhotoLibrary = true
-                }) {
-                    if image != nil {
-                        Image(uiImage: image!)
-                            .resizable()
-                            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: 200)
-                            .shadow(radius: 10)
-                    }
-                    else {
-                        VStack {
-                            Image(systemName: "plus.app")
-                                .font(.system(size: 20))
-                            Text("Add Image")
-                        }
+        
+        VStack(alignment: .center, spacing: 10) {
+            Button(action: {
+                self.isShowPhotoLibrary = true
+            }) {
+                if image != nil {
+                    Image(uiImage: image!)
+                        .resizable()
                         .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: 200)
-                        .background(Color.blue.opacity(0.1))
-                        .foregroundColor(.gray)
-                        .cornerRadius(20)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 20)
-                                .stroke(Color.gray, lineWidth: 1))
+                        .shadow(radius: 10)
+                }
+                else {
+                    VStack {
+                        Image(systemName: "plus.app")
+                            .font(.system(size: 20))
+                        Text("Add Image")
                     }
+                    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: 200)
+                    .background(Color.blue.opacity(0.1))
+                    .foregroundColor(.gray)
+                    .cornerRadius(20)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 20)
+                            .stroke(Color.gray, lineWidth: 1))
                 }
-                VStack(alignment: .leading, spacing: 10) {
-                    Text("Bookname")
-                        .foregroundColor(.gray)
-                    TextField("Enter the bookname", text: $bookname)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                }
-                VStack(alignment: .leading, spacing: 10) {
-                    Text("Author")
-                        .foregroundColor(.gray)
-                    TextField("Enter the author", text: $author)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                }
-                VStack(alignment: .leading, spacing: 10) {
-                    Text("Title")
-                        .foregroundColor(.gray)
-                    TextField("Enter the title", text: $title)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                }
-                VStack(alignment: .leading, spacing: 10) {
-                    Text("Content")
-                        .foregroundColor(.gray)
-                    TextField("Enter the content", text: $content)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                }
-                VStack(alignment: .leading, spacing: 10) {
-                    Text("Price")
-                        .foregroundColor(.gray)
-                    TextField("Enter the price", value: $price, formatter: NumberFormatter()) //  .string(from: NSNumber(value:price))!
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                }
-                HStack{
-                    Button(action: {
-                        exchange = exchange ? false : true
-                        
-                    }) {
-                        HStack(alignment: .top, spacing: 10) {
-                            
-                            Image(systemName: self.exchange ? "checkmark.square" : "square")
-                            Text("Exchange")
-                        }
-                    }
-                    Button(action: {
-                        sell = sell ? false : true
-                        
-                    }) {
-                        HStack(alignment: .top, spacing: 10) {
-                            
-                            Image(systemName: self.sell ? "checkmark.square" : "square")
-                            Text("Sell")
-                        }
-                    }
+            }
+            VStack(alignment: .leading, spacing: 10) {
+                Text("Bookname")
+                    .foregroundColor(.gray)
+                TextField("Enter the bookname", text: $bookname)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+            }
+            VStack(alignment: .leading, spacing: 10) {
+                Text("Author")
+                    .foregroundColor(.gray)
+                TextField("Enter the author", text: $author)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+            }
+            VStack(alignment: .leading, spacing: 10) {
+                Text("Title")
+                    .foregroundColor(.gray)
+                TextField("Enter the title", text: $title)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+            }
+            HStack{
+                Button(action: {
+                    exchange = exchange ? false : true
                     
+                }) {
+                    HStack(alignment: .top, spacing: 10) {
+                        
+                        Image(systemName: self.exchange ? "checkmark.square" : "square")
+                        Text("Exchange")
+                    }
                 }
-                .foregroundColor(.gray)
-                
-                Button(action: setdb) {
-                    Text("Add New Book")
-                        .foregroundColor(.blue)
+                Button(action: {
+                    sell = sell ? false : true
+                    
+                }) {
+                    HStack(alignment: .top, spacing: 10) {
+                        
+                        Image(systemName: self.sell ? "checkmark.square" : "square")
+                        Text("Sell")
+                    }
                 }
-                .padding()
-                Spacer()
             }
-            .sheet(isPresented: $isShowPhotoLibrary) {
-                ImagePicker(sourceType: .photoLibrary, selectedImage: self.$image)
-                    .padding()
-                    .onAppear(perform: {
-                        db = Firestore.firestore()
-                    })
-            }
-            .padding(EdgeInsets(top: 20, leading: 40, bottom: 0, trailing: 40))
+            .foregroundColor(.gray)
             
+            VStack(alignment: .leading, spacing: 10) {
+                Text("Price")
+                    .foregroundColor(.gray)
+                TextField("Enter the price", value: $price, formatter: NumberFormatter()) //  .string(from: NSNumber(value:price))!
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+            }
+            VStack(alignment: .leading, spacing: 10) {
+                Text("Content")
+                    .foregroundColor(.gray)
+                TextField("Enter the content", text: $content)
+                    .fixedSize(horizontal: false, vertical: false)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+//                    .frame(height: 150)
+                    
+////                    .padding([.horizontal], 4)
+//                    .cornerRadius(10)
+//                    .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.gray).opacity(0.3))
+////                    .padding([.horizontal], 24)
+            }
+            
+            Button(action: {
+                setdb()
+                self.presentationMode.wrappedValue.dismiss()
+                
+            }) {
+                Text("Add New Book")
+                    .foregroundColor(.blue)
+            }
+            .padding()
+            Spacer()
         }
+        .sheet(isPresented: $isShowPhotoLibrary) {
+            ImagePicker(sourceType: .photoLibrary, selectedImage: self.$image)
+                .padding()
+                .onAppear(perform: {
+                    db = Firestore.firestore()
+                })
+        }
+        .padding(EdgeInsets(top: 20, leading: 40, bottom: 0, trailing: 40))
+        
+        .navigationBarBackButtonHidden(true)
+        .navigationBarItems(leading: Button(action: {
+            self.presentationMode.wrappedValue.dismiss()
+        }){
+            Image(systemName: "arrow.left")
+                .foregroundColor(Color(hue: 0.074, saturation: 0.99, brightness: 0.492))
+        })
     }
 }
 struct AddBookInfoView_Previews: PreviewProvider {
