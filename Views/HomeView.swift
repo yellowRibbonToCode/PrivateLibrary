@@ -25,8 +25,7 @@ struct HomeView: View {
         VStack {
             NavigationView {
                     ZStack{
-                        if self.index == 0
-                        {
+                        if self.index == 0 {
                             ImageGridView()
                         }
                         else if self.index == 1{
