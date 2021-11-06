@@ -35,19 +35,19 @@ struct ImageRow: View {
                                 .lineLimit(2)
                             Spacer()
                             HStack {
-                                Image(systemName: "bookmark")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 17, height: 17)
-                                    .padding(.leading, 5)
-                                    .padding(.bottom, 2)
-                                
-                                
-                                Text("100")
-                                    .font(.system(size: 13))
-                                    .padding(.leading, -5)
-                                    .padding(.bottom, 2)
-                                    Spacer()
+//                                Image(systemName: "bookmark")
+//                                    .resizable()
+//                                    .scaledToFit()
+//                                    .frame(width: 17, height: 17)
+//                                    .padding(.leading, 5)
+//                                    .padding(.bottom, 2)
+//                                
+//                                
+//                                Text("100")
+//                                    .font(.system(size: 13))
+//                                    .padding(.leading, -5)
+//                                    .padding(.bottom, 2)
+//                                    Spacer()
                                 Image(systemName: "person.circle")
                                     .resizable()
                                     .frame(width: 15, height: 15)

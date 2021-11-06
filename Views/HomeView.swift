@@ -122,33 +122,6 @@ struct CircleTab : View {
             }
             Spacer()
             Button(action: {
-                self.index = 2
-            }) {
-                VStack{
-                    if self.index != 2{
-                        Image(systemName: "bookmark")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 25, height: 23)
-                            .foregroundColor(Color.black.opacity(0.2))
-                    }
-                    else{
-                        Image(systemName: "bookmark.fill")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 25, height: 23)
-                            .foregroundColor(Color(hue: 0.074, saturation: 0.99, brightness: 0.492))
-//                            .padding()
-//                            .background(Color(hue: 0.069, saturation: 0.193, brightness: 0.992))
-//                            .clipShape(Circle())
-//                            .offset(y: -20)
-//                            .padding(.bottom, -20)
-                        //                        Text("Likes").foregroundColor(Color(hue: 0.074, saturation: 0.99, brightness: 0.492))
-                    }
-                }
-            }
-            Spacer()
-            Button(action: {
                 self.index = 3
             }) {
                 VStack{
