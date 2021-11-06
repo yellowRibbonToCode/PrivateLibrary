@@ -1,0 +1,22 @@
+name: Swift
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+
+    runs-on: macos-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Build App
+      run: xcodebuild -project "PrivateLibrary.xcodeproj" -scheme "PrivateLibrary" -destination "generic/platform=iOS" -configuration Release build CODE_SIGNING_ALLOWED=NO
+
+    - name: Run tests
+      run: xcodebuild clean test -project "PrivateLibrary.xcodeproj" -scheme "PrivateLibrary" -destination "platform=iOS Simulator,name=iPhone 12 Pro Max,OS=latest"
+    
