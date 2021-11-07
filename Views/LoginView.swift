@@ -10,11 +10,22 @@ import Firebase
 import FirebaseAuth
 
 
+private struct LoginStatusKey: EnvironmentKey {
+    static let defaultValue: Binding<Bool> = .constant(false)
+}
+
+extension EnvironmentValues {
+    var loginStatus : Binding<Bool> {
+        get { self[LoginStatusKey.self] }
+        set { self[LoginStatusKey.self] = newValue }
+    }
+}
 
 struct LoginView: View {
     @State var username: String = ""
     @State var password: String = ""
     @State private var loginSuccess: Bool = false
+//    @Environment(\.loginStatus) var loginSuccess: Bool
     @State var loginError: String?
     
     
@@ -82,6 +93,7 @@ struct LoginView: View {
     var body: some View {
         if loginSuccess{
             HomeView()
+                .environment(\.loginStatus, $loginSuccess)
         }
         else{
             NavigationView {
