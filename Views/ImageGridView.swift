@@ -15,7 +15,6 @@ class SearchViewModel: ObservableObject {
     @Published var bookModels = [ViewModel]()
     @Published var bookImage = Image(systemName: "book")
     
-    
     func makeList() {
         db.collection("libData").getDocuments() {
             (books, err) in
