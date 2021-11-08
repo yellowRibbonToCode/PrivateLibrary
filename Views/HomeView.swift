@@ -23,7 +23,7 @@ struct HomeView: View {
 //        }
 //        else{
         VStack {
-            NavigationView {
+             NavigationView {
                     ZStack{
                         if self.index == 0 {
                             ImageGridView()
