@@ -15,7 +15,6 @@ class SearchViewModel: ObservableObject {
     @Published var bookModels = [ViewModel]()
     @Published var bookImage = Image(systemName: "book")
     
-    
     func makeList() {
         db.collection("libData").getDocuments() {
             (books, err) in
@@ -87,6 +86,11 @@ struct ImageGridView: View {
     var body: some View {
         NavigationView {
             ScrollView(.vertical) {
+                PullToRefresh(coordinateSpaceName: "pullToRefresh"){
+                    searchViewModel.makeList()
+                }
+                .padding(.top, -50)
+                
                 LazyVGrid(columns: columns) {
                     ForEach ( searchViewModel.bookModels.sorted { $0.created!.compare($1.created!) == .orderedDescending} ) {
                         Model in
@@ -98,12 +102,14 @@ struct ImageGridView: View {
                         .foregroundColor(.black)
                     }
                 }
+                
+                .padding([.leading, .trailing], 10)
                 .onAppear(perform: {
                     db = Firestore.firestore()
                     searchViewModel.makeList()
                 })
-                .padding([.leading, .trailing], 10)
             }
+            .coordinateSpace(name: "pullToRefresh")
             .navigationBarTitle(Text("Books"))
         }
 //        .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
