@@ -10,7 +10,7 @@ import Firebase
 import FirebaseFirestore
 
 struct Profile { // Model
-    var image: UIImage?
+    var image: UIImage = UIImage(systemName: "person")!
     var name: String = "Anonymous"
     var email: String = "notyet@load.com"
 }
@@ -21,8 +21,6 @@ struct ProfileScene: View { // View
     @ObservedObject var books = BookLists()
     @State private var showingEdit = false
     @State var profile = Profile()
-    //    @State private var loging = true
-    //    @Environment var loging
     @Environment(\.loginStatus) var loging
     
     let columns: [GridItem] = Array(repeating: GridItem(), count: 2)
@@ -68,10 +66,10 @@ struct ProfileScene: View { // View
     }
     
     fileprivate func profileImage() -> some View {
-        return CircleImageView(image: profile.image ?? UIImage(systemName: "person")!, width: 130 , height: 130)
+        return CircleImageView(image: profile.image, width: 130 , height: 130)
             .onAppear {
-                profile.image = UIImage(named: "rainbowlake")
-                //                        loadProfile()
+                profile.image = UIImage(named: "rainbowlake")!
+                loadProfile()
             }
     }
     fileprivate func profileName() -> some View {
@@ -79,7 +77,7 @@ struct ProfileScene: View { // View
             .font(.title)
             .foregroundColor(.black)
             .onAppear{
-                //                            loadName()
+                loadName()
             }
     }
     fileprivate func profileEmail() -> some View {
@@ -87,7 +85,7 @@ struct ProfileScene: View { // View
             .font(.subheadline)
             .foregroundColor(.gray)
             .onAppear {
-                //                            loadEmail()
+                loadEmail()
             }
     }
     fileprivate func editButton() -> some View {
@@ -95,7 +93,7 @@ struct ProfileScene: View { // View
             showingEdit.toggle()
         }
         .fullScreenCover(isPresented: $showingEdit, content: {
-            EditView()
+            EditView(profile: $profile)
         })
     }
     fileprivate func signoutButton() -> some View {
@@ -157,7 +155,7 @@ extension ProfileScene {
         let profileImageRef = storageRef.child("images/user_profile/\(userAuth!.uid)")
         profileImageRef.getData(maxSize: Int64(1 * 1024 * 1024)) { data, err in
             if let data = data {
-                profile.image = UIImage(data: data)
+                profile.image = UIImage(data: data)!
             }
         }
     }
