@@ -127,6 +127,7 @@ extension ProfileScene {
                         print("books is nil")
                         return
                     }
+                    var ind: Int = 0
                     for book in books {
                         self.bookList.append(ViewModel(
                             id: book.documentID,
@@ -142,7 +143,9 @@ extension ProfileScene {
                             price: book.get("price") as? Int,
                             exchange: (book.get("exchange") as! Bool),
                             sell: (book.get("sell") as! Bool),
-                            image: Image(RandBookImage(rawValue: Int.random(in: 0...10))!.toString())))
+                            image: Image(RandBookImage(rawValue: Int.random(in: 0...10))!.toString()),
+                            index: ind))
+                        ind += 1
                     }
                 }
             }

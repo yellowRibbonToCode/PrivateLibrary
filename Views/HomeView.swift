@@ -29,10 +29,7 @@ struct HomeView: View {
                             ImageGridView()
                         }
                         else if self.index == 1{
-                            Color.orange
-                        }
-                        else if self.index == 2{
-                            Color.orange
+                            SearchView()
                         }
                         else{
                             ProfileScene()
@@ -151,6 +148,6 @@ struct CircleTab : View {
 //            .padding(.vertical,-10)
 //            .padding(.horizontal, 25)]
             .background(Color.white)
-            .animation(.spring())
+//            .animation(.spring())
     }
 }
