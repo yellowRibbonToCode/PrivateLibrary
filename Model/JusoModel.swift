@@ -28,8 +28,9 @@ struct Juso: Codable, Identifiable {
     var id = UUID()
     var roadAddr: String!
     var jibunAddr: String!
-    
-    private enum CodingKeys : String, CodingKey { case roadAddr, jibunAddr }
+    var sggNm: String! // 시군구
+    var emdNm: String! // 읍면동
+    private enum CodingKeys : String, CodingKey { case roadAddr, jibunAddr, sggNm, emdNm }
 }
 
 struct LocationHead: Codable {

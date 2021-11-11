@@ -26,9 +26,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 //        let contentView = DetailView(libModel: ModelData().library[0])
 
-//        let contentView = LoginView()
+        let contentView = LoginView()
 //                            .environment(\.managedObjectContext, context)
-        let contentView = LocationRegistration()
+//        let contentView = LocationRegistration()
         
 //        let contentView = DBTestList()
         //            .environmentObject(DateFormatter.ContentDateFormatter)

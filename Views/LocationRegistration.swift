@@ -7,11 +7,14 @@
 
 import SwiftUI
 import Alamofire
+import FirebaseAuth
+import FirebaseFirestore
 
 class SearchJusoViewModel: ObservableObject {
     @Published var jusoList = [Juso]()
     @Published var searchLongitude = String()
     @Published var searchLatitude = String()
+    @Published var jusodata = Juso()
     
     init (jusoList: [Juso] = []) {
         self.jusoList = jusoList
@@ -89,7 +92,6 @@ struct SearchBar: View {
     @ObservedObject var searchViewModel : SearchJusoViewModel
     @State var alert = " "
     var body: some View {
-        
         VStack {
             ZStack {
                 Rectangle()
@@ -115,7 +117,7 @@ struct SearchBar: View {
                             searching = false
                         }
                         searchViewModel.getData(dong: dongName)
-                        print(getDistance(latitude1: "37.566381", longitude1: "126.977717", latitude2: "37.565577", longitude2: "126.978082"))
+//                        print(getDistance(latitude1: "37.566381", longitude1: "126.977717", latitude2: "37.565577", longitude2: "126.978082"))
 //                        print(getDistance(latitude1: "37.504030", longitude1: "127.024099", latitude2: "37.497175", longitude2: "127.027926"))
                     }
                     .disableAutocorrection(true)
@@ -136,10 +138,15 @@ struct LocationRegistration: View {
     
     
     //    @StateObject var locationManager = LocationManager()
-    
-    @State var dongName = ""
+    @Environment(\.presentationMode) var presentationMode
+    @State var roadAddr = ""
     @State var searching = false
+    @State var select = false
     @ObservedObject var searchJusoViewModel = SearchJusoViewModel()
+    @Binding var profile: Profile
+    
+    let userid = Auth.auth().currentUser!.uid
+//    @Binding var showingJuso : Bool
     
     //    var userLatitude: String {
     //        return "\(locationManager.lastLocation?.coordinate.latitude ?? 0)"
@@ -149,45 +156,75 @@ struct LocationRegistration: View {
     //        return "\(locationManager.lastLocation?.coordinate.longitude ?? 0)"
     //    }
     
+    private func saveJuso() {
+        // 1.게시글 중에 이전 유저네임이랑 같은글 전부 수정 or 그냥 un
+//        Firestore.firestore().collection("libData").whereField("userid", isEqualTo: userid).getDocuments() { infos, err in
+//            if let err = err {
+//                print("Error getting documents: \(err)")
+//            } else {
+//                guard let infos = infos?.documents else {
+//                    print("books is nil")
+//                    return
+//                }
+//                for info in infos {
+//                    info.reference.setData(["username": changedName], merge: true)
+//                }
+//            }
+//        }
+        // 2.db의 users의 uid같은거에서 유저네임 수정.
+        Firestore.firestore().collection("users").document("\(userid)").setData([
+            "roadAddr" : searchJusoViewModel.jusodata.roadAddr,
+            "sggNm" : searchJusoViewModel.jusodata.sggNm,
+            "emdNm" : searchJusoViewModel.jusodata.emdNm,
+            "latitude" : searchJusoViewModel.searchLatitude,
+            "longitude" : searchJusoViewModel.searchLongitude]
+            , merge: true) { err in
+            if let err = err {
+                print("Error writing document: \(err)")
+            } else {
+                print("Document successfully written!")
+            }
+        }
+    }
+    
     var body: some View {
-        NavigationView{
+//        NavigationView{
             VStack {
-                SearchBar(dongName: $dongName, searching: $searching, searchViewModel: searchJusoViewModel)
-                HStack {
-                    Text("latitude: \(searchJusoViewModel.searchLatitude)")
-                    Text("longitude: \(searchJusoViewModel.searchLongitude)")
-                }
+                SearchBar(dongName: $roadAddr, searching: $searching, searchViewModel: searchJusoViewModel)
+                    .onTapGesture {
+                        select = false
+                    }
+//                HStack {
+//                    Text("latitude: \(searchJusoViewModel.searchLatitude)")
+//                    Text("longitude: \(searchJusoViewModel.searchLongitude)")
+//                }
                 List{
                     ForEach(searchJusoViewModel.jusoList, id: \.id) { juso in
                         Text("\(juso.roadAddr)\n\(juso.jibunAddr)")
                             .font(.callout)
-                            .frame(width: .infinity, alignment: .leading)
                             .onTapGesture {
-                                dongName = juso.roadAddr
-                                searchJusoViewModel.getXY(dongName)
+                                roadAddr = juso.roadAddr
+                                searchJusoViewModel.jusodata = juso
+                                searchJusoViewModel.getXY(roadAddr)
+                                select = true
                             }
                     }
                 }
             }
-            //            .onAppear(perform: {
-            //                searchJusoViewModel.getData(dong: "사당")
-            //            })
-            .toolbar {
-                if searching {
-                    Button("Cancel") {
-                        dongName = ""
-                        withAnimation {
-                            searching = false
-                        }
-                    }
-                }
-            }
+            .alert(isPresented: $select) {
+                Alert(title: Text("주소"), message: Text(roadAddr), primaryButton:  .default(Text("저장"), action:{
+                    saveJuso()
+                    profile.sggNm = searchJusoViewModel.jusodata.sggNm
+                    profile.emdNm = searchJusoViewModel.jusodata.emdNm
+                    
+                    self.presentationMode.wrappedValue.dismiss()
+                }), secondaryButton: .cancel(Text("취소")))
         }
     }
 }
-
-struct LocationTest_Previews: PreviewProvider {
-    static var previews: some View {
-        LocationRegistration()
-    }
-}
+////
+//struct LocationTest_Previews: PreviewProvider {
+//    static var previews: some View {
+//        LocationRegistration()
+//    }
+//}

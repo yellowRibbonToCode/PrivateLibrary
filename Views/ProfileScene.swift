@@ -13,6 +13,8 @@ struct Profile { // Model
     var image: UIImage = UIImage(systemName: "person")!
     var name: String = "Anonymous"
     var email: String = "notyet@load.com"
+    var emdNm: String = "주소 등록 "
+    var sggNm: String = " "
 }
 
 struct ProfileScene: View { // View
@@ -22,6 +24,9 @@ struct ProfileScene: View { // View
     @State private var showingEdit = false
     @State var profile = Profile()
     @Environment(\.loginStatus) var loging
+    
+    @State var Juso = "주소 변경"
+    @State private var showingJuso = false
     
     let columns: [GridItem] = Array(repeating: GridItem(), count: 2)
     
@@ -46,7 +51,19 @@ struct ProfileScene: View { // View
                             .frame(width: 20)
                         signoutButton()
                     }
-                    NavigationLink("주소 정보 등록", destination: LocationRegistration())
+                    Button("\(profile.sggNm) \(profile.emdNm)") {
+                        showingJuso.toggle()
+                    }
+                    .onAppear(perform: {
+                        loadendNM()
+                    })
+//                    .fullScreenCover(isPresented: $showingJuso, content: {
+//                        LocationRegistration()
+//                    })
+                    .sheet(isPresented: $showingJuso, content: {
+                        LocationRegistration(profile: $profile)
+                    })
+                       
                         
                 }
             }
@@ -174,6 +191,15 @@ extension ProfileScene {
         userInfo.getDocument { (document, err) in
             if let document = document {
                 profile.email = (document.get("email") as! String)
+            }
+        }
+    }
+    fileprivate func loadendNM() {
+        let userInfo = users.document("\(userAuth!.uid)")
+        userInfo.getDocument { (document, err) in
+            if let document = document {
+                profile.emdNm = (document.get("emdNm") as! String? ?? "주소 등록 ")
+                profile.sggNm = (document.get("sggNm") as! String? ?? " ")
             }
         }
     }
