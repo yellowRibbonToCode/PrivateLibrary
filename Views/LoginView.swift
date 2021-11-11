@@ -31,18 +31,17 @@ struct LoginView: View {
     
     fileprivate func emailTextField() -> some View {
         return HStack {
-            Image(systemName: "envelope")
-                .foregroundColor(.white)
+//            Image(systemName: "envelope")
+//                .foregroundColor(.white)
             
-            TextField("E-Mail", text: $username)
+            TextField("이메일 주소", text: $username)
                 .padding()
                 .frame(width: 230, height: 40)
                 .disableAutocorrection(true)
                 .keyboardType(.emailAddress)
                 .autocapitalization(.none)
                 .background(Color.white
-                                .opacity(0.5)
-                                .cornerRadius(10))
+                                .cornerRadius(20))
         }
         .padding(.top, 10)
         .padding(.bottom, 10)
@@ -50,14 +49,14 @@ struct LoginView: View {
     
     fileprivate func passwordTextField() -> some View {
         return HStack {
-            Image(systemName: "lock")
-                .foregroundColor(.white)
-            SecureField("Password", text: $password)
+//            Image(systemName: "lock")
+//                .foregroundColor(.white)
+            SecureField("비밀번호", text: $password)
                 .padding()
                 .frame(width: 230, height: 40)
                 .background(Color.white
                                 .opacity(0.5)
-                                .cornerRadius(10))
+                                .cornerRadius(20))
         }
         .padding(.top, 10)
         .padding(.bottom, 50)
@@ -83,7 +82,7 @@ struct LoginView: View {
     }
     
     fileprivate func forgotButton() -> some View {
-        return NavigationLink(destination: ForgotView()) { Text("Forgot Pass?")
+        return NavigationLink(destination: ForgotView()) { Text("비밀번호 찾기")
                 .font(.subheadline)
                 .foregroundColor(.white)
                 .fontWeight(.heavy)
