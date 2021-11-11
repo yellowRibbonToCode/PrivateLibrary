@@ -46,6 +46,8 @@ struct ProfileScene: View { // View
                             .frame(width: 20)
                         signoutButton()
                     }
+                    NavigationLink("주소 정보 등록", destination: LocationRegistration())
+                        
                 }
             }
             .padding()

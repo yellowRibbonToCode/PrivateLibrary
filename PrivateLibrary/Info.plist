@@ -2,8 +2,14 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>JUSO_API_KEY</key>
+	<string>$(JUSO_API_KEY)</string>
+	<key>KM_REST_KEY</key>
+	<string>$(KM_REST_KEY)</string>
 	<key>NSCameraUsageDescription</key>
 	<string>we need the camera permission</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>앱이 사용중일때만 허용</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
