@@ -31,62 +31,70 @@ struct LoginView: View {
     
     fileprivate func emailTextField() -> some View {
         return HStack {
-            Image(systemName: "envelope")
-                .foregroundColor(.white)
+//            Image(systemName: "envelope")
+//                .foregroundColor(.white)
             
-            TextField("E-Mail", text: $username)
+            TextField("이메일 주소", text: $username)
                 .padding()
-                .frame(width: 230, height: 40)
+                .frame(width: 250, height: 35)
                 .disableAutocorrection(true)
                 .keyboardType(.emailAddress)
                 .autocapitalization(.none)
-                .background(Color.white
-                                .opacity(0.5)
-                                .cornerRadius(10))
+                .cornerRadius(20)
+                .overlay(
+                        RoundedRectangle(cornerRadius: 20)
+                            .stroke(Color.mainBlue, lineWidth: 1)
+                    )
         }
-        .padding(.top, 10)
-        .padding(.bottom, 10)
+//        .padding(.top, 10)
+//        .padding(.bottom, 10)
     }
     
     fileprivate func passwordTextField() -> some View {
         return HStack {
-            Image(systemName: "lock")
-                .foregroundColor(.white)
-            SecureField("Password", text: $password)
+//            Image(systemName: "lock")
+//                .foregroundColor(.white)
+            SecureField("비밀번호", text: $password)
                 .padding()
-                .frame(width: 230, height: 40)
-                .background(Color.white
-                                .opacity(0.5)
-                                .cornerRadius(10))
+                .frame(width: 250, height: 35)
+                .cornerRadius(20)
+                .overlay(
+                        RoundedRectangle(cornerRadius: 20)
+                            .stroke(Color.mainBlue, lineWidth: 1)
+                    )
         }
-        .padding(.top, 10)
-        .padding(.bottom, 50)
+        .padding(.top, 15)
+//        .padding(.bottom, 50)
     }
     
     fileprivate func loginButton() -> some View {
         return Button(action: {login()}) {
-            Text("Login")
-                .font(.headline)
-                .fontWeight(.heavy)
-                .foregroundColor(.white)
+            Text("로그인")
                 .padding()
+                .frame(width: 250, height: 35)
+                .background(Color.mainBlue)
+                .cornerRadius(20)
+                .foregroundColor(.white)
         }
     }
     
     fileprivate func registerButton() -> some View {
-        return NavigationLink(destination: RegistrationView()) { Text("Register")
-                .font(.headline)
-                .foregroundColor(.white)
-                .fontWeight(.heavy)
+        return NavigationLink(destination: RegistrationView()) { Text("회원가입")
                 .padding()
+                .frame(width: 250, height: 35)
+                .background(Color.mainBlue)
+                .cornerRadius(20)
+                .foregroundColor(.white)
+                .padding(.top, 15)
         }
     }
     
     fileprivate func forgotButton() -> some View {
-        return NavigationLink(destination: ForgotView()) { Text("Forgot Pass?")
-                .font(.subheadline)
-                .foregroundColor(.white)
-                .fontWeight(.heavy)
+        return NavigationLink(destination: ForgotView()) { Text("비밀번호 찾기")
+                .font(.headline)
+                .foregroundColor(.mainBlue)
+                .fontWeight(.medium)
+                .padding(.bottom,40)
         }
     }
     
@@ -97,30 +105,30 @@ struct LoginView: View {
         }
         else{
             NavigationView {
-                ZStack {
-                    Image("books-bg")
-                        .grayscale(0.5)
-                        .blur(radius: 8)
                     VStack (alignment: .center){
+                        Image("lodingIcon")
+                            .resizable()
+                            .frame(width: 400, height: 170, alignment: .center)
                         VStack {
                             emailTextField()
                             passwordTextField()
                             HStack {
-                                Spacer()
-                                    .frame(width: 140)
+                                Spacer(minLength: 230)
                                 forgotButton()
-                                    .offset(x: 0, y: -40)
+                                Spacer()
                             }
                             
                             loginButton()
+//                                .padding(.bottom,10)
                             registerButton()
                             Text(loginError ?? " ")
                                 .font(.footnote)
                                 .foregroundColor(.red)
                                 .multilineTextAlignment(.center)
                         }
+                        .padding(.bottom,140)
                     }
-                }
+                
             }
         }
     }
