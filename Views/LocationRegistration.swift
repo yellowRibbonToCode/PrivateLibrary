@@ -86,7 +86,7 @@ class SearchJusoViewModel: ObservableObject {
     }
     
 }
-struct SearchBar: View {
+struct JusoSearchBar: View {
     @Binding var dongName : String
     @Binding var searching : Bool
     @ObservedObject var searchViewModel : SearchJusoViewModel
@@ -190,7 +190,7 @@ struct LocationRegistration: View {
     var body: some View {
 //        NavigationView{
             VStack {
-                SearchBar(dongName: $roadAddr, searching: $searching, searchViewModel: searchJusoViewModel)
+                JusoSearchBar(dongName: $roadAddr, searching: $searching, searchViewModel: searchJusoViewModel)
                     .onTapGesture {
                         select = false
                     }

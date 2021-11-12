@@ -52,6 +52,13 @@
 		73C09B402725279D0048BC85 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C09B3F2725279D0048BC85 /* DetailView.swift */; };
 		73C09B4927252F980048BC85 /* ModelData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C09B4827252F980048BC85 /* ModelData.swift */; };
 		73D6A396272D7C9300C6585B /* DBTestList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D6A395272D7C9300C6585B /* DBTestList.swift */; };
+		73FF48F4273E92E700170DD0 /* TempSecondTap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73FF48F0273E92E700170DD0 /* TempSecondTap.swift */; };
+		73FF48F5273E92E700170DD0 /* LocationRegistration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73FF48F1273E92E700170DD0 /* LocationRegistration.swift */; };
+		73FF48F6273E92E700170DD0 /* NeighborGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73FF48F2273E92E700170DD0 /* NeighborGridView.swift */; };
+		73FF48F7273E92E700170DD0 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73FF48F3273E92E700170DD0 /* LocationManager.swift */; };
+		73FF48F9273E930700170DD0 /* JusoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73FF48F8273E930700170DD0 /* JusoModel.swift */; };
+		73FF48FC273E938A00170DD0 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 73FF48FB273E938A00170DD0 /* Alamofire */; };
+		73FF48FE273E943200170DD0 /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 73FF48FD273E943200170DD0 /* Secrets.xcconfig */; };
 		8AA55D9E273402BE00F3F8AA /* ImagePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA55D9D273402BE00F3F8AA /* ImagePickerView.swift */; };
 		8AE86A442733A66D00BE14DD /* ProfileScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE86A432733A66D00BE14DD /* ProfileScene.swift */; };
 		8AE86A462733A68800BE14DD /* CircleImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE86A452733A68800BE14DD /* CircleImageView.swift */; };
@@ -97,6 +104,12 @@
 		73C09B3F2725279D0048BC85 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		73C09B4827252F980048BC85 /* ModelData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelData.swift; sourceTree = "<group>"; };
 		73D6A395272D7C9300C6585B /* DBTestList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBTestList.swift; sourceTree = "<group>"; };
+		73FF48F0273E92E700170DD0 /* TempSecondTap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TempSecondTap.swift; sourceTree = "<group>"; };
+		73FF48F1273E92E700170DD0 /* LocationRegistration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationRegistration.swift; sourceTree = "<group>"; };
+		73FF48F2273E92E700170DD0 /* NeighborGridView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NeighborGridView.swift; sourceTree = "<group>"; };
+		73FF48F3273E92E700170DD0 /* LocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		73FF48F8273E930700170DD0 /* JusoModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JusoModel.swift; sourceTree = "<group>"; };
+		73FF48FD273E943200170DD0 /* Secrets.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
 		8AA55D9D273402BE00F3F8AA /* ImagePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerView.swift; sourceTree = "<group>"; };
 		8AE86A432733A66D00BE14DD /* ProfileScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScene.swift; sourceTree = "<group>"; };
 		8AE86A452733A68800BE14DD /* CircleImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleImageView.swift; sourceTree = "<group>"; };
@@ -126,6 +139,7 @@
 				737EBDB4272A865D00C4513D /* FirebaseDatabase in Frameworks */,
 				7322C081272A929300D426F7 /* Resolver in Frameworks */,
 				737EBDAE272A865D00C4513D /* FirebaseAnalytics in Frameworks */,
+				73FF48FC273E938A00170DD0 /* Alamofire in Frameworks */,
 				737EBDC6272A865D00C4513D /* FirebaseRemoteConfig in Frameworks */,
 				737EBDC8272A865D00C4513D /* FirebaseStorage in Frameworks */,
 				737EBDC2272A865D00C4513D /* FirebaseMessaging in Frameworks */,
@@ -150,6 +164,7 @@
 				73C09B4827252F980048BC85 /* ModelData.swift */,
 				73B6F014272679C600446F4B /* ViewModel.swift */,
 				737EBDA82729565400C4513D /* UserModel.swift */,
+				73FF48F8273E930700170DD0 /* JusoModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -189,6 +204,7 @@
 		73BFFFC227214EAE00375684 /* PrivateLibrary */ = {
 			isa = PBXGroup;
 			children = (
+				73FF48FD273E943200170DD0 /* Secrets.xcconfig */,
 				737EBDCF272A8DBA00C4513D /* PrivateLibrary.entitlements */,
 				73BFFFC327214EAE00375684 /* AppDelegate.swift */,
 				73BFFFC527214EAE00375684 /* SceneDelegate.swift */,
@@ -221,6 +237,10 @@
 				735B8DDD2733B7C300C9D079 /* AddBookInfoButton.swift */,
 				731FE1582727D9ED0013311D /* ImageHView.swift */,
 				8AE86A432733A66D00BE14DD /* ProfileScene.swift */,
+				73FF48F3273E92E700170DD0 /* LocationManager.swift */,
+				73FF48F1273E92E700170DD0 /* LocationRegistration.swift */,
+				73FF48F2273E92E700170DD0 /* NeighborGridView.swift */,
+				73FF48F0273E92E700170DD0 /* TempSecondTap.swift */,
 				731FE1592727D9ED0013311D /* ImageRow.swift */,
 				73C09B3C2725250A0048BC85 /* MapView.swift */,
 				732B94BD2726C379005A7416 /* LoginView.swift */,
@@ -281,6 +301,7 @@
 				737EBDC7272A865D00C4513D /* FirebaseStorage */,
 				737EBDC9272A865D00C4513D /* FirebaseStorageSwift-Beta */,
 				7322C080272A929300D426F7 /* Resolver */,
+				73FF48FB273E938A00170DD0 /* Alamofire */,
 			);
 			productName = PrivateLibrary;
 			productReference = 73BFFFC027214EAE00375684 /* PrivateLibrary.app */;
@@ -312,6 +333,7 @@
 			packageReferences = (
 				737EBDAC272A865D00C4513D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				7322C07F272A929300D426F7 /* XCRemoteSwiftPackageReference "Resolver" */,
+				73FF48FA273E938900170DD0 /* XCRemoteSwiftPackageReference "Alamofire" */,
 			);
 			productRefGroup = 73BFFFC127214EAE00375684 /* Products */;
 			projectDirPath = "";
@@ -327,6 +349,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				73FF48FE273E943200170DD0 /* Secrets.xcconfig in Resources */,
 				73BFFFD327214EAF00375684 /* LaunchScreen.storyboard in Resources */,
 				73BFFFD027214EAF00375684 /* Preview Assets.xcassets in Resources */,
 				732BF58E27267CC800DC18E3 /* libData.json in Resources */,
@@ -343,6 +366,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				73FF48F6273E92E700170DD0 /* NeighborGridView.swift in Sources */,
 				8AE86A482733A6B200BE14DD /* EditView.swift in Sources */,
 				8AE86A462733A68800BE14DD /* CircleImageView.swift in Sources */,
 				EEB25E36273B9554003DC29A /* StackCarousel.swift in Sources */,
@@ -352,12 +376,15 @@
 				731FE15A2727D9ED0013311D /* ImageGridView.swift in Sources */,
 				731FE15B2727D9ED0013311D /* HomeView.swift in Sources */,
 				731FE15C2727D9ED0013311D /* ImageHView.swift in Sources */,
+				73FF48F4273E92E700170DD0 /* TempSecondTap.swift in Sources */,
 				739EE4A0272BD6870041C35C /* NavigationBarGestureControl.swift in Sources */,
+				73FF48F5273E92E700170DD0 /* LocationRegistration.swift in Sources */,
 				731FE15D2727D9ED0013311D /* ImageRow.swift in Sources */,
 				EE5DBA70273AA7AA002FA450 /* SearchView.swift in Sources */,
 				73BC055A27227DE90092B483 /* Color.swift in Sources */,
 				EEDCBFC42730313A0018B032 /* AddBookInfoView.swift in Sources */,
 				EE5DBA72273AA7E3002FA450 /* SnapCarousel.swift in Sources */,
+				73FF48F9273E930700170DD0 /* JusoModel.swift in Sources */,
 				73BFFFC427214EAE00375684 /* AppDelegate.swift in Sources */,
 				73C09B4927252F980048BC85 /* ModelData.swift in Sources */,
 				73B6F015272679C600446F4B /* ViewModel.swift in Sources */,
@@ -376,6 +403,7 @@
 				732B94BE2726C379005A7416 /* LoginView.swift in Sources */,
 				73569EB8272FA59D00A72153 /* Testinputphoto.swift in Sources */,
 				EE9B91D4272D2E7B005BCFA5 /* ForgotView.swift in Sources */,
+				73FF48F7273E92E700170DD0 /* LocationManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -511,6 +539,7 @@
 		};
 		73BFFFD827214EAF00375684 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 73FF48FD273E943200170DD0 /* Secrets.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -532,6 +561,7 @@
 		};
 		73BFFFD927214EAF00375684 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 73FF48FD273E943200170DD0 /* Secrets.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -589,6 +619,14 @@
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 8.0.0;
+			};
+		};
+		73FF48FA273E938900170DD0 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -673,6 +711,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 737EBDAC272A865D00C4513D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = "FirebaseStorageSwift-Beta";
+		};
+		73FF48FB273E938A00170DD0 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 73FF48FA273E938900170DD0 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
 		};
 /* End XCSwiftPackageProductDependency section */
 
