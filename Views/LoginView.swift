@@ -34,7 +34,7 @@ struct LoginView: View {
 //            Image(systemName: "envelope")
 //                .foregroundColor(.white)
             
-            TextField("이메일 주소", text: $username)
+            TextField("email", text: $username)
                 .padding()
                 .frame(width: 250, height: 35)
                 .disableAutocorrection(true)
@@ -54,7 +54,7 @@ struct LoginView: View {
         return HStack {
 //            Image(systemName: "lock")
 //                .foregroundColor(.white)
-            SecureField("비밀번호", text: $password)
+            SecureField("password", text: $password)
                 .padding()
                 .frame(width: 250, height: 35)
                 .cornerRadius(20)
@@ -69,7 +69,7 @@ struct LoginView: View {
     
     fileprivate func loginButton() -> some View {
         return Button(action: {login()}) {
-            Text("로그인")
+            Text("login")
                 .padding()
                 .frame(width: 250, height: 35)
                 .background(Color.mainBlue)
@@ -79,7 +79,7 @@ struct LoginView: View {
     }
     
     fileprivate func registerButton() -> some View {
-        return NavigationLink(destination: RegistrationView()) { Text("회원가입")
+        return NavigationLink(destination: RegistrationView()) { Text("resister")
                 .padding()
                 .frame(width: 250, height: 35)
                 .background(Color.mainBlue)
@@ -90,7 +90,7 @@ struct LoginView: View {
     }
     
     fileprivate func forgotButton() -> some View {
-        return NavigationLink(destination: ForgotView()) { Text("비밀번호 찾기")
+        return NavigationLink(destination: ForgotView()) { Text("        forgot")
                 .font(.headline)
                 .foregroundColor(.mainBlue)
                 .fontWeight(.medium)
