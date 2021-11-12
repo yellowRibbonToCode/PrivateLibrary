@@ -93,7 +93,7 @@ struct ImageGridView: View {
                     searchViewModel.makeList()
                 }
                 .padding(.top, -50)
-                
+                  
                 LazyVGrid(columns: columns) {
                     ForEach ( searchViewModel.bookModels.sorted { $0.created!.compare($1.created!) == .orderedDescending} ) {
                         Model in
