@@ -19,19 +19,23 @@ struct SearchBar: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0){
-            Text("Search View")
-                .font(.system(size: 40, weight: .heavy, design: .serif))
-                .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 0))
             HStack {
-                TextField("Search ...", text: $txt)
+                Text("Search")
+                    .font(.system(size: 34, weight: .bold))
+                .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 0))
+            }
+//            #7676801F
+            HStack {
+                TextField("Search", text: $txt)
                     .padding(7)
-                    .padding(.horizontal, 25)
-                    .background(Color(.systemGray6))
+                    .padding(.horizontal, 25.0)
+                    .background(Color(red: 0.463, green: 0.463, blue: 0.502, opacity: 0.12))
+                    .foregroundColor(Color(red: 0.235, green: 0.235, blue: 0.263, opacity: 0.6))
                     .cornerRadius(8)
                     .overlay(
                         HStack {
                             Image(systemName: "magnifyingglass")
-                                .foregroundColor(.gray)
+                                .foregroundColor(Color(red: 0.235, green: 0.235, blue: 0.263, opacity: 0.6))
                                 .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
                                 .padding(.leading, 8)
                             
@@ -40,7 +44,7 @@ struct SearchBar: View {
                                     self.txt = ""
                                 }) {
                                     Image(systemName: "multiply.circle.fill")
-                                        .foregroundColor(.gray)
+                                        .foregroundColor(Color(red: 0.235, green: 0.235, blue: 0.263, opacity: 0.6))
                                         .padding(.trailing, 8)
                                 }
                             }
@@ -109,8 +113,8 @@ struct SearchView: View {
                 else {
                     VStack(alignment: .leading) {
                         HStack {
-                            Text("Best Book")
-                                .font(.system(size: 25, weight: .heavy, design: .serif))
+                            Text("Neighbor Books")
+                                .font(.system(size: 26, weight: .bold))
                                 .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 0))
                         }
                         HStack(spacing: 10) {
@@ -124,7 +128,7 @@ struct SearchView: View {
                     VStack(alignment: .leading) {
                         HStack {
                             Text("New Book")
-                                .font(.system(size: 25, weight: .heavy, design: .serif))
+                                .font(.system(size: 26, weight: .bold))
                                 .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 0))
                         }
                         HStack(spacing: 10) {
