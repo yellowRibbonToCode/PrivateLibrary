@@ -55,8 +55,11 @@
 	<true/>
 	<key>UILaunchScreen</key>
 	<dict>
+<<<<<<< HEAD
 		<key>UIImageRespectsSafeAreaInsets</key>
 		<false/>
+=======
+>>>>>>> main
 		<key>UIImageName</key>
 		<string>lanchImage</string>
 	</dict>

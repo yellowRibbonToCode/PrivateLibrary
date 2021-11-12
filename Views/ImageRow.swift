@@ -89,7 +89,8 @@ struct ImageRow_Previews: PreviewProvider {
                                      price: 35000,
                                      exchange: false,
                                      sell: false,
-                                     image: Image("rainbowlake")))
+                                     image: Image("rainbowlake"),
+                                    index: 0))
         //        .previewLayout(.fixed(width: 300, height: 300))
     }
 }

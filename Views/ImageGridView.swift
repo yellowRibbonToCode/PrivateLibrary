@@ -24,6 +24,7 @@ class SearchViewModel: ObservableObject {
             else {
                 guard let books = books?.documents else { return }
                 self.bookModels = [ViewModel]()
+                var ind: Int = 0
                 for book in books {
                     //                        print(book.get("userid") ?? "no userid")
                     //                        print(book.get("username") ?? "no username")
@@ -58,7 +59,9 @@ class SearchViewModel: ObservableObject {
                                                                  price: book.get("price") as? Int,
                                                                  exchange: book.get("exchange") as! Bool,
                                                                  sell: book.get("sell") as! Bool,
-                                                                 image: Image(RandBookImage(rawValue: randInt)!.toString())))
+                                                                 image: Image(RandBookImage(rawValue: randInt)!.toString()),
+                                                                index: ind))
+                                ind += 1
                                 }
 //                            } else {
 //                                if let imageData = imageData {
