@@ -92,7 +92,7 @@
 		73B6F014272679C600446F4B /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		73BA894C27281D4400597308 /* RegistrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationView.swift; sourceTree = "<group>"; };
 		73BC055927227DE90092B483 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
-		73BFFFC027214EAE00375684 /* PrivateLibrary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PrivateLibrary.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		73BFFFC027214EAE00375684 /* 동네북.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "동네북.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		73BFFFC327214EAE00375684 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		73BFFFC527214EAE00375684 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		73BFFFCA27214EAE00375684 /* PrivateLibrary.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PrivateLibrary.xcdatamodel; sourceTree = "<group>"; };
@@ -196,7 +196,7 @@
 		73BFFFC127214EAE00375684 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				73BFFFC027214EAE00375684 /* PrivateLibrary.app */,
+				73BFFFC027214EAE00375684 /* 동네북.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -271,9 +271,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		73BFFFBF27214EAE00375684 /* PrivateLibrary */ = {
+		73BFFFBF27214EAE00375684 /* 동네북 */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 73BFFFD727214EAF00375684 /* Build configuration list for PBXNativeTarget "PrivateLibrary" */;
+			buildConfigurationList = 73BFFFD727214EAF00375684 /* Build configuration list for PBXNativeTarget "동네북" */;
 			buildPhases = (
 				73BFFFBC27214EAE00375684 /* Sources */,
 				73BFFFBD27214EAE00375684 /* Frameworks */,
@@ -283,7 +283,7 @@
 			);
 			dependencies = (
 			);
-			name = PrivateLibrary;
+			name = "동네북";
 			packageProductDependencies = (
 				737EBDAD272A865D00C4513D /* FirebaseAnalytics */,
 				737EBDAF272A865D00C4513D /* FirebaseAnalyticsSwift-Beta */,
@@ -304,7 +304,7 @@
 				73FF48FB273E938A00170DD0 /* Alamofire */,
 			);
 			productName = PrivateLibrary;
-			productReference = 73BFFFC027214EAE00375684 /* PrivateLibrary.app */;
+			productReference = 73BFFFC027214EAE00375684 /* 동네북.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -339,7 +339,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				73BFFFBF27214EAE00375684 /* PrivateLibrary */,
+				73BFFFBF27214EAE00375684 /* 동네북 */,
 			);
 		};
 /* End PBXProject section */
@@ -546,13 +546,14 @@
 				CODE_SIGN_ENTITLEMENTS = PrivateLibrary/PrivateLibrary.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"PrivateLibrary/Preview Content\"";
+				DEVELOPMENT_TEAM = 9TH57H8UP9;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = PrivateLibrary/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = yellowRibbonToCode.PrivateLibrary;
+				PRODUCT_BUNDLE_IDENTIFIER = com.neighborbook;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -568,13 +569,14 @@
 				CODE_SIGN_ENTITLEMENTS = PrivateLibrary/PrivateLibrary.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"PrivateLibrary/Preview Content\"";
+				DEVELOPMENT_TEAM = 9TH57H8UP9;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = PrivateLibrary/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = yellowRibbonToCode.PrivateLibrary;
+				PRODUCT_BUNDLE_IDENTIFIER = com.neighborbook;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -593,7 +595,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		73BFFFD727214EAF00375684 /* Build configuration list for PBXNativeTarget "PrivateLibrary" */ = {
+		73BFFFD727214EAF00375684 /* Build configuration list for PBXNativeTarget "동네북" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				73BFFFD827214EAF00375684 /* Debug */,
