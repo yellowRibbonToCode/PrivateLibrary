@@ -55,16 +55,14 @@ struct ProfileScene: View { // View
                         showingJuso.toggle()
                     }
                     .onAppear(perform: {
-                        loadendNM()
+                        loademdNM()
                     })
 //                    .fullScreenCover(isPresented: $showingJuso, content: {
 //                        LocationRegistration()
 //                    })
                     .sheet(isPresented: $showingJuso, content: {
                         LocationRegistration(profile: $profile)
-                    })
-                       
-                        
+                    }) 
                 }
             }
             .padding()
@@ -194,7 +192,7 @@ extension ProfileScene {
             }
         }
     }
-    fileprivate func loadendNM() {
+    fileprivate func loademdNM() {
         let userInfo = users.document("\(userAuth!.uid)")
         userInfo.getDocument { (document, err) in
             if let document = document {
