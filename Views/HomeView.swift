@@ -29,7 +29,8 @@ struct HomeView: View {
                             ImageGridView()
                         }
                         else if self.index == 1{
-                            SearchView()
+//                            SearchView()
+                            TempSecondTap()
                         }
                         else{
                             ProfileScene()
