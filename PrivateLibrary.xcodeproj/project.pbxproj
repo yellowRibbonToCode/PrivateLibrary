@@ -38,6 +38,7 @@
 		737EBDCA272A865D00C4513D /* FirebaseStorageSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = 737EBDC9272A865D00C4513D /* FirebaseStorageSwift-Beta */; };
 		737EBDCC272A878300C4513D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 737EBDCB272A878300C4513D /* GoogleService-Info.plist */; };
 		739EE4A0272BD6870041C35C /* NavigationBarGestureControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 739EE49F272BD6870041C35C /* NavigationBarGestureControl.swift */; };
+		73A72C91273F3F9100845E61 /* CalcDistance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A72C90273F3F9000845E61 /* CalcDistance.swift */; };
 		73AA3568272CB90100196FA4 /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73AA3567272CB90100196FA4 /* TestView.swift */; };
 		73B6F015272679C600446F4B /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73B6F014272679C600446F4B /* ViewModel.swift */; };
 		73BA894D27281D4400597308 /* RegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73BA894C27281D4400597308 /* RegistrationView.swift */; };
@@ -88,6 +89,7 @@
 		737EBDCB272A878300C4513D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		737EBDCF272A8DBA00C4513D /* PrivateLibrary.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PrivateLibrary.entitlements; sourceTree = "<group>"; };
 		739EE49F272BD6870041C35C /* NavigationBarGestureControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarGestureControl.swift; sourceTree = "<group>"; };
+		73A72C90273F3F9000845E61 /* CalcDistance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CalcDistance.swift; path = "../../neighborbook 복사본/Views/CalcDistance.swift"; sourceTree = "<group>"; };
 		73AA3567272CB90100196FA4 /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TestView.swift; path = Views/TestView.swift; sourceTree = "<group>"; };
 		73B6F014272679C600446F4B /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		73BA894C27281D4400597308 /* RegistrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationView.swift; sourceTree = "<group>"; };
@@ -237,6 +239,7 @@
 				735B8DDD2733B7C300C9D079 /* AddBookInfoButton.swift */,
 				731FE1582727D9ED0013311D /* ImageHView.swift */,
 				8AE86A432733A66D00BE14DD /* ProfileScene.swift */,
+				73A72C90273F3F9000845E61 /* CalcDistance.swift */,
 				73FF48F3273E92E700170DD0 /* LocationManager.swift */,
 				73FF48F1273E92E700170DD0 /* LocationRegistration.swift */,
 				73FF48F2273E92E700170DD0 /* NeighborGridView.swift */,
@@ -385,6 +388,7 @@
 				EEDCBFC42730313A0018B032 /* AddBookInfoView.swift in Sources */,
 				EE5DBA72273AA7E3002FA450 /* SnapCarousel.swift in Sources */,
 				73FF48F9273E930700170DD0 /* JusoModel.swift in Sources */,
+				73A72C91273F3F9100845E61 /* CalcDistance.swift in Sources */,
 				73BFFFC427214EAE00375684 /* AppDelegate.swift in Sources */,
 				73C09B4927252F980048BC85 /* ModelData.swift in Sources */,
 				73B6F015272679C600446F4B /* ViewModel.swift in Sources */,
