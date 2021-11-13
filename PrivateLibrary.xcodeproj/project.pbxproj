@@ -68,6 +68,7 @@
 		EE5DBA72273AA7E3002FA450 /* SnapCarousel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE5DBA71273AA7E3002FA450 /* SnapCarousel.swift */; };
 		EE9B91D4272D2E7B005BCFA5 /* ForgotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE9B91D3272D2E7A005BCFA5 /* ForgotView.swift */; };
 		EEAD456B273FC50F00632C92 /* SearchDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEAD456A273FC50F00632C92 /* SearchDetailView.swift */; };
+		EEAD456D27400A3100632C92 /* TestBookmarkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEAD456C27400A3100632C92 /* TestBookmarkView.swift */; };
 		EEB25E36273B9554003DC29A /* StackCarousel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB25E35273B9554003DC29A /* StackCarousel.swift */; };
 		EEB25E38273BAD76003DC29A /* StackCarouselView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB25E37273BAD76003DC29A /* StackCarouselView.swift */; };
 		EEDCBFC42730313A0018B032 /* AddBookInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDCBFC32730313A0018B032 /* AddBookInfoView.swift */; };
@@ -121,6 +122,7 @@
 		EE5DBA71273AA7E3002FA450 /* SnapCarousel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapCarousel.swift; sourceTree = "<group>"; };
 		EE9B91D3272D2E7A005BCFA5 /* ForgotView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotView.swift; sourceTree = "<group>"; };
 		EEAD456A273FC50F00632C92 /* SearchDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDetailView.swift; sourceTree = "<group>"; };
+		EEAD456C27400A3100632C92 /* TestBookmarkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestBookmarkView.swift; sourceTree = "<group>"; };
 		EEB25E35273B9554003DC29A /* StackCarousel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackCarousel.swift; sourceTree = "<group>"; };
 		EEB25E37273BAD76003DC29A /* StackCarouselView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackCarouselView.swift; sourceTree = "<group>"; };
 		EEDCBFC32730313A0018B032 /* AddBookInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBookInfoView.swift; sourceTree = "<group>"; };
@@ -261,6 +263,7 @@
 				EEB25E35273B9554003DC29A /* StackCarousel.swift */,
 				EEB25E37273BAD76003DC29A /* StackCarouselView.swift */,
 				EEAD456A273FC50F00632C92 /* SearchDetailView.swift */,
+				EEAD456C27400A3100632C92 /* TestBookmarkView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -381,6 +384,7 @@
 				73AA3568272CB90100196FA4 /* TestView.swift in Sources */,
 				731FE15A2727D9ED0013311D /* ImageGridView.swift in Sources */,
 				731FE15B2727D9ED0013311D /* HomeView.swift in Sources */,
+				EEAD456D27400A3100632C92 /* TestBookmarkView.swift in Sources */,
 				731FE15C2727D9ED0013311D /* ImageHView.swift in Sources */,
 				73FF48F4273E92E700170DD0 /* TempSecondTap.swift in Sources */,
 				739EE4A0272BD6870041C35C /* NavigationBarGestureControl.swift in Sources */,

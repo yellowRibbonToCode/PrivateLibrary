@@ -26,7 +26,8 @@ struct HomeView: View {
              NavigationView {
                     ZStack{
                         if self.index == 0 {
-                            ImageGridView()
+//                            ImageGridView()
+                            TestBookmarkView()
                         }
                         else if self.index == 1{
 //                            SearchView()
@@ -35,9 +36,9 @@ struct HomeView: View {
                         else{
                             ProfileScene()
                         }
-                        NavigationLink(destination: AddBookInfoView(), label: {AddBookInfoButtonImage()})
-                            .padding(.leading,300)
-                            .padding(.top, 600)
+//                        NavigationLink(destination: AddBookInfoView(), label: {AddBookInfoButtonImage()})
+//                            .padding(.leading,300)
+//                            .padding(.top, 600)
                             
 //                            .padding([.bottom], 20)
 //                            .padding([.leading], 300)
