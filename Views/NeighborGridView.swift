@@ -138,6 +138,9 @@ struct NeighborGridView: View {
                 .onAppear(perform: {
                     db = Firestore.firestore()
 //                    do {
+                    Task(priority: .userInitiated) {
+                       try await searchNeighborViewModel.makeNeighborList()
+                    }
                     Task.init {
                         let _ = try await searchNeighborViewModel.makeNeighborList()
                         
