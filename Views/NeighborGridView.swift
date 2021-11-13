@@ -10,18 +10,14 @@ import Firebase
 import FirebaseFirestore
 import FirebaseAuth
 import FirebaseStorage
+import Alamofire
 
 class NeighborViewModel: ObservableObject {
-    @Published var bookModels = [ViewModel]()
-    //    @Published var bookImage = Image(systemName: "book")
     private let userid = Auth.auth().currentUser!.uid
-    private let db = Firestore.firestore()
+    
     private var userLatitude = ""
     private var userLongitude = ""
-    @Published var neighborList = [String]()
-    private var range = 100.0 // 100km
-    
-    
+    private var range = 5.0 // 5km
     
     func getUserLocation() {
         db.collection("users").document(userid).getDocument { [self] user, err in
@@ -36,16 +32,15 @@ class NeighborViewModel: ObservableObject {
         }
     }
     
-    
-    func makeNeighborList() async throws{
+    func makeNeighborList(completionHandler: @escaping (String) -> Void) {
         getUserLocation()
-        self.neighborList = []
+        db = Firestore.firestore()
         let _ = db.collection("users").getDocuments() { (querySnapshot, err) in
             if let err = err {
                 print("Error getting documents: \(err)")
             } else {
                 for document in querySnapshot!.documents {
-                    self.db.collection("users").document(document.documentID).getDocument { userData, err in
+                    db.collection("users").document(document.documentID).getDocument { userData, err in
                         if let err = err {
                             print("Error getting document: \(err)")
                         }
@@ -55,24 +50,21 @@ class NeighborViewModel: ObservableObject {
                             let distance = getDistance(latitude1: self.userLatitude, longitude1: self.userLongitude, latitude2: tempLatitude, longitude2: tempLongitude)
                             if (distance < self.range && distance > 0)
                             {
-                                print("append")
-                                self.neighborList.append(document.documentID)
-                                //                                print("documentID : \(document.documentID)")
-                                print(self.neighborList)
+                                completionHandler(document.documentID)
                             }
                         }
                     }
                 }
-                
             }
         }
         
     }
     
-    func makeNeighborBookList() {
-//        let _ = try await makeNeighborList()
-        self.bookModels = [ViewModel]()
-        for uid in self.neighborList {
+    
+    func makeNeighborBookList(completionHandler: @escaping (ViewModel) -> Void) {
+        //        self.bookModels = [ViewModel]()
+        self.makeNeighborList() {
+            uid in
             print(uid)
             db.collection("libData").whereField("userid", isEqualTo: uid).getDocuments() {
                 (books, err) in
@@ -86,29 +78,27 @@ class NeighborViewModel: ObservableObject {
                         func getImage(bookuid : String) {
                             Storage.storage().reference().child("images/books/\(bookuid)").getData(maxSize: 100 * 200 * 200) {
                                 (imageData, err) in
-                                if let err = err as NSError? {
+                                if let _ = err as NSError? {
                                     let randInt = Int.random(in: 0...10)
-                                    print(err)
-                                    self.bookModels.append(ViewModel(id: bookuid, useruid: book.get("userid") as! String ,
-                                                                     name: book.get("username") as! String,
-                                                                     email: book.get("useremail") as! String,
-                                                                     bookname: book.get("bookname") as! String,
-                                                                     author: book.get("author") as! String,
-                                                                     title: book.get("title") as! String,
-                                                                     content: book.get("content") as! String,
-                                                                     created: (book.get("created") as! Timestamp).dateValue(),
-                                                                     edited: (book.get("edited") as! Timestamp).dateValue(),
-                                                                     price: book.get("price") as? Int,
-                                                                     exchange: book.get("exchange") as! Bool,
-                                                                     sell: book.get("sell") as! Bool,
-                                                                     image: Image(RandBookImage(rawValue: randInt)!.toString())))
+                                    completionHandler(ViewModel(id: bookuid, useruid: book.get("userid") as! String ,
+                                                                name: book.get("username") as! String,
+                                                                email: book.get("useremail") as! String,
+                                                                bookname: book.get("bookname") as! String,
+                                                                author: book.get("author") as! String,
+                                                                title: book.get("title") as! String,
+                                                                content: book.get("content") as! String,
+                                                                created: (book.get("created") as! Timestamp).dateValue(),
+                                                                edited: (book.get("edited") as! Timestamp).dateValue(),
+                                                                price: book.get("price") as? Int,
+                                                                exchange: book.get("exchange") as! Bool,
+                                                                sell: book.get("sell") as! Bool,
+                                                                image: Image(RandBookImage(rawValue: randInt)!.toString())))
                                 }
                             }
                         }
                         getImage(bookuid: book.documentID)
                     }
                 }
-                print(self.bookModels)
             }
         }
     }
@@ -118,44 +108,37 @@ class NeighborViewModel: ObservableObject {
 struct NeighborGridView: View {
     let columns: [GridItem] = Array(repeating: GridItem(), count: 2)
     @ObservedObject var searchNeighborViewModel = NeighborViewModel()
+    @State var neighborBookList = [ViewModel]()
     var body: some View {
         NavigationView {
-            Text("hello")
             ScrollView(.vertical) {
                 LazyVGrid(columns: columns) {
-                    ForEach ( searchNeighborViewModel.bookModels.sorted { $0.created!.compare($1.created!) == .orderedDescending} ) {
-                        Model in
-                        NavigationLink(destination: DetailView(libModel: Model)) {
-                            ImageRow(libModel: Model)
-                                .frame(width: 200, height: 200)
-                                .padding([.top], 5)
+                    if !neighborBookList.isEmpty {
+                        ForEach ( neighborBookList.sorted { $0.created!.compare($1.created!) == .orderedDescending} ) {
+                            Model in
+                            NavigationLink(destination: DetailView(libModel: Model)) {
+                                ImageRow(libModel: Model)
+                                    .frame(width: 200, height: 200)
+                                    .padding([.top], 5)
+                            }
+                            .foregroundColor(.black)
                         }
-                        .foregroundColor(.black)
+                        .padding([.leading, .trailing], 10)
+                    }
+                    else{
+                        Text("주소 등록 필요")
                     }
                 }
-                
-                .padding([.leading, .trailing], 10)
                 .onAppear(perform: {
                     db = Firestore.firestore()
-//                    do {
-                    Task(priority: .userInitiated) {
-                       try await searchNeighborViewModel.makeNeighborList()
+                    neighborBookList = []
+                    searchNeighborViewModel.makeNeighborBookList(){
+                        Book in
+                        neighborBookList.append(Book)
                     }
-                    Task.init {
-                        let _ = try await searchNeighborViewModel.makeNeighborList()
-                        
-                    }
-                    searchNeighborViewModel.makeNeighborBookList()
-//                    }
-//                    catch {
-//                        print("error")
-//                    }
-                    //                    searchNeighborViewModel.getUserLocation()
-                    //                    searchNeighborViewModel.makeNeighborList()
                 })
-                
+                .navigationBarTitle(Text("Neighbor Books"))
             }
-            .navigationBarTitle(Text("Books"))
         }
     }
 }

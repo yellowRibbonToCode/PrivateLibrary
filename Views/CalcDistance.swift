@@ -50,5 +50,6 @@ func getDistance(latitude1: String, longitude1: String, latitude2: String, longi
     let disX = (xDo * D) + (xBun * D / 60) + (xCho * D / 60 / 60)
     let Distance = sqrt(pow(disX, 2) + pow(disY,2))
     
+//    print(Distance)
     return Distance
 }
