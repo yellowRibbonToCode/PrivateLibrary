@@ -9,25 +9,19 @@ import SwiftUI
 import Firebase
 import FirebaseAuth
 
-
-private struct LoginStatusKey: EnvironmentKey {
-    static let defaultValue: Binding<Bool> = .constant(false)
-}
-
-extension EnvironmentValues {
-    var loginStatus : Binding<Bool> {
-        get { self[LoginStatusKey.self] }
-        set { self[LoginStatusKey.self] = newValue }
-    }
+class Backend: ObservableObject {
+    @Published var user = Auth.auth().currentUser
+    let imagesRef = Storage.storage().reference().child("images")
+    let users = Firestore.firestore().collection("users")
+    let libData = Firestore.firestore().collection("libData")
+    let chatings = Firestore.firestore().collection("chatings")
 }
 
 struct LoginView: View {
     @State var username: String = ""
     @State var password: String = ""
-    @State private var loginSuccess: Bool = false
-//    @Environment(\.loginStatus) var loginSuccess: Bool
     @State var loginError: String?
-    
+    @StateObject var backend = Backend()
     
     fileprivate func emailTextField() -> some View {
         return HStack {
@@ -91,11 +85,10 @@ struct LoginView: View {
     }
     
     var body: some View {
-        if loginSuccess{
+        if let _ = self.backend.user {
             HomeView()
-                .environment(\.loginStatus, $loginSuccess)
-        }
-        else{
+                .environmentObject(self.backend)
+        } else {
             NavigationView {
                 ZStack {
                     Image("books-bg")
@@ -130,7 +123,9 @@ struct LoginView: View {
             if user != nil{
                 print("login success")
                 print(username)
-                loginSuccess = true
+                username = ""
+                password = ""
+                backend.user = Auth.auth().currentUser
             }else{
                 loginError = error?.localizedDescription
             }

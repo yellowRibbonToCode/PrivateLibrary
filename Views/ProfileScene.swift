@@ -9,26 +9,14 @@ import SwiftUI
 import Firebase
 import FirebaseFirestore
 
-struct Profile { // Model
-    var image: UIImage = UIImage(systemName: "person")!
-    var name: String = "Anonymous"
-    var email: String = "notyet@load.com"
-}
-
-struct ProfileScene: View { // View
-    //    @Environment(\.editMode) var editMode
-    
+struct ProfileScene: View {
+    @EnvironmentObject var backend : Backend
     @ObservedObject var books = BookLists()
     @State private var showingEdit = false
     @State var profile = Profile()
-    @Environment(\.loginStatus) var loging
     
     let columns: [GridItem] = Array(repeating: GridItem(), count: 2)
-    
-    private let userAuth = Auth.auth().currentUser
-    private let users = Firestore.firestore().collection("users")
-    private let storageRef = Storage.storage().reference()
-    
+ 
     var body: some View {
         ScrollView(.vertical) {
             HStack {
@@ -58,7 +46,7 @@ struct ProfileScene: View { // View
                 .foregroundColor(.black)
             }
             .onAppear(perform: {
-                books.loadBooks()
+                books.loadBooks(backend)
                 print("load books")
             })
             .padding([.leading, .trailing], 10)
@@ -68,8 +56,7 @@ struct ProfileScene: View { // View
     fileprivate func profileImage() -> some View {
         return CircleImageView(image: profile.image, width: 130 , height: 130)
             .onAppear {
-                profile.image = UIImage(named: "rainbowlake")!
-                loadProfile()
+//                loadProfile()
             }
     }
     fileprivate func profileName() -> some View {
@@ -94,14 +81,28 @@ struct ProfileScene: View { // View
         }
         .fullScreenCover(isPresented: $showingEdit, content: {
             EditView(profile: $profile)
+                .onDisappear {
+                    reloadBooks()
+                }
         })
     }
+    
+    fileprivate func reloadBooks() {
+        if (books.bookList.isEmpty || books.bookList[0].name == profile.name) {
+            return
+        }
+        for i in books.bookList.indices {
+            books.bookList[i].name = profile.name
+        }
+        print("reloaded")
+    }
+    
     fileprivate func signoutButton() -> some View {
         return Button("signout") {
             do {
                 try Auth.auth().signOut()
                 print("success log out")
-                self.loging.wrappedValue.toggle()
+                backend.user = nil
             }
             catch let signOutError as NSError {
                 print("Error signing out: %@", signOutError)
@@ -115,11 +116,10 @@ extension ProfileScene {
     class BookLists: ObservableObject {
         @Published var bookList: [ViewModel] = []
         //    private var bookImage = UIImage(systemName: "book")
-        private let userid = Auth.auth().currentUser!.uid
-        private let db = Firestore.firestore()
         
-        func loadBooks() {
-            db.collection("libData").whereField("userid", isEqualTo: userid).getDocuments() { books, err in
+        func loadBooks(_ backend: Backend) {
+            print("loadBooks")
+            backend.libData.whereField("userid", isEqualTo: backend.user!.uid).getDocuments() { books, err in
                 if let err = err {
                     print("Error getting documents: \(err)")
                 } else {
@@ -128,6 +128,7 @@ extension ProfileScene {
                         return
                     }
                     for book in books {
+                        print("somethig appended book")
                         self.bookList.append(ViewModel(
                             id: book.documentID,
                             useruid: book.get("userid") as! String,
@@ -152,26 +153,29 @@ extension ProfileScene {
 
 extension ProfileScene {
     fileprivate func loadProfile() {
-        let profileImageRef = storageRef.child("images/user_profile/\(userAuth!.uid)")
+        let profileImageRef = backend.imagesRef.child("user_profile/\(backend.user!.uid)")
         profileImageRef.getData(maxSize: Int64(1 * 1024 * 1024)) { data, err in
             if let data = data {
                 profile.image = UIImage(data: data)!
+                print("loaded profileImage")
             }
         }
     }
     fileprivate func loadName() {
-        let userInfo = users.document("\(userAuth!.uid)")
+        let userInfo = backend.users.document("\(backend.user!.uid)")
         userInfo.getDocument { (document, err) in
             if let document = document {
                 profile.name = (document.get("name") as! String)
+                print("loaded name")
             }
         }
     }
     fileprivate func loadEmail() {
-        let userInfo = users.document("\(userAuth!.uid)")
+        let userInfo = backend.users.document("\(backend.user!.uid)")
         userInfo.getDocument { (document, err) in
             if let document = document {
                 profile.email = (document.get("email") as! String)
+                print("loaded email")
             }
         }
     }

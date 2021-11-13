@@ -12,7 +12,7 @@ import FirebaseFirestore
 
 
 struct HomeView: View {
-    
+    @EnvironmentObject var backend: Backend
     @State var index = 0
     @State var addbook = false
     //    var db: Firestore!
@@ -29,11 +29,11 @@ struct HomeView: View {
                             ImageGridView()
                         }
                         else if self.index == 1{
-                            Color.orange
+                            ChatList()
                         }
-                        else if self.index == 2{
-                            Color.orange
-                        }
+//                        else if self.index == 2{
+//                            ChatList()
+//                        }
                         else{
                             ProfileScene()
                         }
@@ -151,6 +151,5 @@ struct CircleTab : View {
 //            .padding(.vertical,-10)
 //            .padding(.horizontal, 25)]
             .background(Color.white)
-            .animation(.spring())
     }
 }
