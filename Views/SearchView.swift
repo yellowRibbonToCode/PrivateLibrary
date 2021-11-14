@@ -22,9 +22,9 @@ struct SearchBar: View {
             HStack {
                 Text("Search")
                     .font(.system(size: 34, weight: .bold))
-                .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 0))
+                    .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 0))
             }
-//            #7676801F
+            //            #7676801F
             HStack {
                 TextField("Search", text: $txt)
                     .padding(7)
@@ -63,8 +63,6 @@ struct SearchBar: View {
                         Text("Cancel")
                     }
                     .padding(.trailing, 10)
-//                    .transition(.move(edge: .trailing))
-//                    .animation(.default)
                 }
             }
             if self.txt != ""{
@@ -74,14 +72,11 @@ struct SearchBar: View {
                 else{
                     ScrollView(.vertical) {
                         LazyVGrid(columns: columns) {
-                            ForEach (self.data.filter{$0.name.lowercased().contains(self.txt.lowercased())}) {
-                                i in
-                                NavigationLink(destination: DetailView(libModel: i)) {
-                                    ImageRow(libModel: i)
-                                        .frame(width: 200, height: 200)
-                                        .padding([.top], 5)
-                                }
-                                .foregroundColor(.black)
+                            ForEach (self.data.filter{$0.name.lowercased().contains(self.txt.lowercased())}) { i in
+                                SearchImageRow(libModel: i)
+                                    .frame(width: 200, height: 200)
+                                    .padding([.top], 5)
+                                    .foregroundColor(.black)
                             }
                         }
                         .padding([.leading, .trailing], 10)
@@ -118,7 +113,8 @@ struct SearchView: View {
                                 .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 0))
                         }
                         HStack(spacing: 10) {
-                            SnapCarousel(bookModels: books.bookList).environmentObject(UIStateModel())
+                            //                            SnapCarousel(bookModels: books.bookList).environmentObject(UIStateModel())
+                            Color.white
                         }
                         .onAppear(perform: {
                             books.loadBooks()
@@ -132,7 +128,8 @@ struct SearchView: View {
                                 .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 0))
                         }
                         HStack(spacing: 10) {
-                            SnapCarousel(bookModels: books.bookList).environmentObject(UIStateModel())
+                            //                            SnapCarousel(bookModels: books.bookList).environmentObject(UIStateModel())
+                            Color.white
                         }
                     }
                 }
@@ -144,11 +141,81 @@ struct SearchView: View {
     }
 }
 
+struct SearchImageRow: View {
+    var libModel: ViewModel
+    @State var show = false
+
+    var body: some View {
+        HStack(spacing: 20){
+            VStack(alignment: .leading,spacing: 12){
+                
+                Button(action: {
+                    
+                    self.show.toggle()
+                    
+                }) {
+                    
+                    if let image = libModel.image {
+                        image
+                            .resizable()
+                            .frame(width: 170, height: 200)
+                    }
+                }
+                
+                Text(libModel.bookname).fontWeight(.heavy).foregroundColor(.mainBlue)
+                
+                HStack(spacing: 5){
+                    
+                    Image(systemName: "person")
+                    Text(libModel.name).foregroundColor(.gray)
+                }
+            }
+        }
+        .sheet(isPresented: $show) {
+            SearchDetailView(libModel: libModel)
+        }
+        
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 extension SearchView {
     class BookLists: ObservableObject {
         @Published var bookList: [ViewModel] = []
         //    private var bookImage = UIImage(systemName: "book")
-        private let userid = Auth.auth().currentUser!.uid
+        //        private let userid = Auth.auth().currentUser!.uid
         private let db = Firestore.firestore()
         //        @State var index: Int = 0
         
