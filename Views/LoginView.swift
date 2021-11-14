@@ -106,9 +106,8 @@ struct LoginView: View {
         else{
             NavigationView {
                     VStack (alignment: .center){
-                        Image("lodingIcon")
-                            .resizable()
-                            .frame(width: 400, height: 170, alignment: .center)
+                        Image("loginIcon")
+                            .padding()
                         VStack {
                             emailTextField()
                             passwordTextField()

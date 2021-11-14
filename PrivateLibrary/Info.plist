@@ -55,8 +55,10 @@
 	<true/>
 	<key>UILaunchScreen</key>
 	<dict>
+		<key>UIColorName</key>
+		<string>lodingColor</string>
 		<key>UIImageName</key>
-		<string>lanchImage</string>
+		<string>lodingIcon</string>
 		<key>UIImageRespectsSafeAreaInsets</key>
 		<false/>
 	</dict>
