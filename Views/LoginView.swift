@@ -34,7 +34,7 @@ struct LoginView: View {
 //            Image(systemName: "envelope")
 //                .foregroundColor(.white)
             
-            TextField("email", text: $username)
+            TextField("이메일 주소", text: $username)
                 .padding()
                 .frame(width: 250, height: 35)
                 .disableAutocorrection(true)
@@ -54,7 +54,7 @@ struct LoginView: View {
         return HStack {
 //            Image(systemName: "lock")
 //                .foregroundColor(.white)
-            SecureField("password", text: $password)
+            SecureField("비밀번호", text: $password)
                 .padding()
                 .frame(width: 250, height: 35)
                 .cornerRadius(20)
@@ -69,7 +69,7 @@ struct LoginView: View {
     
     fileprivate func loginButton() -> some View {
         return Button(action: {login()}) {
-            Text("login")
+            Text("로그인")
                 .padding()
                 .frame(width: 250, height: 35)
                 .background(Color.mainBlue)
@@ -79,7 +79,7 @@ struct LoginView: View {
     }
     
     fileprivate func registerButton() -> some View {
-        return NavigationLink(destination: RegistrationView()) { Text("resister")
+        return NavigationLink(destination: RegistrationView()) { Text("회원가입")
                 .padding()
                 .frame(width: 250, height: 35)
                 .background(Color.mainBlue)
@@ -90,7 +90,7 @@ struct LoginView: View {
     }
     
     fileprivate func forgotButton() -> some View {
-        return NavigationLink(destination: ForgotView()) { Text("        forgot")
+        return NavigationLink(destination: ForgotView()) { Text("비밀번호 찾기")
                 .font(.headline)
                 .foregroundColor(.mainBlue)
                 .fontWeight(.medium)
@@ -113,13 +113,11 @@ struct LoginView: View {
                             emailTextField()
                             passwordTextField()
                             HStack {
-                                Spacer(minLength: 230)
-                                forgotButton()
                                 Spacer()
+                                forgotButton()
                             }
-                            
+                            .frame(width: 250)
                             loginButton()
-//                                .padding(.bottom,10)
                             registerButton()
                             Text(loginError ?? " ")
                                 .font(.footnote)
@@ -130,18 +128,31 @@ struct LoginView: View {
                     }
                 
             }
+            .onAppear {
+                autoLogin()
+                self.username = ""
+                self.password = ""
+            }
         }
     }
     
     func login(){
         Auth.auth().signIn(withEmail: self.username, password: self.password) { (user, error) in
             if user != nil{
-                print("login success")
-                print(username)
+                UserDefaults.standard.set(self.username, forKey: "id")
+                UserDefaults.standard.set(self.password, forKey: "password")
                 loginSuccess = true
             }else{
                 loginError = error?.localizedDescription
             }
+        }
+    }
+    
+    func autoLogin() {
+        if let userid = UserDefaults.standard.string(forKey: "id"){
+            self.username = userid
+            self.password = UserDefaults.standard.string(forKey: "password")!
+            login()
         }
     }
 }

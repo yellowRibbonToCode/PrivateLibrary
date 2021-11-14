@@ -118,6 +118,8 @@ struct ProfileScene: View { // View
             do {
                 try Auth.auth().signOut()
                 print("success log out")
+                UserDefaults.standard.removeObject(forKey: "id")
+                UserDefaults.standard.removeObject(forKey: "password")
                 self.loging.wrappedValue.toggle()
             }
             catch let signOutError as NSError {
