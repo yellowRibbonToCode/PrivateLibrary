@@ -89,7 +89,7 @@ struct RegistrationView: View {
     
     fileprivate func registerButton() -> some View {
         return Button(action: {signUp()}) {
-            Text("Register")
+            Text("회원가입")
                 .font(.headline)
                 .foregroundColor(.white)
                 .fontWeight(.heavy)
