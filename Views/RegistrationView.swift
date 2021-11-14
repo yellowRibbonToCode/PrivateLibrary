@@ -13,6 +13,7 @@ import FirebaseFirestore
 struct RegistrationView: View {
     @State var email: String = ""
     @State var password: String = ""
+    @State var passwordConfirm: String = ""
     @State var username: String = ""
     @State var registerError: String?
     @State var registerSuccess: Bool = false
@@ -23,7 +24,7 @@ struct RegistrationView: View {
             Image(systemName: "envelope")
                 .foregroundColor(.white)
             
-            TextField("E-Mail", text: $email)
+            TextField("이메일 주소", text: $email)
                 .padding()
                 .frame(width: 230, height: 40)
                 .disableAutocorrection(true)
@@ -42,7 +43,7 @@ struct RegistrationView: View {
             Image(systemName: "person.crop.circle")
                 .foregroundColor(.white)
             
-            TextField("Username", text: $username)
+            TextField("이름", text: $username)
                 .padding()
                 .frame(width: 230, height: 40)
                 .disableAutocorrection(true)
@@ -60,7 +61,22 @@ struct RegistrationView: View {
         return HStack {
             Image(systemName: "lock")
                 .foregroundColor(.white)
-            SecureField("Password", text: $password)
+            SecureField("비밀번호", text: $password)
+                .padding()
+                .frame(width: 230, height: 40)
+                .background(Color.white
+                                .opacity(0.5)
+                                .cornerRadius(10))
+        }
+        .padding(.top, 10)
+        .padding(.bottom, 20)
+    }
+    
+    fileprivate func passwordConfirmTextField() -> some View {
+        return HStack {
+            Image(systemName: "lock.fill")
+                .foregroundColor(.white)
+            SecureField("비밀번호 확인", text: $passwordConfirm)
                 .padding()
                 .frame(width: 230, height: 40)
                 .background(Color.white
@@ -73,7 +89,7 @@ struct RegistrationView: View {
     
     fileprivate func registerButton() -> some View {
         return Button(action: {signUp()}) {
-            Text("Register")
+            Text("회원가입")
                 .font(.headline)
                 .foregroundColor(.white)
                 .fontWeight(.heavy)
@@ -103,6 +119,7 @@ struct RegistrationView: View {
                     emailTextField()
                     usernameTextField()
                     passwordTextField()
+                    passwordConfirmTextField()
                     registerButton()
                     
                     Text(registerError ?? " ")
@@ -123,7 +140,7 @@ struct RegistrationView: View {
     
     //
     private func addUsername() {
-//        var ref: DocumentReference? = nil
+        //        var ref: DocumentReference? = nil
         var db: Firestore!
         
         db = Firestore.firestore()
@@ -136,32 +153,26 @@ struct RegistrationView: View {
         } catch let error {
             print("Error writing username to Firestore: \(error)")
         }
-//        ref = db.collection("libData").addDocument(data: [
-//            "email": email,
-//            "name": username
-//        ]) { err in
-//            if let err = err {
-//                print("Error adding document: \(err)")
-//            } else {
-//                print("Document added with ID: \(ref!.documentID)")
-//            }
-//        }
-        // [END add_alan_turing]
     }
     
     func signUp(){
-        Auth.auth().createUser(withEmail: self.email, password: self.password) { (user, error) in
-            if(user != nil){
-//                print("register successs")
-                print(email)
-//                print(user?.user.uid)
-                uid = user?.user.uid ?? " "
-                addUsername()
-                registerSuccess = true
-            }else{
-                registerError = error?.localizedDescription
-                print("register failed")
+        if password == passwordConfirm {
+            Auth.auth().createUser(withEmail: self.email, password: self.password) { (user, error) in
+                if(user != nil){
+                    //                print("register successs")
+                    print(email)
+                    //                print(user?.user.uid)
+                    uid = user?.user.uid ?? " "
+                    addUsername()
+                    registerSuccess = true
+                }else{
+                    registerError = error?.localizedDescription
+                    print("register failed")
+                }
             }
+        }
+        else {
+            registerError = "비밀번호가 일치하지 않습니다."
         }
     }
 }
