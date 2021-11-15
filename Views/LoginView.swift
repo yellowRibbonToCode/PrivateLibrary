@@ -9,102 +9,113 @@ import SwiftUI
 import Firebase
 import FirebaseAuth
 
-class Backend: ObservableObject {
-    @Published var user = Auth.auth().currentUser
-    let imagesRef = Storage.storage().reference().child("images")
-    let users = Firestore.firestore().collection("users")
-    let libData = Firestore.firestore().collection("libData")
-    let chatings = Firestore.firestore().collection("chatings")
+
+private struct LoginStatusKey: EnvironmentKey {
+    static let defaultValue: Binding<Bool> = .constant(false)
+}
+
+extension EnvironmentValues {
+    var loginStatus : Binding<Bool> {
+        get { self[LoginStatusKey.self] }
+        set { self[LoginStatusKey.self] = newValue }
+    }
 }
 
 struct LoginView: View {
     @State var username: String = ""
     @State var password: String = ""
+    @State private var loginSuccess: Bool = false
+//    @Environment(\.loginStatus) var loginSuccess: Bool
     @State var loginError: String?
-    @StateObject var backend = Backend()
+    
     
     fileprivate func emailTextField() -> some View {
         return HStack {
-            Image(systemName: "envelope")
-                .foregroundColor(.white)
+//            Image(systemName: "envelope")
+//                .foregroundColor(.white)
             
-            TextField("E-Mail", text: $username)
+            TextField("이메일 주소", text: $username)
                 .padding()
-                .frame(width: 230, height: 40)
+                .frame(width: 250, height: 35)
                 .disableAutocorrection(true)
                 .keyboardType(.emailAddress)
                 .autocapitalization(.none)
-                .background(Color.white
-                                .opacity(0.5)
-                                .cornerRadius(10))
+                .cornerRadius(20)
+                .overlay(
+                        RoundedRectangle(cornerRadius: 20)
+                            .stroke(Color.mainBlue, lineWidth: 1)
+                    )
         }
-        .padding(.top, 10)
-        .padding(.bottom, 10)
+//        .padding(.top, 10)
+//        .padding(.bottom, 10)
     }
     
     fileprivate func passwordTextField() -> some View {
         return HStack {
-            Image(systemName: "lock")
-                .foregroundColor(.white)
-            SecureField("Password", text: $password)
+//            Image(systemName: "lock")
+//                .foregroundColor(.white)
+            SecureField("비밀번호", text: $password)
                 .padding()
-                .frame(width: 230, height: 40)
-                .background(Color.white
-                                .opacity(0.5)
-                                .cornerRadius(10))
+                .frame(width: 250, height: 35)
+                .cornerRadius(20)
+                .overlay(
+                        RoundedRectangle(cornerRadius: 20)
+                            .stroke(Color.mainBlue, lineWidth: 1)
+                    )
         }
-        .padding(.top, 10)
-        .padding(.bottom, 50)
+        .padding(.top, 15)
+//        .padding(.bottom, 50)
     }
     
     fileprivate func loginButton() -> some View {
         return Button(action: {login()}) {
-            Text("Login")
-                .font(.headline)
-                .fontWeight(.heavy)
-                .foregroundColor(.white)
+            Text("로그인")
                 .padding()
+                .frame(width: 250, height: 35)
+                .background(Color.mainBlue)
+                .cornerRadius(20)
+                .foregroundColor(.white)
         }
     }
     
     fileprivate func registerButton() -> some View {
-        return NavigationLink(destination: RegistrationView()) { Text("Register")
-                .font(.headline)
-                .foregroundColor(.white)
-                .fontWeight(.heavy)
+        return NavigationLink(destination: RegistrationView()) { Text("회원가입")
                 .padding()
+                .frame(width: 250, height: 35)
+                .background(Color.mainBlue)
+                .cornerRadius(20)
+                .foregroundColor(.white)
+                .padding(.top, 15)
         }
     }
     
     fileprivate func forgotButton() -> some View {
-        return NavigationLink(destination: ForgotView()) { Text("Forgot Pass?")
-                .font(.subheadline)
-                .foregroundColor(.white)
-                .fontWeight(.heavy)
+        return NavigationLink(destination: ForgotView()) { Text("비밀번호 찾기")
+                .font(.headline)
+                .foregroundColor(.mainBlue)
+                .fontWeight(.medium)
+                .padding(.bottom,40)
         }
     }
     
     var body: some View {
-        if let _ = self.backend.user {
+        if loginSuccess{
             HomeView()
-                .environmentObject(self.backend)
-        } else {
+                .environment(\.loginStatus, $loginSuccess)
+        }
+        else{
             NavigationView {
-                ZStack {
-                    Image("books-bg")
-                        .grayscale(0.5)
-                        .blur(radius: 8)
                     VStack (alignment: .center){
+                        Image("loginIcon")
+                            .padding()
                         VStack {
                             emailTextField()
                             passwordTextField()
                             HStack {
                                 Spacer()
-                                    .frame(width: 140)
                                 forgotButton()
-                                    .offset(x: 0, y: -40)
                             }
-                            
+                            .frame(width: 250)
                             loginButton()
                             registerButton()
                             Text(loginError ?? " ")
@@ -112,8 +123,14 @@ struct LoginView: View {
                                 .foregroundColor(.red)
                                 .multilineTextAlignment(.center)
                         }
+                        .padding(.bottom,140)
                     }
-                }
+                
+            }
+            .onAppear {
+                autoLogin()
+                self.username = ""
+                self.password = ""
             }
         }
     }
@@ -121,14 +138,20 @@ struct LoginView: View {
     func login(){
         Auth.auth().signIn(withEmail: self.username, password: self.password) { (user, error) in
             if user != nil{
-                print("login success")
-                print(username)
-                username = ""
-                password = ""
-                backend.user = Auth.auth().currentUser
+                UserDefaults.standard.set(self.username, forKey: "id")
+                UserDefaults.standard.set(self.password, forKey: "password")
+                loginSuccess = true
             }else{
                 loginError = error?.localizedDescription
             }
+        }
+    }
+    
+    func autoLogin() {
+        if let userid = UserDefaults.standard.string(forKey: "id"){
+            self.username = userid
+            self.password = UserDefaults.standard.string(forKey: "password")!
+            login()
         }
     }
 }

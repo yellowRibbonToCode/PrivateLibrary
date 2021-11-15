@@ -9,14 +9,31 @@ import SwiftUI
 import Firebase
 import FirebaseFirestore
 
-struct ProfileScene: View {
-    @EnvironmentObject var backend : Backend
+struct Profile { // Model
+    var image: UIImage = UIImage(systemName: "person")!
+    var name: String = "Anonymous"
+    var email: String = "notyet@load.com"
+    var emdNm: String = "주소 등록 "
+    var sggNm: String = " "
+}
+
+struct ProfileScene: View { // View
+    //    @Environment(\.editMode) var editMode
+    
     @ObservedObject var books = BookLists()
     @State private var showingEdit = false
     @State var profile = Profile()
+    @Environment(\.loginStatus) var loging
+    
+    @State var Juso = "주소 변경"
+    @State private var showingJuso = false
     
     let columns: [GridItem] = Array(repeating: GridItem(), count: 2)
- 
+    
+    private let userAuth = Auth.auth().currentUser
+    private let users = Firestore.firestore().collection("users")
+    private let storageRef = Storage.storage().reference()
+    
     var body: some View {
         ScrollView(.vertical) {
             HStack {
@@ -34,6 +51,18 @@ struct ProfileScene: View {
                             .frame(width: 20)
                         signoutButton()
                     }
+                    Button("\(profile.sggNm) \(profile.emdNm)") {
+                        showingJuso.toggle()
+                    }
+                    .onAppear(perform: {
+                        loademdNM()
+                    })
+//                    .fullScreenCover(isPresented: $showingJuso, content: {
+//                        LocationRegistration()
+//                    })
+                    .sheet(isPresented: $showingJuso, content: {
+                        LocationRegistration(profile: $profile)
+                    }) 
                 }
             }
             .padding()
@@ -46,7 +75,7 @@ struct ProfileScene: View {
                 .foregroundColor(.black)
             }
             .onAppear(perform: {
-                books.loadBooks(backend)
+                books.loadBooks()
                 print("load books")
             })
             .padding([.leading, .trailing], 10)
@@ -56,7 +85,8 @@ struct ProfileScene: View {
     fileprivate func profileImage() -> some View {
         return CircleImageView(image: profile.image, width: 130 , height: 130)
             .onAppear {
-//                loadProfile()
+                profile.image = UIImage(named: "rainbowlake")!
+                loadProfile()
             }
     }
     fileprivate func profileName() -> some View {
@@ -102,7 +132,9 @@ struct ProfileScene: View {
             do {
                 try Auth.auth().signOut()
                 print("success log out")
-                backend.user = nil
+                UserDefaults.standard.removeObject(forKey: "id")
+                UserDefaults.standard.removeObject(forKey: "password")
+                self.loging.wrappedValue.toggle()
             }
             catch let signOutError as NSError {
                 print("Error signing out: %@", signOutError)
@@ -116,10 +148,11 @@ extension ProfileScene {
     class BookLists: ObservableObject {
         @Published var bookList: [ViewModel] = []
         //    private var bookImage = UIImage(systemName: "book")
+        private let userid = Auth.auth().currentUser!.uid
+        private let db = Firestore.firestore()
         
-        func loadBooks(_ backend: Backend) {
-            print("loadBooks")
-            backend.libData.whereField("userid", isEqualTo: backend.user!.uid).getDocuments() { books, err in
+        func loadBooks() {
+            db.collection("libData").whereField("userid", isEqualTo: userid).getDocuments() { books, err in
                 if let err = err {
                     print("Error getting documents: \(err)")
                 } else {
@@ -127,6 +160,7 @@ extension ProfileScene {
                         print("books is nil")
                         return
                     }
+                    var ind: Int = 0
                     for book in books {
                         print("somethig appended book")
                         self.bookList.append(ViewModel(
@@ -143,7 +177,9 @@ extension ProfileScene {
                             price: book.get("price") as? Int,
                             exchange: (book.get("exchange") as! Bool),
                             sell: (book.get("sell") as! Bool),
-                            image: Image(RandBookImage(rawValue: Int.random(in: 0...10))!.toString())))
+                            image: Image(RandBookImage(rawValue: Int.random(in: 0...10))!.toString()),
+                            index: ind))
+                        ind += 1
                     }
                 }
             }
@@ -153,16 +189,15 @@ extension ProfileScene {
 
 extension ProfileScene {
     fileprivate func loadProfile() {
-        let profileImageRef = backend.imagesRef.child("user_profile/\(backend.user!.uid)")
+        let profileImageRef = storageRef.child("images/user_profile/\(userAuth!.uid)")
         profileImageRef.getData(maxSize: Int64(1 * 1024 * 1024)) { data, err in
             if let data = data {
                 profile.image = UIImage(data: data)!
-                print("loaded profileImage")
             }
         }
     }
     fileprivate func loadName() {
-        let userInfo = backend.users.document("\(backend.user!.uid)")
+        let userInfo = users.document("\(userAuth!.uid)")
         userInfo.getDocument { (document, err) in
             if let document = document {
                 profile.name = (document.get("name") as! String)
@@ -171,11 +206,20 @@ extension ProfileScene {
         }
     }
     fileprivate func loadEmail() {
-        let userInfo = backend.users.document("\(backend.user!.uid)")
+        let userInfo = users.document("\(userAuth!.uid)")
         userInfo.getDocument { (document, err) in
             if let document = document {
                 profile.email = (document.get("email") as! String)
                 print("loaded email")
+            }
+        }
+    }
+    fileprivate func loademdNM() {
+        let userInfo = users.document("\(userAuth!.uid)")
+        userInfo.getDocument { (document, err) in
+            if let document = document {
+                profile.emdNm = (document.get("emdNm") as! String? ?? "주소 등록 ")
+                profile.sggNm = (document.get("sggNm") as! String? ?? " ")
             }
         }
     }

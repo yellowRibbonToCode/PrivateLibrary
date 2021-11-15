@@ -12,7 +12,7 @@ import FirebaseFirestore
 
 
 struct HomeView: View {
-    @EnvironmentObject var backend: Backend
+    
     @State var index = 0
     @State var addbook = false
     //    var db: Firestore!
@@ -23,13 +23,15 @@ struct HomeView: View {
 //        }
 //        else{
         VStack {
-            NavigationView {
+             NavigationView {
                     ZStack{
                         if self.index == 0 {
-                            ImageGridView()
+//                            ImageGridView()
+                            TestBookmarkView()
                         }
                         else if self.index == 1{
-                            ChatList()
+//                            SearchView()
+                            TempSecondTap()
                         }
 //                        else if self.index == 2{
 //                            ChatList()
@@ -37,9 +39,9 @@ struct HomeView: View {
                         else{
                             ProfileScene()
                         }
-                        NavigationLink(destination: AddBookInfoView(), label: {AddBookInfoButtonImage()})
-                            .padding(.leading,300)
-                            .padding(.top, 600)
+//                        NavigationLink(destination: AddBookInfoView(), label: {AddBookInfoButtonImage()})
+//                            .padding(.leading,300)
+//                            .padding(.top, 600)
                             
 //                            .padding([.bottom], 20)
 //                            .padding([.leading], 300)
@@ -151,5 +153,6 @@ struct CircleTab : View {
 //            .padding(.vertical,-10)
 //            .padding(.horizontal, 25)]
             .background(Color.white)
+//            .animation(.spring())
     }
 }

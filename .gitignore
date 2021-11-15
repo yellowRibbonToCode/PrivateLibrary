@@ -104,9 +104,14 @@ iOSInjectionProject/
 !*.xcodeproj/xcshareddata/
 !*.xcworkspace/contents.xcworkspacedata
 /*.gcno
+*.xcuserdata
 
 ### Xcode Patch ###
 **/xcshareddata/WorkspaceSettings.xcsettings
 
+
+### Secret API KEY ###
+# PrivateLibrary/Secrets.xcconfig
+PrivateLibrary/Secrets.xcconfig
 
 # End of https://www.gitignore.io/api/xcode,swift,cocoapods

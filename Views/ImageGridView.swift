@@ -15,7 +15,6 @@ class SearchViewModel: ObservableObject {
     @Published var bookModels = [ViewModel]()
     @Published var bookImage = Image(systemName: "book")
     
-    
     func makeList() {
         db.collection("libData").getDocuments() {
             (books, err) in
@@ -25,6 +24,7 @@ class SearchViewModel: ObservableObject {
             else {
                 guard let books = books?.documents else { return }
                 self.bookModels = [ViewModel]()
+                var ind: Int = 0
                 for book in books {
                     //                        print(book.get("userid") ?? "no userid")
                     //                        print(book.get("username") ?? "no username")
@@ -59,7 +59,9 @@ class SearchViewModel: ObservableObject {
                                                                  price: book.get("price") as? Int,
                                                                  exchange: book.get("exchange") as! Bool,
                                                                  sell: book.get("sell") as! Bool,
-                                                                 image: Image(RandBookImage(rawValue: randInt)!.toString())))
+                                                                 image: Image(RandBookImage(rawValue: randInt)!.toString()),
+                                                                index: ind))
+                                ind += 1
                                 }
 //                            } else {
 //                                if let imageData = imageData {
@@ -87,6 +89,11 @@ struct ImageGridView: View {
     var body: some View {
         NavigationView {
             ScrollView(.vertical) {
+                PullToRefresh(coordinateSpaceName: "pullToRefresh"){
+                    searchViewModel.makeList()
+                }
+                .padding(.top, -50)
+                  
                 LazyVGrid(columns: columns) {
                     ForEach ( searchViewModel.bookModels.sorted { $0.created!.compare($1.created!) == .orderedDescending} ) {
                         Model in
@@ -98,12 +105,14 @@ struct ImageGridView: View {
                         .foregroundColor(.black)
                     }
                 }
+                
+                .padding([.leading, .trailing], 10)
                 .onAppear(perform: {
                     db = Firestore.firestore()
                     searchViewModel.makeList()
                 })
-                .padding([.leading, .trailing], 10)
             }
+            .coordinateSpace(name: "pullToRefresh")
             .navigationBarTitle(Text("Books"))
         }
 //        .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))

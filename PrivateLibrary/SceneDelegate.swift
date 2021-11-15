@@ -26,9 +26,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 //        let contentView = DetailView(libModel: ModelData().library[0])
 
-//        let contentView = LoginView()
-//                            .environment(\.managedObjectContext, context)
         let contentView = LoginView()
+//                            .environment(\.managedObjectContext, context)
+//        let contentView = LocationRegistration()
+        
 //        let contentView = DBTestList()
         //            .environmentObject(DateFormatter.ContentDateFormatter)
 //            .environmentObject(ModelData())
@@ -36,6 +37,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
+//            let snapCaroucel = UIStateModel()
             window.rootViewController = UIHostingController(rootView: contentView)
             self.window = window
             window.makeKeyAndVisible()
