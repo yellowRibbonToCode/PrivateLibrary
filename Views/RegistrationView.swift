@@ -156,18 +156,38 @@ struct RegistrationView: View {
     }
     
     func signUp(){
+        var isunique = false
         if password == passwordConfirm {
-            Auth.auth().createUser(withEmail: self.email, password: self.password) { (user, error) in
-                if(user != nil){
-                    //                print("register successs")
-                    print(email)
-                    //                print(user?.user.uid)
-                    uid = user?.user.uid ?? " "
-                    addUsername()
-                    registerSuccess = true
-                }else{
-                    registerError = error?.localizedDescription
-                    print("register failed")
+            db = Firestore.firestore()
+            db.collection("users").getDocuments() {
+                querySnapshot, err in
+                if let err = err {
+                    print("Error getting documents: \(err)")
+                } else {
+                    isunique = true
+                    for document in querySnapshot!.documents {
+                        let name = document.get("name") as? String ?? ""
+                        if name == username {
+                            registerError = "중복된 아이디입니다."
+                            isunique = false
+                        }
+                    }
+                }
+                
+              if isunique{
+                    Auth.auth().createUser(withEmail: self.email, password: self.password) { (user, error) in
+                        if(user != nil){
+                            //                print("register successs")
+                            print(email)
+                            //                print(user?.user.uid)
+                            uid = user?.user.uid ?? " "
+                            addUsername()
+                            registerSuccess = true
+                        }else{
+                            registerError = error?.localizedDescription
+                            print("register failed")
+                        }
+                    }
                 }
             }
         }
