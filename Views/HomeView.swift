@@ -18,16 +18,12 @@ struct HomeView: View {
     //    var db: Firestore!
     
     var body: some View {
-//        if addbook {
-//            AddBookInfoView()
-//        }
-//        else{
-        VStack {
+        VStack (spacing: 0){
              NavigationView {
                     ZStack{
                         if self.index == 0 {
-                            ImageGridView()
-//                            TestBookmarkView()
+//                            ImageGridView()
+                            TestBookmarkView()
                         }
                         else if self.index == 1{
 //                            SearchView()
@@ -39,25 +35,12 @@ struct HomeView: View {
                         else{
                             ProfileScene()
                         }
-//                        NavigationLink(destination: AddBookInfoView(), label: {AddBookInfoButtonImage()})
-//                            .padding(.leading,300)
-//                            .padding(.top, 600)
-                            
-//                            .padding([.bottom], 20)
-//                            .padding([.leading], 300)
-    //                    Button(action: {
-    //                        addbook = true
-    //                    }, label: {
-    //                        AddBookInfoButtonImage()
-    //                    })
                     }
                     .navigationBarHidden(true)
             }
                     CircleTab(index: self.$index)
-                        .padding([.leading, .trailing], 30)
-                        
         }
-//            .edgesIgnoringSafeArea(.top)
+            .edgesIgnoringSafeArea(.bottom)
         }
 //    }
 }
@@ -70,8 +53,10 @@ struct HomeView_Previews: PreviewProvider {
 
 struct CircleTab : View {
     @Binding var index : Int
+    @State var showAdd = false
+
     var body : some View{
-        HStack{
+        HStack(spacing: 0){
             Button(action: {
                 self.index = 0
             }) {
@@ -79,20 +64,14 @@ struct CircleTab : View {
                     if self.index != 0{
                         Image(systemName: "house.fill")
                             .resizable()
-                            .frame(width: 25, height: 23)
+                            .frame(width: 33, height: 33)
                             .foregroundColor(Color.black.opacity(0.2))
                     }
                     else{
                         Image(systemName: "house.fill")
                             .resizable()
-                            .frame(width: 25, height: 23)
-                            .foregroundColor(Color(hue: 0.074, saturation: 0.99, brightness: 0.492))
-//                            .padding()
-//                            .background(Color(hue: 0.069, saturation: 0.193, brightness: 0.992))
-//                            .clipShape(Circle())
-//                            .offset(y: -20)
-//                            .padding(.bottom, -20)
-                        //                        Text("Home").foregroundColor(Color(hue: 0.074, saturation: 0.99, brightness: 0.492))
+                            .frame(width: 33, height: 33)
+                            .foregroundColor(Color.mainBlue)
                     }
                 }
             }
@@ -104,23 +83,31 @@ struct CircleTab : View {
                     if self.index != 1{
                         Image(systemName: "magnifyingglass")
                             .resizable()
-                            .frame(width: 25, height: 23)
+                            .frame(width: 33, height: 33)
                             .foregroundColor(Color.black.opacity(0.2))
                     }
                     else{
                         Image(systemName: "magnifyingglass")
                             .resizable()
-                            .frame(width: 25, height: 23)
-                            .foregroundColor(Color(hue: 0.074, saturation: 0.99, brightness: 0.492))
-//                            .padding()
-//                            .background(Color(hue: 0.069, saturation: 0.193, brightness: 0.992))
-//                            .clipShape(Circle())
-//                            .offset(y: -20)
-//                            .padding(.bottom, -20)
-                        //                        Text("Search").foregroundColor(Color(hue: 0.074, saturation: 0.99, brightness: 0.492))
+                            .frame(width: 33, height: 33)
+                            .foregroundColor(Color.mainBlue)
                     }
                 }
             }
+            Spacer()
+                        Button(action: {
+                            self.showAdd.toggle()
+
+                        }) {
+                            Image(systemName: "plus")
+                                .resizable()
+                                .frame(width: 33, height: 33)
+                                .foregroundColor(.mainBlue)
+                            
+                        }
+                        .fullScreenCover(isPresented: $showAdd) {
+                            AddBookInfoView()
+                        }
             Spacer()
             Button(action: {
                 self.index = 2
@@ -129,20 +116,14 @@ struct CircleTab : View {
                     if self.index != 2{
                         Image(systemName: "message")
                             .resizable()
-                            .frame(width: 25, height: 23)
+                            .frame(width: 33, height: 33)
                             .foregroundColor(Color.black.opacity(0.2))
                     }
                     else{
                         Image(systemName: "message")
                             .resizable()
-                            .frame(width: 25, height: 23)
-                            .foregroundColor(Color(hue: 0.074, saturation: 0.99, brightness: 0.492))
-//                            .padding()
-//                            .background(Color(hue: 0.069, saturation: 0.193, brightness: 0.992))
-//                            .clipShape(Circle())
-//                            .offset(y: -20)
-//                            .padding(.bottom, -20)
-                        //                        Text("Search").foregroundColor(Color(hue: 0.074, saturation: 0.99, brightness: 0.492))
+                            .frame(width: 33, height: 33)
+                            .foregroundColor(Color.mainBlue)
                     }
                 }
             }
@@ -152,32 +133,24 @@ struct CircleTab : View {
             }) {
                 VStack{
                     if self.index != 3{
-                        Image(systemName: "person")
+                        Image(systemName: "person.crop.circle")
                             .resizable()
-                            .frame(width: 25, height: 23)
+                            .frame(width: 33, height: 33)
                             .foregroundColor(Color.black.opacity(0.2))
                     }
                     else{
-                        Image(systemName: "person.fill")
+                        Image(systemName: "person.crop.circle")
                             .resizable()
-                            .frame(width: 25, height: 23)
-                            .foregroundColor(Color(hue: 0.074, saturation: 0.99, brightness: 0.492))
-//                            .padding()
-//                            .background(Color(hue: 0.069, saturation: 0.193, brightness: 0.992))
-//                            .clipShape(Circle())
-//                            .offset(y: -20)
-//                            .padding(.bottom, -20)
-                        //                        Text("My Page").foregroundColor(Color(hue: 0.074, saturation: 0.99, brightness: 0.492))
+                            .frame(width: 33, height: 33)
+                            .foregroundColor(Color.mainBlue)
                     }
                 }
             }
             
         }
-            .frame(height: 30)
-            .padding([.leading, .trailing])
-//            .padding(.vertical,-10)
-//            .padding(.horizontal, 25)]
-            .background(Color.white)
-//            .animation(.spring())
+            .frame(height: 83)
+            .padding(.horizontal, 20)
+            .padding(.bottom, 34)
+            .background(Color(red: 0.961, green: 0.961, blue: 0.961))
     }
 }
