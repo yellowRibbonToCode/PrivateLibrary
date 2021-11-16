@@ -59,7 +59,11 @@
 		73FF48F7273E92E700170DD0 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73FF48F3273E92E700170DD0 /* LocationManager.swift */; };
 		73FF48F9273E930700170DD0 /* JusoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73FF48F8273E930700170DD0 /* JusoModel.swift */; };
 		73FF48FC273E938A00170DD0 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 73FF48FB273E938A00170DD0 /* Alamofire */; };
-		73FF48FE273E943200170DD0 /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 73FF48FD273E943200170DD0 /* Secrets.xcconfig */; };
+		8A2F403C2743434200D7B5D5 /* ChatList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A2F403A2743434200D7B5D5 /* ChatList.swift */; };
+		8A2F403D2743434200D7B5D5 /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A2F403B2743434200D7B5D5 /* ChatView.swift */; };
+		8A2F403F2743435200D7B5D5 /* MakeChat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A2F403E2743435200D7B5D5 /* MakeChat.swift */; };
+		8A2F40412743481800D7B5D5 /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 8A2F40402743481800D7B5D5 /* Secrets.xcconfig */; };
+		8A2F40432743580B00D7B5D5 /* ChatModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A2F40422743580B00D7B5D5 /* ChatModel.swift */; };
 		8AA55D9E273402BE00F3F8AA /* ImagePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA55D9D273402BE00F3F8AA /* ImagePickerView.swift */; };
 		8AE86A442733A66D00BE14DD /* ProfileScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE86A432733A66D00BE14DD /* ProfileScene.swift */; };
 		8AE86A462733A68800BE14DD /* CircleImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE86A452733A68800BE14DD /* CircleImageView.swift */; };
@@ -114,6 +118,11 @@
 		73FF48F3273E92E700170DD0 /* LocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		73FF48F8273E930700170DD0 /* JusoModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JusoModel.swift; sourceTree = "<group>"; };
 		73FF48FD273E943200170DD0 /* Secrets.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
+		8A2F403A2743434200D7B5D5 /* ChatList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatList.swift; sourceTree = "<group>"; };
+		8A2F403B2743434200D7B5D5 /* ChatView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
+		8A2F403E2743435200D7B5D5 /* MakeChat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MakeChat.swift; sourceTree = "<group>"; };
+		8A2F40402743481800D7B5D5 /* Secrets.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
+		8A2F40422743580B00D7B5D5 /* ChatModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatModel.swift; sourceTree = "<group>"; };
 		8AA55D9D273402BE00F3F8AA /* ImagePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerView.swift; sourceTree = "<group>"; };
 		8AE86A432733A66D00BE14DD /* ProfileScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScene.swift; sourceTree = "<group>"; };
 		8AE86A452733A68800BE14DD /* CircleImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleImageView.swift; sourceTree = "<group>"; };
@@ -168,6 +177,7 @@
 			children = (
 				735B8DDF2734083A00C9D079 /* AssetEnum.swift */,
 				73C09B4827252F980048BC85 /* ModelData.swift */,
+				8A2F40422743580B00D7B5D5 /* ChatModel.swift */,
 				73B6F014272679C600446F4B /* ViewModel.swift */,
 				737EBDA82729565400C4513D /* UserModel.swift */,
 				73FF48F8273E930700170DD0 /* JusoModel.swift */,
@@ -188,6 +198,7 @@
 		73BFFFB727214EAE00375684 = {
 			isa = PBXGroup;
 			children = (
+				8A2F40402743481800D7B5D5 /* Secrets.xcconfig */,
 				73AA3567272CB90100196FA4 /* TestView.swift */,
 				731FE15F2727F50A0013311D /* Fonts */,
 				73C09B4A272534590048BC85 /* Resources */,
@@ -245,8 +256,11 @@
 				8AE86A432733A66D00BE14DD /* ProfileScene.swift */,
 				73702DF9273FB1690020AB24 /* CalcDistance.swift */,
 				73FF48F3273E92E700170DD0 /* LocationManager.swift */,
+				8A2F403A2743434200D7B5D5 /* ChatList.swift */,
+				8A2F403B2743434200D7B5D5 /* ChatView.swift */,
 				73FF48F1273E92E700170DD0 /* LocationRegistration.swift */,
 				73FF48F2273E92E700170DD0 /* NeighborGridView.swift */,
+				8A2F403E2743435200D7B5D5 /* MakeChat.swift */,
 				73FF48F0273E92E700170DD0 /* TempSecondTap.swift */,
 				731FE1592727D9ED0013311D /* ImageRow.swift */,
 				73C09B3C2725250A0048BC85 /* MapView.swift */,
@@ -358,7 +372,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				73FF48FE273E943200170DD0 /* Secrets.xcconfig in Resources */,
+				8A2F40412743481800D7B5D5 /* Secrets.xcconfig in Resources */,
 				73BFFFD327214EAF00375684 /* LaunchScreen.storyboard in Resources */,
 				73BFFFD027214EAF00375684 /* Preview Assets.xcassets in Resources */,
 				732BF58E27267CC800DC18E3 /* libData.json in Resources */,
@@ -382,6 +396,7 @@
 				8AE86A442733A66D00BE14DD /* ProfileScene.swift in Sources */,
 				735B8DDE2733B7C300C9D079 /* AddBookInfoButton.swift in Sources */,
 				73AA3568272CB90100196FA4 /* TestView.swift in Sources */,
+				8A2F403F2743435200D7B5D5 /* MakeChat.swift in Sources */,
 				731FE15A2727D9ED0013311D /* ImageGridView.swift in Sources */,
 				731FE15B2727D9ED0013311D /* HomeView.swift in Sources */,
 				EEAD456D27400A3100632C92 /* TestBookmarkView.swift in Sources */,
@@ -406,8 +421,11 @@
 				735B8DE02734083A00C9D079 /* AssetEnum.swift in Sources */,
 				EEB25E38273BAD76003DC29A /* StackCarouselView.swift in Sources */,
 				73D6A396272D7C9300C6585B /* DBTestList.swift in Sources */,
+				8A2F403C2743434200D7B5D5 /* ChatList.swift in Sources */,
 				73BFFFC627214EAE00375684 /* SceneDelegate.swift in Sources */,
 				73BFFFCB27214EAE00375684 /* PrivateLibrary.xcdatamodeld in Sources */,
+				8A2F40432743580B00D7B5D5 /* ChatModel.swift in Sources */,
+				8A2F403D2743434200D7B5D5 /* ChatView.swift in Sources */,
 				73C09B3D2725250A0048BC85 /* MapView.swift in Sources */,
 				732AE1BD2727ADE1004D5A3C /* Icon.swift in Sources */,
 				8AA55D9E273402BE00F3F8AA /* ImagePickerView.swift in Sources */,
@@ -553,14 +571,14 @@
 		};
 		73BFFFD827214EAF00375684 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 73FF48FD273E943200170DD0 /* Secrets.xcconfig */;
+			baseConfigurationReference = 8A2F40402743481800D7B5D5 /* Secrets.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = PrivateLibrary/PrivateLibrary.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"PrivateLibrary/Preview Content\"";
-				DEVELOPMENT_TEAM = 9TH57H8UP9;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = PrivateLibrary/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -576,14 +594,14 @@
 		};
 		73BFFFD927214EAF00375684 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 73FF48FD273E943200170DD0 /* Secrets.xcconfig */;
+			baseConfigurationReference = 8A2F40402743481800D7B5D5 /* Secrets.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = PrivateLibrary/PrivateLibrary.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"PrivateLibrary/Preview Content\"";
-				DEVELOPMENT_TEAM = 9TH57H8UP9;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = PrivateLibrary/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
