@@ -32,7 +32,15 @@
 	<string>we need the location permission</string>
 	<key>UIAppFonts</key>
 	<array>
-		<string></string>
+		<string>S-CoreDream-1Thin.otf</string>
+		<string>S-CoreDream-2ExtraLight.otf</string>
+		<string>S-CoreDream-3Light.otf</string>
+		<string>S-CoreDream-4Regular.otf</string>
+		<string>S-CoreDream-5Medium.otf</string>
+		<string>S-CoreDream-6Bold.otf</string>
+		<string>S-CoreDream-7ExtraBold.otf</string>
+		<string>S-CoreDream-8Heavy.otf</string>
+		<string>S-CoreDream-9Black.otf</string>
 	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
