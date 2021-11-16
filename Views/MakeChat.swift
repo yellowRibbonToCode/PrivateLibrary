@@ -18,7 +18,7 @@ struct MakeChat: View {
 
     var body: some View {
         if documentId.id == "" {
-            Text("기다려")
+            Text("기다려") // 스트림 리스너.firebase
                 .onAppear {
                     documentId.checkPresence(other, me)
                 }
