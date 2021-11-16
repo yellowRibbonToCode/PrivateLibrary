@@ -12,6 +12,7 @@
 		731FE15C2727D9ED0013311D /* ImageHView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 731FE1582727D9ED0013311D /* ImageHView.swift */; };
 		731FE15D2727D9ED0013311D /* ImageRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 731FE1592727D9ED0013311D /* ImageRow.swift */; };
 		7322C081272A929300D426F7 /* Resolver in Frameworks */ = {isa = PBXBuildFile; productRef = 7322C080272A929300D426F7 /* Resolver */; };
+		7326A9F92743C7E0004334D7 /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 73FF48FD273E943200170DD0 /* Secrets.xcconfig */; };
 		732AE1BD2727ADE1004D5A3C /* Icon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 732AE1BC2727ADE1004D5A3C /* Icon.swift */; };
 		732B94BE2726C379005A7416 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 732B94BD2726C379005A7416 /* LoginView.swift */; };
 		732BF58E27267CC800DC18E3 /* libData.json in Resources */ = {isa = PBXBuildFile; fileRef = 732BF58D27267CC800DC18E3 /* libData.json */; };
@@ -62,7 +63,6 @@
 		8A2F403C2743434200D7B5D5 /* ChatList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A2F403A2743434200D7B5D5 /* ChatList.swift */; };
 		8A2F403D2743434200D7B5D5 /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A2F403B2743434200D7B5D5 /* ChatView.swift */; };
 		8A2F403F2743435200D7B5D5 /* MakeChat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A2F403E2743435200D7B5D5 /* MakeChat.swift */; };
-		8A2F40412743481800D7B5D5 /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 8A2F40402743481800D7B5D5 /* Secrets.xcconfig */; };
 		8A2F40432743580B00D7B5D5 /* ChatModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A2F40422743580B00D7B5D5 /* ChatModel.swift */; };
 		8AA55D9E273402BE00F3F8AA /* ImagePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA55D9D273402BE00F3F8AA /* ImagePickerView.swift */; };
 		8AE86A442733A66D00BE14DD /* ProfileScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE86A432733A66D00BE14DD /* ProfileScene.swift */; };
@@ -130,7 +130,6 @@
 		8A2F403A2743434200D7B5D5 /* ChatList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatList.swift; sourceTree = "<group>"; };
 		8A2F403B2743434200D7B5D5 /* ChatView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
 		8A2F403E2743435200D7B5D5 /* MakeChat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MakeChat.swift; sourceTree = "<group>"; };
-		8A2F40402743481800D7B5D5 /* Secrets.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
 		8A2F40422743580B00D7B5D5 /* ChatModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatModel.swift; sourceTree = "<group>"; };
 		8AA55D9D273402BE00F3F8AA /* ImagePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerView.swift; sourceTree = "<group>"; };
 		8AE86A432733A66D00BE14DD /* ProfileScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScene.swift; sourceTree = "<group>"; };
@@ -225,7 +224,6 @@
 		73BFFFB727214EAE00375684 = {
 			isa = PBXGroup;
 			children = (
-				8A2F40402743481800D7B5D5 /* Secrets.xcconfig */,
 				73AA3567272CB90100196FA4 /* TestView.swift */,
 				731FE15F2727F50A0013311D /* Fonts */,
 				73C09B4A272534590048BC85 /* Resources */,
@@ -399,11 +397,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				73FF48FE273E943200170DD0 /* Secrets.xcconfig in Resources */,
+				7326A9F92743C7E0004334D7 /* Secrets.xcconfig in Resources */,
 				EE3FB11A2743834C003C761F /* S-CoreDream-8Heavy.otf in Resources */,
 				EE3FB1202743834C003C761F /* S-CoreDream-6Bold.otf in Resources */,
 				EE3FB11E2743834C003C761F /* S-CoreDream-7ExtraBold.otf in Resources */,
-				8A2F40412743481800D7B5D5 /* Secrets.xcconfig in Resources */,
 				73BFFFD327214EAF00375684 /* LaunchScreen.storyboard in Resources */,
 				73BFFFD027214EAF00375684 /* Preview Assets.xcassets in Resources */,
 				732BF58E27267CC800DC18E3 /* libData.json in Resources */,
@@ -608,7 +605,7 @@
 		};
 		73BFFFD827214EAF00375684 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8A2F40402743481800D7B5D5 /* Secrets.xcconfig */;
+			baseConfigurationReference = 73FF48FD273E943200170DD0 /* Secrets.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -631,7 +628,7 @@
 		};
 		73BFFFD927214EAF00375684 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8A2F40402743481800D7B5D5 /* Secrets.xcconfig */;
+			baseConfigurationReference = 73FF48FD273E943200170DD0 /* Secrets.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;

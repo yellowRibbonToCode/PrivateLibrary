@@ -20,80 +20,79 @@ struct RegistrationView: View {
     @State var uid: String = ""
     
     fileprivate func emailTextField() -> some View {
-        return HStack {
-            Image(systemName: "envelope")
-                .foregroundColor(.white)
-            
-            TextField("이메일 주소", text: $email)
+        return TextField("이메일 주소", text: $email)
+                .font(Font.custom("S-CoreDream-2ExtraLight", size: 13))
                 .padding()
-                .frame(width: 230, height: 40)
                 .disableAutocorrection(true)
                 .keyboardType(.emailAddress)
                 .autocapitalization(.none)
-                .background(Color.white
-                                .opacity(0.5)
-                                .cornerRadius(10))
-        }
-        .padding(.top, 10)
-        .padding(.bottom, 10)
+                .frame(width: 240, height: 35)
+                .cornerRadius(20)
+                .overlay(
+                        RoundedRectangle(cornerRadius: 20)
+                            .stroke(Color.mainBlue, lineWidth: 1)
+                    )
     }
     
     fileprivate func usernameTextField() -> some View {
-        return HStack {
-            Image(systemName: "person.crop.circle")
-                .foregroundColor(.white)
-            
-            TextField("이름", text: $username)
+        return TextField("이름", text: $username)
+            .font(Font.custom("S-CoreDream-2ExtraLight", size: 13))
                 .padding()
-                .frame(width: 230, height: 40)
                 .disableAutocorrection(true)
-            //                .keyboardType(.emailAddress)
+                .keyboardType(.emailAddress)
                 .autocapitalization(.none)
-                .background(Color.white
-                                .opacity(0.5)
-                                .cornerRadius(10))
-        }
-        .padding(.top, 10)
-        .padding(.bottom, 10)
+                .frame(width: 240, height: 35)
+                .cornerRadius(20)
+                .overlay(
+                        RoundedRectangle(cornerRadius: 20)
+                            .stroke(Color.mainBlue, lineWidth: 1)
+                    )
     }
     
     fileprivate func passwordTextField() -> some View {
-        return HStack {
-            Image(systemName: "lock")
-                .foregroundColor(.white)
-            SecureField("비밀번호", text: $password)
-                .padding()
-                .frame(width: 230, height: 40)
-                .background(Color.white
-                                .opacity(0.5)
-                                .cornerRadius(10))
-        }
-        .padding(.top, 10)
-        .padding(.bottom, 20)
+        return SecureField("비밀번호", text: $password)
+            .font(Font.custom("S-CoreDream-2ExtraLight", size: 13))
+            .padding()
+            .disableAutocorrection(true)
+            .keyboardType(.emailAddress)
+            .autocapitalization(.none)
+            .frame(width: 240, height: 35)
+            .cornerRadius(20)
+            .overlay(
+                RoundedRectangle(cornerRadius: 20)
+                    .stroke(Color.mainBlue, lineWidth: 1)
+            )
     }
     
+    
     fileprivate func passwordConfirmTextField() -> some View {
-        return HStack {
-            Image(systemName: "lock.fill")
-                .foregroundColor(.white)
-            SecureField("비밀번호 확인", text: $passwordConfirm)
-                .padding()
-                .frame(width: 230, height: 40)
-                .background(Color.white
-                                .opacity(0.5)
-                                .cornerRadius(10))
-        }
-        .padding(.top, 10)
-        .padding(.bottom, 20)
+        return SecureField("비밀번호 확인", text: $passwordConfirm)
+            .font(Font.custom("S-CoreDream-2ExtraLight", size: 13))
+            .padding()
+            .disableAutocorrection(true)
+            .keyboardType(.emailAddress)
+            .autocapitalization(.none)
+            .frame(width: 240, height: 35)
+            .cornerRadius(20)
+            .overlay(
+                RoundedRectangle(cornerRadius: 20)
+                    .stroke(Color.mainBlue, lineWidth: 1)
+            )
     }
+        
     
     fileprivate func registerButton() -> some View {
         return Button(action: {signUp()}) {
             Text("회원가입")
-                .font(.headline)
-                .foregroundColor(.white)
-                .fontWeight(.heavy)
+                .font(Font.custom("S-CoreDream-5Medium", size: 15))
                 .padding()
+                .disableAutocorrection(true)
+                .keyboardType(.emailAddress)
+                .autocapitalization(.none)
+                .frame(width: 240, height: 35)
+                .foregroundColor(.white)
+                .background(Color.mainBlue)
+                .cornerRadius(20)
         }
     }
     
@@ -108,20 +107,19 @@ struct RegistrationView: View {
                 self.presentationMode.wrappedValue.dismiss()}
         }
         else {
-            ZStack {
-                Image("books-bg")
-                    .grayscale(0.5)
-                    .blur(radius: 8)
-                VStack {
-                    Text("Create an account")
-                        .font(.title)
-                        .foregroundColor(.white)
+                VStack (spacing: 0) {
+                    Image("loginIcon")
+                        .padding()
                     emailTextField()
+                        .padding(.top, 30)
                     usernameTextField()
+                        .padding(.top, 21)
                     passwordTextField()
+                        .padding(.top, 21)
                     passwordConfirmTextField()
+                        .padding(.top, 21)
                     registerButton()
-                    
+                        .padding(.top, 62)
                     Text(registerError ?? " ")
                         .foregroundColor(.red)
                 }
@@ -132,20 +130,16 @@ struct RegistrationView: View {
                     self.presentationMode.wrappedValue.dismiss()
                 }){
                     Image(systemName: "arrow.left")
-                        .foregroundColor(.white)
+                        .foregroundColor(.mainBlue)
                 })
-            }
+            
         }
     }
     
-    //
     private func addUsername() {
-        //        var ref: DocumentReference? = nil
         var db: Firestore!
         
         db = Firestore.firestore()
-        // [START add_alan_turing]
-        // Add a second document with a generated ID.
         do {
             try db.collection("users").document(uid as String).setData(from: [
                 "email": email,

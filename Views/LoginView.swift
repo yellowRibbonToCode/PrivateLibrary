@@ -25,53 +25,43 @@ struct LoginView: View {
     @State var username: String = ""
     @State var password: String = ""
     @State private var loginSuccess: Bool = false
-//    @Environment(\.loginStatus) var loginSuccess: Bool
     @State var loginError: String?
     
     
     fileprivate func emailTextField() -> some View {
         return HStack {
-//            Image(systemName: "envelope")
-//                .foregroundColor(.white)
-            
             TextField("이메일 주소", text: $username)
                 .padding()
-                .frame(width: 250, height: 35)
+                .frame(width: 240, height: 35)
                 .disableAutocorrection(true)
                 .keyboardType(.emailAddress)
                 .autocapitalization(.none)
                 .cornerRadius(20)
                 .overlay(
-                        RoundedRectangle(cornerRadius: 20)
-                            .stroke(Color.mainBlue, lineWidth: 1)
-                    )
+                    RoundedRectangle(cornerRadius: 20)
+                        .stroke(Color.mainBlue, lineWidth: 1)
+                )
         }
-//        .padding(.top, 10)
-//        .padding(.bottom, 10)
     }
     
     fileprivate func passwordTextField() -> some View {
         return HStack {
-//            Image(systemName: "lock")
-//                .foregroundColor(.white)
             SecureField("비밀번호", text: $password)
                 .padding()
-                .frame(width: 250, height: 35)
+                .frame(width: 240, height: 35)
                 .cornerRadius(20)
                 .overlay(
-                        RoundedRectangle(cornerRadius: 20)
-                            .stroke(Color.mainBlue, lineWidth: 1)
-                    )
+                    RoundedRectangle(cornerRadius: 20)
+                        .stroke(Color.mainBlue, lineWidth: 1)
+                )
         }
-        .padding(.top, 15)
-//        .padding(.bottom, 50)
+        .padding(.top, 21)
     }
     
     fileprivate func loginButton() -> some View {
         return Button(action: {login()}) {
             Text("로그인")
-                .padding()
-                .frame(width: 250, height: 35)
+                .frame(width: 240, height: 35)
                 .background(Color.mainBlue)
                 .cornerRadius(20)
                 .foregroundColor(.white)
@@ -80,12 +70,11 @@ struct LoginView: View {
     
     fileprivate func registerButton() -> some View {
         return NavigationLink(destination: RegistrationView()) { Text("회원가입")
-                .padding()
-                .frame(width: 250, height: 35)
+                .frame(width: 240, height: 35)
                 .background(Color.mainBlue)
                 .cornerRadius(20)
                 .foregroundColor(.white)
-                .padding(.top, 15)
+                .padding(.top, 20)
         }
     }
     
@@ -94,7 +83,7 @@ struct LoginView: View {
                 .font(.headline)
                 .foregroundColor(.mainBlue)
                 .fontWeight(.medium)
-                .padding(.bottom,40)
+                .padding(.bottom,46)
         }
     }
     
@@ -105,32 +94,37 @@ struct LoginView: View {
         }
         else{
             NavigationView {
-                    VStack (alignment: .center){
-                        Image("loginIcon")
-                            .padding()
-                        VStack {
+                VStack (alignment: .center, spacing: 0){
+                    Image("loginIcon")
+                        .padding(.bottom, 30)
+                    VStack (spacing: 0) {
+                        Group{
                             emailTextField()
                             passwordTextField()
-                            HStack {
-                                Spacer()
-                                forgotButton()
-                            }
-                            .frame(width: 250)
+                        }
+                        .font(Font.custom("S-CoreDream-2ExtraLight", size: 13))
+                        HStack {
+                            Spacer()
+                            forgotButton()
+                                .font(Font.custom("S-CoreDream-4Regular", size: 14))
+                        }
+                        .frame(width: 240)
+                        Group {
                             loginButton()
                             registerButton()
-                            Text(loginError ?? " ")
-                                .font(.footnote)
-                                .foregroundColor(.red)
-                                .multilineTextAlignment(.center)
                         }
-                        .padding(.bottom,140)
+                        .font(Font.custom("S-CoreDream-5Medium", size: 15))
+                        
+                        Text(loginError ?? " ")
+                            .font(.footnote)
+                            .foregroundColor(.red)
+                            .multilineTextAlignment(.center)
                     }
-                
+                    .padding(.bottom,140)
+                }
             }
             .onAppear {
                 autoLogin()
-                self.username = ""
-                self.password = ""
             }
         }
     }
@@ -140,6 +134,8 @@ struct LoginView: View {
             if user != nil{
                 UserDefaults.standard.set(self.username, forKey: "id")
                 UserDefaults.standard.set(self.password, forKey: "password")
+                self.username = ""
+                self.password = ""
                 loginSuccess = true
             }else{
                 loginError = error?.localizedDescription
@@ -148,8 +144,10 @@ struct LoginView: View {
     }
     
     func autoLogin() {
-        if let userid = UserDefaults.standard.string(forKey: "id"){
-            self.username = userid
+        loginError = " "
+        if (UserDefaults.standard.string(forKey: "id") != "" && UserDefaults.standard.string(forKey: "id") != nil)
+        {
+            self.username = UserDefaults.standard.string(forKey: "id")!
             self.password = UserDefaults.standard.string(forKey: "password")!
             login()
         }
