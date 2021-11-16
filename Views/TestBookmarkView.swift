@@ -162,6 +162,8 @@ struct TestBookmarkViewImageRow: View {
     
     
     var body: some View {
+        
+        
         VStack(alignment: .leading, spacing: 10){
             ZStack(alignment: .topTrailing ){
                 if let image = libModel.image {
@@ -175,14 +177,36 @@ struct TestBookmarkViewImageRow: View {
                     .padding(EdgeInsets(top: 10, leading: 0, bottom: 0, trailing: 10))
                 
             }
-            HStack (alignment: .top, spacing: 10){
-                Text(libModel.bookname)
-                    .font(.system(size: 12, weight: .bold))
+            HStack (alignment: .top){
+            if libModel.bookname.count > 15 {
+                Text(libModel.bookname.prefix(15) + "…")
+                    .font(.system(size: 15, weight: .bold))
                     .foregroundColor(.mainBlue)
+                +
+                Text(" ")
+                +
                 Text(libModel.title)
-                    .font(.system(size: 12, weight: .light))
+                    .font(.system(size: 15, weight: .light))
                     .foregroundColor(.black)
+                }
+            else {
+                Text(libModel.bookname)
+                    .font(.system(size: 15, weight: .bold))
+                    .foregroundColor(.mainBlue)
+                +
+                Text(" ")
+                +
+                Text(libModel.title)
+                    .font(.system(size: 15, weight: .light))
+                    .foregroundColor(.black)
+                }
             }
+            
+                .multilineTextAlignment(.leading)
+                .lineLimit(2)
+                .frame(height: 45)
+                .truncationMode(.tail)
+            
             .padding(.bottom, 10)
         }
     }
