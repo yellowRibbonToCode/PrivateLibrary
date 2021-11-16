@@ -59,11 +59,24 @@
 		73FF48F7273E92E700170DD0 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73FF48F3273E92E700170DD0 /* LocationManager.swift */; };
 		73FF48F9273E930700170DD0 /* JusoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73FF48F8273E930700170DD0 /* JusoModel.swift */; };
 		73FF48FC273E938A00170DD0 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 73FF48FB273E938A00170DD0 /* Alamofire */; };
-		73FF48FE273E943200170DD0 /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 73FF48FD273E943200170DD0 /* Secrets.xcconfig */; };
+		8A2F403C2743434200D7B5D5 /* ChatList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A2F403A2743434200D7B5D5 /* ChatList.swift */; };
+		8A2F403D2743434200D7B5D5 /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A2F403B2743434200D7B5D5 /* ChatView.swift */; };
+		8A2F403F2743435200D7B5D5 /* MakeChat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A2F403E2743435200D7B5D5 /* MakeChat.swift */; };
+		8A2F40412743481800D7B5D5 /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 8A2F40402743481800D7B5D5 /* Secrets.xcconfig */; };
+		8A2F40432743580B00D7B5D5 /* ChatModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A2F40422743580B00D7B5D5 /* ChatModel.swift */; };
 		8AA55D9E273402BE00F3F8AA /* ImagePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA55D9D273402BE00F3F8AA /* ImagePickerView.swift */; };
 		8AE86A442733A66D00BE14DD /* ProfileScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE86A432733A66D00BE14DD /* ProfileScene.swift */; };
 		8AE86A462733A68800BE14DD /* CircleImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE86A452733A68800BE14DD /* CircleImageView.swift */; };
 		8AE86A482733A6B200BE14DD /* EditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE86A472733A6B200BE14DD /* EditView.swift */; };
+		EE3FB1182743834C003C761F /* S-CoreDream-3Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = EE3FB10F2743834B003C761F /* S-CoreDream-3Light.otf */; };
+		EE3FB1192743834C003C761F /* S-CoreDream-1Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = EE3FB1102743834B003C761F /* S-CoreDream-1Thin.otf */; };
+		EE3FB11A2743834C003C761F /* S-CoreDream-8Heavy.otf in Resources */ = {isa = PBXBuildFile; fileRef = EE3FB1112743834B003C761F /* S-CoreDream-8Heavy.otf */; };
+		EE3FB11B2743834C003C761F /* S-CoreDream-4Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = EE3FB1122743834B003C761F /* S-CoreDream-4Regular.otf */; };
+		EE3FB11C2743834C003C761F /* S-CoreDream-5Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = EE3FB1132743834B003C761F /* S-CoreDream-5Medium.otf */; };
+		EE3FB11D2743834C003C761F /* S-CoreDream-2ExtraLight.otf in Resources */ = {isa = PBXBuildFile; fileRef = EE3FB1142743834B003C761F /* S-CoreDream-2ExtraLight.otf */; };
+		EE3FB11E2743834C003C761F /* S-CoreDream-7ExtraBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = EE3FB1152743834B003C761F /* S-CoreDream-7ExtraBold.otf */; };
+		EE3FB11F2743834C003C761F /* S-CoreDream-9Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = EE3FB1162743834B003C761F /* S-CoreDream-9Black.otf */; };
+		EE3FB1202743834C003C761F /* S-CoreDream-6Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = EE3FB1172743834C003C761F /* S-CoreDream-6Bold.otf */; };
 		EE5DBA70273AA7AA002FA450 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE5DBA6F273AA7AA002FA450 /* SearchView.swift */; };
 		EE5DBA72273AA7E3002FA450 /* SnapCarousel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE5DBA71273AA7E3002FA450 /* SnapCarousel.swift */; };
 		EE9B91D4272D2E7B005BCFA5 /* ForgotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE9B91D3272D2E7A005BCFA5 /* ForgotView.swift */; };
@@ -114,10 +127,24 @@
 		73FF48F3273E92E700170DD0 /* LocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		73FF48F8273E930700170DD0 /* JusoModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JusoModel.swift; sourceTree = "<group>"; };
 		73FF48FD273E943200170DD0 /* Secrets.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
+		8A2F403A2743434200D7B5D5 /* ChatList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatList.swift; sourceTree = "<group>"; };
+		8A2F403B2743434200D7B5D5 /* ChatView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
+		8A2F403E2743435200D7B5D5 /* MakeChat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MakeChat.swift; sourceTree = "<group>"; };
+		8A2F40402743481800D7B5D5 /* Secrets.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
+		8A2F40422743580B00D7B5D5 /* ChatModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatModel.swift; sourceTree = "<group>"; };
 		8AA55D9D273402BE00F3F8AA /* ImagePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerView.swift; sourceTree = "<group>"; };
 		8AE86A432733A66D00BE14DD /* ProfileScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScene.swift; sourceTree = "<group>"; };
 		8AE86A452733A68800BE14DD /* CircleImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleImageView.swift; sourceTree = "<group>"; };
 		8AE86A472733A6B200BE14DD /* EditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditView.swift; sourceTree = "<group>"; };
+		EE3FB10F2743834B003C761F /* S-CoreDream-3Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "S-CoreDream-3Light.otf"; sourceTree = "<group>"; };
+		EE3FB1102743834B003C761F /* S-CoreDream-1Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "S-CoreDream-1Thin.otf"; sourceTree = "<group>"; };
+		EE3FB1112743834B003C761F /* S-CoreDream-8Heavy.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "S-CoreDream-8Heavy.otf"; sourceTree = "<group>"; };
+		EE3FB1122743834B003C761F /* S-CoreDream-4Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "S-CoreDream-4Regular.otf"; sourceTree = "<group>"; };
+		EE3FB1132743834B003C761F /* S-CoreDream-5Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "S-CoreDream-5Medium.otf"; sourceTree = "<group>"; };
+		EE3FB1142743834B003C761F /* S-CoreDream-2ExtraLight.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "S-CoreDream-2ExtraLight.otf"; sourceTree = "<group>"; };
+		EE3FB1152743834B003C761F /* S-CoreDream-7ExtraBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "S-CoreDream-7ExtraBold.otf"; sourceTree = "<group>"; };
+		EE3FB1162743834B003C761F /* S-CoreDream-9Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "S-CoreDream-9Black.otf"; sourceTree = "<group>"; };
+		EE3FB1172743834C003C761F /* S-CoreDream-6Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "S-CoreDream-6Bold.otf"; sourceTree = "<group>"; };
 		EE5DBA6F273AA7AA002FA450 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		EE5DBA71273AA7E3002FA450 /* SnapCarousel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapCarousel.swift; sourceTree = "<group>"; };
 		EE9B91D3272D2E7A005BCFA5 /* ForgotView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotView.swift; sourceTree = "<group>"; };
@@ -159,6 +186,15 @@
 		731FE15F2727F50A0013311D /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
+				EE3FB1102743834B003C761F /* S-CoreDream-1Thin.otf */,
+				EE3FB1142743834B003C761F /* S-CoreDream-2ExtraLight.otf */,
+				EE3FB10F2743834B003C761F /* S-CoreDream-3Light.otf */,
+				EE3FB1122743834B003C761F /* S-CoreDream-4Regular.otf */,
+				EE3FB1132743834B003C761F /* S-CoreDream-5Medium.otf */,
+				EE3FB1172743834C003C761F /* S-CoreDream-6Bold.otf */,
+				EE3FB1152743834B003C761F /* S-CoreDream-7ExtraBold.otf */,
+				EE3FB1112743834B003C761F /* S-CoreDream-8Heavy.otf */,
+				EE3FB1162743834B003C761F /* S-CoreDream-9Black.otf */,
 			);
 			path = Fonts;
 			sourceTree = "<group>";
@@ -168,6 +204,7 @@
 			children = (
 				735B8DDF2734083A00C9D079 /* AssetEnum.swift */,
 				73C09B4827252F980048BC85 /* ModelData.swift */,
+				8A2F40422743580B00D7B5D5 /* ChatModel.swift */,
 				73B6F014272679C600446F4B /* ViewModel.swift */,
 				737EBDA82729565400C4513D /* UserModel.swift */,
 				73FF48F8273E930700170DD0 /* JusoModel.swift */,
@@ -188,6 +225,7 @@
 		73BFFFB727214EAE00375684 = {
 			isa = PBXGroup;
 			children = (
+				8A2F40402743481800D7B5D5 /* Secrets.xcconfig */,
 				73AA3567272CB90100196FA4 /* TestView.swift */,
 				731FE15F2727F50A0013311D /* Fonts */,
 				73C09B4A272534590048BC85 /* Resources */,
@@ -245,8 +283,11 @@
 				8AE86A432733A66D00BE14DD /* ProfileScene.swift */,
 				73702DF9273FB1690020AB24 /* CalcDistance.swift */,
 				73FF48F3273E92E700170DD0 /* LocationManager.swift */,
+				8A2F403A2743434200D7B5D5 /* ChatList.swift */,
+				8A2F403B2743434200D7B5D5 /* ChatView.swift */,
 				73FF48F1273E92E700170DD0 /* LocationRegistration.swift */,
 				73FF48F2273E92E700170DD0 /* NeighborGridView.swift */,
+				8A2F403E2743435200D7B5D5 /* MakeChat.swift */,
 				73FF48F0273E92E700170DD0 /* TempSecondTap.swift */,
 				731FE1592727D9ED0013311D /* ImageRow.swift */,
 				73C09B3C2725250A0048BC85 /* MapView.swift */,
@@ -359,12 +400,22 @@
 			buildActionMask = 2147483647;
 			files = (
 				73FF48FE273E943200170DD0 /* Secrets.xcconfig in Resources */,
+				EE3FB11A2743834C003C761F /* S-CoreDream-8Heavy.otf in Resources */,
+				EE3FB1202743834C003C761F /* S-CoreDream-6Bold.otf in Resources */,
+				EE3FB11E2743834C003C761F /* S-CoreDream-7ExtraBold.otf in Resources */,
+				8A2F40412743481800D7B5D5 /* Secrets.xcconfig in Resources */,
 				73BFFFD327214EAF00375684 /* LaunchScreen.storyboard in Resources */,
 				73BFFFD027214EAF00375684 /* Preview Assets.xcassets in Resources */,
 				732BF58E27267CC800DC18E3 /* libData.json in Resources */,
 				73BFFFCD27214EAF00375684 /* Assets.xcassets in Resources */,
+				EE3FB1192743834C003C761F /* S-CoreDream-1Thin.otf in Resources */,
+				EE3FB11D2743834C003C761F /* S-CoreDream-2ExtraLight.otf in Resources */,
 				737EBDA72729542700C4513D /* libUser.json in Resources */,
 				737EBDCC272A878300C4513D /* GoogleService-Info.plist in Resources */,
+				EE3FB1182743834C003C761F /* S-CoreDream-3Light.otf in Resources */,
+				EE3FB11B2743834C003C761F /* S-CoreDream-4Regular.otf in Resources */,
+				EE3FB11C2743834C003C761F /* S-CoreDream-5Medium.otf in Resources */,
+				EE3FB11F2743834C003C761F /* S-CoreDream-9Black.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -382,6 +433,7 @@
 				8AE86A442733A66D00BE14DD /* ProfileScene.swift in Sources */,
 				735B8DDE2733B7C300C9D079 /* AddBookInfoButton.swift in Sources */,
 				73AA3568272CB90100196FA4 /* TestView.swift in Sources */,
+				8A2F403F2743435200D7B5D5 /* MakeChat.swift in Sources */,
 				731FE15A2727D9ED0013311D /* ImageGridView.swift in Sources */,
 				731FE15B2727D9ED0013311D /* HomeView.swift in Sources */,
 				EEAD456D27400A3100632C92 /* TestBookmarkView.swift in Sources */,
@@ -406,8 +458,11 @@
 				735B8DE02734083A00C9D079 /* AssetEnum.swift in Sources */,
 				EEB25E38273BAD76003DC29A /* StackCarouselView.swift in Sources */,
 				73D6A396272D7C9300C6585B /* DBTestList.swift in Sources */,
+				8A2F403C2743434200D7B5D5 /* ChatList.swift in Sources */,
 				73BFFFC627214EAE00375684 /* SceneDelegate.swift in Sources */,
 				73BFFFCB27214EAE00375684 /* PrivateLibrary.xcdatamodeld in Sources */,
+				8A2F40432743580B00D7B5D5 /* ChatModel.swift in Sources */,
+				8A2F403D2743434200D7B5D5 /* ChatView.swift in Sources */,
 				73C09B3D2725250A0048BC85 /* MapView.swift in Sources */,
 				732AE1BD2727ADE1004D5A3C /* Icon.swift in Sources */,
 				8AA55D9E273402BE00F3F8AA /* ImagePickerView.swift in Sources */,
@@ -553,14 +608,14 @@
 		};
 		73BFFFD827214EAF00375684 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 73FF48FD273E943200170DD0 /* Secrets.xcconfig */;
+			baseConfigurationReference = 8A2F40402743481800D7B5D5 /* Secrets.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = PrivateLibrary/PrivateLibrary.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"PrivateLibrary/Preview Content\"";
-				DEVELOPMENT_TEAM = 9TH57H8UP9;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = PrivateLibrary/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -576,14 +631,14 @@
 		};
 		73BFFFD927214EAF00375684 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 73FF48FD273E943200170DD0 /* Secrets.xcconfig */;
+			baseConfigurationReference = 8A2F40402743481800D7B5D5 /* Secrets.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = PrivateLibrary/PrivateLibrary.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"PrivateLibrary/Preview Content\"";
-				DEVELOPMENT_TEAM = 9TH57H8UP9;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = PrivateLibrary/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (

@@ -9,7 +9,7 @@
 //import Combine
 //
 //final class ModelData: ObservableObject {
-////    @Published var landmarks: [Landmark] = load("landmarkData.json")
+//    @Published var landmarks: [Landmark] = load("landmarkData.json")
 //    
 //    @Published var library: [ViewModel] = load("libData.json")
 //}
