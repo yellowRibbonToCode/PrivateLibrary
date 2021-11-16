@@ -33,9 +33,9 @@ struct HomeView: View {
 //                            SearchView()
                             TempSecondTap()
                         }
-//                        else if self.index == 2{
-//                            ChatList()
-//                        }
+                        else if self.index == 2{
+                            ChatList()
+                        }
                         else{
                             ProfileScene()
                         }
@@ -109,6 +109,31 @@ struct CircleTab : View {
                     }
                     else{
                         Image(systemName: "magnifyingglass")
+                            .resizable()
+                            .frame(width: 25, height: 23)
+                            .foregroundColor(Color(hue: 0.074, saturation: 0.99, brightness: 0.492))
+//                            .padding()
+//                            .background(Color(hue: 0.069, saturation: 0.193, brightness: 0.992))
+//                            .clipShape(Circle())
+//                            .offset(y: -20)
+//                            .padding(.bottom, -20)
+                        //                        Text("Search").foregroundColor(Color(hue: 0.074, saturation: 0.99, brightness: 0.492))
+                    }
+                }
+            }
+            Spacer()
+            Button(action: {
+                self.index = 2
+            }) {
+                VStack{
+                    if self.index != 2{
+                        Image(systemName: "message")
+                            .resizable()
+                            .frame(width: 25, height: 23)
+                            .foregroundColor(Color.black.opacity(0.2))
+                    }
+                    else{
+                        Image(systemName: "message")
                             .resizable()
                             .frame(width: 25, height: 23)
                             .foregroundColor(Color(hue: 0.074, saturation: 0.99, brightness: 0.492))

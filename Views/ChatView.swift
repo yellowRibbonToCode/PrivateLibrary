@@ -10,16 +10,15 @@ import Firebase
 import FirebaseFirestore
 
 struct ChatView: View {
-//    @EnvironmentObject var backend: Backend
     let documentId: String
-    let whoami: String
+    let whoami: String = Auth.auth().currentUser!.uid
     @ObservedObject var messages = Messages()
     @State var msg: String = ""
     
     class Messages: ObservableObject {
         @Published var messages: [Message] = []
         
-        func loadMessages(/*_ backend: Backend, */_ documentId: String) {
+        func loadMessages(_ documentId: String) {
             Firestore.firestore().collection("chatings").document(documentId).collection("messages").order(by: "sendTime").addSnapshotListener { snap, err in
                 if err != nil {
                     print(err!.localizedDescription)
@@ -27,10 +26,6 @@ struct ChatView: View {
                 }
                 
                 guard let data = snap else {return}
-                
-//                data.documents.forEach { doc in
-//                    self.messages.append(try! doc.data(as: Message.self)!)
-//                }
                 
                 data.documentChanges.forEach { doc in
                     if doc.type == .added {
@@ -103,6 +98,6 @@ struct ChatView: View {
 
 struct ChatView_Previews: PreviewProvider {
     static var previews: some View {
-        ChatView(documentId: "TE3j5N5HtGfprS4nTqe2", whoami: "hi")
+        ChatView(documentId: "TE3j5N5HtGfprS4nTqe2")
     }
 }

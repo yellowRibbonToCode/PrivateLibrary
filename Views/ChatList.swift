@@ -34,7 +34,7 @@ struct ChatList: View {
             ScrollView {
                 LazyVStack {
                     ForEach(chatRooms.rooms, id: \.self) { roomId in
-                        NavigationLink(destination: ChatView(documentId: roomId, whoami: Auth.auth().currentUser!.uid)) {
+                        NavigationLink(destination: ChatView(documentId: roomId)) {
                             HStack {
                                 // 나중에 채팅방 row이런거 만들어서 뷰
                                 Text("hi")
