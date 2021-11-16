@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import FirebaseAuth
 
 struct SearchDetailView : View {
     var libModel: ViewModel
@@ -97,8 +98,11 @@ struct detailBottom : View {
                 }) {
                     
                     HStack(spacing: 6){
-                        
-                        Text("Go chat")
+                        NavigationLink {
+                            MakeChat(other: libModel.id)
+                        } label: {
+                            Text("Go chat")
+                        }
                         Image(systemName: "arrow.right").renderingMode(.original)
                         
                     }.foregroundColor(.white)

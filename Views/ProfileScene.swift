@@ -111,8 +111,22 @@ struct ProfileScene: View { // View
         }
         .fullScreenCover(isPresented: $showingEdit, content: {
             EditView(profile: $profile)
+                .onDisappear {
+                    reloadBooks()
+                }
         })
     }
+    
+    fileprivate func reloadBooks() {
+        if (books.bookList.isEmpty || books.bookList[0].name == profile.name) {
+            return
+        }
+        for i in books.bookList.indices {
+            books.bookList[i].name = profile.name
+        }
+        print("reloaded")
+    }
+    
     fileprivate func signoutButton() -> some View {
         return Button("signout") {
             do {
@@ -148,6 +162,7 @@ extension ProfileScene {
                     }
                     var ind: Int = 0
                     for book in books {
+                        print("somethig appended book")
                         self.bookList.append(ViewModel(
                             id: book.documentID,
                             useruid: book.get("userid") as! String,
@@ -186,6 +201,7 @@ extension ProfileScene {
         userInfo.getDocument { (document, err) in
             if let document = document {
                 profile.name = (document.get("name") as! String)
+                print("loaded name")
             }
         }
     }
@@ -194,6 +210,7 @@ extension ProfileScene {
         userInfo.getDocument { (document, err) in
             if let document = document {
                 profile.email = (document.get("email") as! String)
+                print("loaded email")
             }
         }
     }
