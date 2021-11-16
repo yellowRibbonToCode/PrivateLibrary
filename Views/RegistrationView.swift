@@ -107,7 +107,7 @@ struct RegistrationView: View {
                 self.presentationMode.wrappedValue.dismiss()}
         }
         else {
-                VStack {
+                VStack (spacing: 0) {
                     Image("loginIcon")
                         .padding()
                     emailTextField()
@@ -130,7 +130,7 @@ struct RegistrationView: View {
                     self.presentationMode.wrappedValue.dismiss()
                 }){
                     Image(systemName: "arrow.left")
-                        .foregroundColor(.white)
+                        .foregroundColor(.mainBlue)
                 })
             
         }
