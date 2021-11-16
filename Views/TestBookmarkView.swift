@@ -110,7 +110,6 @@ struct TestBookmarkViewButton: View {
                 print(error.localizedDescription)
             } else {
                 for document in snapshot!.documents {
-                    //print("\(document.documentID) => \(document.data())")
                     doc.document("\(document.documentID)").delete()
                 }
             }})
@@ -141,15 +140,6 @@ struct TestBookmarkViewButton: View {
                 print("Error writing document: \(err)")
             } else {
                 print(doc.documentID)
-                //                printdb2()
-                
-                //upload image
-                //                if let thisimage = image{
-                //                    upload_Image(image: thisimage, docID: doc.documentID)
-                //                }
-                
-                
-                //                setSuccess = true
             }
         }
         
@@ -179,25 +169,26 @@ struct TestBookmarkViewImageRow: View {
             }
             HStack (alignment: .top){
             if libModel.bookname.count > 15 {
-                Text(libModel.bookname.prefix(15) + "…")
-                    .font(.system(size: 15, weight: .bold))
+                Text(libModel.bookname.prefix(14) + "…")
+                    .font(Font.custom("S-CoreDream-4Regular", size: 15))
                     .foregroundColor(.mainBlue)
                 +
                 Text(" ")
                 +
                 Text(libModel.title)
-                    .font(.system(size: 15, weight: .light))
+                    .font(Font.custom("S-CoreDream-3Light", size: 15))
                     .foregroundColor(.black)
                 }
             else {
                 Text(libModel.bookname)
-                    .font(.system(size: 15, weight: .bold))
+                .font(Font.custom("S-CoreDream-4Regular", size: 15))
                     .foregroundColor(.mainBlue)
                 +
                 Text(" ")
                 +
                 Text(libModel.title)
-                    .font(.system(size: 15, weight: .light))
+                
+                .font(Font.custom("S-CoreDream-3Light", size: 15))
                     .foregroundColor(.black)
                 }
             }

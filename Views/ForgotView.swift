@@ -16,30 +16,27 @@ struct ForgotView: View {
     
     fileprivate func emailTextField() -> some View {
         return HStack {
-            Image(systemName: "envelope")
-                .foregroundColor(.white)
-            
-            TextField("E-Mail", text: $email)
+            TextField("이메일 주소", text: $email)
                 .padding()
-                .frame(width: 230, height: 40)
+                .frame(width: 240, height: 35)
                 .disableAutocorrection(true)
                 .keyboardType(.emailAddress)
                 .autocapitalization(.none)
-                .background(Color.white
-                                .opacity(0.5)
-                                .cornerRadius(10))
+                .cornerRadius(20)
+                .overlay(
+                        RoundedRectangle(cornerRadius: 20)
+                            .stroke(Color.mainBlue, lineWidth: 1)
+                    )
         }
-        .padding(.top, 10)
-        .padding(.bottom, 10)
     }
     
     fileprivate func sendButton() -> some View {
         return Button(action: {send()}) {
-            Text("Send")
-                .font(.headline)
+            Text("전송")
+                .frame(width: 240, height: 35)
+                .background(Color.mainBlue)
+                .cornerRadius(20)
                 .foregroundColor(.white)
-                .fontWeight(.heavy)
-                .padding()
         }
     }
     
@@ -50,35 +47,37 @@ struct ForgotView: View {
             LoginView()
         }
         else {
-            ZStack {
-                Image("books-bg")
-                    .grayscale(0.5)
-                    .blur(radius: 8)
-                VStack {
-                    Text("Reset password")
-                        .font(.title)
-                        .fontWeight(.heavy)
-                        .padding(EdgeInsets(top: -200, leading: 0, bottom: 0, trailing: 0))
-                        .foregroundColor(.white)
-                    Text("Enter your email for reset password")
-                        .font(.subheadline)
-                        .foregroundColor(.white)
-                    
-                    emailTextField()
-                    sendButton()
-                    
-                    Text(sendError ?? " ")
-                        .foregroundColor(.red)
-                }
-                .padding()
-                .navigationBarBackButtonHidden(true)
-                .navigationBarItems(leading: Button(action: {
-                    self.presentationMode.wrappedValue.dismiss()
-                }){
-                    Image(systemName: "arrow.left")
-                        .foregroundColor(.white)
-                })
+            VStack {
+                Image("loginIcon")
+                    .padding(.bottom, 30)
+                Text("비밀번호를 잊어버리셨나요?")
+                    .fontWeight(.heavy)
+                    .foregroundColor(.mainBlue)
+                    .font(Font.custom("S-CoreDream-4Regular", size: 17))
+                Text("가입 시 작성한 이메일로 임시 비밀번호를 보내드립니다.")
+                    .padding(.top, 6)
+                    .padding(.bottom, 30)
+                    .foregroundColor(.mainBlue)
+                    .font(Font.custom("S-CoreDream-4Regular", size: 13))
+                emailTextField()
+                    .font(Font.custom("S-CoreDream-2ExtraLight", size: 12))
+                
+                sendButton()
+                    .padding(.top, 80)
+                    .font(Font.custom("S-CoreDream-5Medium", size: 15))
+                
+                Text(sendError ?? " ")
+                    .foregroundColor(.red)
             }
+            
+            .padding()
+            .navigationBarBackButtonHidden(true)
+            .navigationBarItems(leading: Button(action: {
+                self.presentationMode.wrappedValue.dismiss()
+            }){
+                Image(systemName: "arrow.left")
+                    .foregroundColor(.white)
+            })
         }
     }
     
