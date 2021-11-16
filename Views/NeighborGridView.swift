@@ -22,8 +22,8 @@ class NeighborViewModel: ObservableObject {
     func getUserLocation() {
         db.collection("users").document(userid).getDocument { [self] user, err in
             if let user = user {
-                self.userLatitude = user.get("latitude") as! String
-                self.userLongitude = user.get("longitude") as! String
+                self.userLatitude = user.get("latitude") as? String ?? ""
+                self.userLongitude = user.get("longitude") as? String ?? ""
             } else {
                 if let err = err {
                     print("Error getting documents: \(err)")
