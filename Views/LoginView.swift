@@ -137,8 +137,6 @@ struct LoginView: View {
                 self.username = ""
                 self.password = ""
                 loginSuccess = true
-                self.username = ""
-                self.password = ""
             }else{
                 loginError = error?.localizedDescription
             }
