@@ -44,6 +44,7 @@ struct TestBookmarkView: View {
                 books.makebookmarklist()
                 print("load books")
             })
+
             .navigationBarTitle(Text(""), displayMode: .inline)
             .navigationBarItems(leading:
                                     Text("Books")
@@ -51,6 +52,7 @@ struct TestBookmarkView: View {
                                     .font(.system(size: 44, weight: .bold)),
                                 trailing:
                                     Image(systemName: "slider.horizontal.3")
+
                                     .resizable()
                                     .frame(width: 32, height: 32)
                                     .foregroundColor(.mainBlue))
