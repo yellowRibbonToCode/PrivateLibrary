@@ -21,7 +21,7 @@ struct TestBookmarkView: View {
     var body: some View {
         NavigationView{
             VStack {
-                TestBookmarkViewTop()
+//                TestBookmarkViewTop()
                 ScrollView(.vertical) {
                     
                     LazyVGrid(columns: columns) {
@@ -39,7 +39,16 @@ struct TestBookmarkView: View {
                     })
                 }
             }
-            .navigationBarHidden(true)
+            .navigationBarTitle(Text(""), displayMode: .inline)
+            .navigationBarItems(leading:
+                                    Text("Books")
+//                                    .font(Font.custom("S-CoreDream-6Bold", size: 44))
+                                    .font(.system(size: 44, weight: .bold)),
+                                trailing:
+                                    Image(systemName: "line.3.horizontal.circle")
+                                    .resizable()
+                                    .frame(width: 32, height: 32)
+                                    .foregroundColor(.mainBlue))
         }
     }
 }
@@ -56,7 +65,7 @@ struct TestBookmarkViewTop: View {
             Button(action: {
                 self.showAdd.toggle()
             }) {
-                Image(systemName: "plus")
+                Image(systemName: "line.3.horizontal.circle")
                     .resizable()
                     .frame(width: 23, height: 23)
                     .foregroundColor(.mainBlue)
@@ -64,16 +73,13 @@ struct TestBookmarkViewTop: View {
         }
         .padding()
         .padding(.bottom, -30)
-        .sheet(isPresented: $showAdd) {
-            AddBookInfoView()
-        }
     }
 }
 
 struct TestBookmarkViewButton: View {
     @State var bookmark: Bool
     var libModel: ViewModel
-        let db = Firestore.firestore()
+    let db = Firestore.firestore()
     
     let userId = Auth.auth().currentUser?.uid ?? "userId"
     
@@ -110,7 +116,6 @@ struct TestBookmarkViewButton: View {
                 print(error.localizedDescription)
             } else {
                 for document in snapshot!.documents {
-                    //print("\(document.documentID) => \(document.data())")
                     doc.document("\(document.documentID)").delete()
                 }
             }})
@@ -141,15 +146,6 @@ struct TestBookmarkViewButton: View {
                 print("Error writing document: \(err)")
             } else {
                 print(doc.documentID)
-                //                printdb2()
-                
-                //upload image
-                //                if let thisimage = image{
-                //                    upload_Image(image: thisimage, docID: doc.documentID)
-                //                }
-                
-                
-                //                setSuccess = true
             }
         }
         
@@ -178,36 +174,37 @@ struct TestBookmarkViewImageRow: View {
                 
             }
             HStack (alignment: .top){
-            if libModel.bookname.count > 15 {
-                Text(libModel.bookname.prefix(15) + "…")
-                    .font(.system(size: 15, weight: .bold))
-                    .foregroundColor(.mainBlue)
-                +
-                Text(" ")
-                +
-                Text(libModel.title)
-                    .font(.system(size: 15, weight: .light))
-                    .foregroundColor(.black)
+                if libModel.bookname.count > 15 {
+                    Text(libModel.bookname.prefix(14) + "…")
+                        .font(Font.custom("S-CoreDream-6Bold", size: 15))
+                        .foregroundColor(.mainBlue)
+                    +
+                    Text(" ")
+                    +
+                    Text(libModel.title)
+                        .font(Font.custom("S-CoreDream-3Light", size: 15))
+                        .foregroundColor(.black)
                 }
-            else {
-                Text(libModel.bookname)
-                    .font(.system(size: 15, weight: .bold))
-                    .foregroundColor(.mainBlue)
-                +
-                Text(" ")
-                +
-                Text(libModel.title)
-                    .font(.system(size: 15, weight: .light))
-                    .foregroundColor(.black)
+                else {
+                    Text(libModel.bookname)
+                        .font(Font.custom("S-CoreDream-6Bold", size: 15))
+                        .foregroundColor(.mainBlue)
+                    +
+                    Text(" ")
+                    +
+                    Text(libModel.title)
+                    
+                        .font(Font.custom("S-CoreDream-3Light", size: 15))
+                        .foregroundColor(.black)
                 }
             }
             
-                .multilineTextAlignment(.leading)
-                .lineLimit(2)
-                .frame(height: 45)
-                .truncationMode(.tail)
+            .multilineTextAlignment(.leading)
+            .lineLimit(2)
+            .frame(height: 45)
+            .truncationMode(.tail)
             
-            .padding(.bottom, 10)
+//            .padding(.bottom, 10)
         }
     }
     

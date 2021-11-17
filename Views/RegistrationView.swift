@@ -20,80 +20,82 @@ struct RegistrationView: View {
     @State var uid: String = ""
     
     fileprivate func emailTextField() -> some View {
-        return HStack {
-            Image(systemName: "envelope")
-                .foregroundColor(.white)
-            
-            TextField("이메일 주소", text: $email)
-                .padding()
-                .frame(width: 230, height: 40)
-                .disableAutocorrection(true)
-                .keyboardType(.emailAddress)
-                .autocapitalization(.none)
-                .background(Color.white
-                                .opacity(0.5)
-                                .cornerRadius(10))
-        }
-        .padding(.top, 10)
-        .padding(.bottom, 10)
+        return TextField("이메일 주소", text: $email)
+
+            .font(Font.custom("S-CoreDream-2ExtraLight", size: 13))
+            .padding()
+            .disableAutocorrection(true)
+            .keyboardType(.emailAddress)
+            .autocapitalization(.none)
+            .frame(width: 240, height: 35)
+            .cornerRadius(20)
+            .overlay(
+                RoundedRectangle(cornerRadius: 20)
+                    .stroke(Color.mainBlue, lineWidth: 1)
+            )
     }
     
     fileprivate func usernameTextField() -> some View {
-        return HStack {
-            Image(systemName: "person.crop.circle")
-                .foregroundColor(.white)
-            
-            TextField("이름", text: $username)
-                .padding()
-                .frame(width: 230, height: 40)
-                .disableAutocorrection(true)
-            //                .keyboardType(.emailAddress)
-                .autocapitalization(.none)
-                .background(Color.white
-                                .opacity(0.5)
-                                .cornerRadius(10))
-        }
-        .padding(.top, 10)
-        .padding(.bottom, 10)
+        return TextField("이름", text: $username)
+            .font(Font.custom("S-CoreDream-2ExtraLight", size: 13))
+
+            .padding()
+            .disableAutocorrection(true)
+            .keyboardType(.emailAddress)
+            .autocapitalization(.none)
+            .frame(width: 240, height: 35)
+            .cornerRadius(20)
+            .overlay(
+                RoundedRectangle(cornerRadius: 20)
+                    .stroke(Color.mainBlue, lineWidth: 1)
+            )
     }
     
     fileprivate func passwordTextField() -> some View {
-        return HStack {
-            Image(systemName: "lock")
-                .foregroundColor(.white)
-            SecureField("비밀번호", text: $password)
-                .padding()
-                .frame(width: 230, height: 40)
-                .background(Color.white
-                                .opacity(0.5)
-                                .cornerRadius(10))
-        }
-        .padding(.top, 10)
-        .padding(.bottom, 20)
+        return SecureField("비밀번호", text: $password)
+            .font(Font.custom("S-CoreDream-2ExtraLight", size: 13))
+            .padding()
+            .disableAutocorrection(true)
+            .keyboardType(.emailAddress)
+            .autocapitalization(.none)
+            .frame(width: 240, height: 35)
+            .cornerRadius(20)
+            .overlay(
+                RoundedRectangle(cornerRadius: 20)
+                    .stroke(Color.mainBlue, lineWidth: 1)
+            )
     }
     
+    
     fileprivate func passwordConfirmTextField() -> some View {
-        return HStack {
-            Image(systemName: "lock.fill")
-                .foregroundColor(.white)
-            SecureField("비밀번호 확인", text: $passwordConfirm)
-                .padding()
-                .frame(width: 230, height: 40)
-                .background(Color.white
-                                .opacity(0.5)
-                                .cornerRadius(10))
-        }
-        .padding(.top, 10)
-        .padding(.bottom, 20)
+        return SecureField("비밀번호 확인", text: $passwordConfirm)
+            .font(Font.custom("S-CoreDream-2ExtraLight", size: 13))
+            .padding()
+            .disableAutocorrection(true)
+            .keyboardType(.emailAddress)
+            .autocapitalization(.none)
+            .frame(width: 240, height: 35)
+            .cornerRadius(20)
+            .overlay(
+                RoundedRectangle(cornerRadius: 20)
+                    .stroke(Color.mainBlue, lineWidth: 1)
+            )
     }
+        
+    
     
     fileprivate func registerButton() -> some View {
         return Button(action: {signUp()}) {
             Text("회원가입")
-                .font(.headline)
-                .foregroundColor(.white)
-                .fontWeight(.heavy)
+                .font(Font.custom("S-CoreDream-5Medium", size: 15))
                 .padding()
+                .disableAutocorrection(true)
+                .keyboardType(.emailAddress)
+                .autocapitalization(.none)
+                .frame(width: 240, height: 35)
+                .foregroundColor(.white)
+                .background(Color.mainBlue)
+                .cornerRadius(20)
         }
     }
     
@@ -108,44 +110,41 @@ struct RegistrationView: View {
                 self.presentationMode.wrappedValue.dismiss()}
         }
         else {
-            ZStack {
-                Image("books-bg")
-                    .grayscale(0.5)
-                    .blur(radius: 8)
-                VStack {
-                    Text("Create an account")
-                        .font(.title)
-                        .foregroundColor(.white)
-                    emailTextField()
-                    usernameTextField()
-                    passwordTextField()
-                    passwordConfirmTextField()
-                    registerButton()
-                    
-                    Text(registerError ?? " ")
-                        .foregroundColor(.red)
-                }
-                .padding()
-                
-                .navigationBarBackButtonHidden(true)
-                .navigationBarItems(leading: Button(action: {
-                    self.presentationMode.wrappedValue.dismiss()
-                }){
-                    Image(systemName: "arrow.left")
-                        .foregroundColor(.white)
-                })
+
+            VStack (spacing: 0) {
+                Image("loginIcon")
+                    .padding()
+                emailTextField()
+                    .padding(.top, 30)
+                usernameTextField()
+                    .padding(.top, 21)
+                passwordTextField()
+                    .padding(.top, 21)
+                passwordConfirmTextField()
+                    .padding(.top, 21)
+                registerButton()
+                    .padding(.top, 62)
+                Text(registerError ?? " ")
+                    .foregroundColor(.red)
             }
+            .padding()
+            
+            .navigationBarBackButtonHidden(true)
+            .navigationBarItems(leading: Button(action: {
+                self.presentationMode.wrappedValue.dismiss()
+            }){
+                Image(systemName: "arrow.left")
+                    .foregroundColor(.mainBlue)
+            })
+
+            
         }
     }
     
-    //
     private func addUsername() {
-        //        var ref: DocumentReference? = nil
         var db: Firestore!
         
         db = Firestore.firestore()
-        // [START add_alan_turing]
-        // Add a second document with a generated ID.
         do {
             try db.collection("users").document(uid as String).setData(from: [
                 "email": email,
@@ -155,31 +154,34 @@ struct RegistrationView: View {
         }
     }
     
-    func signUp(){
+    func duplicateName(completionHandler: @escaping (Bool) -> Void) {
         var isunique = false
-        if password == passwordConfirm {
-            db = Firestore.firestore()
-            db.collection("users").getDocuments() {
-                querySnapshot, err in
-                if let err = err {
-                    print("Error getting documents: \(err)")
-                } else {
-                    isunique = true
-                    for document in querySnapshot!.documents {
-                        let name = document.get("name") as? String ?? ""
-                        if name == username {
-                            registerError = "중복된 아이디입니다."
-                            isunique = false
-                        }
+        db = Firestore.firestore()
+        db.collection("users").getDocuments() {
+            querySnapshot, err in
+            if let err = err {
+                print("Error getting documents: \(err)")
+            } else {
+                isunique = true
+                for document in querySnapshot!.documents {
+                    let name = document.get("name") as? String ?? ""
+                    if name == username {
+                        registerError = "중복된 아이디입니다."
+                        isunique = false
                     }
                 }
-                
-              if isunique{
+            }
+            completionHandler(isunique)
+        }
+    }
+    func signUp(){
+        registerError = " "
+        if password == passwordConfirm {
+            self.duplicateName() { isNotDup in
+                if (isNotDup){
                     Auth.auth().createUser(withEmail: self.email, password: self.password) { (user, error) in
                         if(user != nil){
-                            //                print("register successs")
                             print(email)
-                            //                print(user?.user.uid)
                             uid = user?.user.uid ?? " "
                             addUsername()
                             registerSuccess = true

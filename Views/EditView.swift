@@ -12,11 +12,12 @@ import FirebaseStorage
 struct EditView: View {
     @Environment(\.presentationMode) var presentationMode
     @Binding var profile: Profile // real profile
-//    @State private var profile = Profile() // for testing
+    //    @State private var profile = Profile() // for testing
     @State private var changedName = ""
     @State private var changedImage: UIImage?
     @State private var sourceType: UIImagePickerController.SourceType = .photoLibrary
     @State private var isImagePickerDisplay = false
+    @State private var registerError = " "
     
     let storage = Storage.storage()
     let userid = Auth.auth().currentUser!.uid
@@ -29,12 +30,11 @@ struct EditView: View {
                     .blur(radius: 8)
                 VStack {
                     photoPicker()
-                    Spacer()
-                        .frame(height: 100)
+                        .padding(.bottom, 100)
                     
                     nameTextField()
-                    Spacer()
-                        .frame(height: 100)
+                        .padding(.bottom, 100)
+                    Text(registerError)
                 }
                 .navigationBarItems(leading: cancleButton() ,trailing: saveButton())
             }
@@ -49,9 +49,15 @@ struct EditView: View {
             }
             if changedName != "" {
                 profile.name = changedName
-                editName()
+                //                editName()
+                
+                self.editName() {
+                    isDone in
+                    if isDone {
+                        self.presentationMode.wrappedValue.dismiss()
+                    }
+                }
             }
-            self.presentationMode.wrappedValue.dismiss()
         }
     }
     
@@ -109,11 +115,11 @@ struct EditView: View {
         // 1. remove prev profile
         let desertRef = storage.reference().child("images/user_profile/\(userid)")
         desertRef.delete { err in
-          if let err = err {
-              print("an error has occurred - \(err.localizedDescription)")
-          } else {
-              print("image deleted successfully")
-          }
+            if let err = err {
+                print("an error has occurred - \(err.localizedDescription)")
+            } else {
+                print("image deleted successfully")
+            }
         }
         // 2. upload new profile
         upload_Image(image: changedImage!)
@@ -127,7 +133,7 @@ struct EditView: View {
         UIGraphicsEndImageContext()
         return newImage!
     }
-
+    
     fileprivate func upload_Image(image:UIImage){
         let image : UIImage = resizeImage(image: image, targetSize: CGSize(width: 512, height: 512))
         if let imageData = image.jpegData(compressionQuality: 1){
@@ -143,31 +149,57 @@ struct EditView: View {
             print("coldn't unwrap/case image to data")
         }
     }
-
-    fileprivate func editName() {
-        // 1.게시글 중에 이전 유저네임이랑 같은글 전부 수정 or 그냥 un
-        Firestore.firestore().collection("libData").whereField("userid", isEqualTo: userid).getDocuments() { infos, err in
+    
+    func duplicateName(completionHandler: @escaping (Bool) -> Void) {
+        var isunique = false
+        db = Firestore.firestore()
+        db.collection("users").getDocuments() {
+            querySnapshot, err in
             if let err = err {
                 print("Error getting documents: \(err)")
             } else {
-                guard let infos = infos?.documents else {
-                    print("books is nil")
-                    return
-                }
-                for info in infos {
-                    info.reference.setData(["username": changedName], merge: true)
+                isunique = true
+                for document in querySnapshot!.documents {
+                    let name = document.get("name") as? String ?? ""
+                    if name == changedName {
+                        registerError = "중복된 아이디입니다."
+                        isunique = false
+                    }
                 }
             }
+            completionHandler(isunique)
         }
-        // 2.db의 users의 uid같은거에서 유저네임 수정.
-        Firestore.firestore().collection("users").document("\(userid)").setData([
-            "name": changedName
-        ], merge: true) { err in
-            if let err = err {
-                print("Error writing document: \(err)")
-            } else {
-                print("Document successfully written!")
+    }
+    
+    fileprivate func editName(completionHandler: @escaping (Bool) -> Void) {
+        duplicateName { isNotdup in
+            if isNotdup {
+                // 1.게시글 중에 이전 유저네임이랑 같은글 전부 수정 or 그냥 un
+                Firestore.firestore().collection("libData").whereField("userid", isEqualTo: userid).getDocuments() { infos, err in
+                    if let err = err {
+                        print("Error getting documents: \(err)")
+                    } else {
+                        guard let infos = infos?.documents else {
+                            print("books is nil")
+                            return
+                        }
+                        for info in infos {
+                            info.reference.setData(["username": changedName], merge: true)
+                        }
+                    }
+                }
+                // 2.db의 users의 uid같은거에서 유저네임 수정.
+                Firestore.firestore().collection("users").document("\(userid)").setData([
+                    "name": changedName
+                ], merge: true) { err in
+                    if let err = err {
+                        print("Error writing document: \(err)")
+                    } else {
+                        print("Document successfully written!")
+                    }
+                }
             }
+            completionHandler(isNotdup)
         }
     }
 }

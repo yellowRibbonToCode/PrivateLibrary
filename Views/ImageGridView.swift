@@ -113,8 +113,12 @@ struct ImageGridView: View {
                 })
             }
             .coordinateSpace(name: "pullToRefresh")
-            .navigationBarTitle(Text("Books"))
+            .navigationBarTitle(Text(""), displayMode: .inline)
+            .navigationBarItems(leading:Text("Books")
+                                    .font(.system(size: 34, weight: .bold)), trailing: Text("button"))
         }
+        .font(Font.custom("S-CoreDream-4Regular", size: 14))
+        
 //        .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
     }
 }
