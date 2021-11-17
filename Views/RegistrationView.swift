@@ -21,6 +21,7 @@ struct RegistrationView: View {
     
     fileprivate func emailTextField() -> some View {
         return TextField("이메일 주소", text: $email)
+
             .font(Font.custom("S-CoreDream-2ExtraLight", size: 13))
             .padding()
             .disableAutocorrection(true)
@@ -37,6 +38,7 @@ struct RegistrationView: View {
     fileprivate func usernameTextField() -> some View {
         return TextField("이름", text: $username)
             .font(Font.custom("S-CoreDream-2ExtraLight", size: 13))
+
             .padding()
             .disableAutocorrection(true)
             .keyboardType(.emailAddress)
@@ -79,6 +81,7 @@ struct RegistrationView: View {
                     .stroke(Color.mainBlue, lineWidth: 1)
             )
     }
+        
     
     
     fileprivate func registerButton() -> some View {
@@ -107,6 +110,7 @@ struct RegistrationView: View {
                 self.presentationMode.wrappedValue.dismiss()}
         }
         else {
+
             VStack (spacing: 0) {
                 Image("loginIcon")
                     .padding()
@@ -132,6 +136,7 @@ struct RegistrationView: View {
                 Image(systemName: "arrow.left")
                     .foregroundColor(.mainBlue)
             })
+
             
         }
     }
