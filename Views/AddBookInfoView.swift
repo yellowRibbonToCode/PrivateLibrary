@@ -131,6 +131,16 @@ struct AddBookInfoView: View {
     var body: some View {
         
         VStack(alignment: .center, spacing: 10) {
+            HStack {
+                Button(action:
+                {
+                    self.presentationMode.wrappedValue.dismiss()
+                }) {
+                    
+                    Image(systemName: "arrow.left")
+                }
+                    
+            }
             Button(action: {
                 self.isShowPhotoLibrary = true
             }) {
@@ -236,14 +246,7 @@ struct AddBookInfoView: View {
                 })
         }
         .padding(EdgeInsets(top: 20, leading: 40, bottom: 0, trailing: 40))
-        
-        .navigationBarBackButtonHidden(true)
-        .navigationBarItems(leading: Button(action: {
-            self.presentationMode.wrappedValue.dismiss()
-        }){
-            Image(systemName: "arrow.left")
-                .foregroundColor(Color(hue: 0.074, saturation: 0.99, brightness: 0.492))
-        })
+      
     }
 }
 struct AddBookInfoView_Previews: PreviewProvider {

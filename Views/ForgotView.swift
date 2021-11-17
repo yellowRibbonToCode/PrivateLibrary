@@ -47,7 +47,7 @@ struct ForgotView: View {
             LoginView()
         }
         else {
-            VStack {
+            VStack (spacing: 0){
                 Image("loginIcon")
                     .padding(.bottom, 30)
                 Text("비밀번호를 잊어버리셨나요?")
@@ -76,7 +76,7 @@ struct ForgotView: View {
                 self.presentationMode.wrappedValue.dismiss()
             }){
                 Image(systemName: "arrow.left")
-                    .foregroundColor(.white)
+                    .foregroundColor(.mainBlue)
             })
         }
     }

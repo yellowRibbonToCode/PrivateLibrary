@@ -94,10 +94,10 @@ struct LoginView: View {
         }
         else{
             NavigationView {
-                VStack (alignment: .center){
+                VStack (alignment: .center, spacing: 0){
                     Image("loginIcon")
                         .padding(.bottom, 30)
-                    VStack {
+                    VStack (spacing: 0) {
                         Group{
                             emailTextField()
                             passwordTextField()
@@ -145,7 +145,7 @@ struct LoginView: View {
     
     func autoLogin() {
         loginError = " "
-        if (UserDefaults.standard.string(forKey: "id") != "")
+        if (UserDefaults.standard.string(forKey: "id") != "" && UserDefaults.standard.string(forKey: "id") != nil)
         {
             self.username = UserDefaults.standard.string(forKey: "id")!
             self.password = UserDefaults.standard.string(forKey: "password")!
