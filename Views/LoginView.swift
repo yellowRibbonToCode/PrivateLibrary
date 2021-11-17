@@ -129,8 +129,6 @@ struct LoginView: View {
             }
             .onAppear {
                 autoLogin()
-                self.username = ""
-                self.password = ""
             }
         }
     }
@@ -141,6 +139,8 @@ struct LoginView: View {
                 UserDefaults.standard.set(self.username, forKey: "id")
                 UserDefaults.standard.set(self.password, forKey: "password")
                 loginSuccess = true
+                self.username = ""
+                self.password = ""
             }else{
                 loginError = error?.localizedDescription
             }

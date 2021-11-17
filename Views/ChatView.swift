@@ -10,16 +10,21 @@ import Firebase
 import FirebaseFirestore
 
 struct ChatView: View {
+    @Environment(\.presentationMode) var presentationMode
+
     let documentId: String
     let whoami: String = Auth.auth().currentUser!.uid
     @ObservedObject var messages = Messages()
     @State var msg: String = ""
+    let db = Firestore.firestore()
     
     class Messages: ObservableObject {
         @Published var messages: [Message] = []
-        
+        @Published var partner: String = "name"
+        let db = Firestore.firestore()
+
         func loadMessages(_ documentId: String) {
-            Firestore.firestore().collection("chatings").document(documentId).collection("messages").order(by: "sendTime").addSnapshotListener { snap, err in
+            db.collection("chatings").document(documentId).collection("messages").order(by: "sendTime").addSnapshotListener { snap, err in
                 if err != nil {
                     print(err!.localizedDescription)
                     return
@@ -37,6 +42,34 @@ struct ChatView: View {
                 }
             }
         }
+        
+        func loadPartnerName(_ documentId: String) {
+            db.collection("chatings").document(documentId).getDocument { snap, err in
+                if err != nil {
+                    print(err!.localizedDescription)
+                    return
+                }
+                
+                guard let data = snap else {return}
+                
+                if let tmp = (data.get("participants") as? [String]) {
+                    if Auth.auth().currentUser!.uid == tmp[0] {
+                        Firestore.firestore().collection("users").document(tmp[1]).getDocument { snap, err in
+                            if let name = snap?.get("name") {
+                                self.partner = name as! String
+                            }
+                        }
+                    } else {
+                        Firestore.firestore().collection("users").document(tmp[0]).getDocument { snap, err in
+                            if let name = snap?.get("name") {
+                                self.partner = name as! String
+                            }
+                        }
+                    }
+                }
+                
+            }
+        }
     }
     
     var body: some View {
@@ -46,7 +79,7 @@ struct ChatView: View {
                     LazyVStack {
                         ForEach(messages.messages) { msg in
                             ChatBubble(position: msg.sender == whoami ? .right : .left,
-                                       color: msg.sender == whoami ? .green : .blue) {
+                                       color: msg.sender == whoami ? .mainBlue : .white) {
                                 Text(msg.msg)
                             }
                         }
@@ -63,37 +96,65 @@ struct ChatView: View {
                     proxy.scrollTo(messages.messages.last!.id , anchor: .bottom)
                 }
             }.padding(.top)
-            HStack(spacing: 15) {
-                TextField("Enter Message", text: $msg)
+            HStack(spacing: 9) {
+                TextField("", text: $msg)
 //                    .textFieldStyle(RoundedBorderTextFieldStyle())
                     .padding(.horizontal)
-                    .frame(height: 45)
+                    .frame(height: 36)
                     .background(Color.primary.opacity(0.06))
-                    .clipShape(Capsule())
-                    
-                if self.msg != "" {
-                    Button(action: {
-                        let msg = Message(sendTime: Date(), sender: whoami, msg: msg)
-                        let _ = try! Firestore.firestore().collection("chatings/\(documentId)/messages").addDocument(from: msg) { err in
-                            
-                            if err != nil {
-                                print(err!.localizedDescription)
-                                return
-                            }
-                            self.msg = ""
+                    .clipShape(RoundedRectangle(cornerRadius: 10))
+                
+                Button(action: {
+                    if self.msg == "" {
+                        return
+                    }
+                    let msg = Message(sendTime: Date(), sender: whoami, msg: msg)
+                    let _ = try! db.collection("chatings/\(documentId)/messages").addDocument(from: msg) { err in
+                        if err != nil {
+                            print(err!.localizedDescription)
+                            return
                         }
-                    }, label: {
-                        Image(systemName: "paperplane.fill")
-                            .font(.system(size: 22))
-                            .foregroundColor(.blue)
-                            .frame(width: 45, height: 45)
-//                            .background(Color("Color"))
-                            .clipShape(Circle())
-                    })
-                }
+                        self.msg = ""
+                    }
+                }, label: {
+                    Image(systemName: "arrow.right.circle")
+//                        .resizable()
+//                        .frame(width: 32, height: 32)
+                        .foregroundColor(.mainBlue)
+                        .font(Font.system(size: 32, weight: .light))
+
+                })
             }.padding()
         }
+        .onAppear {
+            messages.loadPartnerName(documentId)
+        }
+        .navigationBarBackButtonHidden(true)
+        .navigationBarItems(leading: btnBack)
     }
+    
+    var btnBack : some View {
+        Button {
+            self.presentationMode.wrappedValue.dismiss()
+        } label: {
+            HStack(spacing: 0) {
+                Image(systemName: "chevron.left")
+                    .foregroundColor(.mainBlue)
+                Image(systemName: "person.circle")
+                    .resizable()
+                    .frame(width: 37, height: 37)
+                    .padding(.leading, 12)
+                    .foregroundColor(.gray)
+                Text(messages.partner)
+                    .bold()
+                    .font(.system(size: 34))
+                    .padding(.leading, 12)
+                    .foregroundColor(.black)
+            }
+        }
+
+    }
+    
 }
 
 struct ChatView_Previews: PreviewProvider {

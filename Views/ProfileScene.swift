@@ -85,7 +85,7 @@ struct ProfileScene: View { // View
     fileprivate func profileImage() -> some View {
         return CircleImageView(image: profile.image, width: 130 , height: 130)
             .onAppear {
-                profile.image = UIImage(named: "rainbowlake")!
+//                profile.image = UIImage(named: "rainbowlake")!
                 loadProfile()
             }
     }

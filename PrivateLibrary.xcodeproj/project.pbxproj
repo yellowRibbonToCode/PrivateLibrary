@@ -64,6 +64,7 @@
 		8A2F403F2743435200D7B5D5 /* MakeChat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A2F403E2743435200D7B5D5 /* MakeChat.swift */; };
 		8A2F40412743481800D7B5D5 /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 8A2F40402743481800D7B5D5 /* Secrets.xcconfig */; };
 		8A2F40432743580B00D7B5D5 /* ChatModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A2F40422743580B00D7B5D5 /* ChatModel.swift */; };
+		8A2F40452743A86C00D7B5D5 /* ChatRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A2F40442743A86C00D7B5D5 /* ChatRow.swift */; };
 		8AA55D9E273402BE00F3F8AA /* ImagePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA55D9D273402BE00F3F8AA /* ImagePickerView.swift */; };
 		8AE86A442733A66D00BE14DD /* ProfileScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE86A432733A66D00BE14DD /* ProfileScene.swift */; };
 		8AE86A462733A68800BE14DD /* CircleImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE86A452733A68800BE14DD /* CircleImageView.swift */; };
@@ -126,12 +127,12 @@
 		73FF48F2273E92E700170DD0 /* NeighborGridView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NeighborGridView.swift; sourceTree = "<group>"; };
 		73FF48F3273E92E700170DD0 /* LocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		73FF48F8273E930700170DD0 /* JusoModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JusoModel.swift; sourceTree = "<group>"; };
-		73FF48FD273E943200170DD0 /* Secrets.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
 		8A2F403A2743434200D7B5D5 /* ChatList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatList.swift; sourceTree = "<group>"; };
 		8A2F403B2743434200D7B5D5 /* ChatView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
 		8A2F403E2743435200D7B5D5 /* MakeChat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MakeChat.swift; sourceTree = "<group>"; };
 		8A2F40402743481800D7B5D5 /* Secrets.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
 		8A2F40422743580B00D7B5D5 /* ChatModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatModel.swift; sourceTree = "<group>"; };
+		8A2F40442743A86C00D7B5D5 /* ChatRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRow.swift; sourceTree = "<group>"; };
 		8AA55D9D273402BE00F3F8AA /* ImagePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerView.swift; sourceTree = "<group>"; };
 		8AE86A432733A66D00BE14DD /* ProfileScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScene.swift; sourceTree = "<group>"; };
 		8AE86A452733A68800BE14DD /* CircleImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleImageView.swift; sourceTree = "<group>"; };
@@ -225,7 +226,6 @@
 		73BFFFB727214EAE00375684 = {
 			isa = PBXGroup;
 			children = (
-				8A2F40402743481800D7B5D5 /* Secrets.xcconfig */,
 				73AA3567272CB90100196FA4 /* TestView.swift */,
 				731FE15F2727F50A0013311D /* Fonts */,
 				73C09B4A272534590048BC85 /* Resources */,
@@ -248,7 +248,7 @@
 		73BFFFC227214EAE00375684 /* PrivateLibrary */ = {
 			isa = PBXGroup;
 			children = (
-				73FF48FD273E943200170DD0 /* Secrets.xcconfig */,
+				8A2F40402743481800D7B5D5 /* Secrets.xcconfig */,
 				737EBDCF272A8DBA00C4513D /* PrivateLibrary.entitlements */,
 				73BFFFC327214EAE00375684 /* AppDelegate.swift */,
 				73BFFFC527214EAE00375684 /* SceneDelegate.swift */,
@@ -284,6 +284,7 @@
 				73702DF9273FB1690020AB24 /* CalcDistance.swift */,
 				73FF48F3273E92E700170DD0 /* LocationManager.swift */,
 				8A2F403A2743434200D7B5D5 /* ChatList.swift */,
+				8A2F40442743A86C00D7B5D5 /* ChatRow.swift */,
 				8A2F403B2743434200D7B5D5 /* ChatView.swift */,
 				73FF48F1273E92E700170DD0 /* LocationRegistration.swift */,
 				73FF48F2273E92E700170DD0 /* NeighborGridView.swift */,
@@ -399,7 +400,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				73FF48FE273E943200170DD0 /* Secrets.xcconfig in Resources */,
 				EE3FB11A2743834C003C761F /* S-CoreDream-8Heavy.otf in Resources */,
 				EE3FB1202743834C003C761F /* S-CoreDream-6Bold.otf in Resources */,
 				EE3FB11E2743834C003C761F /* S-CoreDream-7ExtraBold.otf in Resources */,
@@ -434,6 +434,7 @@
 				735B8DDE2733B7C300C9D079 /* AddBookInfoButton.swift in Sources */,
 				73AA3568272CB90100196FA4 /* TestView.swift in Sources */,
 				8A2F403F2743435200D7B5D5 /* MakeChat.swift in Sources */,
+				8A2F40452743A86C00D7B5D5 /* ChatRow.swift in Sources */,
 				731FE15A2727D9ED0013311D /* ImageGridView.swift in Sources */,
 				731FE15B2727D9ED0013311D /* HomeView.swift in Sources */,
 				EEAD456D27400A3100632C92 /* TestBookmarkView.swift in Sources */,
