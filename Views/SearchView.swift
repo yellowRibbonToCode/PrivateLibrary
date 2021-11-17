@@ -172,7 +172,7 @@ struct SearchImageRow: View {
             }
         }
         .sheet(isPresented: $show) {
-            SearchDetailView(libModel: libModel)
+//            SearchDetailView(libModel: libModel)
         }
         
     }
