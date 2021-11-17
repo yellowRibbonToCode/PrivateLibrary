@@ -11,11 +11,14 @@ import FirebaseFirestore
 import FirebaseAuth
 
 struct ChatList: View {
-//    @EnvironmentObject var backend: Backend
     @ObservedObject var chatRooms = ChatRooms()
 
     class ChatRooms: ObservableObject {
         @Published var rooms: [String] = []
+        
+        init() {
+            loadChatRooms()
+        }
         
         func loadChatRooms() {
             print("loadChatRoomgs")
@@ -32,22 +35,20 @@ struct ChatList: View {
     var body: some View {
         NavigationView {
             ScrollView {
-                LazyVStack {
-                    ForEach(chatRooms.rooms, id: \.self) { roomId in
-                        NavigationLink(destination: ChatView(documentId: roomId)) {
-                            HStack {
-                                // 나중에 채팅방 row이런거 만들어서 뷰
-                                Text("hi")
-                            }
+                LazyVStack(spacing: 0) {
+                    ForEach(chatRooms.rooms, id:\.self) { room in
+                        NavigationLink(destination: ChatView(documentId: room)) {
+//                            HStack(spacing: 0) {
+                                ChatRow(roomId: room)
+//                            }
+//                            Spacer()
                         }
                     }
                 }
-                .onAppear {
-                    chatRooms.loadChatRooms()
-                }
-                .navigationTitle("Chanting")
+                .navigationTitle("Chat")
             }
         }
+//        .padding()
     }
 }
 

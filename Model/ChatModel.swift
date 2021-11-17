@@ -42,38 +42,42 @@ struct ChatBubble<Content>: View where Content:View {
     }
     
     var body: some View {
-        
-        VStack {
-            HStack(spacing: 0) {
-                content()
-                    .padding(.all, 15)
-                    .foregroundColor(Color.white)
-                    .background(color)
-                    .clipShape(RoundedRectangle(cornerRadius: 18))
-                    .overlay(
-                        Image(systemName: "arrowtriangle.left.fill")
-                            .foregroundColor(color)
-                            .rotationEffect(Angle(degrees: position == .left ? -50 : -130))
-                            .offset(x: position == .left ? -5 : 5),
-                        alignment: position == .left ? .bottomLeading : .bottomTrailing)
-                
+        HStack(alignment: .bottom) {
+            if self.position == .right {
+                Spacer()
+                Text(Date(), style: .time)
+                    .font(Font.custom("S-CoreDream-4Regular", size: 8))
+                    .foregroundColor(.mainBlue)
             }
-            .padding(position == .left ? .leading : .trailing, 15)
-            .padding(position == .right ? .leading : .trailing, 60)
-            .frame(width: UIScreen.main.bounds.width, alignment: position == .left ? .leading : .trailing)
-            
-            Text(Date(), style: .time)
-                .font(.caption2)
-                .foregroundColor(.gray)
-                .padding(position == .left ? .trailing : .leading, 250)
+            content()
+                .font(Font.custom("S-CoreDream-4Regular", size: 13))
+//                .frame(height: 36)
+                .padding(.vertical, 10)
+                .padding(.leading, 19)
+                .padding(.trailing, 19)
+                .background(color)
+                .clipShape(RoundedRectangle(cornerRadius: 30))
+                .foregroundColor(color == .white ? .mainBlue : .white)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 30)
+                        .stroke(Color.mainBlue, lineWidth: 1)
+                )
+            if self.position == .left {
+                Text(Date(), style: .time)
+                    .font(Font.custom("S-CoreDream-4Regular", size: 8))
+                    .foregroundColor(.mainBlue)
+                Spacer()
+            }
         }
+        .padding(position == .left ? .leading : .trailing, 16)
+        .padding(position == .right ? .leading : .trailing, 60)
     }
 }
 
 struct ChatBubble_Previews: PreviewProvider {
     static var previews: some View {
-        ChatBubble(position: .right, color: .green) {
-            Text("hilwfweijflweijflweijffwefwifjlweifjwe")
+        ChatBubble(position: .right, color: .mainBlue) {
+            Text("hilwfweijfwifjlweifjwe")
         }
     }
 }
