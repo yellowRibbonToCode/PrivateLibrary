@@ -26,26 +26,31 @@ struct TestBookmarkView: View {
                     
                     LazyVGrid(columns: columns) {
                         ForEach (books.bookList ) { book in
-                            NavigationLink(destination: SearchDetailView(libModel: book)) {
-                                TestBookmarkViewImageRow(libModel: book, bookmarklist: books.bookmarkcheck)
+                            NavigationLink(destination: SearchDetailView(libModel: book, books: self.books)) {
+                                TestBookmarkViewImageRow(libModel: book, books: self.books)
                             }
                         }
                     }
                     .padding()
-                    .onAppear(perform: {
-                        books.loadBooks()
-                        books.makebookmarklist()
-                        print("load books")
-                    })
+//                    .onAppear(perform: {
+//                        books.loadBooks()
+//                        books.makebookmarklist()
+//                        print("load books")
+//                    })
                 }
             }
+            .onAppear(perform: {
+                books.loadBooks()
+                books.makebookmarklist()
+                print("load books")
+            })
             .navigationBarTitle(Text(""), displayMode: .inline)
             .navigationBarItems(leading:
                                     Text("Books")
 //                                    .font(Font.custom("S-CoreDream-6Bold", size: 44))
                                     .font(.system(size: 44, weight: .bold)),
                                 trailing:
-                                    Image(systemName: "line.3.horizontal.circle")
+                                    Image(systemName: "slider.horizontal.3")
                                     .resizable()
                                     .frame(width: 32, height: 32)
                                     .foregroundColor(.mainBlue))
@@ -53,32 +58,34 @@ struct TestBookmarkView: View {
     }
 }
 
-struct TestBookmarkViewTop: View {
-    
-    @State var showAdd = false
-    
-    var body: some View{
-        HStack {
-            Text("Books")
-                .font(.system(size: 44, weight: .bold))
-            Spacer()
-            Button(action: {
-                self.showAdd.toggle()
-            }) {
-                Image(systemName: "line.3.horizontal.circle")
-                    .resizable()
-                    .frame(width: 23, height: 23)
-                    .foregroundColor(.mainBlue)
-            }
-        }
-        .padding()
-        .padding(.bottom, -30)
-    }
-}
+//struct TestBookmarkViewTop: View {
+//
+//    @State var showAdd = false
+//
+//    var body: some View{
+//        HStack {
+//            Text("Books")
+//                .font(.system(size: 44, weight: .bold))
+//            Spacer()
+//            Button(action: {
+//                self.showAdd.toggle()
+//            }) {
+//                Image(systemName: "slider.horizontal.3")
+//                    .resizable()
+//                    .frame(width: 23, height: 23)
+//                    .foregroundColor(.mainBlue)
+//            }
+//        }
+//        .padding()
+//        .padding(.bottom, -30)
+//    }
+//}
 
 struct TestBookmarkViewButton: View {
     @State var bookmark: Bool
     var libModel: ViewModel
+    @ObservedObject var books: TestBookmarkView.BookLists
+
     let db = Firestore.firestore()
     
     let userId = Auth.auth().currentUser?.uid ?? "userId"
@@ -118,7 +125,12 @@ struct TestBookmarkViewButton: View {
                 for document in snapshot!.documents {
                     doc.document("\(document.documentID)").delete()
                 }
-            }})
+                if let i = self.books.bookmarkarray.firstIndex(of: libModel.id) {
+                    self.books.bookmarkarray.remove(at: i)
+                }
+            }
+            
+        })
         
     }
     
@@ -146,6 +158,7 @@ struct TestBookmarkViewButton: View {
                 print("Error writing document: \(err)")
             } else {
                 print(doc.documentID)
+                self.books.bookmarkarray.append(doc.documentID)
             }
         }
         
@@ -154,7 +167,8 @@ struct TestBookmarkViewButton: View {
 
 struct TestBookmarkViewImageRow: View {
     var libModel: ViewModel
-    var bookmarklist: [String]
+    @ObservedObject var books: TestBookmarkView.BookLists
+
     
     
     var body: some View {
@@ -169,7 +183,7 @@ struct TestBookmarkViewImageRow: View {
                         .cornerRadius(19)
                         .shadow(color: Color(red: 0.0, green: 0.0, blue: 0.0, opacity: 0.1), radius: 6, x: 0, y: 3)
                 }
-                TestBookmarkViewButton(bookmark: checkbookmark(), libModel: libModel)
+                TestBookmarkViewButton(bookmark: checkbookmark(), libModel: libModel, books: books)
                     .padding(EdgeInsets(top: 10, leading: 0, bottom: 0, trailing: 10))
                 
             }
@@ -210,7 +224,7 @@ struct TestBookmarkViewImageRow: View {
     
     private func checkbookmark() -> Bool {
         
-        if self.bookmarklist.contains(self.libModel.id) {
+        if self.books.bookmarkarray.contains(self.libModel.id) {
             return true
         }
         else
@@ -233,7 +247,7 @@ extension TestBookmarkView {
     class BookLists: ObservableObject {
         let userId = Auth.auth().currentUser?.uid ?? "userId"
         @Published var bookList: [ViewModel] = []
-        @Published var bookmarkcheck: [String] = []
+        @Published var bookmarkarray: [String] = []
         //    private var bookImage = UIImage(systemName: "book")
         //        private let userid = Auth.auth().currentUser!.uid
         private let db = Firestore.firestore()
@@ -282,7 +296,7 @@ extension TestBookmarkView {
                         return
                     }
                     for docu in docus {
-                        self.bookmarkcheck.append(docu.get("bookid") as! String)
+                        self.bookmarkarray.append(docu.get("bookid") as! String)
                     }
                 }
             }
