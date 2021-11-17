@@ -77,8 +77,8 @@ struct EditView: View {
                 .overlay(Circle().stroke(Color.gray, lineWidth: 2))
             VStack {
                 Button("Camera") {
-                    //                    self.sourceType = .camera
-                    //                    self.isImagePickerDisplay.toggle()
+                    self.sourceType = .camera
+                    self.isImagePickerDisplay.toggle()
                 }.padding()
                 Button("photo") {
                     self.sourceType = .photoLibrary

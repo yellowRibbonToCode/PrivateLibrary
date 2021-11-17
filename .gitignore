@@ -115,3 +115,4 @@ iOSInjectionProject/
 PrivateLibrary/Secrets.xcconfig
 
 # End of https://www.gitignore.io/api/xcode,swift,cocoapods
+.DS_Store
