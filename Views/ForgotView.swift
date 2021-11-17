@@ -51,7 +51,6 @@ struct ForgotView: View {
                 Image("loginIcon")
                     .padding(.bottom, 30)
                 Text("비밀번호를 잊어버리셨나요?")
-                    .fontWeight(.heavy)
                     .foregroundColor(.mainBlue)
                     .font(Font.custom("S-CoreDream-4Regular", size: 17))
                 Text("가입 시 작성한 이메일로 임시 비밀번호를 보내드립니다.")

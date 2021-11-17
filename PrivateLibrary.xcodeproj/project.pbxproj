@@ -13,6 +13,8 @@
 		731FE15D2727D9ED0013311D /* ImageRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 731FE1592727D9ED0013311D /* ImageRow.swift */; };
 		7322C081272A929300D426F7 /* Resolver in Frameworks */ = {isa = PBXBuildFile; productRef = 7322C080272A929300D426F7 /* Resolver */; };
 		7326A9F92743C7E0004334D7 /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 73FF48FD273E943200170DD0 /* Secrets.xcconfig */; };
+		732A761827451E5E0039A08E /* tempProfileScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 732A761727451E5E0039A08E /* tempProfileScene.swift */; };
+		732A761A274529AC0039A08E /* tempProfileEditScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 732A7619274529AB0039A08E /* tempProfileEditScene.swift */; };
 		732AE1BD2727ADE1004D5A3C /* Icon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 732AE1BC2727ADE1004D5A3C /* Icon.swift */; };
 		732B94BE2726C379005A7416 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 732B94BD2726C379005A7416 /* LoginView.swift */; };
 		732BF58E27267CC800DC18E3 /* libData.json in Resources */ = {isa = PBXBuildFile; fileRef = 732BF58D27267CC800DC18E3 /* libData.json */; };
@@ -92,6 +94,8 @@
 		731FE1572727D9ED0013311D /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		731FE1582727D9ED0013311D /* ImageHView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageHView.swift; sourceTree = "<group>"; };
 		731FE1592727D9ED0013311D /* ImageRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageRow.swift; sourceTree = "<group>"; };
+		732A761727451E5E0039A08E /* tempProfileScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tempProfileScene.swift; sourceTree = "<group>"; };
+		732A7619274529AB0039A08E /* tempProfileEditScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tempProfileEditScene.swift; sourceTree = "<group>"; };
 		732AE1BC2727ADE1004D5A3C /* Icon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Icon.swift; sourceTree = "<group>"; };
 		732B94BD2726C379005A7416 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		732BF58D27267CC800DC18E3 /* libData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = libData.json; sourceTree = "<group>"; };
@@ -279,6 +283,8 @@
 				735B8DDD2733B7C300C9D079 /* AddBookInfoButton.swift */,
 				731FE1582727D9ED0013311D /* ImageHView.swift */,
 				8AE86A432733A66D00BE14DD /* ProfileScene.swift */,
+				732A761727451E5E0039A08E /* tempProfileScene.swift */,
+				732A7619274529AB0039A08E /* tempProfileEditScene.swift */,
 				73702DF9273FB1690020AB24 /* CalcDistance.swift */,
 				73FF48F3273E92E700170DD0 /* LocationManager.swift */,
 				8A2F403A2743434200D7B5D5 /* ChatList.swift */,
@@ -427,6 +433,7 @@
 				8AE86A482733A6B200BE14DD /* EditView.swift in Sources */,
 				8AE86A462733A68800BE14DD /* CircleImageView.swift in Sources */,
 				EEB25E36273B9554003DC29A /* StackCarousel.swift in Sources */,
+				732A761827451E5E0039A08E /* tempProfileScene.swift in Sources */,
 				8AE86A442733A66D00BE14DD /* ProfileScene.swift in Sources */,
 				735B8DDE2733B7C300C9D079 /* AddBookInfoButton.swift in Sources */,
 				73AA3568272CB90100196FA4 /* TestView.swift in Sources */,
@@ -468,6 +475,7 @@
 				73569EB8272FA59D00A72153 /* Testinputphoto.swift in Sources */,
 				EE9B91D4272D2E7B005BCFA5 /* ForgotView.swift in Sources */,
 				73FF48F7273E92E700170DD0 /* LocationManager.swift in Sources */,
+				732A761A274529AC0039A08E /* tempProfileEditScene.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -612,7 +620,7 @@
 				CODE_SIGN_ENTITLEMENTS = PrivateLibrary/PrivateLibrary.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"PrivateLibrary/Preview Content\"";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 9TH57H8UP9;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = PrivateLibrary/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -635,7 +643,7 @@
 				CODE_SIGN_ENTITLEMENTS = PrivateLibrary/PrivateLibrary.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"PrivateLibrary/Preview Content\"";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 9TH57H8UP9;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = PrivateLibrary/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
