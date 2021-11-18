@@ -123,12 +123,13 @@ struct ProfileScene: View { // View
                 .padding()
                 .onAppear {
                     books.loadBooks()
+                    books.takeBookmarkBook()
                     print("load books")
                 }
             }
             else {
                 LazyVGrid (columns: columns) {
-                    ForEach (books.bookList) { book in
+                    ForEach (books.bookmarkList) { book in
                         NavigationLink(destination: ProfileBookmarkDetailView(libModel: book, books: books)) {
                             ProfilebookmarkImageRow(libModel: book, books: books)
                         }
@@ -136,10 +137,6 @@ struct ProfileScene: View { // View
                     .foregroundColor(.black)
                 }
                 .padding()
-                .onAppear {
-                    books.loadBooks()
-                    print("load books")
-                }
             }
             
             
