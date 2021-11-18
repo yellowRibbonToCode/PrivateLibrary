@@ -22,8 +22,6 @@ struct HomeView: View {
              NavigationView {
                     ZStack{
                         if self.index == 0 {
-//                            ImageGridView()
-//                            TestBookmarkView()
                             FirstTabView()
                         }
                         else if self.index == 1{
