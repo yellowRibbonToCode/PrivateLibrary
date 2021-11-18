@@ -15,14 +15,15 @@ import Alamofire
 class NeighborViewModel: ObservableObject {
     private let userid = Auth.auth().currentUser!.uid
     
-    private var userLatitude = ""
+    @Published var userLatitude = ""
     private var userLongitude = ""
-    private var range = UserDefaults.standard.double(forKey: "range")
+    var range = UserDefaults.standard.double(forKey: "range")
     
     @Published var bookmarkarray: [String] = []
 
     
     func getUserLocation() {
+        print(self.range)
         db.collection("users").document(userid).getDocument { [self] user, err in
             if let user = user {
                 self.userLatitude = user.get("latitude") as? String ?? ""
@@ -151,10 +152,16 @@ struct NeighborGridView: View {
             }
             else{
                 VStack{
-                    
-                    Text("우리 동네에는 책이 없네요 ;(")
+                    if searchNeighborViewModel.userLatitude != ""{
+                        Text("우리 동네에는 책이 없네요 ;(")
                         .font(Font.custom("S-CoreDream-6Bold", size: 18))
                         .foregroundColor(.mainBlue)
+                    }
+                    else {
+                        Text("주소 설정이 필요해요 :D")
+                        .font(Font.custom("S-CoreDream-6Bold", size: 18))
+                        .foregroundColor(.mainBlue)
+                    }
                 }
             }}
         .onAppear(perform: {
