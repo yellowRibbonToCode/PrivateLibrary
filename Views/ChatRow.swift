@@ -14,7 +14,7 @@ struct ChatRow: View {
     let roomId: String
     var partner = Partner()
     
-    @State var profile: UIImage = UIImage(systemName: "person")!
+    @State var profile: UIImage = UIImage(imageLiteralResourceName: "user-g")
     @State var name: String = "??"
     @State var lastMsg: String = "??"
     
@@ -63,8 +63,8 @@ struct ChatRow: View {
             
             Spacer()
         }
-        .frame(width: 390, height: 84)
         .padding(.leading, 27.0)
+        .padding(.vertical, 9)
         .onAppear {
             partner.loadParticipants(roomId) { (success, id) in
                 if success {
@@ -81,7 +81,7 @@ struct ChatRow: View {
         profileImageRef.getData(maxSize: Int64(1 * 1024 * 1024)) { data, err in
             if let error = err {
                 print(error)
-                self.profile = UIImage(systemName: "person.circle")!
+                self.profile = UIImage(imageLiteralResourceName: "user-g")
             } else {
                 self.profile = UIImage(data: data!)!
                 print("loaded profile")

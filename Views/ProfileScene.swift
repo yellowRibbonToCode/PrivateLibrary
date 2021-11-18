@@ -8,9 +8,10 @@
 import SwiftUI
 import Firebase
 import FirebaseFirestore
+import XCTest
 
 struct Profile { // Model
-    var image: UIImage = UIImage(systemName: "person")!
+    var image: UIImage = UIImage(imageLiteralResourceName: "user-g")
     var name: String = "Anonymous"
     var email: String = "notyet@load.com"
     var emdNm: String = "주소 등록 "
@@ -35,78 +36,122 @@ struct ProfileScene: View { // View
     private let storageRef = Storage.storage().reference()
     
     var body: some View {
-        ScrollView(.vertical) {
-            HStack {
-                profileImage()
-                Spacer()
-                    .frame(width: 40)
-                VStack {
-                    profileName()
-                    profileEmail()
-                    Spacer()
-                        .frame(height: 10)
-                    HStack {
-                        editButton()
-                        Spacer()
-                            .frame(width: 20)
-                        signoutButton()
-                    }
+        NavigationView {
+            ScrollView(.vertical) {
+                ZStack {
+                    profileImage()
+                    Circle()
+                        .stroke(Color.mainBlue, lineWidth: 1)
+                        .frame(width: 170, height: 170)
+                }
+                profileName()
+                profileEmail()
+                HStack(spacing: 0) {
+                    Image("location-p")
+                        .resizable()
+                        .frame(width: 10, height: 15)
                     Button("\(profile.sggNm) \(profile.emdNm)") {
                         showingJuso.toggle()
                     }
+                    .font(Font.custom("S-CoreDream-5Medium", size: 16))
                     .onAppear(perform: {
                         loademdNM()
                     })
-//                    .fullScreenCover(isPresented: $showingJuso, content: {
-//                        LocationRegistration()
-//                    })
                     .sheet(isPresented: $showingJuso, content: {
                         LocationRegistration(profile: $profile)
-                    }) 
+                    })
+                }
+                .foregroundColor(.mainBlue)
+                Divider()
+                    .padding(.bottom, 15)
+                HStack(spacing: 0){
+                    Spacer()
+                    Image("edit-p")
+                        .resizable()
+                        .frame(width:23, height:23)
+                        .foregroundColor(.mainBlue)
+                    Spacer()
+                    Spacer()
+                    Image("bookmark-g")
+                        .resizable()
+                        .frame(width:15, height:23)
+                        .foregroundColor(.gray)
+                    Spacer()
+                }
+                .padding(.bottom, 15)
+                HStack (spacing: 0) {
+                    Rectangle()
+                        .fill(Color.mainBlue)
+                        .frame(height:1.5)
+//                        .padding(.leading)
+                    Rectangle()
+                        .fill(Color.gray)
+                        .frame(height:0.3)
+//                        .padding(.trailing)
+                }
+                .padding(.bottom, 15)
+                
+                Spacer()
+                
+                LazyVGrid (columns: columns) {
+                    ForEach (books.bookList) { book in
+                        ImageRow(libModel: book)
+                            .frame(width: 200, height: 200)
+                            .padding([.top], 5)
+                    }
+                    .foregroundColor(.black)
+                }
+                .onAppear {
+                    books.loadBooks()
+                    print("load books")
                 }
             }
-            .padding()
-            LazyVGrid (columns: columns) {
-                ForEach (books.bookList) { book in
-                    ImageRow(libModel: book)
-                        .frame(width: 200, height: 200)
-                        .padding([.top], 5)
+            .navigationBarTitle(Text(""), displayMode: .inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Text("My")
+                        .font(.system(size: 34, weight: .bold))
                 }
-                .foregroundColor(.black)
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button (action: {showingEdit.toggle()} ) {
+                        Image("edit-p")
+                            .resizable()
+                            .frame(width: 17, height: 17)
+                            .foregroundColor(.mainBlue)
+                    }.fullScreenCover(isPresented: $showingEdit, onDismiss: {reloadBooks()}) {
+                        EditView(profile: $profile)
+                    }
+                }
             }
-            .onAppear(perform: {
-                books.loadBooks()
-                print("load books")
-            })
-            .padding([.leading, .trailing], 10)
         }
     }
     
     fileprivate func profileImage() -> some View {
-        return CircleImageView(image: profile.image, width: 130 , height: 130)
+        return CircleImageView(image: profile.image, width: 160 , height: 160)
             .onAppear {
-//                profile.image = UIImage(named: "rainbowlake")!
                 loadProfile()
             }
     }
     fileprivate func profileName() -> some View {
         return Text(profile.name)
-            .font(.title)
-            .foregroundColor(.black)
+            .foregroundColor(.mainBlue)
+            .fontWeight(.bold)
+            .font(Font.system(size: 21))
             .onAppear{
                 loadName()
             }
     }
     fileprivate func profileEmail() -> some View {
         return Text(profile.email)
-            .font(.subheadline)
-            .foregroundColor(.gray)
+            .fontWeight(.light)
+            .font(Font.system(size: 14))
+            .tint(Color(red: 148/255, green: 148/255, blue: 152/255))
             .onAppear {
                 loadEmail()
             }
     }
     fileprivate func editButton() -> some View {
-        return Button("Edit") {
+        return Button("edit") {
             showingEdit.toggle()
         }
         .fullScreenCover(isPresented: $showingEdit, content: {

@@ -23,6 +23,6 @@ struct CircleImageView: View {
 
 struct CircleImageView_Previews: PreviewProvider {
     static var previews: some View {
-        CircleImageView(image: UIImage(systemName: "person")!, width: 100, height: 100)
+        CircleImageView(image: UIImage(imageLiteralResourceName: "user-g"), width: 100, height: 100)
     }
 }

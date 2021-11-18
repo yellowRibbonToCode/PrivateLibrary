@@ -35,20 +35,23 @@ struct ChatList: View {
     var body: some View {
         NavigationView {
             ScrollView {
+                Divider()
                 LazyVStack(spacing: 0) {
                     ForEach(chatRooms.rooms, id:\.self) { room in
                         NavigationLink(destination: ChatView(documentId: room)) {
-//                            HStack(spacing: 0) {
                                 ChatRow(roomId: room)
-//                            }
-//                            Spacer()
                         }
                     }
                 }
-                .navigationTitle("Chat")
+                .navigationBarTitle(Text(""), displayMode: .inline)
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        Text("Chat")
+                            .font(.system(size: 34, weight: .bold))
+                    }
+                }
             }
         }
-//        .padding()
     }
 }
 
