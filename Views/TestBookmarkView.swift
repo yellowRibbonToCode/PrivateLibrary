@@ -54,7 +54,7 @@ struct TestBookmarkView: View {
                                     Image(systemName: "slider.horizontal.3")
 
                                     .resizable()
-                                    .frame(width: 32, height: 32)
+                                    .frame(width: 27, height: 27)
                                     .foregroundColor(.mainBlue))
         }
     }
