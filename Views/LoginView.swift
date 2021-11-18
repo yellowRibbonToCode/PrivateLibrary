@@ -80,9 +80,10 @@ struct LoginView: View {
     
     fileprivate func forgotButton() -> some View {
         return NavigationLink(destination: ForgotView()) { Text("비밀번호 찾기")
-                .font(.headline)
+                .font(Font.custom("S-CoreDream-4Regular", size: 14))
                 .foregroundColor(.mainBlue)
                 .fontWeight(.medium)
+                .padding(.top, 11)
                 .padding(.bottom,46)
         }
     }

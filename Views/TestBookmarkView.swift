@@ -15,28 +15,41 @@ import FirebaseFirestoreSwift
 import FirebaseStorage
 
 struct TestBookmarkView: View {
+    var Views = ["Books", "NeighborBooks"]
+    @State var selectedView = 0
     let columns: [GridItem] = Array(repeating: GridItem(), count: 2)
     @ObservedObject var books = BookLists()
     
+    @State var selectedNumber: Int = 0
+    
+    var customLabel: some View {
+        HStack {
+            Image(systemName: "paperplane")
+            Text(String(selectedNumber))
+            Spacer()
+            Text("⌵")
+                .offset(y: -4)
+        }
+        .foregroundColor(.white)
+        .font(.title)
+        .padding()
+        .frame(height: 32)
+        .background(Color.blue)
+        .cornerRadius(16)
+    }
+    
     var body: some View {
-        NavigationView{
+//        NavigationView{
             VStack {
-//                TestBookmarkViewTop()
                 ScrollView(.vertical) {
-                    
                     LazyVGrid(columns: columns) {
-                        ForEach (books.bookList ) { book in
+                        ForEach (books.bookList.sorted { $0.created!.compare($1.created!) == .orderedDescending }) { book in
                             NavigationLink(destination: SearchDetailView(libModel: book, books: self.books)) {
                                 TestBookmarkViewImageRow(libModel: book, books: self.books)
                             }
                         }
                     }
                     .padding()
-//                    .onAppear(perform: {
-//                        books.loadBooks()
-//                        books.makebookmarklist()
-//                        print("load books")
-//                    })
                 }
             }
             .onAppear(perform: {
@@ -44,20 +57,9 @@ struct TestBookmarkView: View {
                 books.makebookmarklist()
                 print("load books")
             })
-
-            .navigationBarTitle(Text(""), displayMode: .inline)
-            .navigationBarItems(leading:
-                                    Text("Books")
-//                                    .font(Font.custom("S-CoreDream-6Bold", size: 44))
-                                    .font(.system(size: 44, weight: .bold)),
-                                trailing:
-                                    Image(systemName: "slider.horizontal.3")
-
-                                    .resizable()
-                                    .frame(width: 27, height: 27)
-                                    .foregroundColor(.mainBlue))
+//            .navigationBarHidden(true)
         }
-    }
+//    }
 }
 
 //struct TestBookmarkViewTop: View {
@@ -87,7 +89,7 @@ struct TestBookmarkViewButton: View {
     @State var bookmark: Bool
     var libModel: ViewModel
     @ObservedObject var books: TestBookmarkView.BookLists
-
+    
     let db = Firestore.firestore()
     
     let userId = Auth.auth().currentUser?.uid ?? "userId"
@@ -170,7 +172,7 @@ struct TestBookmarkViewButton: View {
 struct TestBookmarkViewImageRow: View {
     var libModel: ViewModel
     @ObservedObject var books: TestBookmarkView.BookLists
-
+    
     
     
     var body: some View {
@@ -189,7 +191,7 @@ struct TestBookmarkViewImageRow: View {
                     .padding(EdgeInsets(top: 10, leading: 0, bottom: 0, trailing: 10))
                 
             }
-            HStack (alignment: .top){
+            HStack {
                 if libModel.bookname.count > 15 {
                     Text(libModel.bookname.prefix(14) + "…")
                         .font(Font.custom("S-CoreDream-6Bold", size: 15))
@@ -214,13 +216,10 @@ struct TestBookmarkViewImageRow: View {
                         .foregroundColor(.black)
                 }
             }
-            
             .multilineTextAlignment(.leading)
             .lineLimit(2)
-            .frame(height: 45)
+            .frame(height: 45, alignment: .topLeading)
             .truncationMode(.tail)
-            
-//            .padding(.bottom, 10)
         }
     }
     
@@ -250,11 +249,10 @@ extension TestBookmarkView {
         let userId = Auth.auth().currentUser?.uid ?? "userId"
         @Published var bookList: [ViewModel] = []
         @Published var bookmarkarray: [String] = []
-        //    private var bookImage = UIImage(systemName: "book")
-        //        private let userid = Auth.auth().currentUser!.uid
         private let db = Firestore.firestore()
         
         func loadBooks() {
+            self.bookList = []
             db.collection("libData").getDocuments() { books, err in
                 if let err = err {
                     print("Error getting documents: \(err)")
@@ -274,8 +272,8 @@ extension TestBookmarkView {
                             author: book.get("author") as! String,
                             title: book.get("title") as! String,
                             content: book.get("content") as! String,
-                            //                        created: <#T##Date?#>,
-                            //                        edited: <#T##Date?#>,
+                            created: (book.get("created") as! Timestamp).dateValue(),
+                            edited: (book.get("edited") as! Timestamp).dateValue(),
                             price: book.get("price") as? Int,
                             exchange: (book.get("exchange") as! Bool),
                             sell: (book.get("sell") as! Bool),

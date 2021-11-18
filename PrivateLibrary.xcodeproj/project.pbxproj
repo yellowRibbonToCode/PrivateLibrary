@@ -12,7 +12,7 @@
 		731FE15C2727D9ED0013311D /* ImageHView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 731FE1582727D9ED0013311D /* ImageHView.swift */; };
 		731FE15D2727D9ED0013311D /* ImageRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 731FE1592727D9ED0013311D /* ImageRow.swift */; };
 		7322C081272A929300D426F7 /* Resolver in Frameworks */ = {isa = PBXBuildFile; productRef = 7322C080272A929300D426F7 /* Resolver */; };
-		7326A9F92743C7E0004334D7 /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 73FF48FD273E943200170DD0 /* Secrets.xcconfig */; };
+		7326A9F92743C7E0004334D7 /* (null) in Resources */ = {isa = PBXBuildFile; };
 		732A761827451E5E0039A08E /* tempProfileScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 732A761727451E5E0039A08E /* tempProfileScene.swift */; };
 		732A761A274529AC0039A08E /* tempProfileEditScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 732A7619274529AB0039A08E /* tempProfileEditScene.swift */; };
 		732AE1BD2727ADE1004D5A3C /* Icon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 732AE1BC2727ADE1004D5A3C /* Icon.swift */; };
@@ -55,6 +55,7 @@
 		73C09B3D2725250A0048BC85 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C09B3C2725250A0048BC85 /* MapView.swift */; };
 		73C09B402725279D0048BC85 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C09B3F2725279D0048BC85 /* DetailView.swift */; };
 		73C09B4927252F980048BC85 /* ModelData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C09B4827252F980048BC85 /* ModelData.swift */; };
+		73C9051927462F4F00EAEBD7 /* FirstTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C9051827462F4F00EAEBD7 /* FirstTabView.swift */; };
 		73D6A396272D7C9300C6585B /* DBTestList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D6A395272D7C9300C6585B /* DBTestList.swift */; };
 		73FF48F4273E92E700170DD0 /* TempSecondTap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73FF48F0273E92E700170DD0 /* TempSecondTap.swift */; };
 		73FF48F5273E92E700170DD0 /* LocationRegistration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73FF48F1273E92E700170DD0 /* LocationRegistration.swift */; };
@@ -125,6 +126,7 @@
 		73C09B3C2725250A0048BC85 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		73C09B3F2725279D0048BC85 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		73C09B4827252F980048BC85 /* ModelData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelData.swift; sourceTree = "<group>"; };
+		73C9051827462F4F00EAEBD7 /* FirstTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstTabView.swift; sourceTree = "<group>"; };
 		73D6A395272D7C9300C6585B /* DBTestList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBTestList.swift; sourceTree = "<group>"; };
 		73FF48F0273E92E700170DD0 /* TempSecondTap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TempSecondTap.swift; sourceTree = "<group>"; };
 		73FF48F1273E92E700170DD0 /* LocationRegistration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationRegistration.swift; sourceTree = "<group>"; };
@@ -251,7 +253,6 @@
 		73BFFFC227214EAE00375684 /* PrivateLibrary */ = {
 			isa = PBXGroup;
 			children = (
-				8A2F40402743481800D7B5D5 /* Secrets.xcconfig */,
 				737EBDCF272A8DBA00C4513D /* PrivateLibrary.entitlements */,
 				73BFFFC327214EAE00375684 /* AppDelegate.swift */,
 				73BFFFC527214EAE00375684 /* SceneDelegate.swift */,
@@ -289,6 +290,7 @@
 				73702DF9273FB1690020AB24 /* CalcDistance.swift */,
 				73FF48F3273E92E700170DD0 /* LocationManager.swift */,
 				8A2F403A2743434200D7B5D5 /* ChatList.swift */,
+				73C9051827462F4F00EAEBD7 /* FirstTabView.swift */,
 				8A2F40442743A86C00D7B5D5 /* ChatRow.swift */,
 				8A2F403B2743434200D7B5D5 /* ChatView.swift */,
 				73FF48F1273E92E700170DD0 /* LocationRegistration.swift */,
@@ -405,7 +407,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7326A9F92743C7E0004334D7 /* Secrets.xcconfig in Resources */,
+				7326A9F92743C7E0004334D7 /* (null) in Resources */,
 				EE3FB11A2743834C003C761F /* S-CoreDream-8Heavy.otf in Resources */,
 				EE3FB1202743834C003C761F /* S-CoreDream-6Bold.otf in Resources */,
 				EE3FB11E2743834C003C761F /* S-CoreDream-7ExtraBold.otf in Resources */,
@@ -437,6 +439,7 @@
 				EEB25E36273B9554003DC29A /* StackCarousel.swift in Sources */,
 				732A761827451E5E0039A08E /* tempProfileScene.swift in Sources */,
 				8AE86A442733A66D00BE14DD /* ProfileScene.swift in Sources */,
+				73C9051927462F4F00EAEBD7 /* FirstTabView.swift in Sources */,
 				735B8DDE2733B7C300C9D079 /* AddBookInfoButton.swift in Sources */,
 				73AA3568272CB90100196FA4 /* TestView.swift in Sources */,
 				8A2F403F2743435200D7B5D5 /* MakeChat.swift in Sources */,
@@ -616,7 +619,6 @@
 		};
 		73BFFFD827214EAF00375684 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 73FF48FD273E943200170DD0 /* Secrets.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -639,7 +641,6 @@
 		};
 		73BFFFD927214EAF00375684 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 73FF48FD273E943200170DD0 /* Secrets.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;

@@ -27,6 +27,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 //        let contentView = DetailView(libModel: ModelData().library[0])
 
         let contentView = LoginView()
+//        let contentView = FirstTabView()
 //                            .environment(\.managedObjectContext, context)
 //        let contentView = LocationRegistration()
         
