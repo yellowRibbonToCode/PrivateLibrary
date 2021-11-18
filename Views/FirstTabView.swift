@@ -10,17 +10,35 @@ import UIKit
 
 struct FirstTabView: View {
     var Views = ["Books", "NeighborBooks"]
-    @State var selectedView = 0
+    @State var selectedView = UserDefaults.standard.integer(forKey: "FirstView")
     @State var naviTitle = "Book"
-    @State var setDistance = 0
+    @State var setDistance = 0.0
     @State var showDistance = false
+    @State var neighborGridView = NeighborGridView()
+    
     var body: some View {
         
             VStack{
                 if selectedView == 0{
                     TestBookmarkView()
-                } else {
-                    NeighborGridView()
+                        .onAppear {
+                            naviTitle = "Book"
+                        }
+                }
+                else if selectedView == 1{
+                    neighborGridView
+                        .onAppear {
+                            naviTitle = "NeighborBook"
+                        }
+                }
+                else if selectedView == 2{
+                    neighborGridView
+                }
+                else if selectedView == 3{
+                    neighborGridView
+                }
+                else {
+                    neighborGridView
                 }
             }
             .navigationBarTitle(Text(""), displayMode: .inline)
@@ -28,15 +46,17 @@ struct FirstTabView: View {
                 ToolbarItem(placement: .navigationBarLeading) {
                     HStack {
                         Text(naviTitle)
-                            .font(.system(size: 44, weight: .bold))
+                            .font(.system(size: 32, weight: .bold))
                         Menu("⌵") {
                             Button("Book", action:{
                                 selectedView = 0
+                                UserDefaults.standard.set(selectedView, forKey: "FirstView")
                                 naviTitle = "Book"
                                 
                             })
                             Button("NeighborBook", action:{
                                 selectedView = 1
+                                UserDefaults.standard.set(selectedView, forKey: "FirstView")
                                 naviTitle = "NeighborBook"
                             })
                         }
@@ -45,7 +65,7 @@ struct FirstTabView: View {
                     }
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    if selectedView == 1 {
+                    if selectedView != 0 {
                         Button {
                             showDistance = true
                         } label: {
@@ -54,13 +74,19 @@ struct FirstTabView: View {
                         }
                             .confirmationDialog("거리 설정", isPresented: $showDistance) {
                                 Button("3Km") {
-                                    setDistance = 3
+                                    setDistance = 3.0
+                                    UserDefaults.standard.set(setDistance, forKey: "range")
+                                    selectedView = 2
                                 }
                                 Button("5Km") {
-                                    setDistance = 5
+                                    setDistance = 5.0
+                                    UserDefaults.standard.set(setDistance, forKey: "range")
+                                    selectedView = 3
                                 }
                                 Button("10Km") {
-                                    setDistance = 10
+                                    setDistance = 10.0
+                                    UserDefaults.standard.set(setDistance, forKey: "range")
+                                    selectedView = 4
                                 }
                             }
                         
