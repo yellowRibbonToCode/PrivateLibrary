@@ -12,12 +12,14 @@ import FirebaseStorage
 struct EditView: View {
     @Environment(\.presentationMode) var presentationMode
     @Binding var profile: Profile // real profile
-    //    @State private var profile = Profile() // for testing
     @State private var changedName = ""
     @State private var changedImage: UIImage?
     @State private var sourceType: UIImagePickerController.SourceType = .photoLibrary
     @State private var isImagePickerDisplay = false
-    @State private var registerError = " "
+    @State private var registerError = ""
+    @State private var showingActionSheet = false
+    @State private var removeProfile = false
+    
     
     let storage = Storage.storage()
     let userid = Auth.auth().currentUser!.uid
@@ -25,66 +27,122 @@ struct EditView: View {
     var body: some View {
         NavigationView {
             ZStack{
-                Image("books-bg")
-                    .grayscale(0.5)
-                    .blur(radius: 8)
+                Color.mainBlue
+                    .edgesIgnoringSafeArea(.all)
                 VStack {
-                    photoPicker()
-                        .padding(.bottom, 100)
+                    ZStack {
+                        CircleImageView(image: changedImage ?? profile.image, width: 160 , height: 160)
+                            .foregroundColor(.white)
+                        Circle()
+                            .foregroundColor(.white)
+                            .opacity(0.76)
+                            .frame(width: 160, height: 160)
+                        Circle()
+                            .stroke(Color.white, lineWidth: 1)
+                            .frame(width: 170, height: 170)
+                        Image(systemName: "camera")
+                            .frame(width:31, height: 23)
+                            .foregroundColor(.mainBlue)
+                    }
+                    .onTapGesture {
+                        self.showingActionSheet = true
+                    }
                     
-                    nameTextField()
-                        .padding(.bottom, 100)
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 20)
+                            .stroke(Color.mainBlue, lineWidth: 1)
+                            .background(.white)
+                            .clipShape(RoundedRectangle(cornerRadius: 20))
+                            .frame(width: 240, height: 35)
+                        
+                        TextField("\(profile.name)", text: $changedName)
+                            .font(Font.custom("S-CoreDream-2ExtraLight", size: 13))
+                            .background(.white)
+                            .padding()
+                            .frame(width: 240, height: 35)
+                            .disableAutocorrection(true)
+                            .keyboardType(.default)
+                            .autocapitalization(.none)
+                    }
+                    .padding(.top, 30)
+                    .padding(.bottom, 27)
+                    
+                    Text("주소 설정")
+                        .foregroundColor(.white)
+                        .font(Font.custom("S-CoreDream-5Medium", size: 15))
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 20)
+                                .stroke(Color.white, lineWidth: 1)
+                                .frame(width: 134, height: 36)
+                        )
+                    
                     Text(registerError)
                 }
-                .navigationBarItems(leading: cancleButton() ,trailing: saveButton())
-            }
-        }
-    }
-    
-    fileprivate func saveButton() -> some View {
-        return Button("save") {
-            if let image = changedImage {
-                profile.image = image
-                editProfile()
-            }
-            if changedName != "" {
-                profile.name = changedName
-                //                editName()
-                
-                self.editName() {
-                    isDone in
-                    if isDone {
-                        self.presentationMode.wrappedValue.dismiss()
+                .toolbar {
+                    ToolbarItem (placement: .navigationBarLeading) {
+                        Button {
+                            self.presentationMode.wrappedValue.dismiss()
+                        } label: {
+                            Image("arrow-left-w")
+                                .resizable()
+                                .frame(width: 18, height: 12)
+                        }
+                    }
+                    ToolbarItem (placement: .navigationBarTrailing) {
+                        Button {
+                            if removeProfile == true {
+                                removeImage()
+                            }
+                            if changedImage != nil {
+                                editProfile()
+                            }
+                            if changedName != "" {
+                                profile.name = changedName
+                                self.editName() { isDone in
+                                    if isDone {
+                                        self.presentationMode.wrappedValue.dismiss()
+                                    }
+                                }
+                            }
+                        } label: {
+                            Image("checkbox-w")
+                                .resizable()
+                                .frame(width: 17, height: 17)
+                        }
                     }
                 }
             }
         }
-    }
-    
-    
-    fileprivate func cancleButton() -> some View {
-        return Button("cancle"){
-            self.presentationMode.wrappedValue.dismiss()}
-    }
-    
-    fileprivate func photoPicker() -> some View {
-        return HStack {
-            Image(uiImage: changedImage ?? profile.image)
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .clipShape(Circle())
-                .frame(width: 150, height: 150)
-                .overlay(Circle().stroke(Color.gray, lineWidth: 2))
-            VStack {
-                Button("Camera") {
-                    self.sourceType = .camera
-                    self.isImagePickerDisplay.toggle()
-                }.padding()
-                Button("photo") {
-                    self.sourceType = .photoLibrary
-                    self.isImagePickerDisplay.toggle()
-                }.padding()
+        .confirmationDialog("", isPresented: $showingActionSheet) {
+            Button("현재 사진 삭제") {
+                self.removeProfile = true
+                self.profile.image = UIImage(imageLiteralResourceName: "user-g")
             }
+            Button("사진 찍기") {
+                self.sourceType = .camera
+                self.isImagePickerDisplay.toggle()
+            }
+            Button("라이브러리에서 선택") {
+                self.sourceType = .photoLibrary
+                self.isImagePickerDisplay.toggle()
+            }
+            Button("취소", role: .cancel) {}
+        }
+        .sheet(isPresented: self.$isImagePickerDisplay) {
+            ImagePickerView(selectedImage: $changedImage, sourceType: self.sourceType)
+        }
+    }
+
+    fileprivate func photoPicker() -> some View {
+        return VStack {
+            Button("Camera") {
+                self.sourceType = .camera
+                self.isImagePickerDisplay.toggle()
+            }.padding()
+            Button("photo") {
+                self.sourceType = .photoLibrary
+                self.isImagePickerDisplay.toggle()
+            }.padding()
         }
         .sheet(isPresented: self.$isImagePickerDisplay) {
             ImagePickerView(selectedImage: $changedImage, sourceType: self.sourceType)
@@ -92,27 +150,25 @@ struct EditView: View {
     }
     
     fileprivate func nameTextField() -> some View {
-        return HStack {
-            Image(systemName: "person.circle")
-                .foregroundColor(.white)
-            
-            TextField("\(profile.name)", text: $changedName)
-                .padding()
-                .frame(width: 230, height: 40)
-                .disableAutocorrection(true)
-                .keyboardType(.default)
-                .autocapitalization(.none)
-                .background(Color.white
-                                .opacity(0.5)
-                                .cornerRadius(10))
-        }
-        .padding(.top, 10)
-        .padding(.bottom, 10)
+        return TextField("\(profile.name)", text: $changedName)
+            .padding()
+            .frame(width: 230, height: 40)
+            .disableAutocorrection(true)
+            .keyboardType(.default)
+            .autocapitalization(.none)
+            .background(Color.white
+                            .opacity(0.5)
+                            .cornerRadius(10))
     }
     
     fileprivate func editProfile() {
         // photo picker
         // 1. remove prev profile
+        removeImage()
+        // 2. upload new profile
+        uploadImage(image: changedImage!)
+    }
+    fileprivate func removeImage() {
         let desertRef = storage.reference().child("images/user_profile/\(userid)")
         desertRef.delete { err in
             if let err = err {
@@ -121,8 +177,6 @@ struct EditView: View {
                 print("image deleted successfully")
             }
         }
-        // 2. upload new profile
-        upload_Image(image: changedImage!)
     }
     
     fileprivate func resizeImage(image: UIImage, targetSize: CGSize) -> UIImage {
@@ -134,7 +188,7 @@ struct EditView: View {
         return newImage!
     }
     
-    fileprivate func upload_Image(image:UIImage){
+    fileprivate func uploadImage(image:UIImage){
         let image : UIImage = resizeImage(image: image, targetSize: CGSize(width: 512, height: 512))
         if let imageData = image.jpegData(compressionQuality: 1){
             storage.reference().child("images/user_profile/\(userid)").putData(imageData, metadata: nil){
