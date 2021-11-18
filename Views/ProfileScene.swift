@@ -36,7 +36,6 @@ struct ProfileScene: View { // View
     private let storageRef = Storage.storage().reference()
     
     var body: some View {
-        NavigationView {
             ScrollView(.vertical) {
                 ZStack {
                     profileImage()
@@ -123,7 +122,7 @@ struct ProfileScene: View { // View
                     }
                 }
             }
-        }
+        
     }
     
     fileprivate func profileImage() -> some View {
