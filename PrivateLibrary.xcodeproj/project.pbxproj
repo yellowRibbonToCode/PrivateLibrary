@@ -72,6 +72,12 @@
 		8AE86A442733A66D00BE14DD /* ProfileScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE86A432733A66D00BE14DD /* ProfileScene.swift */; };
 		8AE86A462733A68800BE14DD /* CircleImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE86A452733A68800BE14DD /* CircleImageView.swift */; };
 		8AE86A482733A6B200BE14DD /* EditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE86A472733A6B200BE14DD /* EditView.swift */; };
+		C15957CF2746CEAE0001545D /* ProfileImageRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C15957CE2746CEAE0001545D /* ProfileImageRow.swift */; };
+		C15957D12746CFE20001545D /* ProfileDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C15957D02746CFE20001545D /* ProfileDetailView.swift */; };
+		C15957D32746D4FA0001545D /* ProfilebookmarkImageRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C15957D22746D4FA0001545D /* ProfilebookmarkImageRow.swift */; };
+		C15957D52746D6350001545D /* ProfileBookmarkDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C15957D42746D6350001545D /* ProfileBookmarkDetailView.swift */; };
+		C17245DC2746AD4300FB4D57 /* NeighborImageRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17245DB2746AD4300FB4D57 /* NeighborImageRow.swift */; };
+		C17245DE2746B95000FB4D57 /* NeighborDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17245DD2746B95000FB4D57 /* NeighborDetailView.swift */; };
 		EE3FB1182743834C003C761F /* S-CoreDream-3Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = EE3FB10F2743834B003C761F /* S-CoreDream-3Light.otf */; };
 		EE3FB1192743834C003C761F /* S-CoreDream-1Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = EE3FB1102743834B003C761F /* S-CoreDream-1Thin.otf */; };
 		EE3FB11A2743834C003C761F /* S-CoreDream-8Heavy.otf in Resources */ = {isa = PBXBuildFile; fileRef = EE3FB1112743834B003C761F /* S-CoreDream-8Heavy.otf */; };
@@ -142,6 +148,12 @@
 		8AE86A432733A66D00BE14DD /* ProfileScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScene.swift; sourceTree = "<group>"; };
 		8AE86A452733A68800BE14DD /* CircleImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleImageView.swift; sourceTree = "<group>"; };
 		8AE86A472733A6B200BE14DD /* EditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditView.swift; sourceTree = "<group>"; };
+		C15957CE2746CEAE0001545D /* ProfileImageRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageRow.swift; sourceTree = "<group>"; };
+		C15957D02746CFE20001545D /* ProfileDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileDetailView.swift; sourceTree = "<group>"; };
+		C15957D22746D4FA0001545D /* ProfilebookmarkImageRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilebookmarkImageRow.swift; sourceTree = "<group>"; };
+		C15957D42746D6350001545D /* ProfileBookmarkDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileBookmarkDetailView.swift; sourceTree = "<group>"; };
+		C17245DB2746AD4300FB4D57 /* NeighborImageRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NeighborImageRow.swift; sourceTree = "<group>"; };
+		C17245DD2746B95000FB4D57 /* NeighborDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NeighborDetailView.swift; sourceTree = "<group>"; };
 		EE3FB10F2743834B003C761F /* S-CoreDream-3Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "S-CoreDream-3Light.otf"; sourceTree = "<group>"; };
 		EE3FB1102743834B003C761F /* S-CoreDream-1Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "S-CoreDream-1Thin.otf"; sourceTree = "<group>"; };
 		EE3FB1112743834B003C761F /* S-CoreDream-8Heavy.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "S-CoreDream-8Heavy.otf"; sourceTree = "<group>"; };
@@ -313,6 +325,12 @@
 				EEB25E37273BAD76003DC29A /* StackCarouselView.swift */,
 				EEAD456A273FC50F00632C92 /* SearchDetailView.swift */,
 				EEAD456C27400A3100632C92 /* TestBookmarkView.swift */,
+				C17245DB2746AD4300FB4D57 /* NeighborImageRow.swift */,
+				C17245DD2746B95000FB4D57 /* NeighborDetailView.swift */,
+				C15957CE2746CEAE0001545D /* ProfileImageRow.swift */,
+				C15957D02746CFE20001545D /* ProfileDetailView.swift */,
+				C15957D22746D4FA0001545D /* ProfilebookmarkImageRow.swift */,
+				C15957D42746D6350001545D /* ProfileBookmarkDetailView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -441,11 +459,13 @@
 				8AE86A442733A66D00BE14DD /* ProfileScene.swift in Sources */,
 				73C9051927462F4F00EAEBD7 /* FirstTabView.swift in Sources */,
 				735B8DDE2733B7C300C9D079 /* AddBookInfoButton.swift in Sources */,
+				C17245DC2746AD4300FB4D57 /* NeighborImageRow.swift in Sources */,
 				73AA3568272CB90100196FA4 /* TestView.swift in Sources */,
 				8A2F403F2743435200D7B5D5 /* MakeChat.swift in Sources */,
 				8A2F40452743A86C00D7B5D5 /* ChatRow.swift in Sources */,
 				731FE15A2727D9ED0013311D /* ImageGridView.swift in Sources */,
 				731FE15B2727D9ED0013311D /* HomeView.swift in Sources */,
+				C17245DE2746B95000FB4D57 /* NeighborDetailView.swift in Sources */,
 				EEAD456D27400A3100632C92 /* TestBookmarkView.swift in Sources */,
 				731FE15C2727D9ED0013311D /* ImageHView.swift in Sources */,
 				73FF48F4273E92E700170DD0 /* TempSecondTap.swift in Sources */,
@@ -457,6 +477,7 @@
 				EEDCBFC42730313A0018B032 /* AddBookInfoView.swift in Sources */,
 				EE5DBA72273AA7E3002FA450 /* SnapCarousel.swift in Sources */,
 				73FF48F9273E930700170DD0 /* JusoModel.swift in Sources */,
+				C15957D32746D4FA0001545D /* ProfilebookmarkImageRow.swift in Sources */,
 				73BFFFC427214EAE00375684 /* AppDelegate.swift in Sources */,
 				73C09B4927252F980048BC85 /* ModelData.swift in Sources */,
 				73B6F015272679C600446F4B /* ViewModel.swift in Sources */,
@@ -465,8 +486,10 @@
 				73BA894D27281D4400597308 /* RegistrationView.swift in Sources */,
 				737EBDA92729565400C4513D /* UserModel.swift in Sources */,
 				73702DFA273FB1690020AB24 /* CalcDistance.swift in Sources */,
+				C15957D52746D6350001545D /* ProfileBookmarkDetailView.swift in Sources */,
 				735B8DE02734083A00C9D079 /* AssetEnum.swift in Sources */,
 				EEB25E38273BAD76003DC29A /* StackCarouselView.swift in Sources */,
+				C15957D12746CFE20001545D /* ProfileDetailView.swift in Sources */,
 				73D6A396272D7C9300C6585B /* DBTestList.swift in Sources */,
 				8A2F403C2743434200D7B5D5 /* ChatList.swift in Sources */,
 				73BFFFC627214EAE00375684 /* SceneDelegate.swift in Sources */,
@@ -475,6 +498,7 @@
 				8A2F403D2743434200D7B5D5 /* ChatView.swift in Sources */,
 				73C09B3D2725250A0048BC85 /* MapView.swift in Sources */,
 				732AE1BD2727ADE1004D5A3C /* Icon.swift in Sources */,
+				C15957CF2746CEAE0001545D /* ProfileImageRow.swift in Sources */,
 				8AA55D9E273402BE00F3F8AA /* ImagePickerView.swift in Sources */,
 				EEAD456B273FC50F00632C92 /* SearchDetailView.swift in Sources */,
 				732B94BE2726C379005A7416 /* LoginView.swift in Sources */,

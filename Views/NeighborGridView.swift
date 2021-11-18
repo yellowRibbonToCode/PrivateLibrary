@@ -19,6 +19,9 @@ class NeighborViewModel: ObservableObject {
     private var userLongitude = ""
     private var range = UserDefaults.standard.double(forKey: "range")
     
+    @Published var bookmarkarray: [String] = []
+
+    
     func getUserLocation() {
         db.collection("users").document(userid).getDocument { [self] user, err in
             if let user = user {
@@ -106,6 +109,23 @@ class NeighborViewModel: ObservableObject {
             }
         }
     }
+    
+    func makebookmarklist() {
+        db.collection("users").document(userid).collection("bookmarks").getDocuments() { docus, err  in
+            
+            if let err = err {
+                print("Error getting documents: \(err)")
+            } else {
+                guard let docus = docus?.documents else {
+                    print("books is nil")
+                    return
+                }
+                for docu in docus {
+                    self.bookmarkarray.append(docu.get("bookid") as! String)
+                }
+            }
+        }
+    }
 }
 
 
@@ -120,10 +140,8 @@ struct NeighborGridView: View {
                     LazyVGrid(columns: columns) {
                         ForEach ( neighborBookList.sorted { $0.created!.compare($1.created!) == .orderedDescending} ) {
                             Model in
-                            NavigationLink(destination: DetailView(libModel: Model)) {
-                                ImageRow(libModel: Model)
-                                    .frame(width: 200, height: 200)
-                                    .padding([.top], 5)
+                            NavigationLink(destination: NeighborDetailView(libModel: Model, books: searchNeighborViewModel)) {
+                                NeighborImageRow(libModel: Model, books: searchNeighborViewModel)
                             }
                             .foregroundColor(.black)
                         }
@@ -146,6 +164,7 @@ struct NeighborGridView: View {
                 Book in
                 neighborBookList.append(Book)
             }
+            searchNeighborViewModel.makebookmarklist()
         })
         .padding()
     }
