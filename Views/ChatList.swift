@@ -33,7 +33,7 @@ struct ChatList: View {
     }
     
     var body: some View {
-        NavigationView {
+//        NavigationView {
             ScrollView {
                 Divider()
                 LazyVStack(spacing: 0) {
@@ -51,7 +51,7 @@ struct ChatList: View {
                     }
                 }
             }
-        }
+//        }
     }
 }
 
