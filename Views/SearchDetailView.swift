@@ -22,39 +22,52 @@ struct SearchDetailView : View {
     @State var tapped: Bool = false
     
     var body : some View{
-        
-        VStack{
-            if let image = libModel.image {
-                image
-                    .resizable()
-                    .frame(width: UIScreen.main.bounds.width,height: UIScreen.main.bounds.height * 0.48)
-            }
-            VStack(alignment: .leading, spacing: 0){
-                detailTop(libModel: libModel, popshow: $popshow)
-                detailMiddle(libModel: libModel)
-                detailBottom(libModel: libModel)
-            }
-            .background(Color.white)
-            .clipShape(Rounded())
-            .padding(.top, self.tapped ? -UIScreen.main.bounds.height / 3 : -UIScreen.main.bounds.height / 12)
-            .onTapGesture {
-                withAnimation(.spring()) {
-                    self.tapped.toggle()
+        ZStack(alignment: .topTrailing){
+            VStack{
+                
+                if let image = libModel.image {
+                    image
+                        .resizable()
+                        .frame(width: UIScreen.main.bounds.width,height: UIScreen.main.bounds.height * 0.48)
                 }
+                
+                
+                VStack(alignment: .leading, spacing: 0){
+                    detailTop(libModel: libModel, popshow: $popshow)
+                    detailMiddle(libModel: libModel)
+                    detailBottom(libModel: libModel)
+                }
+                .background(Color.white)
+                .clipShape(Rounded())
+                .padding(.top, self.tapped ? -UIScreen.main.bounds.height / 3 : -UIScreen.main.bounds.height / 12)
+                .onTapGesture {
+                    withAnimation(.spring()) {
+                        self.tapped.toggle()
+                    }
+                }
+                
+                //            .onAppear(perform: {
+                //                books.makebookmarklist()
+                //                print("makebookmarklist")
+                //            })
             }
-//            .onAppear(perform: {
-//                books.makebookmarklist()
-//                print("makebookmarklist")
-//            })
+            .navigationBarBackButtonHidden(true)
+            .navigationBarItems(leading: btnBack, trailing: TestBookmarkViewButton(bookmark: checkbookmark(), libModel: libModel, books: books)
+            )
+            .edgesIgnoringSafeArea(.all)
+            //        .onAppear(perform: {
+            //            books.makebookmarklist()
+            //            print("makebookmarklist")
+            //        })
+            if self.popshow {
+                popOver(libModel: libModel)
+                    .background(Color.mainBlue)
+                    .clipShape(ArrowShape())
+                    .cornerRadius(15)
+                    .offset(y: self.tapped ? -UIScreen.main.bounds.height / 12 : UIScreen.main.bounds.height / 8)
+                    .padding(.trailing, 6)
+            }
         }
-        .navigationBarBackButtonHidden(true)
-        .navigationBarItems(leading: btnBack, trailing: TestBookmarkViewButton(bookmark: checkbookmark(), libModel: libModel, books: books)
-)
-        .edgesIgnoringSafeArea(.all)
-//        .onAppear(perform: {
-//            books.makebookmarklist()
-//            print("makebookmarklist")
-//        })
     }
     
     var btnBack : some View
@@ -89,23 +102,15 @@ struct detailTop : View {
         HStack {
             Text(libModel.bookname)
             Spacer()
-            VStack{
-                if self.popshow {
-                    popOver()
-                        .background(Color.mainBlue)
-                        .clipShape(ArrowShape())
-                        .cornerRadius(15)
-                        .offset(y: 15)
+            Button(action : {
+                withAnimation(.spring()) {
+                    self.popshow.toggle()
                 }
-                Button(action : {
-                    withAnimation(.spring()) {
-                        self.popshow.toggle()
-                    }
-                }) {
-                    Text("…")
-                        .foregroundColor(.mainBlue)
-                }
+            }) {
+                Image(systemName: self.popshow ? "xmark" : "ellipsis")
+                    .foregroundColor(.mainBlue)
             }
+            
         }
         .padding(EdgeInsets(top: 36, leading: 16, bottom: 10, trailing: 32))
         .font(Font.custom("S-CoreDream-6Bold", size: 33))
@@ -114,18 +119,21 @@ struct detailTop : View {
 }
 
 struct popOver : View {
+    var libModel: ViewModel
     
     var body : some View {
         
         VStack(alignment: .leading, spacing: 18) {
             
             Button(action: {
-                
+                //                NavigationLink{
+                //                    MakeChat(other: lib)
+                //                }
             }) {
                 
                 HStack(spacing: 15) {
                     
-                    Image(systemName: "circle.fill")
+                    Image(systemName: "message")
                         .renderingMode(.original)
                     Text("chat")
                 }
@@ -141,26 +149,26 @@ struct popOver : View {
                     
                     Image(systemName: "circle.fill")
                         .renderingMode(.original)
-                    Text("chat")
+                    Text("Empty")
                 }
             }
             
-            Divider()
-            
-            Button(action: {
-                
-            }) {
-                
-                HStack(spacing: 15) {
-                    
-                    Image(systemName: "circle.fill")
-                        .renderingMode(.original)
-                    Text("chat")
-                }
-            }
+            //            Divider()
+            //
+            //            Button(action: {
+            //
+            //            }) {
+            //
+            //                HStack(spacing: 15) {
+            //
+            //                    Image(systemName: "circle.fill")
+            //                        .renderingMode(.original)
+            //                    Text("Empty")
+            //                }
+            //            }
         }
         .foregroundColor(.black)
-        .frame(width: 140)
+        .frame(width: UIScreen.main.bounds.width / 5)
         .padding()
         .padding(.bottom, 20)
     }
