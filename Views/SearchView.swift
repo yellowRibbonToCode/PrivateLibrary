@@ -101,38 +101,6 @@ struct SearchView: View {
             VStack {
                 SearchBar(txt: $text, data: self.$data.datas, isEditing: $isEditing)
                 Spacer(minLength: 20)
-                if isEditing {
-                    
-                    EmptyView()
-                }
-                else {
-                    VStack(alignment: .leading) {
-                        HStack {
-                            Text("Neighbor Books")
-                                .font(.system(size: 26, weight: .bold))
-                                .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 0))
-                        }
-                        HStack(spacing: 10) {
-                            //                            SnapCarousel(bookModels: books.bookList).environmentObject(UIStateModel())
-                            Color.white
-                        }
-                        .onAppear(perform: {
-                            books.loadBooks()
-                        })
-                    }
-                    Divider()
-                    VStack(alignment: .leading) {
-                        HStack {
-                            Text("New Book")
-                                .font(.system(size: 26, weight: .bold))
-                                .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 0))
-                        }
-                        HStack(spacing: 10) {
-                            //                            SnapCarousel(bookModels: books.bookList).environmentObject(UIStateModel())
-                            Color.white
-                        }
-                    }
-                }
             }
             .navigationBarTitle("",  displayMode: .inline)
             .navigationBarHidden(true)

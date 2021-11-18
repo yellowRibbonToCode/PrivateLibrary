@@ -56,6 +56,7 @@
 		73C09B402725279D0048BC85 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C09B3F2725279D0048BC85 /* DetailView.swift */; };
 		73C09B4927252F980048BC85 /* ModelData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C09B4827252F980048BC85 /* ModelData.swift */; };
 		73C9051927462F4F00EAEBD7 /* FirstTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C9051827462F4F00EAEBD7 /* FirstTabView.swift */; };
+		73D3AE2227469FC600B71CAD /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 73D3AE2127469FC600B71CAD /* Secrets.xcconfig */; };
 		73D6A396272D7C9300C6585B /* DBTestList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D6A395272D7C9300C6585B /* DBTestList.swift */; };
 		73FF48F4273E92E700170DD0 /* TempSecondTap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73FF48F0273E92E700170DD0 /* TempSecondTap.swift */; };
 		73FF48F5273E92E700170DD0 /* LocationRegistration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73FF48F1273E92E700170DD0 /* LocationRegistration.swift */; };
@@ -127,6 +128,7 @@
 		73C09B3F2725279D0048BC85 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		73C09B4827252F980048BC85 /* ModelData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelData.swift; sourceTree = "<group>"; };
 		73C9051827462F4F00EAEBD7 /* FirstTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstTabView.swift; sourceTree = "<group>"; };
+		73D3AE2127469FC600B71CAD /* Secrets.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
 		73D6A395272D7C9300C6585B /* DBTestList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBTestList.swift; sourceTree = "<group>"; };
 		73FF48F0273E92E700170DD0 /* TempSecondTap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TempSecondTap.swift; sourceTree = "<group>"; };
 		73FF48F1273E92E700170DD0 /* LocationRegistration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationRegistration.swift; sourceTree = "<group>"; };
@@ -253,6 +255,7 @@
 		73BFFFC227214EAE00375684 /* PrivateLibrary */ = {
 			isa = PBXGroup;
 			children = (
+				73D3AE2127469FC600B71CAD /* Secrets.xcconfig */,
 				737EBDCF272A8DBA00C4513D /* PrivateLibrary.entitlements */,
 				73BFFFC327214EAE00375684 /* AppDelegate.swift */,
 				73BFFFC527214EAE00375684 /* SceneDelegate.swift */,
@@ -408,6 +411,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7326A9F92743C7E0004334D7 /* (null) in Resources */,
+				73D3AE2227469FC600B71CAD /* Secrets.xcconfig in Resources */,
 				EE3FB11A2743834C003C761F /* S-CoreDream-8Heavy.otf in Resources */,
 				EE3FB1202743834C003C761F /* S-CoreDream-6Bold.otf in Resources */,
 				EE3FB11E2743834C003C761F /* S-CoreDream-7ExtraBold.otf in Resources */,
@@ -535,6 +539,7 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+
 				ENABLE_TESTABILITY = YES;
 				ENABLE_TESTING_SEARCH_PATHS = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -621,6 +626,7 @@
 		};
 		73BFFFD827214EAF00375684 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 73D3AE2127469FC600B71CAD /* Secrets.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -643,6 +649,7 @@
 		};
 		73BFFFD927214EAF00375684 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 73D3AE2127469FC600B71CAD /* Secrets.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
