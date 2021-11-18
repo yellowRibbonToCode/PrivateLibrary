@@ -17,7 +17,7 @@ class NeighborViewModel: ObservableObject {
     
     private var userLatitude = ""
     private var userLongitude = ""
-    private var range = 5.0 // 5km
+    private var range = UserDefaults.standard.double(forKey: "range")
     
     func getUserLocation() {
         db.collection("users").document(userid).getDocument { [self] user, err in
@@ -35,6 +35,10 @@ class NeighborViewModel: ObservableObject {
     func makeNeighborList(completionHandler: @escaping (String) -> Void) {
         getUserLocation()
         db = Firestore.firestore()
+        self.range = UserDefaults.standard.double(forKey: "range")
+        if self.range == 0 {
+            self.range = 5.0
+        }
         let _ = db.collection("users").getDocuments() { (querySnapshot, err) in
             if let err = err {
                 print("Error getting documents: \(err)")
@@ -110,10 +114,10 @@ struct NeighborGridView: View {
     @ObservedObject var searchNeighborViewModel = NeighborViewModel()
     @State var neighborBookList = [ViewModel]()
     var body: some View {
-        NavigationView {
-            ScrollView(.vertical) {
-                LazyVGrid(columns: columns) {
-                    if !neighborBookList.isEmpty {
+        VStack{
+            if !neighborBookList.isEmpty {
+                ScrollView(.vertical) {
+                    LazyVGrid(columns: columns) {
                         ForEach ( neighborBookList.sorted { $0.created!.compare($1.created!) == .orderedDescending} ) {
                             Model in
                             NavigationLink(destination: DetailView(libModel: Model)) {
@@ -125,21 +129,25 @@ struct NeighborGridView: View {
                         }
                         .padding([.leading, .trailing], 10)
                     }
-                    else{
-                        Text("주소 등록 필요")
-                    }
                 }
-                .onAppear(perform: {
-                    db = Firestore.firestore()
-                    neighborBookList = []
-                    searchNeighborViewModel.makeNeighborBookList(){
-                        Book in
-                        neighborBookList.append(Book)
-                    }
-                })
-                .navigationBarTitle(Text("Neighbor Books"))
             }
-        }
+            else{
+                VStack{
+                    
+                    Text("우리 동네에는 책이 없네요 ;(")
+                        .font(Font.custom("S-CoreDream-6Bold", size: 18))
+                        .foregroundColor(.mainBlue)
+                }
+            }}
+        .onAppear(perform: {
+            db = Firestore.firestore()
+            neighborBookList = []
+            searchNeighborViewModel.makeNeighborBookList(){
+                Book in
+                neighborBookList.append(Book)
+            }
+        })
+        .padding()
     }
 }
 

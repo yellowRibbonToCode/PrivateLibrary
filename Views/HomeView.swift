@@ -22,8 +22,7 @@ struct HomeView: View {
              NavigationView {
                     ZStack{
                         if self.index == 0 {
-//                            ImageGridView()
-                            TestBookmarkView()
+                            FirstTabView()
                         }
                         else if self.index == 1{
                             SearchView()
@@ -36,7 +35,7 @@ struct HomeView: View {
                             ProfileScene()
                         }
                     }
-                    .navigationBarHidden(true)
+//                    .navigationBarHidden(true)
             }
                     CircleTab(index: self.$index)
         }
@@ -62,15 +61,16 @@ struct CircleTab : View {
             }) {
                 VStack{
                     if self.index != 0{
-                        Image(systemName: "house.fill")
-                            .resizable()
-                            .frame(width: 33, height: 33)
+                        Image("home-alt-p")
+//                            .resizable()
+//                            .frame(width: 33, height: 33)
+                            .renderingMode(.template)
                             .foregroundColor(Color.black.opacity(0.2))
                     }
                     else{
-                        Image(systemName: "house.fill")
-                            .resizable()
-                            .frame(width: 33, height: 33)
+                        Image("home-alt-p")
+//                            .resizable()
+//                            .frame(width: 33, height: 33)
                             .foregroundColor(Color.mainBlue)
                     }
                 }
@@ -81,16 +81,12 @@ struct CircleTab : View {
             }) {
                 VStack{
                     if self.index != 1{
-                        Image(systemName: "magnifyingglass")
-                            .resizable()
-                            .frame(width: 33, height: 33)
+                        Image("search-g")
+                            .renderingMode(.template)
                             .foregroundColor(Color.black.opacity(0.2))
                     }
                     else{
-                        Image(systemName: "magnifyingglass")
-                            .resizable()
-                            .frame(width: 33, height: 33)
-                            .foregroundColor(Color.mainBlue)
+                        Image("search-p")
                     }
                 }
             }
@@ -99,11 +95,7 @@ struct CircleTab : View {
                             self.showAdd.toggle()
 
                         }) {
-                            Image(systemName: "plus")
-                                .resizable()
-                                .frame(width: 33, height: 33)
-                                .foregroundColor(.mainBlue)
-                            
+                            Image("plus-p")
                         }
                         .fullScreenCover(isPresented: $showAdd) {
                             AddBookInfoView()
@@ -114,16 +106,10 @@ struct CircleTab : View {
             }) {
                 VStack{
                     if self.index != 2{
-                        Image(systemName: "message")
-                            .resizable()
-                            .frame(width: 33, height: 33)
-                            .foregroundColor(Color.black.opacity(0.2))
+                        Image("chat-g")
                     }
                     else{
-                        Image(systemName: "message")
-                            .resizable()
-                            .frame(width: 33, height: 33)
-                            .foregroundColor(Color.mainBlue)
+                        Image("chat-p")
                     }
                 }
             }
@@ -133,22 +119,16 @@ struct CircleTab : View {
             }) {
                 VStack{
                     if self.index != 3{
-                        Image(systemName: "person.crop.circle")
-                            .resizable()
-                            .frame(width: 33, height: 33)
-                            .foregroundColor(Color.black.opacity(0.2))
+                        Image("user-g")
                     }
                     else{
-                        Image(systemName: "person.crop.circle")
-                            .resizable()
-                            .frame(width: 33, height: 33)
-                            .foregroundColor(Color.mainBlue)
+                        Image("user-p")
                     }
                 }
             }
             
         }
-            .frame(height: 83)
+        .frame(height: UIScreen.main.bounds.height / 12)
             .padding(.horizontal, 20)
             .padding(.bottom, 34)
             .background(Color(red: 0.961, green: 0.961, blue: 0.961))

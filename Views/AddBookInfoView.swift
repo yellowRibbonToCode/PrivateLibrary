@@ -65,7 +65,8 @@ struct AddBookInfoView: View {
     }
     
     private func setdb() {
-        //        setuserdb()
+        db = Firestore.firestore()
+
         let doc = db.collection("libData")
             .document()
         setuserdb(doc: doc)
