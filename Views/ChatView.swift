@@ -20,7 +20,7 @@ struct ChatView: View {
     
     class Messages: ObservableObject {
         @Published var messages: [Message] = []
-        @Published var partner: String = "name"
+        @Published var partner: String = "??"
         let db = Firestore.firestore()
 
         func loadMessages(_ documentId: String) {
@@ -73,10 +73,14 @@ struct ChatView: View {
     }
     
     var body: some View {
-        VStack {
+        VStack(spacing: 0) {
+            Divider()
+                .padding(.top, 10)
             ScrollViewReader { proxy in
                 ScrollView(.vertical) {
                     LazyVStack {
+                        Spacer()
+                            .frame(height: 5)
                         ForEach(messages.messages) { msg in
                             ChatBubble(position: msg.sender == whoami ? .right : .left,
                                        color: msg.sender == whoami ? .mainBlue : .white) {
@@ -95,14 +99,14 @@ struct ChatView: View {
                     print(newValue)
                     proxy.scrollTo(messages.messages.last!.id , anchor: .bottom)
                 }
-            }.padding(.top)
+            }
             HStack(spacing: 9) {
                 TextField("", text: $msg)
-//                    .textFieldStyle(RoundedBorderTextFieldStyle())
                     .padding(.horizontal)
                     .frame(height: 36)
                     .background(Color.primary.opacity(0.06))
                     .clipShape(RoundedRectangle(cornerRadius: 10))
+                    .disableAutocorrection(true)
                 
                 Button(action: {
                     if self.msg == "" {
@@ -117,10 +121,7 @@ struct ChatView: View {
                         self.msg = ""
                     }
                 }, label: {
-                    Image(systemName: "arrow.right.circle")
-//                        .resizable()
-//                        .frame(width: 32, height: 32)
-                        .foregroundColor(.mainBlue)
+                    Image("arrow-right-circle")
                         .font(Font.system(size: 32, weight: .light))
 
                 })
@@ -138,9 +139,8 @@ struct ChatView: View {
             self.presentationMode.wrappedValue.dismiss()
         } label: {
             HStack(spacing: 0) {
-                Image(systemName: "chevron.left")
-                    .foregroundColor(.mainBlue)
-                Image(systemName: "person.circle")
+                Image("chevron-left-p")
+                Image("user-g")
                     .resizable()
                     .frame(width: 37, height: 37)
                     .padding(.leading, 12)
@@ -152,9 +152,7 @@ struct ChatView: View {
                     .foregroundColor(.black)
             }
         }
-
     }
-    
 }
 
 struct ChatView_Previews: PreviewProvider {
