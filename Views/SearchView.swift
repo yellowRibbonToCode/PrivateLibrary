@@ -97,7 +97,7 @@ struct SearchView: View {
     @ObservedObject var data = getFiterData()
     
     var body: some View {
-        NavigationView{
+//        NavigationView{
             VStack {
                 SearchBar(txt: $text, data: self.$data.datas, isEditing: $isEditing)
                 Spacer(minLength: 20)
@@ -134,10 +134,10 @@ struct SearchView: View {
                     }
                 }
             }
-            .navigationBarTitle("")
+            .navigationBarTitle("",  displayMode: .inline)
             .navigationBarHidden(true)
             .navigationBarBackButtonHidden(true)
-        }
+//        }
     }
 }
 
