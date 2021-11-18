@@ -22,12 +22,12 @@ struct HomeView: View {
              NavigationView {
                     ZStack{
                         if self.index == 0 {
-                            ImageGridView()
-//                            TestBookmarkView()
+//                            ImageGridView()
+                            TestBookmarkView()
                         }
                         else if self.index == 1{
-//                            SearchView()
-                            TempSecondTap()
+                            SearchView()
+//                            TempSecondTap()
                         }
                         else if self.index == 2{
                             ChatList()

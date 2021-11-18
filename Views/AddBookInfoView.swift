@@ -65,7 +65,7 @@ struct AddBookInfoView: View {
     }
     
     private func setdb() {
-//        setuserdb()
+        //        setuserdb()
         let doc = db.collection("libData")
             .document()
         setuserdb(doc: doc)
@@ -127,12 +127,14 @@ struct AddBookInfoView: View {
     
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @State var tapped: Bool = false
-
+    init() {
+        UITextView.appearance().backgroundColor = .clear
+    }
     
     var body: some View {
-        
+     
         VStack {
-
+            ZStack(alignment: .topLeading){
             Button(action: {
                 self.isShowPhotoLibrary = true
             }) {
@@ -142,174 +144,127 @@ struct AddBookInfoView: View {
                         .frame(width: UIScreen.main.bounds.width,height: UIScreen.main.bounds.height * 0.48)
                 }
                 else {
-
-                        Image(systemName: "plus.app")
-                            .font(.system(size: 20))
-                            .frame(width: UIScreen.main.bounds.width,height: UIScreen.main.bounds.height * 0.48)
-                            .background(Color.blue.opacity(0.1))
-                            .foregroundColor(.gray)
-
+                    
+                    Image(systemName: "plus.app")
+                        .font(.system(size: 20))
+                        .frame(width: UIScreen.main.bounds.width,height: UIScreen.main.bounds.height * 0.48)
+                        .background(Color.black.opacity(0.29))
+                        .foregroundColor(.gray)
+                    
                 }
             }
-
+                            Button(action: {
+                                self.presentationMode.wrappedValue.dismiss()
+                            }) {
+                                Image(systemName: "arrow.left")
+                                    .aspectRatio(contentMode: .fit)
+                                    .foregroundColor(.white)
+                                    .font(.system(size: 25))
+                                    .frame(width: 70, height: 70)
+                            }
+                            .padding(.top, 16)
+            }
             
             VStack(alignment: .leading, spacing: 0){
                 // Top
-                
                 TextField("도서명", text: $bookname)
-                .padding(EdgeInsets(top: 36, leading: 16, bottom: 10, trailing: 32))
-                .font(Font.custom("S-CoreDream-6Bold", size: 33))
+                    .padding(EdgeInsets(top: 36, leading: 16, bottom: 10, trailing: 32))
+                    .font(Font.custom("S-CoreDream-6Bold", size: 33))
+                HorizontalLine(color: Color(red: 0.725, green: 0.725, blue: 0.725, opacity: 1))
+                    .padding(.leading, 16).offset(y: -10)
+
                 
                 
-               // Middle
+                // Middle
                 
                 VStack (spacing: 0) {
-                    
+                    VStack(alignment: .leading){
                     HStack {
                         TextField("작가", text: $author)
                             .font(Font.custom("S-CoreDream-6Bold", size: 20))
                         Spacer()
                     }
+                    HorizontalLine(color: Color(red: 0.725, green: 0.725, blue: 0.725, opacity: 1))
+                    .offset(y: -10)}
                     HStack {
                         Image(systemName: "quote.opening")
                             .resizable()
                             .frame(width: 20, height: 15)
                             .padding(.bottom, UIScreen.main.bounds.height / 18)
-                        TextField("제목을 입력해 주세요", text: $title)
+                        VStack{
+                        TextField("제목을 입력해 주세요.", text: $title)
                             .font(Font.custom("S-CoreDream-6Bold", size: 18))
                             .padding(.horizontal, 34).multilineTextAlignment(.center)
+                        HorizontalLine(color: Color(red: 0.725, green: 0.725, blue: 0.725, opacity: 1))
+                        .padding(.leading, 16).offset(y: -10)}
                         Image(systemName: "quote.closing")
                             .resizable()
                             .frame(width: 20, height: 15)
                             .padding(.top, UIScreen.main.bounds.height / 18)
                     }                .padding(.horizontal, 10)
-
-                    .frame(height: UIScreen.main.bounds.height / 9)
-                    .foregroundColor(.mainBlue)
+                    
+                        .frame(height: UIScreen.main.bounds.height / 9)
+                        .foregroundColor(.mainBlue)
                 }
                 .padding(.horizontal)
                 
-               // Bottom
+                // Bottom
                 
                 HStack {
-                    Text("username의 시선")
+                    Text("Username의 시선")
                         .font(Font.custom("S-CoreDream-6Bold", size: 16))
                         .foregroundColor(.mainBlue)
                     Spacer()
-                }.padding(EdgeInsets(top: 0, leading: 16, bottom: 3, trailing: 16))
-//                ScrollView{
-//                    ZStack (alignment: .leading){
-                        TextEditor(text: $content)
-                            .font(Font.custom("S-CoreDream-3Light", size: 15))
-                            .padding()
-                            .lineSpacing(3).background(Color.gray)
-//                            .overlay(Rectangle()
-//                                                        .fill(Color(red: 0.745, green: 0.745, blue: 0.745, opacity: 0.15))
-//                                                        .clipShape(contentRounded()))
-//                        Rectangle()
-//                            .fill(Color(red: 0.745, green: 0.745, blue: 0.745, opacity: 0.15))
-//                            .clipShape(contentRounded())
-//                    }
-                .padding(EdgeInsets(top: 0, leading: 16, bottom: 16, trailing: 16))
-//                }
+                }
+                .padding(EdgeInsets(top: 0, leading: 16, bottom: 3, trailing: 16))
+                ScrollView{
+                    ZStack(alignment: .topLeading) {
+                        if content.isEmpty {
+                            Text("내용을 입력해 주세요.")
+                        .font(Font.custom("S-CoreDream-3Light", size: 15))
+                        .padding()
+                        .padding(EdgeInsets(top: 10, leading: 20, bottom: 16, trailing: 16))
+                        .foregroundColor(Color.gray)
+                        }
+                TextEditor(text: $content)
+                    .font(Font.custom("S-CoreDream-3Light", size: 15))
+                    .padding()
+                    .lineSpacing(3)
+                    .background(Color(red: 0.745, green: 0.745, blue: 0.745, opacity: 0.15))
+                    .clipShape(contentRounded())
+                    .frame(height: UIScreen.main.bounds.height / 2)
+                    .padding(EdgeInsets(top: 0, leading: 16, bottom: 16, trailing: 16))
+                }
+                    Button(action: {
+                        setdb()
+                        self.presentationMode.wrappedValue.dismiss()
+
+                    }) {
+                        Text("작성 완료")
+                            .frame(width: UIScreen.main.bounds.width / 1.7, height: 35)
+                            .background(Color.white)
+                            .cornerRadius(20)
+                            .foregroundColor(.mainBlue)
+                            .clipShape(RoundedRectangle(cornerRadius: 10))
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 30)
+                                    .stroke(Color.mainBlue, lineWidth: 2.5)
+                            )
+                    }
+                    .padding()
+
+                }
             }
             .background(Color.white)
             .clipShape(Rounded())
-            .padding(.top, self.tapped ? -UIScreen.main.bounds.height / 2.5 : -UIScreen.main.bounds.height / 12)
+            .padding(.top, self.tapped ? -UIScreen.main.bounds.height / 2.7 : -UIScreen.main.bounds.height / 12)
             .onTapGesture {
                 withAnimation(.spring()) {
                     self.tapped.toggle()
                 }
             }
-            VStack{
-            // Addbook button
-                Button(action: {
-                    setdb()
-                    self.presentationMode.wrappedValue.dismiss()
-                    
-                }) {
-                    Text("작성 완료")
-                        .frame(width: UIScreen.main.bounds.width / 1.7, height: 35)
-                           .background(Color.white)
-                           .cornerRadius(20)
-                           .foregroundColor(.mainBlue)
-                           .clipShape(RoundedRectangle(cornerRadius: 10))
-                           .overlay(
-                               RoundedRectangle(cornerRadius: 30)
-                                .stroke(Color.mainBlue, lineWidth: 2.5)
-                           )
-                }
-                .padding()
-            }
-      
             
             
-            
-            
-            
-            
-            
-            
-            
-            
-            
-//            VStack(alignment: .leading, spacing: 10) {
-//                Text("Bookname")
-//                    .foregroundColor(.gray)
-//                TextField("Enter the bookname", text: $bookname)
-//                    .textFieldStyle(RoundedBorderTextFieldStyle())
-//            }
-//            VStack(alignment: .leading, spacing: 10) {
-//                Text("Author")
-//                    .foregroundColor(.gray)
-//                TextField("Enter the author", text: $author)
-//                    .textFieldStyle(RoundedBorderTextFieldStyle())
-//            }
-//            VStack(alignment: .leading, spacing: 10) {
-//                Text("Title")
-//                    .foregroundColor(.gray)
-//                TextField("Enter the title", text: $title)
-//                    .textFieldStyle(RoundedBorderTextFieldStyle())
-//            }
-//            HStack{
-//                Button(action: {
-//                    exchange = exchange ? false : true
-//
-//                }) {
-//                    HStack(alignment: .top, spacing: 10) {
-//
-//                        Image(systemName: self.exchange ? "checkmark.square" : "square")
-//                        Text("Exchange")
-//                    }
-//                }
-//                Button(action: {
-//                    sell = sell ? false : true
-//
-//                }) {
-//                    HStack(alignment: .top, spacing: 10) {
-//
-//                        Image(systemName: self.sell ? "checkmark.square" : "square")
-//                        Text("Sell")
-//                    }
-//                }
-//            }
-//            .foregroundColor(.gray)
-//
-//            VStack(alignment: .leading, spacing: 10) {
-//                Text("Price")
-//                    .foregroundColor(.gray)
-//                TextField("Enter the price", value: $price, formatter: NumberFormatter()) //  .string(from: NSNumber(value:price))!
-//                    .textFieldStyle(RoundedBorderTextFieldStyle())
-//            }
-//            VStack(alignment: .leading, spacing: 10) {
-//                Text("Content")
-//                    .foregroundColor(.gray)
-//                TextField("Enter the content", text: $content)
-//                    .fixedSize(horizontal: false, vertical: false)
-//                    .textFieldStyle(RoundedBorderTextFieldStyle())
-//
-//            }
-
         }
         
         .sheet(isPresented: $isShowPhotoLibrary) {
@@ -319,24 +274,49 @@ struct AddBookInfoView: View {
                     db = Firestore.firestore()
                 })
         }
-//        .navigationBarBackButtonHidden(true)
-//            .navigationBarItems(leading: btnBack)
-
-            .edgesIgnoringSafeArea(.all)
-
-
+        
+        
+        .edgesIgnoringSafeArea(.all)
+        
+        
     }
     
-//    var btnBack : some View
-//    {
-//        Button(action: {
-//            self.presentationMode.wrappedValue.dismiss()
-//        }) {
-//            Image(systemName: "arrow.left")
-//                .aspectRatio(contentMode: .fit)
-//                .foregroundColor(.white)
+//        var btnBack : some View
+//        {
+//            Button(action: {
+//                self.presentationMode.wrappedValue.dismiss()
+//            }) {
+//                Image(systemName: "arrow.left")
+//                    .aspectRatio(contentMode: .fit)
+//                    .foregroundColor(.white)
+//            }
 //        }
-//    }
+}
+
+struct HorizontalLineShape: Shape {
+
+    func path(in rect: CGRect) -> Path {
+
+        let fill = CGRect(x: 0, y: 0, width: rect.size.width, height: rect.size.height)
+        var path = Path()
+        path.addRoundedRect(in: fill, cornerSize: CGSize(width: 2, height: 2))
+
+        return path
+    }
+}
+
+struct HorizontalLine: View {
+    private var color: Color? = nil
+    private var height: CGFloat = 1.0
+
+    init(color: Color, height: CGFloat = 1.0) {
+        self.color = color
+        self.height = height
+    }
+
+    var body: some View {
+        HorizontalLineShape().fill(self.color!).frame(minWidth: 0, maxWidth: UIScreen.main.bounds.width / 1.5, minHeight: height, maxHeight: height)
+    }
 }
 
 struct AddBookInfoView_Previews: PreviewProvider {
@@ -344,8 +324,3 @@ struct AddBookInfoView_Previews: PreviewProvider {
         AddBookInfoView()
     }
 }
-
-//    .navigationBarBackButtonHidden(true)
-//        .navigationBarItems(leading: btnBack)
-//
-//        .edgesIgnoringSafeArea(.all)
