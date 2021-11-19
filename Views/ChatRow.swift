@@ -26,12 +26,12 @@ struct ChatRow: View {
         
         func loadParticipants(_ roomId: String, completion: @escaping (Bool, String) -> Void) {
             Firestore.firestore().collection("chatings").document(roomId).getDocument { data, err in
-                if let data = data?.get("partcipants") as? [String] {
-                    DispatchQueue.main.async {
-                        if data[0] == Auth.auth().currentUser!.uid {
-                            completion(true, data[1])
+                if let data = data {
+                    if let tmp = data.get("participants") as? [String] {
+                        if tmp[0] == Auth.auth().currentUser!.uid {
+                            completion(true, tmp[1])
                         } else {
-                            completion(true, data[0])
+                            completion(true, tmp[0])
                         }
                     }
                     return
