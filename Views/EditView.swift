@@ -105,19 +105,23 @@ struct EditView: View {
                     }
                     ToolbarItem (placement: .navigationBarTrailing) {
                         Button {
-                            if removeProfile == true {
-                                removeImage()
-                            }
                             if changedImage != nil {
-                                editProfile()
+                                if removeProfile == true {
+                                    removeImage()
+                                } else {
+                                    editProfile()
+                                }
                             }
                             if changedName != "" {
                                 profile.name = changedName
-                                self.editName() { isDone in
+                                self.editName { isDone in
                                     if isDone {
                                         self.presentationMode.wrappedValue.dismiss()
                                     }
                                 }
+                            }
+                            if changedName == "" {
+                                self.presentationMode.wrappedValue.dismiss()
                             }
                         } label: {
                             Image("checkbox-w")
@@ -131,7 +135,7 @@ struct EditView: View {
         .confirmationDialog("", isPresented: $showingActionSheet) {
             Button("현재 사진 삭제") {
                 self.removeProfile = true
-                self.profile.image = UIImage(imageLiteralResourceName: "user-g")
+                self.changedImage = UIImage(imageLiteralResourceName: "user-g")
             }
             Button("사진 찍기") {
                 self.sourceType = .camera
