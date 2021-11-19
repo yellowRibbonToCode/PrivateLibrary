@@ -184,6 +184,7 @@ struct EditView: View {
         // photo picker
         // 1. remove prev profile
         removeImage()
+        profile.image = changedImage!
         // 2. upload new profile
         uploadImage(image: changedImage!)
     }
