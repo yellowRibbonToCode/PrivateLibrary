@@ -19,7 +19,8 @@ struct EditView: View {
     @State private var registerError = ""
     @State private var showingActionSheet = false
     @State private var removeProfile = false
-    
+    @Environment(\.loginStatus) var loging
+
     
     let storage = Storage.storage()
     let userid = Auth.auth().currentUser!.uid
@@ -67,15 +68,29 @@ struct EditView: View {
                     .padding(.top, 30)
                     .padding(.bottom, 27)
                     
-                    Text("주소 설정")
-                        .foregroundColor(.white)
-                        .font(Font.custom("S-CoreDream-5Medium", size: 15))
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 20)
-                                .stroke(Color.white, lineWidth: 1)
-                                .frame(width: 134, height: 36)
-                        )
-                    
+                    Button {
+                        do {
+                            try Auth.auth().signOut()
+                            print("success log out")
+                            UserDefaults.standard.removeObject(forKey: "id")
+                            UserDefaults.standard.removeObject(forKey: "password")
+                            self.presentationMode.wrappedValue.dismiss()
+                            self.loging.wrappedValue.toggle()
+                        }
+                        catch let signOutError as NSError {
+                            print("Error signing out: %@", signOutError)
+                        }
+                    } label: {
+                        Text("로그 아웃")
+                            .foregroundColor(.white)
+                            .font(Font.custom("S-CoreDream-5Medium", size: 15))
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 20)
+                                    .stroke(Color.white, lineWidth: 1)
+                                    .frame(width: 134, height: 36)
+                            )
+                    }
+
                     Text(registerError)
                 }
                 .toolbar {
@@ -132,7 +147,7 @@ struct EditView: View {
             ImagePickerView(selectedImage: $changedImage, sourceType: self.sourceType)
         }
     }
-
+    
     fileprivate func photoPicker() -> some View {
         return VStack {
             Button("Camera") {

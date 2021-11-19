@@ -8,7 +8,6 @@
 import SwiftUI
 import Firebase
 import FirebaseFirestore
-import XCTest
 
 struct Profile { // Model
     var image: UIImage = UIImage(imageLiteralResourceName: "user-g")
@@ -19,13 +18,9 @@ struct Profile { // Model
 }
 
 struct ProfileScene: View { // View
-    //    @Environment(\.editMode) var editMode
-    
     @ObservedObject var books = BookLists()
     @State private var showingEdit = false
-    @State var profile = Profile()
-    @Environment(\.loginStatus) var loging
-    
+    @State var profile = Profile()    
     @State var Juso = "주소 변경"
     @State private var showingJuso = false
     
@@ -170,22 +165,6 @@ struct ProfileScene: View { // View
             books.bookList[i].name = profile.name
         }
         print("reloaded")
-    }
-    
-    fileprivate func signoutButton() -> some View {
-        return Button("signout") {
-            do {
-                try Auth.auth().signOut()
-                print("success log out")
-                UserDefaults.standard.removeObject(forKey: "id")
-                UserDefaults.standard.removeObject(forKey: "password")
-                self.loging.wrappedValue.toggle()
-            }
-            catch let signOutError as NSError {
-                print("Error signing out: %@", signOutError)
-            }
-            
-        }
     }
 }
 
