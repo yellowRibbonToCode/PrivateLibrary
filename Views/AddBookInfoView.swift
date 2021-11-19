@@ -88,9 +88,9 @@ struct AddBookInfoView: View {
                 //                printdb2()
                 
                 //upload image
-                //                if let thisimage = image{
-                //                    upload_Image(image: thisimage, docID: doc.documentID)
-                //                }
+                if let thisimage = image{
+                    upload_Image(image: thisimage, docID: doc.documentID)
+                }
                 
                 
                 //                setSuccess = true
