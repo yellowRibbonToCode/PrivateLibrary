@@ -29,9 +29,7 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSCameraUsageDescription</key>
-	<string>we need the camera permission</string>
-	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>we need the location permission</string>
+	<string>사용자가 촬영한 이미지를 사용하기 위한 카메라 권한 요청</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>S-CoreDream-1Thin.otf</string>
