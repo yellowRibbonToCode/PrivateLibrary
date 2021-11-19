@@ -23,7 +23,7 @@ class SearchJusoViewModel: ObservableObject {
     {
         self.jusoList = [Juso]()
         let url = "https://www.juso.go.kr/addrlink/addrLinkApi.do"
-        let APIKEY = Bundle.main.object(forInfoDictionaryKey: "JUSO_API_KEY") as! String
+        let APIKEY = Bundle.main.object(forInfoDictionaryKey: "JUSOAPIKEY") as! String
         let body = ["confmKey": APIKEY, "currentPage": 1, "countPerPage": 20, "keyword": dong, "resultType" : "json"] as [String : Any]
         AF.request(url, method: .post, parameters: body, encoding: URLEncoding.httpBody).responseJSON() {[weak self] response in
             guard let self = self else { return }
@@ -44,7 +44,7 @@ class SearchJusoViewModel: ObservableObject {
     func getXY(_ juso: String)
     {
         let url = "https://dapi.kakao.com/v2/local/search/address.json"
-        let APIKEY = Bundle.main.object(forInfoDictionaryKey: "KM_REST_KEY") as! String
+        let APIKEY = Bundle.main.object(forInfoDictionaryKey: "KMRESTKEY") as! String
         let body = ["query": juso]
         let header : HTTPHeaders = ["Authorization": APIKEY]
         print(APIKEY)

@@ -71,7 +71,7 @@ struct CircleTab : View {
                         Image("home-alt-p")
 //                            .resizable()
 //                            .frame(width: 33, height: 33)
-                            .foregroundColor(Color.mainBlue)
+//                            .foregroundColor(Color.mainBlue)
                     }
                 }
             }
@@ -82,8 +82,8 @@ struct CircleTab : View {
                 VStack{
                     if self.index != 1{
                         Image("search-g")
-                            .renderingMode(.template)
-                            .foregroundColor(Color.black.opacity(0.2))
+//                            .renderingMode(.template)
+//                            .foregroundColor(Color.black.opacity(0.2))
                     }
                     else{
                         Image("search-p")

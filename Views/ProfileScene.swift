@@ -8,7 +8,6 @@
 import SwiftUI
 import Firebase
 import FirebaseFirestore
-import XCTest
 
 struct Profile { // Model
     var image: UIImage = UIImage(imageLiteralResourceName: "user-g")

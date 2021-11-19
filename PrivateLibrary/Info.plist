@@ -4,6 +4,8 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -18,10 +20,10 @@
 	<string>1.0</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
-	<key>JUSO_API_KEY</key>
-	<string>$(JUSO_API_KEY)</string>
-	<key>KM_REST_KEY</key>
-	<string>$(KM_REST_KEY)</string>
+	<key>JUSOAPIKEY</key>
+	<string>$(JUSOAPIKEY)</string>
+	<key>KMRESTKEY</key>
+	<string>$(KMRESTKEY)</string>
 	<key>LSApplicationCategoryType</key>
 	<string></string>
 	<key>LSRequiresIPhoneOS</key>
