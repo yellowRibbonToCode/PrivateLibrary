@@ -61,7 +61,6 @@
 		73FF48F4273E92E700170DD0 /* TempSecondTap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73FF48F0273E92E700170DD0 /* TempSecondTap.swift */; };
 		73FF48F5273E92E700170DD0 /* LocationRegistration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73FF48F1273E92E700170DD0 /* LocationRegistration.swift */; };
 		73FF48F6273E92E700170DD0 /* NeighborGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73FF48F2273E92E700170DD0 /* NeighborGridView.swift */; };
-		73FF48F7273E92E700170DD0 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73FF48F3273E92E700170DD0 /* LocationManager.swift */; };
 		73FF48F9273E930700170DD0 /* JusoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73FF48F8273E930700170DD0 /* JusoModel.swift */; };
 		73FF48FC273E938A00170DD0 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 73FF48FB273E938A00170DD0 /* Alamofire */; };
 		8A2F403C2743434200D7B5D5 /* ChatList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A2F403A2743434200D7B5D5 /* ChatList.swift */; };
@@ -139,7 +138,6 @@
 		73FF48F0273E92E700170DD0 /* TempSecondTap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TempSecondTap.swift; sourceTree = "<group>"; };
 		73FF48F1273E92E700170DD0 /* LocationRegistration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationRegistration.swift; sourceTree = "<group>"; };
 		73FF48F2273E92E700170DD0 /* NeighborGridView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NeighborGridView.swift; sourceTree = "<group>"; };
-		73FF48F3273E92E700170DD0 /* LocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		73FF48F8273E930700170DD0 /* JusoModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JusoModel.swift; sourceTree = "<group>"; };
 		8A2F403A2743434200D7B5D5 /* ChatList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatList.swift; sourceTree = "<group>"; };
 		8A2F403B2743434200D7B5D5 /* ChatView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
@@ -303,7 +301,6 @@
 				732A761727451E5E0039A08E /* tempProfileScene.swift */,
 				732A7619274529AB0039A08E /* tempProfileEditScene.swift */,
 				73702DF9273FB1690020AB24 /* CalcDistance.swift */,
-				73FF48F3273E92E700170DD0 /* LocationManager.swift */,
 				8A2F403A2743434200D7B5D5 /* ChatList.swift */,
 				73C9051827462F4F00EAEBD7 /* FirstTabView.swift */,
 				8A2F40442743A86C00D7B5D5 /* ChatRow.swift */,
@@ -508,7 +505,6 @@
 				732B94BE2726C379005A7416 /* LoginView.swift in Sources */,
 				73569EB8272FA59D00A72153 /* Testinputphoto.swift in Sources */,
 				EE9B91D4272D2E7B005BCFA5 /* ForgotView.swift in Sources */,
-				73FF48F7273E92E700170DD0 /* LocationManager.swift in Sources */,
 				732A761A274529AC0039A08E /* tempProfileEditScene.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
