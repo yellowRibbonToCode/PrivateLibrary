@@ -14,7 +14,6 @@ import FirebaseStorage
 struct SearchBar: View {
     @Binding var txt: String
     @Binding var data : [ViewModel]
-    @Binding var isEditing: Bool
     @ObservedObject var books: TestBookmarkView.BookLists
 
     @FocusState private var nameIsFocused: Bool
@@ -42,11 +41,7 @@ struct SearchBar: View {
                                 .foregroundColor(Color(red: 0.235, green: 0.235, blue: 0.263, opacity: 0.6))
                                 .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
                                 .padding(.leading, 8)
-                            
-//                            if isEditing {
                                 Button(action: {
-//                                    self.isEditing = false
-//                                    self.txt = ""
                                 }) {
                                     Image(systemName: "multiply.circle.fill")
                                         .foregroundColor(Color(red: 0.235, green: 0.235, blue: 0.263, opacity: 0.6))
@@ -56,24 +51,10 @@ struct SearchBar: View {
                                             nameIsFocused = false
                                         }
                                 }
-//                            }
                         }
                     )
                     .padding(.horizontal, 10)
                     .focused($nameIsFocused)
-//                    .onTapGesture {
-//                        self.isEditing = true
-//                    }
-                
-//                if isEditing {
-//                    Button(action: {
-//                        self.isEditing = false
-//                        self.txt = ""
-//                    }) {
-//                        Text("Cancel")
-//                    }
-//                    .padding(.trailing, 10)
-//                }
             }
             .padding(.bottom, 12)
             if self.txt != ""{
