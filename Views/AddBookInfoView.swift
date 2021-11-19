@@ -145,11 +145,9 @@ struct AddBookInfoView: View {
                 }
                 else {
                     
-                    Image(systemName: "plus.app")
-                        .font(.system(size: 20))
+                    Image("plus-w")
                         .frame(width: UIScreen.main.bounds.width,height: UIScreen.main.bounds.height * 0.48)
                         .background(Color.black.opacity(0.29))
-                        .foregroundColor(.gray)
                     
                 }
             }
@@ -234,6 +232,10 @@ struct AddBookInfoView: View {
                     .clipShape(contentRounded())
                     .frame(height: UIScreen.main.bounds.height / 2)
                     .padding(EdgeInsets(top: 0, leading: 16, bottom: 16, trailing: 16))
+                }           .onTapGesture {
+                    withAnimation(.spring()) {
+                        self.tapped.toggle()
+                    }
                 }
                     Button(action: {
                         setdb()
@@ -258,13 +260,7 @@ struct AddBookInfoView: View {
             .background(Color.white)
             .clipShape(Rounded())
             .padding(.top, self.tapped ? -UIScreen.main.bounds.height / 2.7 : -UIScreen.main.bounds.height / 12)
-            .onTapGesture {
-                withAnimation(.spring()) {
-                    self.tapped.toggle()
-                }
-            }
-            
-            
+                        
         }
         
         .sheet(isPresented: $isShowPhotoLibrary) {

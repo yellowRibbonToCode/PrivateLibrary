@@ -29,6 +29,9 @@ struct ProfileScene: View { // View
     @State var Juso = "주소 변경"
     @State private var showingJuso = false
     
+    @State private var myORmark = false
+    
+    
     let columns: [GridItem] = Array(repeating: GridItem(), count: 2)
     
     private let userAuth = Auth.auth().currentUser
@@ -36,92 +39,127 @@ struct ProfileScene: View { // View
     private let storageRef = Storage.storage().reference()
     
     var body: some View {
-            ScrollView(.vertical) {
-                ZStack {
-                    profileImage()
-                    Circle()
-                        .stroke(Color.mainBlue, lineWidth: 1)
-                        .frame(width: 170, height: 170)
+        ScrollView(.vertical) {
+            ZStack {
+                profileImage()
+                Circle()
+                    .stroke(Color.mainBlue, lineWidth: 1)
+                    .frame(width: 170, height: 170)
+            }
+            profileName()
+            profileEmail()
+            HStack(spacing: 0) {
+                Image("location-p")
+                    .resizable()
+                    .frame(width: 10, height: 15)
+                Button("\(profile.sggNm) \(profile.emdNm)") {
+                    showingJuso.toggle()
                 }
-                profileName()
-                profileEmail()
-                HStack(spacing: 0) {
-                    Image("location-p")
-                        .resizable()
-                        .frame(width: 10, height: 15)
-                    Button("\(profile.sggNm) \(profile.emdNm)") {
-                        showingJuso.toggle()
+                .font(Font.custom("S-CoreDream-5Medium", size: 16))
+                .onAppear(perform: {
+                    loademdNM()
+                })
+                .sheet(isPresented: $showingJuso, content: {
+                    LocationRegistration(profile: $profile)
+                })
+            }
+            .padding(.bottom, 10)
+            .foregroundColor(.mainBlue)
+            Divider()
+                .padding(.bottom, 15)
+            
+            ////
+            // here start select mybook or bookmarkbook//
+            ////
+            HStack(alignment: .center){
+                Spacer()
+                Button(action: {
+                    withAnimation(.spring()) {
+                        self.myORmark = false
                     }
-                    .font(Font.custom("S-CoreDream-5Medium", size: 16))
-                    .onAppear(perform: {
-                        loademdNM()
-                    })
-                    .sheet(isPresented: $showingJuso, content: {
-                        LocationRegistration(profile: $profile)
-                    })
-                }
-                .foregroundColor(.mainBlue)
-                Divider()
-                    .padding(.bottom, 15)
-                HStack(spacing: 0){
-                    Spacer()
-                    Image("edit-p")
+                }) {
+                    Image(systemName: "pencil")
                         .resizable()
                         .frame(width:23, height:23)
-                        .foregroundColor(.mainBlue)
-                    Spacer()
-                    Spacer()
-                    Image("bookmark-g")
+                        .foregroundColor(myORmark ? .gray : .mainBlue)
+                }
+                Spacer()
+                Spacer()
+                Button(action: {
+                    withAnimation(.spring()) {
+                        self.myORmark = true
+                    }
+                }) {
+                    Image(systemName: "bookmark")
                         .resizable()
                         .frame(width:15, height:23)
-                        .foregroundColor(.gray)
-                    Spacer()
+                        .foregroundColor(myORmark ? .mainBlue : .gray)
                 }
-                .padding(.bottom, 15)
-                HStack (spacing: 0) {
-                    Rectangle()
-                        .fill(Color.mainBlue)
-                        .frame(height:1.5)
-//                        .padding(.leading)
-                    Rectangle()
-                        .fill(Color.gray)
-                        .frame(height:0.3)
-//                        .padding(.trailing)
-                }
-                .padding(.bottom, 15)
-                
                 Spacer()
-                
+            }
+            .padding(.bottom, 15)
+            HStack (spacing: 0) {
+                Rectangle()
+                    .fill(myORmark ? Color.gray : Color.mainBlue)
+                    .frame(height: myORmark ? 0.3 : 1.5)
+                Rectangle()
+                    .fill(myORmark ? Color.mainBlue : Color.gray)
+                    .frame(height: myORmark ? 1.5 : 0.3)
+            }
+            .padding(.bottom, 15)
+            ////
+            // here end select mybook or bookmarkbook  //
+            ////
+            Spacer()
+            if !myORmark {
                 LazyVGrid (columns: columns) {
                     ForEach (books.bookList) { book in
-                        ImageRow(libModel: book)
-                            .frame(width: 200, height: 200)
-                            .padding([.top], 5)
+                        NavigationLink(destination: ProfileDetailView(libModel: book)) {
+                        ProfileImageRow(libModel: book)
+                        }
                     }
                     .foregroundColor(.black)
                 }
+                .padding()
                 .onAppear {
                     books.loadBooks()
+                    books.takeBookmarkBook()
                     print("load books")
                 }
             }
-            .navigationBarTitle(Text(""), displayMode: .inline)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Text("My")
-                        .font(.system(size: 34, weight: .bold))
-                }
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button (action: {showingEdit.toggle()} ) {
-                        Image("edit-p")
-                            .resizable()
-                            .frame(width: 17, height: 17)
-                            .foregroundColor(.mainBlue)
-                    }.fullScreenCover(isPresented: $showingEdit, onDismiss: {reloadBooks()}) {
-                        EditView(profile: $profile)
+            else {
+                LazyVGrid (columns: columns) {
+                    ForEach (books.bookmarkList) { book in
+                        NavigationLink(destination: ProfileBookmarkDetailView(libModel: book, books: books)) {
+                            ProfilebookmarkImageRow(libModel: book, books: books)
+                        }
                     }
+                    .foregroundColor(.black)
+                }
+                .padding()
+            }
+            
+            
+            
+        }
+        .navigationBarTitle(Text(""), displayMode: .inline)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                Text("My")
+                    .font(.system(size: 34, weight: .bold))
+            }
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button (action: {showingEdit.toggle()} ) {
+                    Image("edit-p")
+                        .resizable()
+                        .frame(width: 17, height: 17)
+                        .foregroundColor(.mainBlue)
+                }.fullScreenCover(isPresented: $showingEdit, onDismiss: {reloadBooks()}) {
+                    EditView(profile: $profile)
                 }
             }
+        }
+
         
     }
     
@@ -191,6 +229,10 @@ struct ProfileScene: View { // View
 extension ProfileScene {
     class BookLists: ObservableObject {
         @Published var bookList: [ViewModel] = []
+        @Published var bookmarkList: [ViewModel] = []
+        @Published var bookmarkarray: [String] = []
+
+
         //    private var bookImage = UIImage(systemName: "book")
         private let userid = Auth.auth().currentUser!.uid
         private let db = Firestore.firestore()
@@ -224,6 +266,56 @@ extension ProfileScene {
                             image: Image(RandBookImage(rawValue: Int.random(in: 0...10))!.toString()),
                             index: ind))
                         ind += 1
+                    }
+                }
+            }
+        }
+        
+        func takeBookmarkBook() {
+            db.collection("users").document(userid).collection("bookmarks").getDocuments() { books, err in
+                if let err = err {
+                    print("Error getting documents: \(err)")
+                } else {
+                    guard let books = books?.documents else {
+                        print("books is nil")
+                        return
+                    }
+                    var ind: Int = 0
+                    for book in books {
+                        self.bookmarkList.append(ViewModel(
+                            id: book.documentID,
+                            useruid: book.get("userid") as! String,
+                            name: book.get("username") as! String,
+                            email: book.get("useremail") as! String,
+                            bookname: book.get("bookname") as! String,
+                            author: book.get("author") as! String,
+                            title: book.get("title") as! String,
+                            content: book.get("content") as! String,
+                            created: (book.get("created") as! Timestamp).dateValue(),
+                            edited: (book.get("edited") as! Timestamp).dateValue(),
+                            price: book.get("price") as? Int,
+                            exchange: (book.get("exchange") as! Bool),
+                            sell: (book.get("sell") as! Bool),
+                            image: Image(RandBookImage(rawValue: Int.random(in: 0...10))!.toString()),
+                            index: ind))
+                        ind += 1
+                    }
+                }
+            }
+        }
+        
+        func makebookmarklist() {
+            db.collection("users").document(userid).collection("bookmarks").getDocuments() { docus, err  in
+                
+                if let err = err {
+                    print("Error getting documents: \(err)")
+                } else {
+                    guard let docus = docus?.documents else {
+                        print("books is nil")
+                        return
+                    }
+                    for docu in docus {
+                        self.bookmarkarray.append(docu.get("bookid") as! String)
                     }
                 }
             }

@@ -15,6 +15,8 @@ struct SearchBar: View {
     @Binding var txt: String
     @Binding var data : [ViewModel]
     @Binding var isEditing: Bool
+    @ObservedObject var books: TestBookmarkView.BookLists
+
     let columns: [GridItem] = Array(repeating: GridItem(), count: 2)
     
     var body: some View {
@@ -65,6 +67,7 @@ struct SearchBar: View {
                     .padding(.trailing, 10)
                 }
             }
+            .padding(.bottom, 12)
             if self.txt != ""{
                 if  self.data.filter({$0.name.lowercased().contains(self.txt.lowercased())}).count == 0{
                     Text("No Results Found").foregroundColor(Color.black.opacity(0.5)).padding()
@@ -72,11 +75,10 @@ struct SearchBar: View {
                 else{
                     ScrollView(.vertical) {
                         LazyVGrid(columns: columns) {
-                            ForEach (self.data.filter{$0.name.lowercased().contains(self.txt.lowercased())}) { i in
-                                SearchImageRow(libModel: i)
-                                    .frame(width: 200, height: 200)
-                                    .padding([.top], 5)
-                                    .foregroundColor(.black)
+                            ForEach (self.data.filter{$0.name.lowercased().contains(self.txt.lowercased())}) { book in
+                                NavigationLink(destination: SearchDetailView(libModel: book, books: self.books)) {
+                                TestBookmarkViewImageRow(libModel: book, books: self.books)
+                                }
                             }
                         }
                         .padding([.leading, .trailing], 10)
@@ -90,7 +92,7 @@ struct SearchBar: View {
 }
 
 struct SearchView: View {
-    @ObservedObject var books = BookLists()
+    @ObservedObject var books = TestBookmarkView.BookLists()
     
     @State var text: String = ""
     @State var isEditing: Bool = false
@@ -99,82 +101,16 @@ struct SearchView: View {
     var body: some View {
 //        NavigationView{
             VStack {
-                SearchBar(txt: $text, data: self.$data.datas, isEditing: $isEditing)
+                SearchBar(txt: $text, data: self.$data.datas, isEditing: $isEditing, books: books)
                 Spacer(minLength: 20)
             }
             .navigationBarTitle("",  displayMode: .inline)
             .navigationBarHidden(true)
             .navigationBarBackButtonHidden(true)
 //        }
+
     }
 }
-
-struct SearchImageRow: View {
-    var libModel: ViewModel
-    @State var show = false
-
-    var body: some View {
-        HStack(spacing: 20){
-            VStack(alignment: .leading,spacing: 12){
-                
-                Button(action: {
-                    
-                    self.show.toggle()
-                    
-                }) {
-                    
-                    if let image = libModel.image {
-                        image
-                            .resizable()
-                            .frame(width: 170, height: 200)
-                    }
-                }
-                
-                Text(libModel.bookname).fontWeight(.heavy).foregroundColor(.mainBlue)
-                
-                HStack(spacing: 5){
-                    
-                    Image(systemName: "person")
-                    Text(libModel.name).foregroundColor(.gray)
-                }
-            }
-        }
-        .sheet(isPresented: $show) {
-//            SearchDetailView(libModel: libModel)
-        }
-        
-    }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
