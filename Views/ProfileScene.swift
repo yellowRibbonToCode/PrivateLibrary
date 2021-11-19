@@ -73,9 +73,8 @@ struct ProfileScene: View { // View
                         self.myORmark = false
                     }
                 }) {
-                    Image(systemName: "pencil")
-                        .resizable()
-                        .frame(width:23, height:23)
+                    Image("edit-p")
+                        .renderingMode(.template)
                         .foregroundColor(myORmark ? .gray : .mainBlue)
                 }
                 Spacer()
@@ -85,9 +84,8 @@ struct ProfileScene: View { // View
                         self.myORmark = true
                     }
                 }) {
-                    Image(systemName: "bookmark")
-                        .resizable()
-                        .frame(width:15, height:23)
+                    Image("bookmark-g")
+                        .renderingMode(.template)
                         .foregroundColor(myORmark ? .mainBlue : .gray)
                 }
                 Spacer()

@@ -40,7 +40,7 @@ struct SearchDetailView : View {
                 .background(Color.white)
                 .clipShape(Rounded())
                 .padding(.top, self.tapped ? -UIScreen.main.bounds.height / 3 : -UIScreen.main.bounds.height / 12)
-
+                
                 
                 //            .onAppear(perform: {
                 //                books.makebookmarklist()
@@ -83,27 +83,30 @@ struct SearchDetailView : View {
 
 struct detailTop : View {
     var libModel: ViewModel
-    @State var selectedItem: Int = 0
+    @State var selectedItem: Int? = 0
+    
 
     var body : some View{
-        
+
         HStack {
             Text(libModel.bookname)
             Spacer()
+            NavigationLink(destination: MakeChat(other: libModel.useruid), tag: 1, selection: $selectedItem) {
+                EmptyView()
+            }
+            
             Menu {
                 Button(action:{
-                    selectedItem = 0
+                    selectedItem = 1
+                    
+                    
                 }) {
                     Label("Chat", systemImage: "message.fill")
                 }
-                Button(action: {
-                    selectedItem = 1
-                }){
-                    Label("Empty", systemImage: "xmark.circle.fill")
-                }
+                
             } label: {
-                Image(systemName: "ellipsis")
-            }
+                Image(systemName: "ellipsis")}
+            
             .foregroundColor(.mainBlue)
             
         }
@@ -127,17 +130,13 @@ struct detailMiddle : View {
                 Spacer()
             }
             HStack {
-                Image(systemName: "quote.opening")
-                    .resizable()
-                    .frame(width: 20, height: 15)
-                    .padding(.bottom, UIScreen.main.bounds.height / 18)
+                Image("doublequoteleft")
+//                    .padding(.bottom, UIScreen.main.bounds.height / 18)
                 Text(libModel.title)
                     .font(Font.custom("S-CoreDream-6Bold", size: 18))
                     .padding(.horizontal, 34)
-                Image(systemName: "quote.closing")
-                    .resizable()
-                    .frame(width: 20, height: 15)
-                    .padding(.top, UIScreen.main.bounds.height / 18)
+                Image("doublequoterightbottom")
+                    
             }
             .frame(height: UIScreen.main.bounds.height / 9)
             .foregroundColor(.mainBlue)

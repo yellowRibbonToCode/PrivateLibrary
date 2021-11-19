@@ -80,11 +80,6 @@ struct profileDetailTop : View {
             Text(libModel.bookname)
             Spacer()
             Menu {
-                Button(action:{
-                    selectedItem = 0
-                }) {
-                    Label("Chat", systemImage: "message.fill")
-                }
                 Button(action: {
                     selectedItem = 1
                 }){
@@ -94,11 +89,6 @@ struct profileDetailTop : View {
                     selectedItem = 2
                 }){
                     Label("Delete", systemImage: "trash.fill")
-                }
-                Button(action: {
-                    selectedItem = 3
-                }){
-                    Label("Empty", systemImage: "xmark.circle.fill")
                 }
             } label: {
                 Image(systemName: "ellipsis")
