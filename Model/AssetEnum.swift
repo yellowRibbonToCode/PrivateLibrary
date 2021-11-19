@@ -8,42 +8,53 @@
 import Foundation
 
 enum RandBookImage : Int {
-    case charleyrivers = 0
-    case chilkoottrail
-    case chincoteague
-    case hiddenlake
-    case icybay
-    case lakemcdonald
-    case rainbowlake
-    case silversalmoncreek
-    case turtlerock
-    case twinlake
-    case umbagog
+    case dummy01 = 0
+    case dummy02
+    case dummy03
+    case dummy04
+    case dummy05
+    case dummy06
+    case dummy07
+    case dummy08
+    case dummy09
+    case dummy10
+    case dummy11
+    case dummy12
+    case dummy13
+    case dummy14
+    
     
     func toString() -> String {
         switch self {
-        case .charleyrivers:
-            return "charleyrivers"
-        case .chilkoottrail:
-            return "chilkoottrail"
-        case .chincoteague:
-            return "chincoteague"
-        case .hiddenlake:
-            return "hiddenlake"
-        case .icybay:
-            return "icybay"
-        case .lakemcdonald:
-            return "lakemcdonald"
-        case .rainbowlake:
-            return "rainbowlake"
-        case .silversalmoncreek:
-            return "silversalmoncreek"
-        case .turtlerock:
-            return "turtlerock"
-        case .twinlake:
-            return "twinlake"
-        case .umbagog:
-            return "umbagog"
+        case .dummy01:
+            return "dummy01"
+        case .dummy02:
+            return "dummy02"
+        case .dummy03:
+            return "dummy03"
+        case .dummy04:
+            return "dummy04"
+        case .dummy05:
+            return "dummy05"
+        case .dummy06:
+            return "dummy06"
+        case .dummy07:
+            return "dummy07"
+        case .dummy08:
+            return "dummy08"
+        case .dummy09:
+            return "dummy09"
+        case .dummy10:
+            return "dummy10"
+        case .dummy11:
+            return "dummy11"
+        case .dummy12:
+            return "dummy12"
+        case .dummy13:
+            return "dummy13"
+        case .dummy14:
+            return "dummy14"
+            
         }
     }
 }

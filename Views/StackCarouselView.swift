@@ -59,7 +59,7 @@
 //                            price: book.get("price") as? Int,
 //                            exchange: (book.get("exchange") as! Bool),
 //                            sell: (book.get("sell") as! Bool),
-//                            image: Image(RandBookImage(rawValue: Int.random(in: 0...10))!.toString()),
+//                            image: Image(RandBookImage(rawValue: Int.random(in: 0...13))!.toString()),
 //                            index: ind))
 //                        ind += 1
 //                    }

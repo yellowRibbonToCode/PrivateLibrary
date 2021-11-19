@@ -225,24 +225,57 @@ extension ProfileScene {
                     }
                     var ind: Int = 0
                     for book in books {
-                        print("somethig appended book")
-                        self.bookList.append(ViewModel(
-                            id: book.documentID,
-                            useruid: book.get("userid") as! String,
-                            name: book.get("username") as! String,
-                            email: book.get("useremail") as! String,
-                            bookname: book.get("bookname") as! String,
-                            author: book.get("author") as! String,
-                            title: book.get("title") as! String,
-                            content: book.get("content") as! String,
-                            //                        created: <#T##Date?#>,
-                            //                        edited: <#T##Date?#>,
-                            price: book.get("price") as? Int,
-                            exchange: (book.get("exchange") as! Bool),
-                            sell: (book.get("sell") as! Bool),
-                            image: Image(RandBookImage(rawValue: Int.random(in: 0...10))!.toString()),
-                            index: ind))
-                        ind += 1
+                        func getImage(bookuid : String) {
+                            Storage.storage().reference().child("images/books/\(bookuid)").getData(maxSize: 100 * 200 * 200) {
+                                (imageData, err) in
+                                if let _ = err as NSError? {
+                                    let randInt = Int.random(in: 0...13)
+                                    let bookImage = Image(RandBookImage(rawValue: randInt)!.toString())
+                                    self.bookList.append(ViewModel(
+                                        id: book.documentID,
+                                        useruid: book.get("userid") as! String,
+                                        name: book.get("username") as! String,
+                                        email: book.get("useremail") as! String,
+                                        bookname: book.get("bookname") as! String,
+                                        author: book.get("author") as! String,
+                                        title: book.get("title") as! String,
+                                        content: book.get("content") as! String,
+                                        created: (book.get("created") as! Timestamp).dateValue(),
+                                        edited: (book.get("edited") as! Timestamp).dateValue(),
+                                        price: book.get("price") as? Int,
+                                        exchange: (book.get("exchange") as! Bool),
+                                        sell: (book.get("sell") as! Bool),
+                                        image: bookImage,
+                                        index: ind))
+                                    ind += 1
+                                }
+                                else {
+                                    let randInt = Int.random(in: 0...13)
+                                    var bookImage = Image(RandBookImage(rawValue: randInt)!.toString())
+                                    if let imageData = imageData {
+                                        bookImage = Image(uiImage: UIImage(data: imageData)!)
+                                    }
+                                    self.bookList.append(ViewModel(
+                                        id: book.documentID,
+                                        useruid: book.get("userid") as! String,
+                                        name: book.get("username") as! String,
+                                        email: book.get("useremail") as! String,
+                                        bookname: book.get("bookname") as! String,
+                                        author: book.get("author") as! String,
+                                        title: book.get("title") as! String,
+                                        content: book.get("content") as! String,
+                                        created: (book.get("created") as! Timestamp).dateValue(),
+                                        edited: (book.get("edited") as! Timestamp).dateValue(),
+                                        price: book.get("price") as? Int,
+                                        exchange: (book.get("exchange") as! Bool),
+                                        sell: (book.get("sell") as! Bool),
+                                        image: bookImage,
+                                        index: ind))
+                                    ind += 1
+                                }
+                            }
+                        }
+                        getImage(bookuid: book.documentID)
                     }
                 }
             }
@@ -259,23 +292,57 @@ extension ProfileScene {
                     }
                     var ind: Int = 0
                     for book in books {
-                        self.bookmarkList.append(ViewModel(
-                            id: book.documentID,
-                            useruid: book.get("userid") as! String,
-                            name: book.get("username") as! String,
-                            email: book.get("useremail") as! String,
-                            bookname: book.get("bookname") as! String,
-                            author: book.get("author") as! String,
-                            title: book.get("title") as! String,
-                            content: book.get("content") as! String,
-                            created: (book.get("created") as! Timestamp).dateValue(),
-                            edited: (book.get("edited") as! Timestamp).dateValue(),
-                            price: book.get("price") as? Int,
-                            exchange: (book.get("exchange") as! Bool),
-                            sell: (book.get("sell") as! Bool),
-                            image: Image(RandBookImage(rawValue: Int.random(in: 0...10))!.toString()),
-                            index: ind))
-                        ind += 1
+                        func getImage(bookuid : String) {
+                            Storage.storage().reference().child("images/books/\(bookuid)").getData(maxSize: 100 * 200 * 200) {
+                                (imageData, err) in
+                                if let _ = err as NSError? {
+                                    let randInt = Int.random(in: 0...13)
+                                    let bookImage = Image(RandBookImage(rawValue: randInt)!.toString())
+                                    self.bookmarkList.append(ViewModel(
+                                        id: book.documentID,
+                                        useruid: book.get("userid") as! String,
+                                        name: book.get("username") as! String,
+                                        email: book.get("useremail") as! String,
+                                        bookname: book.get("bookname") as! String,
+                                        author: book.get("author") as! String,
+                                        title: book.get("title") as! String,
+                                        content: book.get("content") as! String,
+                                        created: (book.get("created") as! Timestamp).dateValue(),
+                                        edited: (book.get("edited") as! Timestamp).dateValue(),
+                                        price: book.get("price") as? Int,
+                                        exchange: (book.get("exchange") as! Bool),
+                                        sell: (book.get("sell") as! Bool),
+                                        image: bookImage,
+                                        index: ind))
+                                    ind += 1
+                                }
+                                else {
+                                    let randInt = Int.random(in: 0...13)
+                                    var bookImage = Image(RandBookImage(rawValue: randInt)!.toString())
+                                    if let imageData = imageData {
+                                        bookImage = Image(uiImage: UIImage(data: imageData)!)
+                                    }
+                                    self.bookmarkList.append(ViewModel(
+                                        id: book.documentID,
+                                        useruid: book.get("userid") as! String,
+                                        name: book.get("username") as! String,
+                                        email: book.get("useremail") as! String,
+                                        bookname: book.get("bookname") as! String,
+                                        author: book.get("author") as! String,
+                                        title: book.get("title") as! String,
+                                        content: book.get("content") as! String,
+                                        created: (book.get("created") as! Timestamp).dateValue(),
+                                        edited: (book.get("edited") as! Timestamp).dateValue(),
+                                        price: book.get("price") as? Int,
+                                        exchange: (book.get("exchange") as! Bool),
+                                        sell: (book.get("sell") as! Bool),
+                                        image: bookImage,
+                                        index: ind))
+                                    ind += 1
+                                }
+                            }
+                        }
+                        getImage(bookuid: book.documentID)
                     }
                 }
             }

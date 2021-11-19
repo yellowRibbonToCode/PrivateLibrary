@@ -42,7 +42,7 @@ class SearchViewModel: ObservableObject {
                         Storage.storage().reference().child("images/books/\(bookuid)").getData(maxSize: 100 * 200 * 200) {
                             (imageData, err) in
                             if let err = err as NSError? {
-                                let randInt = Int.random(in: 0...10)
+                                let randInt = Int.random(in: 0...13)
                                 
 //                                print("an error has occurred - \(err.localizedDescription)")
 //                                if (StorageErrorCode(rawValue: err.code) == .objectNotFound) {

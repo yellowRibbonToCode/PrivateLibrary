@@ -258,6 +258,7 @@ struct AddBookInfoView: View {
             .padding(.top, self.tapped ? -UIScreen.main.bounds.height / 2.7 : -UIScreen.main.bounds.height / 12)
                         
         }
+        .disableAutocorrection(true)
         
         .sheet(isPresented: $isShowPhotoLibrary) {
             ImagePicker(sourceType: .photoLibrary, selectedImage: self.$image)

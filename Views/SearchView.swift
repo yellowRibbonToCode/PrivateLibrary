@@ -34,6 +34,7 @@ struct SearchBar: View {
                     .background(Color(red: 0.463, green: 0.463, blue: 0.502, opacity: 0.12))
                     .foregroundColor(Color(red: 0.235, green: 0.235, blue: 0.263, opacity: 0.6))
                     .cornerRadius(8)
+                    .disableAutocorrection(true)
                     .overlay(
                         HStack {
                             Image(systemName: "magnifyingglass")
@@ -148,7 +149,7 @@ extension SearchView {
                             price: book.get("price") as? Int,
                             exchange: (book.get("exchange") as! Bool),
                             sell: (book.get("sell") as! Bool),
-                            image: Image(RandBookImage(rawValue: Int.random(in: 0...10))!.toString()),
+                            image: Image(RandBookImage(rawValue: Int.random(in: 0...13))!.toString()),
                             index: ind))
                         ind += 1
                     }
@@ -170,37 +171,58 @@ class getFiterData : ObservableObject{
                 return
             }
             var ind: Int = 0
-            for i in snap!.documents{
-                
-                let id = i.documentID
-                let useruid = i.get("userid") as! String
-                let name = i.get("username") as! String
-                let email = i.get("useremail") as! String
-                let bookname = i.get("bookname") as! String
-                let author = i.get("author") as! String
-                let title = i.get("title") as! String
-                let content = i.get("content") as! String
-                let price = i.get("price") as? Int
-                let exchange = (i.get("exchange") as! Bool)
-                let sell = (i.get("sell") as! Bool)
-                let image = Image(RandBookImage(rawValue: Int.random(in: 0...10))!.toString())
-                let index = ind
-                self.datas.append(ViewModel(
-                    id: id,
-                    useruid: useruid,
-                    name: name,
-                    email: email,
-                    bookname: bookname,
-                    author: author,
-                    title: title,
-                    content: content,
-                    price: price,
-                    exchange: exchange,
-                    sell: sell,
-                    image: image,
-                    index: index
-                ))
-                ind += 1
+            for book in snap!.documents{
+                func getImage(bookuid : String) {
+                    Storage.storage().reference().child("images/books/\(bookuid)").getData(maxSize: 100 * 200 * 200) {
+                        (imageData, err) in
+                        if let _ = err as NSError? {
+                            let randInt = Int.random(in: 0...13)
+                            let bookImage = Image(RandBookImage(rawValue: randInt)!.toString())
+                            self.datas.append(ViewModel(
+                                id: book.documentID,
+                                useruid: book.get("userid") as! String,
+                                name: book.get("username") as! String,
+                                email: book.get("useremail") as! String,
+                                bookname: book.get("bookname") as! String,
+                                author: book.get("author") as! String,
+                                title: book.get("title") as! String,
+                                content: book.get("content") as! String,
+                                created: (book.get("created") as! Timestamp).dateValue(),
+                                edited: (book.get("edited") as! Timestamp).dateValue(),
+                                price: book.get("price") as? Int,
+                                exchange: (book.get("exchange") as! Bool),
+                                sell: (book.get("sell") as! Bool),
+                                image: bookImage,
+                                index: ind))
+                            ind += 1
+                        }
+                        else {
+                            let randInt = Int.random(in: 0...13)
+                            var bookImage = Image(RandBookImage(rawValue: randInt)!.toString())
+                            if let imageData = imageData {
+                                bookImage = Image(uiImage: UIImage(data: imageData)!)
+                            }
+                            self.datas.append(ViewModel(
+                                id: book.documentID,
+                                useruid: book.get("userid") as! String,
+                                name: book.get("username") as! String,
+                                email: book.get("useremail") as! String,
+                                bookname: book.get("bookname") as! String,
+                                author: book.get("author") as! String,
+                                title: book.get("title") as! String,
+                                content: book.get("content") as! String,
+                                created: (book.get("created") as! Timestamp).dateValue(),
+                                edited: (book.get("edited") as! Timestamp).dateValue(),
+                                price: book.get("price") as? Int,
+                                exchange: (book.get("exchange") as! Bool),
+                                sell: (book.get("sell") as! Bool),
+                                image: bookImage,
+                                index: ind))
+                            ind += 1
+                        }
+                    }
+                }
+                getImage(bookuid: book.documentID)
             }
         }
     }
