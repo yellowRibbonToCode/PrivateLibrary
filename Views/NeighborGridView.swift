@@ -87,7 +87,8 @@ class NeighborViewModel: ObservableObject {
                             Storage.storage().reference().child("images/books/\(bookuid)").getData(maxSize: 100 * 200 * 200) {
                                 (imageData, err) in
                                 if let _ = err as NSError? {
-                                    let randInt = Int.random(in: 0...10)
+                                    let randInt = Int.random(in: 0...13)
+                                    let bookImage = Image(RandBookImage(rawValue: randInt)!.toString())
                                     completionHandler(ViewModel(id: bookuid, useruid: book.get("userid") as! String ,
                                                                 name: book.get("username") as! String,
                                                                 email: book.get("useremail") as! String,
@@ -100,7 +101,27 @@ class NeighborViewModel: ObservableObject {
                                                                 price: book.get("price") as? Int,
                                                                 exchange: book.get("exchange") as! Bool,
                                                                 sell: book.get("sell") as! Bool,
-                                                                image: Image(RandBookImage(rawValue: randInt)!.toString())))
+                                                                image: bookImage))
+                                }
+                                else {
+                                    let randInt = Int.random(in: 0...13)
+                                    var bookImage = Image(RandBookImage(rawValue: randInt)!.toString())
+                                    if let imageData = imageData {
+                                        bookImage = Image(uiImage: UIImage(data: imageData)!)
+                                    }
+                                    completionHandler(ViewModel(id: bookuid, useruid: book.get("userid") as! String ,
+                                                                name: book.get("username") as! String,
+                                                                email: book.get("useremail") as! String,
+                                                                bookname: book.get("bookname") as! String,
+                                                                author: book.get("author") as! String,
+                                                                title: book.get("title") as! String,
+                                                                content: book.get("content") as! String,
+                                                                created: (book.get("created") as! Timestamp).dateValue(),
+                                                                edited: (book.get("edited") as! Timestamp).dateValue(),
+                                                                price: book.get("price") as? Int,
+                                                                exchange: book.get("exchange") as! Bool,
+                                                                sell: book.get("sell") as! Bool,
+                                                                image: bookImage))
                                 }
                             }
                         }
