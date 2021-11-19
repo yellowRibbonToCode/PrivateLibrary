@@ -185,20 +185,16 @@ struct AddBookInfoView: View {
                     HorizontalLine(color: Color(red: 0.725, green: 0.725, blue: 0.725, opacity: 1))
                     .offset(y: -10)}
                     HStack {
-                        Image(systemName: "quote.opening")
-                            .resizable()
-                            .frame(width: 20, height: 15)
-                            .padding(.bottom, UIScreen.main.bounds.height / 18)
+                        Image("doublequoteleft")
+                            
                         VStack{
                         TextField("제목을 입력해 주세요.", text: $title)
                             .font(Font.custom("S-CoreDream-6Bold", size: 18))
                             .padding(.horizontal, 34).multilineTextAlignment(.center)
                         HorizontalLine(color: Color(red: 0.725, green: 0.725, blue: 0.725, opacity: 1))
                         .padding(.leading, 16).offset(y: -10)}
-                        Image(systemName: "quote.closing")
-                            .resizable()
-                            .frame(width: 20, height: 15)
-                            .padding(.top, UIScreen.main.bounds.height / 18)
+                        Image("doublequoterightbottom")
+                            
                     }                .padding(.horizontal, 10)
                     
                         .frame(height: UIScreen.main.bounds.height / 9)

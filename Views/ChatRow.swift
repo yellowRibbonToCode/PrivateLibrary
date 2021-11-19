@@ -16,7 +16,7 @@ struct ChatRow: View {
     
     @State var profile: UIImage = UIImage(imageLiteralResourceName: "user-g")
     @State var name: String = "??"
-    @State var lastMsg: String = "??"
+    @State var lastMsg: String = " "
     
     private let users = Firestore.firestore().collection("users")
     private let storageRef = Storage.storage().reference()

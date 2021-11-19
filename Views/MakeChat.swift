@@ -37,6 +37,7 @@ struct MakeChat: View {
             Firestore.firestore().collection("chatings").whereField("participants", in: [[other, me], [me, other]]).limit(to: 1).getDocuments { data, _ in
                 if let docu = data?.documents.last?.documentID {
                     self.id = docu
+                    return
                 }
                 let ref = Firestore.firestore().collection("chatings").addDocument(data: ["participants": [other, me]])
                 self.id = ref.documentID
