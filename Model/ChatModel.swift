@@ -31,11 +31,13 @@ struct Message: Codable, Identifiable, Hashable {
 
 //chatBubble.swift
 struct ChatBubble<Content>: View where Content:View {
+    let time: Date
     let position: BubblePosition
     let color: Color
     let content: () -> Content
     
-    init (position: BubblePosition, color: Color, @ViewBuilder content: @escaping () -> Content) {
+    init (time: Date, position: BubblePosition, color: Color, @ViewBuilder content: @escaping () -> Content) {
+        self.time = time
         self.position = position
         self.color = color
         self.content = content
@@ -45,7 +47,7 @@ struct ChatBubble<Content>: View where Content:View {
         HStack(alignment: .bottom) {
             if self.position == .right {
                 Spacer()
-                Text(Date(), style: .time)
+                Text(time, style: .time)
                     .font(Font.custom("S-CoreDream-4Regular", size: 8))
                     .foregroundColor(.mainBlue)
             }
@@ -63,7 +65,7 @@ struct ChatBubble<Content>: View where Content:View {
                         .stroke(Color.mainBlue, lineWidth: 1)
                 )
             if self.position == .left {
-                Text(Date(), style: .time)
+                Text(time, style: .time)
                     .font(Font.custom("S-CoreDream-4Regular", size: 8))
                     .foregroundColor(.mainBlue)
                 Spacer()
@@ -76,7 +78,7 @@ struct ChatBubble<Content>: View where Content:View {
 
 struct ChatBubble_Previews: PreviewProvider {
     static var previews: some View {
-        ChatBubble(position: .right, color: .mainBlue) {
+        ChatBubble(time: Date(), position: .right, color: .mainBlue) {
             Text("hilwfweijfwifjlweifjwe")
         }
     }
