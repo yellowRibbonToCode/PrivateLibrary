@@ -92,6 +92,8 @@ struct EditView: View {
                     }
 
                     Text(registerError)
+                        .padding(.top, 20)
+                        .foregroundColor(.red)
                 }
                 .toolbar {
                     ToolbarItem (placement: .navigationBarLeading) {
