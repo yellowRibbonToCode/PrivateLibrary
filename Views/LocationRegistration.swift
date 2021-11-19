@@ -25,10 +25,12 @@ class SearchJusoViewModel: ObservableObject {
         let url = "https://www.juso.go.kr/addrlink/addrLinkApi.do"
         let APIKEY = Bundle.main.object(forInfoDictionaryKey: "JUSOAPIKEY") as! String
         let body = ["confmKey": APIKEY, "currentPage": 1, "countPerPage": 20, "keyword": dong, "resultType" : "json"] as [String : Any]
-        AF.request(url, method: .post, parameters: body, encoding: URLEncoding.httpBody).responseJSON() {[weak self] response in
+         AF.request(url, method: .post, parameters: body, encoding: URLEncoding.httpBody).responseJSON() {[weak self] response in
             guard let self = self else { return }
             if let value = response.value {
                 if let jusoResponse: JusoResponse = self.toJson(object: value) {
+                    guard let _ = jusoResponse.results.juso else { return }
+                    
                     self.jusoList = jusoResponse.results.juso
                     print(self.jusoList)
                     //                    for juso in jusoResponse.results.juso {
@@ -37,6 +39,7 @@ class SearchJusoViewModel: ObservableObject {
                 } else {
                     print("serialize error")
                 }
+                
             }
         }
     }
@@ -47,7 +50,6 @@ class SearchJusoViewModel: ObservableObject {
         let APIKEY = Bundle.main.object(forInfoDictionaryKey: "KMRESTKEY") as! String
         let body = ["query": juso]
         let header : HTTPHeaders = ["Authorization": APIKEY]
-        print(APIKEY)
         AF.request(url, method: .post, parameters: body, encoding: URLEncoding.httpBody, headers: header).responseJSON {
             response in
             switch response.result{
