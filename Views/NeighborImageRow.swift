@@ -39,12 +39,12 @@ struct  NeighborViewButton: View {
             
         }) {
             if bookmark {
-                Image(systemName: "bookmark.fill")
-                    .foregroundColor(.mainBlue)
+                Image("bookmark-p")
+
             }
             else {
-                Image(systemName: "bookmark")
-                    .foregroundColor(.mainBlue)
+                Image("bookmark-p-blank-small")
+
             }
         }
     }
