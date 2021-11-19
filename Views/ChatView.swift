@@ -82,7 +82,7 @@ struct ChatView: View {
                         Spacer()
                             .frame(height: 5)
                         ForEach(messages.messages) { msg in
-                            ChatBubble(position: msg.sender == whoami ? .right : .left,
+                            ChatBubble(time: msg.sendTime, position: msg.sender == whoami ? .right : .left,
                                        color: msg.sender == whoami ? .mainBlue : .white) {
                                 Text(msg.msg)
                             }
