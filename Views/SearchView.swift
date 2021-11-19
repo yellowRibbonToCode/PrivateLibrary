@@ -17,6 +17,7 @@ struct SearchBar: View {
     @Binding var isEditing: Bool
     @ObservedObject var books: TestBookmarkView.BookLists
 
+    @FocusState private var nameIsFocused: Bool
     let columns: [GridItem] = Array(repeating: GridItem(), count: 2)
     
     var body: some View {
@@ -42,31 +43,37 @@ struct SearchBar: View {
                                 .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
                                 .padding(.leading, 8)
                             
-                            if isEditing {
+//                            if isEditing {
                                 Button(action: {
-                                    self.txt = ""
+//                                    self.isEditing = false
+//                                    self.txt = ""
                                 }) {
                                     Image(systemName: "multiply.circle.fill")
                                         .foregroundColor(Color(red: 0.235, green: 0.235, blue: 0.263, opacity: 0.6))
                                         .padding(.trailing, 8)
+                                        .onTapGesture {
+                                            self.txt = ""
+                                            nameIsFocused = false
+                                        }
                                 }
-                            }
+//                            }
                         }
                     )
                     .padding(.horizontal, 10)
-                    .onTapGesture {
-                        self.isEditing = true
-                    }
+                    .focused($nameIsFocused)
+//                    .onTapGesture {
+//                        self.isEditing = true
+//                    }
                 
-                if isEditing {
-                    Button(action: {
-                        self.isEditing = false
-                        self.txt = ""
-                    }) {
-                        Text("Cancel")
-                    }
-                    .padding(.trailing, 10)
-                }
+//                if isEditing {
+//                    Button(action: {
+//                        self.isEditing = false
+//                        self.txt = ""
+//                    }) {
+//                        Text("Cancel")
+//                    }
+//                    .padding(.trailing, 10)
+//                }
             }
             .padding(.bottom, 12)
             if self.txt != ""{
@@ -86,7 +93,6 @@ struct SearchBar: View {
                     }
                 }
             }
-            
         }
         
     }
