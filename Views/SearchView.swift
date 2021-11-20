@@ -58,13 +58,13 @@ struct SearchBar: View {
             }
             .padding(.bottom, 12)
             if self.txt != ""{
-                if  self.data.filter({$0.name.lowercased().contains(self.txt.lowercased())}).count == 0{
+                if  self.data.filter({$0.bookname.lowercased().contains(self.txt.lowercased())}).count == 0{
                     Text("No Results Found").foregroundColor(Color.black.opacity(0.5)).padding()
                 }
                 else{
                     ScrollView(.vertical) {
                         LazyVGrid(columns: columns) {
-                            ForEach (self.data.filter{$0.name.lowercased().contains(self.txt.lowercased())}) { book in
+                            ForEach (self.data.filter{$0.bookname.lowercased().contains(self.txt.lowercased())}) { book in
                                 NavigationLink(destination: SearchDetailView(libModel: book, books: self.books)) {
                                 TestBookmarkViewImageRow(libModel: book, books: self.books)
                                 }
@@ -83,13 +83,12 @@ struct SearchView: View {
     @ObservedObject var books = TestBookmarkView.BookLists()
     
     @State var text: String = ""
-    @State var isEditing: Bool = false
     @ObservedObject var data = getFiterData()
     
     var body: some View {
 //        NavigationView{
             VStack {
-                SearchBar(txt: $text, data: self.$data.datas, isEditing: $isEditing, books: books)
+                SearchBar(txt: $text, data: self.$data.datas, books: books)
                 Spacer(minLength: 20)
             }
             .navigationBarTitle("",  displayMode: .inline)
