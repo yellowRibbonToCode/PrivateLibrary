@@ -74,6 +74,7 @@ struct EditView: View {
                             print("success log out")
                             UserDefaults.standard.removeObject(forKey: "id")
                             UserDefaults.standard.removeObject(forKey: "password")
+                            UserDefaults.standard.removeObject(forKey: "islogin")
                             self.presentationMode.wrappedValue.dismiss()
                             self.loging.wrappedValue.toggle()
                         }
