@@ -113,6 +113,7 @@ struct EditView: View {
                                 } else {
                                     editProfile()
                                 }
+                                profile.image = changedImage!
                             }
                             if changedName != "" {
                                 profile.name = changedName
