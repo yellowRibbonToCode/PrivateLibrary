@@ -84,6 +84,24 @@ class NeighborViewModel: ObservableObject {
                     
                     for book in books {
                         func getImage(bookuid : String) {
+                            if let imageData = UserDefaults.standard.data(forKey: bookuid) {
+                                let bookImage = Image(uiImage: UIImage(data: imageData)!)
+                                completionHandler(ViewModel(id: bookuid, useruid: book.get("userid") as! String ,
+                                                            name: book.get("username") as! String,
+                                                            email: book.get("useremail") as! String,
+                                                            bookname: book.get("bookname") as! String,
+                                                            author: book.get("author") as! String,
+                                                            title: book.get("title") as! String,
+                                                            content: book.get("content") as! String,
+                                                            created: (book.get("created") as! Timestamp).dateValue(),
+                                                            edited: (book.get("edited") as! Timestamp).dateValue(),
+                                                            price: book.get("price") as? Int,
+                                                            exchange: book.get("exchange") as! Bool,
+                                                            sell: book.get("sell") as! Bool,
+                                                            image: bookImage))
+                            } else {
+                            
+                            
                             Storage.storage().reference().child("images/books/\(bookuid)").getData(maxSize: 100 * 200 * 200) {
                                 (imageData, err) in
                                 if let _ = err as NSError? {
@@ -109,6 +127,7 @@ class NeighborViewModel: ObservableObject {
                                     if let imageData = imageData {
                                         bookImage = Image(uiImage: UIImage(data: imageData)!)
                                     }
+                                    UserDefaults.standard.set(imageData, forKey: bookuid)
                                     completionHandler(ViewModel(id: bookuid, useruid: book.get("userid") as! String ,
                                                                 name: book.get("username") as! String,
                                                                 email: book.get("useremail") as! String,
@@ -123,6 +142,7 @@ class NeighborViewModel: ObservableObject {
                                                                 sell: book.get("sell") as! Bool,
                                                                 image: bookImage))
                                 }
+                            }
                             }
                         }
                         getImage(bookuid: book.documentID)
