@@ -369,10 +369,15 @@ extension ProfileScene {
 
 extension ProfileScene {
     fileprivate func loadProfile() {
+        if let data = UserDefaults.standard.data(forKey: userAuth!.uid) {
+            profile.image = UIImage(data: data)!
+            return
+        }
         let profileImageRef = storageRef.child("images/user_profile/\(userAuth!.uid)")
         profileImageRef.getData(maxSize: Int64(1 * 1024 * 1024)) { data, err in
             if let data = data {
                 profile.image = UIImage(data: data)!
+                UserDefaults.standard.set(data, forKey: userAuth!.uid)
             }
         }
     }
