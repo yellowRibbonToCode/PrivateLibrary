@@ -107,12 +107,9 @@ struct ChatView: View {
                 .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardDidShowNotification)) {_ in
                     proxy.scrollTo(messages.messages.last!.id, anchor: .bottom)
                 }
-//                .onAppear {
-//                    print(documentId)
-//                    messages.loadMessages(documentId)
-//                    print(messages.messages)
-//                    // or when class init
-//                }
+                .onAppear {
+                    proxy.scrollTo(messages.messages.last!.id , anchor: .bottom)
+                }
                 .onChange(of: messages.messages) { newValue in
                     print(newValue)
                     proxy.scrollTo(messages.messages.last!.id , anchor: .bottom)
