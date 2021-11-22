@@ -106,7 +106,7 @@ struct ProfileScene: View { // View
             Spacer()
             if !myORmark {
                 LazyVGrid (columns: columns) {
-                    ForEach (books.bookList) { book in
+                    ForEach (books.bookList.sorted { $0.created!.compare($1.created!) == .orderedDescending} ) { book in
                         NavigationLink(destination: DetailView(libModel: book, showBookmark: false)) {
                         ImageRow(libModel: book, showBookmark: false)
                         }
@@ -116,13 +116,12 @@ struct ProfileScene: View { // View
                 .padding()
                 .onAppear {
                     books.loadBooks()
-                    books.takeBookmarkBook()
                     print("load books")
                 }
             }
             else {
                 LazyVGrid (columns: columns) {
-                    ForEach (books.bookmarkList) { book in
+                    ForEach (books.bookmarkList.sorted { $0.created!.compare($1.created!) == .orderedDescending} ) { book in
                         NavigationLink(destination: DetailView(libModel: book)) {
                           ImageRow(libModel: book)
                         }
@@ -130,6 +129,9 @@ struct ProfileScene: View { // View
                     .foregroundColor(.black)
                 }
                 .padding()
+                .onAppear {
+                    books.takeBookmarkBook()
+                }
             }
             
             
@@ -207,14 +209,13 @@ extension ProfileScene {
     class BookLists: ObservableObject {
         @Published var bookList: [ViewModel] = []
         @Published var bookmarkList: [ViewModel] = []
-        @Published var bookmarkarray: [String] = []
 
-
-        //    private var bookImage = UIImage(systemName: "book")
         private let userid = Auth.auth().currentUser!.uid
         private let db = Firestore.firestore()
+        private let bookmarks = UserDefaults.standard.array(forKey: "bookmark") as? [String] ?? [String]()
         
         func loadBooks() {
+            bookList = []
             db.collection("libData").whereField("userid", isEqualTo: userid).getDocuments() { books, err in
                 if let err = err {
                     print("Error getting documents: \(err)")
@@ -297,7 +298,8 @@ extension ProfileScene {
         }
         
         func takeBookmarkBook() {
-            db.collection("users").document(userid).collection("bookmarks").getDocuments() { books, err in
+            bookmarkList = []
+            db.collection("libData").getDocuments() { books, err in
                 if let err = err {
                     print("Error getting documents: \(err)")
                 } else {
@@ -306,10 +308,13 @@ extension ProfileScene {
                         return
                     }
                     for book in books {
+                        if !self.bookmarks.contains(book.documentID){
+                            continue
+                        }
                         func getImage(bookuid : String) {
                             if let imageData = UserDefaults.standard.data(forKey: bookuid) {
                                 let bookImage = Image(uiImage: UIImage(data: imageData)!)
-                                self.bookList.append(ViewModel(
+                                self.bookmarkList.append(ViewModel(
                                     id: book.documentID,
                                     useruid: book.get("userid") as! String,
                                     name: book.get("username") as! String,
@@ -373,23 +378,6 @@ extension ProfileScene {
                         }
                         }
                         getImage(bookuid: book.documentID)
-                    }
-                }
-            }
-        }
-        
-        func makebookmarklist() {
-            db.collection("users").document(userid).collection("bookmarks").getDocuments() { docus, err  in
-                
-                if let err = err {
-                    print("Error getting documents: \(err)")
-                } else {
-                    guard let docus = docus?.documents else {
-                        print("books is nil")
-                        return
-                    }
-                    for docu in docus {
-                        self.bookmarkarray.append(docu.get("bookid") as! String)
                     }
                 }
             }
