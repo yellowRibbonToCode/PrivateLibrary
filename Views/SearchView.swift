@@ -58,13 +58,13 @@ struct SearchBar: View {
             }
             .padding(.bottom, 12)
             if self.txt != ""{
-                if  self.data.filter({$0.bookname.lowercased().contains(self.txt.lowercased())}).count == 0{
+                if  self.data.filter({$0.bookname.lowercased().contains(self.txt.lowercased()) || $0.name.lowercased().contains(self.txt.lowercased()) }).count == 0{
                     Text("No Results Found").foregroundColor(Color.black.opacity(0.5)).padding()
                 }
                 else{
                     ScrollView(.vertical) {
                         LazyVGrid(columns: columns) {
-                            ForEach (self.data.filter{$0.bookname.lowercased().contains(self.txt.lowercased())}) { book in
+                            ForEach (self.data.filter{$0.name.lowercased().contains(self.txt.lowercased()) || $0.bookname.lowercased().contains(self.txt.lowercased())}) { book in
                                 NavigationLink(destination: SearchDetailView(libModel: book, books: self.books)) {
                                 TestBookmarkViewImageRow(libModel: book, books: self.books)
                                 }
@@ -119,7 +119,6 @@ extension SearchView {
                         print("books is nil")
                         return
                     }
-                    var ind: Int = 0
                     for book in books {
                         self.bookList.append(ViewModel(
                             id: book.documentID,
@@ -135,9 +134,7 @@ extension SearchView {
                             price: book.get("price") as? Int,
                             exchange: (book.get("exchange") as! Bool),
                             sell: (book.get("sell") as! Bool),
-                            image: Image(RandBookImage(rawValue: Int.random(in: 0...13))!.toString()),
-                            index: ind))
-                        ind += 1
+                            image: Image(RandBookImage(rawValue: Int.random(in: 0...13))!.toString())))
                     }
                 }
             }
@@ -156,9 +153,27 @@ class getFiterData : ObservableObject{
                 print((err?.localizedDescription)!)
                 return
             }
-            var ind: Int = 0
             for book in snap!.documents{
                 func getImage(bookuid : String) {
+                    if let imageData = UserDefaults.standard.data(forKey: bookuid) {
+                        let bookImage = Image(uiImage: UIImage(data: imageData)!)
+                        self.datas.append(ViewModel(
+                            id: book.documentID,
+                            useruid: book.get("userid") as! String,
+                            name: book.get("username") as! String,
+                            email: book.get("useremail") as! String,
+                            bookname: book.get("bookname") as! String,
+                            author: book.get("author") as! String,
+                            title: book.get("title") as! String,
+                            content: book.get("content") as! String,
+                            created: (book.get("created") as! Timestamp).dateValue(),
+                            edited: (book.get("edited") as! Timestamp).dateValue(),
+                            price: book.get("price") as? Int,
+                            exchange: (book.get("exchange") as! Bool),
+                            sell: (book.get("sell") as! Bool),
+                            image: bookImage))
+                    } else {
+                        
                     Storage.storage().reference().child("images/books/\(bookuid)").getData(maxSize: 100 * 200 * 200) {
                         (imageData, err) in
                         if let _ = err as NSError? {
@@ -178,9 +193,7 @@ class getFiterData : ObservableObject{
                                 price: book.get("price") as? Int,
                                 exchange: (book.get("exchange") as! Bool),
                                 sell: (book.get("sell") as! Bool),
-                                image: bookImage,
-                                index: ind))
-                            ind += 1
+                                image: bookImage))
                         }
                         else {
                             let randInt = Int.random(in: 0...13)
@@ -202,11 +215,10 @@ class getFiterData : ObservableObject{
                                 price: book.get("price") as? Int,
                                 exchange: (book.get("exchange") as! Bool),
                                 sell: (book.get("sell") as! Bool),
-                                image: bookImage,
-                                index: ind))
-                            ind += 1
+                                image: bookImage))
                         }
                     }
+                }
                 }
                 getImage(bookuid: book.documentID)
             }
