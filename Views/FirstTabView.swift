@@ -20,7 +20,7 @@ struct FirstTabView: View {
         
             VStack{
                 if selectedView == 0{
-                    BookmarkView()
+                    BookView()
                         .onAppear {
                             naviTitle = "Book"
                         }

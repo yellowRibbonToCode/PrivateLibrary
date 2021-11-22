@@ -1,5 +1,5 @@
 //
-//  TestBookmarkView.swift
+//  TestBookView.swift
 //  동네북
 //
 //  Created by SSB on 2021/11/13.
@@ -14,7 +14,7 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 import FirebaseStorage
 
-struct BookmarkView: View {
+struct BookView: View {
     var Views = ["Books", "NeighborBooks"]
     @State var selectedView = 0
     let columns: [GridItem] = Array(repeating: GridItem(), count: 2)
@@ -75,14 +75,14 @@ struct BookmarkView: View {
 
 
 
-struct BookmarkView_Previews: PreviewProvider {
+struct BookView_Previews: PreviewProvider {
     static var previews: some View {
-        BookmarkView()
+        BookView()
     }
 }
 
 
-extension BookmarkView {
+extension BookView {
     
     class BookLists: ObservableObject {
         let userId = Auth.auth().currentUser!.uid
