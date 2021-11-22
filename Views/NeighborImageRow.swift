@@ -15,14 +15,15 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 import FirebaseStorage
 
-struct  NeighborViewButton: View {
-    @State var bookmark: Bool
-    var libModel: ViewModel
-    @ObservedObject var books: NeighborViewModel
-    
-    let db = Firestore.firestore()
-    
-    let userId = Auth.auth().currentUser?.uid ?? "userId"
+struct  BookMarkButton: View {
+    let bookuid : String
+    @State var bookmark : Bool
+    init (bookuid: String)
+    {
+        self.bookuid = bookuid
+        let bookmarks = UserDefaults.standard.array(forKey: "bookmark") as? [String] ?? [String]()
+        self.bookmark = bookmarks.contains(bookuid)
+    }
     
     var body: some View {
         Button(action: {
@@ -36,7 +37,6 @@ struct  NeighborViewButton: View {
                 setbookmarkdb()
                 print("setbookmarkdb success")
             }
-            
         }) {
             if bookmark {
                 Image("bookmark-p")
@@ -48,52 +48,19 @@ struct  NeighborViewButton: View {
     }
     
     func deletebookmarkdb() {
-        let doc = self.db.collection("users").document(userId).collection("bookmarks")
-        
-        doc.whereField("bookid", isEqualTo: libModel.id).getDocuments(completion: { (snapshot, error) in
-            if let error = error {
-                print(error.localizedDescription)
-            } else {
-                for document in snapshot!.documents {
-                    doc.document("\(document.documentID)").delete()
-                }
-                if let i = self.books.bookmarkarray.firstIndex(of: libModel.id) {
-                    self.books.bookmarkarray.remove(at: i)
-                }
-            }
-            
-        })
-        
+        var bookmarks = UserDefaults.standard.array(forKey: "bookmark") as? [String] ?? [String]()
+        while let index = bookmarks.firstIndex(of: bookuid) {
+            bookmarks.remove(at: index)
+        }
+        UserDefaults.standard.set(bookmarks, forKey: "bookmark")
+        print(bookmarks)
     }
     
     func setbookmarkdb() {
-        let doc = self.db.collection("users").document(userId).collection("bookmarks").document()
-        doc.setData([
-            "author": libModel.author,
-            "bookname": libModel.bookname,
-            "title": libModel.title,
-            "content": libModel.content,
-            "created": Date(),
-            "edited": Date(),
-            "exchange": libModel.exchange
-        ])
-        doc.setData([
-            "price": libModel.price ?? 0,
-            "sell": libModel.sell,
-            "userid": libModel.useruid,
-            "useremail": libModel.email,
-            "username": libModel.name,
-            "bookid" : libModel.id
-        ],merge: true)
-        { err in
-            if let err = err {
-                print("Error writing document: \(err)")
-            } else {
-                print(doc.documentID)
-                self.books.bookmarkarray.append(doc.documentID)
-            }
-        }
-        
+        var bookmarks = UserDefaults.standard.array(forKey: "bookmark") as? [String] ?? [String]()
+        bookmarks.append(bookuid)
+        UserDefaults.standard.set(bookmarks, forKey: "bookmark")
+        print(bookmarks)
     }
 }
 
@@ -115,7 +82,7 @@ struct NeighborImageRow: View {
                         .cornerRadius(19)
                         .shadow(color: Color(red: 0.0, green: 0.0, blue: 0.0, opacity: 0.1), radius: 6, x: 0, y: 3)
                 }
-                NeighborViewButton(bookmark: checkbookmark(), libModel: libModel, books: books)
+                BookMarkButton(bookuid: libModel.id)
                     .padding(EdgeInsets(top: 10, leading: 0, bottom: 0, trailing: 10))
                 
             }
@@ -150,16 +117,4 @@ struct NeighborImageRow: View {
             .truncationMode(.tail)
         }
     }
-    
-    private func checkbookmark() -> Bool {
-        
-        if self.books.bookmarkarray.contains(self.libModel.id) {
-            return true
-        }
-        else
-        {
-            return false
-        }
-    }
-    
 }
