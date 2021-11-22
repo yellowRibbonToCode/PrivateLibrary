@@ -48,7 +48,6 @@
 		73C09B4927252F980048BC85 /* ModelData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C09B4827252F980048BC85 /* ModelData.swift */; };
 		73C9051927462F4F00EAEBD7 /* FirstTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C9051827462F4F00EAEBD7 /* FirstTabView.swift */; };
 		73D3AE2227469FC600B71CAD /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 73D3AE2127469FC600B71CAD /* Secrets.xcconfig */; };
-		73D6A396272D7C9300C6585B /* DBTestList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D6A395272D7C9300C6585B /* DBTestList.swift */; };
 		73FF48F5273E92E700170DD0 /* LocationRegistration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73FF48F1273E92E700170DD0 /* LocationRegistration.swift */; };
 		73FF48F6273E92E700170DD0 /* NeighborGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73FF48F2273E92E700170DD0 /* NeighborGridView.swift */; };
 		73FF48F9273E930700170DD0 /* JusoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73FF48F8273E930700170DD0 /* JusoModel.swift */; };
@@ -108,7 +107,6 @@
 		73C09B4827252F980048BC85 /* ModelData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelData.swift; sourceTree = "<group>"; };
 		73C9051827462F4F00EAEBD7 /* FirstTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstTabView.swift; sourceTree = "<group>"; };
 		73D3AE2127469FC600B71CAD /* Secrets.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
-		73D6A395272D7C9300C6585B /* DBTestList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBTestList.swift; sourceTree = "<group>"; };
 		73FF48F1273E92E700170DD0 /* LocationRegistration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationRegistration.swift; sourceTree = "<group>"; };
 		73FF48F2273E92E700170DD0 /* NeighborGridView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NeighborGridView.swift; sourceTree = "<group>"; };
 		73FF48F8273E930700170DD0 /* JusoModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JusoModel.swift; sourceTree = "<group>"; };
@@ -255,7 +253,6 @@
 			isa = PBXGroup;
 			children = (
 				731FE1572727D9ED0013311D /* HomeView.swift */,
-				73D6A395272D7C9300C6585B /* DBTestList.swift */,
 				8AE86A472733A6B200BE14DD /* EditView.swift */,
 				8AE86A452733A68800BE14DD /* CircleImageView.swift */,
 				735B8DDD2733B7C300C9D079 /* AddBookInfoButton.swift */,
@@ -417,7 +414,6 @@
 				737EBDA92729565400C4513D /* UserModel.swift in Sources */,
 				73702DFA273FB1690020AB24 /* CalcDistance.swift in Sources */,
 				735B8DE02734083A00C9D079 /* AssetEnum.swift in Sources */,
-				73D6A396272D7C9300C6585B /* DBTestList.swift in Sources */,
 				8A2F403C2743434200D7B5D5 /* ChatList.swift in Sources */,
 				73BFFFC627214EAE00375684 /* SceneDelegate.swift in Sources */,
 				73BFFFCB27214EAE00375684 /* PrivateLibrary.xcdatamodeld in Sources */,

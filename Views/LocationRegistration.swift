@@ -174,7 +174,7 @@ struct LocationRegistration: View {
 //            }
 //        }
         // 2.db의 users의 uid같은거에서 유저네임 수정.
-        Firestore.firestore().collection("users").document("\(userid)").setData([
+        db.collection("users").document("\(userid)").setData([
             "roadAddr" : searchJusoViewModel.jusodata.roadAddr ?? "",
             "sggNm" : searchJusoViewModel.jusodata.sggNm ?? "",
             "emdNm" : searchJusoViewModel.jusodata.emdNm ?? "",

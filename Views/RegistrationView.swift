@@ -156,7 +156,6 @@ struct RegistrationView: View {
     
     func duplicateName(completionHandler: @escaping (Bool) -> Void) {
         var isunique = false
-        db = Firestore.firestore()
         db.collection("users").getDocuments() {
             querySnapshot, err in
             if let err = err {

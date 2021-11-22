@@ -38,7 +38,6 @@ class NeighborViewModel: ObservableObject {
     
     func makeNeighborList(completionHandler: @escaping (String) -> Void) {
         getUserLocation()
-        db = Firestore.firestore()
         self.range = UserDefaults.standard.double(forKey: "range")
         if self.range == 0 {
             self.range = 5.0
@@ -189,7 +188,6 @@ struct NeighborGridView: View {
                 }
             }}
         .onAppear(perform: {
-            db = Firestore.firestore()
             neighborBookList = []
             searchNeighborViewModel.makeNeighborBookList(){
                 Book in

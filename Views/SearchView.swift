@@ -99,7 +99,6 @@ class getFiterData : ObservableObject{
     @Published var datas = [ViewModel]()
     
     init() {
-        let db = Firestore.firestore()
         db.collection("libData").getDocuments { (snap, err) in
             if err != nil{
                 print((err?.localizedDescription)!)

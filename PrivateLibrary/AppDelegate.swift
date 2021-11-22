@@ -11,6 +11,8 @@ import FirebaseCore
 import FirebaseFirestore
 import CoreData
 
+var db = Firestore.firestore()
+
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
