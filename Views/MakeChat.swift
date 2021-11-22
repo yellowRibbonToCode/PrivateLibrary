@@ -34,12 +34,12 @@ struct MakeChat: View {
         @Published var id: String = ""
         
         func checkPresence(_ other: String, _ me: String) {
-            Firestore.firestore().collection("chatings").whereField("participants", in: [[other, me], [me, other]]).limit(to: 1).getDocuments { data, _ in
+            db.collection("chatings").whereField("participants", in: [[other, me], [me, other]]).limit(to: 1).getDocuments { data, _ in
                 if let docu = data?.documents.last?.documentID {
                     self.id = docu
                     return
                 }
-                let ref = Firestore.firestore().collection("chatings").addDocument(data: ["participants": [other, me]])
+                let ref = db.collection("chatings").addDocument(data: ["participants": [other, me]])
                 self.id = ref.documentID
             }
         }

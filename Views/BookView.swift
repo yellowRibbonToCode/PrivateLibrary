@@ -20,7 +20,6 @@ struct BookView: View {
     let columns: [GridItem] = Array(repeating: GridItem(), count: 2)
     @ObservedObject var books = BookLists()
     @State var booklist = [ViewModel]()
-    
     @State var selectedNumber: Int = 0
     
     var customLabel: some View {
@@ -61,7 +60,6 @@ struct BookView: View {
         }
         
         .onAppear(perform: {
-            db = Firestore.firestore()
             booklist = []
             books.loadBooks(){
                 Book in
@@ -88,7 +86,6 @@ extension BookView {
         let userId = Auth.auth().currentUser!.uid
         @Published var bookList: [ViewModel] = []
         @Published var bookmarkarray: [String] = []
-        private let db = Firestore.firestore()
         
         func loadBooks(completionHandler: @escaping (ViewModel) -> Void) {
             self.bookList = []

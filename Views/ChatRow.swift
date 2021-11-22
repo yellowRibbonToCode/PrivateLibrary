@@ -19,14 +19,14 @@ struct ChatRow: View {
     @State var name: String = "??"
     @State var lastMsg: String = " "
     
-    private let users = Firestore.firestore().collection("users")
+    private let users = db.collection("users")
     private let storageRef = Storage.storage().reference()
 
     class Partner: ObservableObject {
 //        @Published var id: String = "??"// 나중엔 배열로 받아서 프로필사진 여러개 받아서 띄우기
         
         func loadParticipants(_ roomId: String, completion: @escaping (Bool, String) -> Void) {
-            Firestore.firestore().collection("chatings").document(roomId).getDocument { data, err in
+            db.collection("chatings").document(roomId).getDocument { data, err in
                 if let data = data {
                     if let tmp = data.get("participants") as? [String] {
                         if tmp[0] == Auth.auth().currentUser!.uid {
@@ -121,7 +121,7 @@ struct ChatRow: View {
         }
     }
     fileprivate func loadLastMsg() {
-        let msg = Firestore.firestore().collection("chatings").document(roomId).collection("messages").order(by: "sendTime").limit(toLast: 1)
+        let msg = db.collection("chatings").document(roomId).collection("messages").order(by: "sendTime").limit(toLast: 1)
         msg.getDocuments { data, err in
             if let document = data?.documents.last?.get("msg") {
                 self.lastMsg = document as! String

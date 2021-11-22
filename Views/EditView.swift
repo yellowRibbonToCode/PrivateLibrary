@@ -232,7 +232,6 @@ struct EditView: View {
     
     func duplicateName(completionHandler: @escaping (Bool) -> Void) {
         var isunique = false
-        db = Firestore.firestore()
         db.collection("users").getDocuments() {
             querySnapshot, err in
             if let err = err {
@@ -255,7 +254,7 @@ struct EditView: View {
         duplicateName { isNotdup in
             if isNotdup {
                 // 1.게시글 중에 이전 유저네임이랑 같은글 전부 수정 or 그냥 un
-                Firestore.firestore().collection("libData").whereField("userid", isEqualTo: userid).getDocuments() { infos, err in
+                db.collection("libData").whereField("userid", isEqualTo: userid).getDocuments() { infos, err in
                     if let err = err {
                         print("Error getting documents: \(err)")
                     } else {
@@ -269,7 +268,7 @@ struct EditView: View {
                     }
                 }
                 // 2.db의 users의 uid같은거에서 유저네임 수정.
-                Firestore.firestore().collection("users").document("\(userid)").setData([
+                db.collection("users").document("\(userid)").setData([
                     "name": changedName
                 ], merge: true) { err in
                     if let err = err {

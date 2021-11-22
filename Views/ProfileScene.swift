@@ -30,7 +30,7 @@ struct ProfileScene: View { // View
     let columns: [GridItem] = Array(repeating: GridItem(), count: 2)
     
     private let userAuth = Auth.auth().currentUser
-    private let users = Firestore.firestore().collection("users")
+    private let users = db.collection("users")
     private let storageRef = Storage.storage().reference()
     
     var body: some View {
@@ -119,14 +119,21 @@ struct ProfileScene: View { // View
                     print("load books")
                 }
             }
-            else {
+            else { // bookmark view
                 LazyVGrid (columns: columns) {
+                    if books.bookmarks == UserDefaults.standard.array(forKey: "bookmark") as? [String] ?? [String]() {
+                    
                     ForEach (books.bookmarkList.sorted { $0.created!.compare($1.created!) == .orderedDescending} ) { book in
                         NavigationLink(destination: DetailView(libModel: book)) {
-                          ImageRow(libModel: book)
+                            ImageRow(libModel: book)
                         }
+                        
+                        .foregroundColor(.black)
                     }
-                    .foregroundColor(.black)
+                    }
+                }
+                .refreshable {
+                    books.takeBookmarkBook()
                 }
                 .padding()
                 .onAppear {
@@ -211,8 +218,7 @@ extension ProfileScene {
         @Published var bookmarkList: [ViewModel] = []
 
         private let userid = Auth.auth().currentUser!.uid
-        private let db = Firestore.firestore()
-        private let bookmarks = UserDefaults.standard.array(forKey: "bookmark") as? [String] ?? [String]()
+        @Published var bookmarks = UserDefaults.standard.array(forKey: "bookmark") as? [String] ?? [String]()
         
         func loadBooks() {
             bookList = []

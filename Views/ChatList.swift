@@ -22,7 +22,7 @@ struct ChatList: View {
         
         func loadChatRooms() {
             print("loadChatRoomgs")
-            Firestore.firestore().collection("chatings").whereField("participants", arrayContains: Auth.auth().currentUser!.uid).addSnapshotListener { querySnapshot, error in
+            db.collection("chatings").whereField("participants", arrayContains: Auth.auth().currentUser!.uid).addSnapshotListener { querySnapshot, error in
                 guard let documents = querySnapshot?.documents else {
                     print("Error fetching snapshots: \(error!)")
                     return

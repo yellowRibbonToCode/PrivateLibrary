@@ -65,7 +65,6 @@ struct AddBookInfoView: View {
     }
     
     private func setdb() {
-        db = Firestore.firestore()
         let doc = db.collection("libData")
             .document()
         setuserdb(doc: doc)
@@ -263,9 +262,6 @@ struct AddBookInfoView: View {
         .sheet(isPresented: $isShowPhotoLibrary) {
             ImagePicker(sourceType: .photoLibrary, selectedImage: self.$image)
                 .padding()
-                .onAppear(perform: {
-                    db = Firestore.firestore()
-                })
         }
         
         

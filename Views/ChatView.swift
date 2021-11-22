@@ -22,7 +22,6 @@ struct ChatView: View {
     let whoami: String = Auth.auth().currentUser!.uid
     @ObservedObject var messages: Messages
     @State var msg: String = ""
-    let db = Firestore.firestore()
     
     init(_ documentId: String) {
         print("newly generated\n\n")
@@ -34,7 +33,6 @@ struct ChatView: View {
         @Published var messages: [Message] = []
         @Published var partner: String = "??"
         @Published var partnerImage: UIImage = UIImage(imageLiteralResourceName: "user-g")
-        let db = Firestore.firestore()
         let storageRef = Storage.storage().reference()
         
         init (documentId: String) {
@@ -72,13 +70,13 @@ struct ChatView: View {
                 
                 if let tmp = (data.get("participants") as? [String]) {
                     if Auth.auth().currentUser!.uid == tmp[0] {
-                        Firestore.firestore().collection("users").document(tmp[1]).getDocument { snap, err in
+                        db.collection("users").document(tmp[1]).getDocument { snap, err in
                             if let name = snap?.get("name") {
                                 self.partner = name as! String
                             }
                         }
                     } else {
-                        Firestore.firestore().collection("users").document(tmp[0]).getDocument { snap, err in
+                        db.collection("users").document(tmp[0]).getDocument { snap, err in
                             if let name = snap?.get("name") {
                                 self.partner = name as! String
                             }
@@ -111,7 +109,7 @@ struct ChatView: View {
                         self.partnerImage = UIImage(data: lastProfile!)!
                     }
                     
-                    Firestore.firestore().collection("users").document(part!).getDocument { snap, err in
+                    db.collection("users").document(part!).getDocument { snap, err in
                         let profileImageRef = storageRef.child("images/user_profile/\(part!)")
                         let lastUpdated = UserDefaults.standard.object(forKey: "\(part!)Updated") as? Date
                         
