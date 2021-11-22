@@ -223,9 +223,27 @@ extension ProfileScene {
                         print("books is nil")
                         return
                     }
-                    var ind: Int = 0
                     for book in books {
                         func getImage(bookuid : String) {
+                            if let imageData = UserDefaults.standard.data(forKey: bookuid) {
+                                let bookImage = Image(uiImage: UIImage(data: imageData)!)
+                                self.bookList.append(ViewModel(
+                                    id: book.documentID,
+                                    useruid: book.get("userid") as! String,
+                                    name: book.get("username") as! String,
+                                    email: book.get("useremail") as! String,
+                                    bookname: book.get("bookname") as! String,
+                                    author: book.get("author") as! String,
+                                    title: book.get("title") as! String,
+                                    content: book.get("content") as! String,
+                                    created: (book.get("created") as! Timestamp).dateValue(),
+                                    edited: (book.get("edited") as! Timestamp).dateValue(),
+                                    price: book.get("price") as? Int,
+                                    exchange: (book.get("exchange") as! Bool),
+                                    sell: (book.get("sell") as! Bool),
+                                    image: bookImage))
+                            } else {
+                                
                             Storage.storage().reference().child("images/books/\(bookuid)").getData(maxSize: 100 * 200 * 200) {
                                 (imageData, err) in
                                 if let _ = err as NSError? {
@@ -245,9 +263,7 @@ extension ProfileScene {
                                         price: book.get("price") as? Int,
                                         exchange: (book.get("exchange") as! Bool),
                                         sell: (book.get("sell") as! Bool),
-                                        image: bookImage,
-                                        index: ind))
-                                    ind += 1
+                                        image: bookImage))
                                 }
                                 else {
                                     let randInt = Int.random(in: 0...13)
@@ -269,11 +285,10 @@ extension ProfileScene {
                                         price: book.get("price") as? Int,
                                         exchange: (book.get("exchange") as! Bool),
                                         sell: (book.get("sell") as! Bool),
-                                        image: bookImage,
-                                        index: ind))
-                                    ind += 1
+                                        image: bookImage))
                                 }
                             }
+                        }
                         }
                         getImage(bookuid: book.documentID)
                     }
@@ -290,9 +305,27 @@ extension ProfileScene {
                         print("books is nil")
                         return
                     }
-                    var ind: Int = 0
                     for book in books {
                         func getImage(bookuid : String) {
+                            if let imageData = UserDefaults.standard.data(forKey: bookuid) {
+                                let bookImage = Image(uiImage: UIImage(data: imageData)!)
+                                self.bookList.append(ViewModel(
+                                    id: book.documentID,
+                                    useruid: book.get("userid") as! String,
+                                    name: book.get("username") as! String,
+                                    email: book.get("useremail") as! String,
+                                    bookname: book.get("bookname") as! String,
+                                    author: book.get("author") as! String,
+                                    title: book.get("title") as! String,
+                                    content: book.get("content") as! String,
+                                    created: (book.get("created") as! Timestamp).dateValue(),
+                                    edited: (book.get("edited") as! Timestamp).dateValue(),
+                                    price: book.get("price") as? Int,
+                                    exchange: (book.get("exchange") as! Bool),
+                                    sell: (book.get("sell") as! Bool),
+                                    image: bookImage))
+                            } else {
+                                
                             Storage.storage().reference().child("images/books/\(bookuid)").getData(maxSize: 100 * 200 * 200) {
                                 (imageData, err) in
                                 if let _ = err as NSError? {
@@ -312,9 +345,7 @@ extension ProfileScene {
                                         price: book.get("price") as? Int,
                                         exchange: (book.get("exchange") as! Bool),
                                         sell: (book.get("sell") as! Bool),
-                                        image: bookImage,
-                                        index: ind))
-                                    ind += 1
+                                        image: bookImage))
                                 }
                                 else {
                                     let randInt = Int.random(in: 0...13)
@@ -336,11 +367,10 @@ extension ProfileScene {
                                         price: book.get("price") as? Int,
                                         exchange: (book.get("exchange") as! Bool),
                                         sell: (book.get("sell") as! Bool),
-                                        image: bookImage,
-                                        index: ind))
-                                    ind += 1
+                                        image: bookImage))
                                 }
                             }
+                        }
                         }
                         getImage(bookuid: book.documentID)
                     }

@@ -10,7 +10,7 @@ import Firebase
 import FirebaseAuth
 
 
-private struct LoginStatusKey: EnvironmentKey {
+struct LoginStatusKey: EnvironmentKey {
     static let defaultValue: Binding<Bool> = .constant(false)
 }
 
@@ -135,6 +135,7 @@ struct LoginView: View {
             if user != nil{
                 UserDefaults.standard.set(self.username, forKey: "id")
                 UserDefaults.standard.set(self.password, forKey: "password")
+                UserDefaults.standard.set(true, forKey: "islogin")
                 self.username = ""
                 self.password = ""
                 loginSuccess = true
@@ -146,12 +147,16 @@ struct LoginView: View {
     
     func autoLogin() {
         loginError = " "
-        if (UserDefaults.standard.string(forKey: "id") != "" && UserDefaults.standard.string(forKey: "id") != nil)
+        if UserDefaults.standard.bool(forKey: "islogin")
         {
-            self.username = UserDefaults.standard.string(forKey: "id")!
-            self.password = UserDefaults.standard.string(forKey: "password")!
-            login()
+            loginSuccess = true
         }
+//        if (UserDefaults.standard.string(forKey: "id") != "" && UserDefaults.standard.string(forKey: "id") != nil)
+//        {
+//            self.username = UserDefaults.standard.string(forKey: "id")!
+//            self.password = UserDefaults.standard.string(forKey: "password")!
+//            login()
+//        }
     }
 }
 

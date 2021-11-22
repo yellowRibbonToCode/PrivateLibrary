@@ -29,5 +29,4 @@ struct ViewModel: Identifiable{
     var sell: Bool            // 판매 가능 여부
     var image: Image?
     
-    var index: Int = 0 // snap carousel need index
 }
