@@ -151,23 +151,6 @@ class NeighborViewModel: ObservableObject {
             }
         }
     }
-    
-    func makebookmarklist() {
-        db.collection("users").document(userid).collection("bookmarks").getDocuments() { docus, err  in
-            
-            if let err = err {
-                print("Error getting documents: \(err)")
-            } else {
-                guard let docus = docus?.documents else {
-                    print("books is nil")
-                    return
-                }
-                for docu in docus {
-                    self.bookmarkarray.append(docu.get("bookid") as! String)
-                }
-            }
-        }
-    }
 }
 
 
@@ -212,7 +195,7 @@ struct NeighborGridView: View {
                 Book in
                 neighborBookList.append(Book)
             }
-            searchNeighborViewModel.makebookmarklist()
+//            searchNeighborViewModel.makebookmarklist()
         })
         .padding()
     }

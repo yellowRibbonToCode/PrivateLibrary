@@ -48,7 +48,7 @@ struct NeighborDetailView : View {
                 //            })
             }
             .navigationBarBackButtonHidden(true)
-            .navigationBarItems(leading: btnBack, trailing: NeighborViewButton(bookmark: checkbookmark(), libModel: libModel, books: books)
+            .navigationBarItems(leading: btnBack, trailing: BookMarkButton(bookuid: libModel.id)
             )
             .edgesIgnoringSafeArea(.all)
             //        .onAppear(perform: {
@@ -70,8 +70,9 @@ struct NeighborDetailView : View {
     }
     
     private func checkbookmark() -> Bool {
+        let bookmarks = UserDefaults.standard.array(forKey: "bookmark") as? [String] ?? [String]()
         
-        if books.bookmarkarray.contains(self.libModel.id) {
+        if bookmarks.contains(self.libModel.id) {
             return true
         }
         else
