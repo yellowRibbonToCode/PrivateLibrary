@@ -274,16 +274,6 @@ struct AddBookInfoView: View {
         
     }
     
-//        var btnBack : some View
-//        {
-//            Button(action: {
-//                self.presentationMode.wrappedValue.dismiss()
-//            }) {
-//                Image(systemName: "arrow.left")
-//                    .aspectRatio(contentMode: .fit)
-//                    .foregroundColor(.white)
-//            }
-//        }
 }
 
 struct HorizontalLineShape: Shape {

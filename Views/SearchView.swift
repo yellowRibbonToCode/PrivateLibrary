@@ -14,7 +14,6 @@ import FirebaseStorage
 struct SearchBar: View {
     @Binding var txt: String
     @Binding var data : [ViewModel]
-    @ObservedObject var books: TestBookmarkView.BookLists
 
     @FocusState private var nameIsFocused: Bool
     let columns: [GridItem] = Array(repeating: GridItem(), count: 2)
@@ -26,7 +25,6 @@ struct SearchBar: View {
                     .font(.system(size: 34, weight: .bold))
                     .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 0))
             }
-            //            #7676801F
             HStack {
                 TextField("Search", text: $txt)
                     .padding(7)
@@ -65,8 +63,8 @@ struct SearchBar: View {
                     ScrollView(.vertical) {
                         LazyVGrid(columns: columns) {
                             ForEach (self.data.filter{$0.name.lowercased().contains(self.txt.lowercased()) || $0.bookname.lowercased().contains(self.txt.lowercased())}) { book in
-                                NavigationLink(destination: SearchDetailView(libModel: book, books: self.books)) {
-                                TestBookmarkViewImageRow(libModel: book, books: self.books)
+                                NavigationLink(destination: DetailView(libModel: book)) {
+                                    BookmarkImageRow(libModel: book)
                                 }
                             }
                         }
@@ -80,65 +78,19 @@ struct SearchBar: View {
 }
 
 struct SearchView: View {
-    @ObservedObject var books = TestBookmarkView.BookLists()
     
     @State var text: String = ""
     @ObservedObject var data = getFiterData()
     
     var body: some View {
-//        NavigationView{
             VStack {
-                SearchBar(txt: $text, data: self.$data.datas, books: books)
+                SearchBar(txt: $text, data: self.$data.datas)
                 Spacer(minLength: 20)
             }
             .navigationBarTitle("",  displayMode: .inline)
             .navigationBarHidden(true)
             .navigationBarBackButtonHidden(true)
-//        }
 
-    }
-}
-
-
-
-
-extension SearchView {
-    class BookLists: ObservableObject {
-        @Published var bookList: [ViewModel] = []
-        //    private var bookImage = UIImage(systemName: "book")
-        //        private let userid = Auth.auth().currentUser!.uid
-        private let db = Firestore.firestore()
-        //        @State var index: Int = 0
-        
-        func loadBooks() {
-            db.collection("libData").getDocuments() { books, err in
-                if let err = err {
-                    print("Error getting documents: \(err)")
-                } else {
-                    guard let books = books?.documents else {
-                        print("books is nil")
-                        return
-                    }
-                    for book in books {
-                        self.bookList.append(ViewModel(
-                            id: book.documentID,
-                            useruid: book.get("userid") as! String,
-                            name: book.get("username") as! String,
-                            email: book.get("useremail") as! String,
-                            bookname: book.get("bookname") as! String,
-                            author: book.get("author") as! String,
-                            title: book.get("title") as! String,
-                            content: book.get("content") as! String,
-                            //                        created: <#T##Date?#>,
-                            //                        edited: <#T##Date?#>,
-                            price: book.get("price") as? Int,
-                            exchange: (book.get("exchange") as! Bool),
-                            sell: (book.get("sell") as! Bool),
-                            image: Image(RandBookImage(rawValue: Int.random(in: 0...13))!.toString())))
-                    }
-                }
-            }
-        }
     }
 }
 

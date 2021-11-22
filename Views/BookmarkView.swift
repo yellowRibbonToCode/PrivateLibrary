@@ -14,11 +14,12 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 import FirebaseStorage
 
-struct TestBookmarkView: View {
+struct BookmarkView: View {
     var Views = ["Books", "NeighborBooks"]
     @State var selectedView = 0
     let columns: [GridItem] = Array(repeating: GridItem(), count: 2)
     @ObservedObject var books = BookLists()
+    @State var booklist = [ViewModel]()
     
     @State var selectedNumber: Int = 0
     
@@ -41,137 +42,41 @@ struct TestBookmarkView: View {
     var body: some View {
         //        NavigationView{
         VStack {
-            ScrollView(.vertical) {
-                LazyVGrid(columns: columns) {
-                    ForEach (books.bookList.sorted { $0.created!.compare($1.created!) == .orderedDescending }) { book in
-                        NavigationLink(destination: SearchDetailView(libModel: book, books: self.books)) {
-                            TestBookmarkViewImageRow(libModel: book, books: self.books)
+            if !booklist.isEmpty {
+                ScrollView(.vertical) {
+                    LazyVGrid(columns: columns) {
+                        ForEach (booklist.sorted { $0.created!.compare($1.created!) == .orderedDescending }) { book in
+                            NavigationLink(destination: DetailView(libModel: book)) {
+                                BookmarkImageRow(libModel: book)
+                            }
                         }
                     }
+                    .padding()
                 }
-                .padding()
             }
+            else {
+                Image(systemName: "circle.hexagonpath.fill")
+            }
+            
         }
+        
         .onAppear(perform: {
-            books.loadBooks()
-            books.makebookmarklist()
+            db = Firestore.firestore()
+            booklist = []
+            books.loadBooks(){
+                Book in
+                booklist.append(Book)
+            }
             print("load books")
         })
-        //            .navigationBarHidden(true)
-    }
-    //    }
-}
 
-//struct TestBookmarkViewTop: View {
-//
-//    @State var showAdd = false
-//
-//    var body: some View{
-//        HStack {
-//            Text("Books")
-//                .font(.system(size: 44, weight: .bold))
-//            Spacer()
-//            Button(action: {
-//                self.showAdd.toggle()
-//            }) {
-//                Image(systemName: "slider.horizontal.3")
-//                    .resizable()
-//                    .frame(width: 23, height: 23)
-//                    .foregroundColor(.mainBlue)
-//            }
-//        }
-//        .padding()
-//        .padding(.bottom, -30)
-//    }
-//}
-
-struct TestBookmarkViewButton: View {
-    @State var bookmark: Bool
-    var libModel: ViewModel
-    @ObservedObject var books: TestBookmarkView.BookLists
-    
-    let db = Firestore.firestore()
-    
-    let userId = Auth.auth().currentUser?.uid ?? "userId"
-    
-    var body: some View {
-        Button(action: {
-            if bookmark {
-                bookmark = false
-                deletebookmarkdb()
-                print("deletebookmarkdb success")
-            }
-            else {
-                bookmark = true
-                setbookmarkdb()
-                print("setbookmarkdb success")
-            }
-            
-        }) {
-            if bookmark {
-                Image("bookmark-p")
-            }
-            else {
-                Image("bookmark-p-blank-small")
-            }
-        }
-    }
-    
-    func deletebookmarkdb() {
-        let doc = self.db.collection("users").document(userId).collection("bookmarks")
-        
-        doc.whereField("bookid", isEqualTo: libModel.id).getDocuments(completion: { (snapshot, error) in
-            if let error = error {
-                print(error.localizedDescription)
-            } else {
-                for document in snapshot!.documents {
-                    doc.document("\(document.documentID)").delete()
-                }
-                if let i = self.books.bookmarkarray.firstIndex(of: libModel.id) {
-                    self.books.bookmarkarray.remove(at: i)
-                }
-            }
-            
-        })
-        
-    }
-    
-    func setbookmarkdb() {
-        let doc = self.db.collection("users").document(userId).collection("bookmarks").document()
-        doc.setData([
-            "author": libModel.author,
-            "bookname": libModel.bookname,
-            "title": libModel.title,
-            "content": libModel.content,
-            "created": Date(),
-            "edited": Date(),
-            "exchange": libModel.exchange
-        ])
-        doc.setData([
-            "price": libModel.price ?? 0,
-            "sell": libModel.sell,
-            "userid": libModel.useruid,
-            "useremail": libModel.email,
-            "username": libModel.name,
-            "bookid" : libModel.id
-        ],merge: true)
-        { err in
-            if let err = err {
-                print("Error writing document: \(err)")
-            } else {
-                print(doc.documentID)
-                self.books.bookmarkarray.append(doc.documentID)
-            }
-        }
-        
     }
 }
 
-struct TestBookmarkViewImageRow: View {
+
+struct BookmarkImageRow: View {
     var libModel: ViewModel
-    @ObservedObject var books: TestBookmarkView.BookLists
-    
-    
+    var showBookmark: Bool = true
     
     var body: some View {
         
@@ -185,8 +90,14 @@ struct TestBookmarkViewImageRow: View {
                         .cornerRadius(19)
                         .shadow(color: Color(red: 0.0, green: 0.0, blue: 0.0, opacity: 0.1), radius: 6, x: 0, y: 3)
                 }
-                TestBookmarkViewButton(bookmark: checkbookmark(), libModel: libModel, books: books)
+                if showBookmark{
+                BookMarkButton(bookuid: libModel.id)
                     .padding(EdgeInsets(top: 10, leading: 0, bottom: 0, trailing: 10))
+                }
+                else
+                {
+                    EmptyView()
+                }
                 
             }
             HStack {
@@ -220,36 +131,25 @@ struct TestBookmarkViewImageRow: View {
             .truncationMode(.tail)
         }
     }
-    
-    private func checkbookmark() -> Bool {
-        
-        if self.books.bookmarkarray.contains(self.libModel.id) {
-            return true
-        }
-        else
-        {
-            return false
-        }
-    }
-    
 }
 
-struct TestBookmarkView_Previews: PreviewProvider {
+
+struct BookmarkView_Previews: PreviewProvider {
     static var previews: some View {
-        TestBookmarkView()
+        BookmarkView()
     }
 }
 
 
-extension TestBookmarkView {
+extension BookmarkView {
     
     class BookLists: ObservableObject {
-        let userId = Auth.auth().currentUser?.uid ?? "userId"
+        let userId = Auth.auth().currentUser!.uid
         @Published var bookList: [ViewModel] = []
         @Published var bookmarkarray: [String] = []
         private let db = Firestore.firestore()
         
-        func loadBooks() {
+        func loadBooks(completionHandler: @escaping (ViewModel) -> Void) {
             self.bookList = []
             db.collection("libData").getDocuments() { books, err in
                 if let err = err {
@@ -263,7 +163,7 @@ extension TestBookmarkView {
                         func getImage(bookuid : String) {
                             if let imageData = UserDefaults.standard.data(forKey: bookuid) {
                                 let bookImage = Image(uiImage: UIImage(data: imageData)!)
-                                self.bookList.append(ViewModel(
+                                completionHandler(ViewModel(
                                     id: book.documentID,
                                     useruid: book.get("userid") as! String,
                                     name: book.get("username") as! String,
@@ -286,7 +186,7 @@ extension TestBookmarkView {
                                     if let _ = err as NSError? {
                                         let randInt = Int.random(in: 0...13)
                                         let bookImage = Image(RandBookImage(rawValue: randInt)!.toString())
-                                        self.bookList.append(ViewModel(
+                                        completionHandler(ViewModel(
                                             id: book.documentID,
                                             useruid: book.get("userid") as! String,
                                             name: book.get("username") as! String,
@@ -309,7 +209,7 @@ extension TestBookmarkView {
                                             bookImage = Image(uiImage: UIImage(data: imageData)!)
                                         }
                                         UserDefaults.standard.set(imageData, forKey: bookuid)
-                                        self.bookList.append(ViewModel(
+                                        completionHandler(ViewModel(
                                             id: book.documentID,
                                             useruid: book.get("userid") as! String,
                                             name: book.get("username") as! String,
@@ -329,24 +229,6 @@ extension TestBookmarkView {
                             }
                         }
                         getImage(bookuid: book.documentID)
-                    }
-                }
-            }
-        }
-        
-        
-        func makebookmarklist() {
-            db.collection("users").document(userId).collection("bookmarks").getDocuments() { docus, err  in
-                
-                if let err = err {
-                    print("Error getting documents: \(err)")
-                } else {
-                    guard let docus = docus?.documents else {
-                        print("books is nil")
-                        return
-                    }
-                    for docu in docus {
-                        self.bookmarkarray.append(docu.get("bookid") as! String)
                     }
                 }
             }

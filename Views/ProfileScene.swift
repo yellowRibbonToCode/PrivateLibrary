@@ -107,8 +107,8 @@ struct ProfileScene: View { // View
             if !myORmark {
                 LazyVGrid (columns: columns) {
                     ForEach (books.bookList) { book in
-                        NavigationLink(destination: ProfileDetailView(libModel: book)) {
-                        ProfileImageRow(libModel: book)
+                        NavigationLink(destination: DetailView(libModel: book, showBookmark: false)) {
+                        BookmarkImageRow(libModel: book, showBookmark: false)
                         }
                     }
                     .foregroundColor(.black)
@@ -123,8 +123,8 @@ struct ProfileScene: View { // View
             else {
                 LazyVGrid (columns: columns) {
                     ForEach (books.bookmarkList) { book in
-                        NavigationLink(destination: ProfileBookmarkDetailView(libModel: book, books: books)) {
-                            ProfilebookmarkImageRow(libModel: book, books: books)
+                        NavigationLink(destination: DetailView(libModel: book)) {
+                          BookmarkImageRow(libModel: book)
                         }
                     }
                     .foregroundColor(.black)
