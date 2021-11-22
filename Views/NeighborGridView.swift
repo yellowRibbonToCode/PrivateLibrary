@@ -165,8 +165,8 @@ struct NeighborGridView: View {
                     LazyVGrid(columns: columns) {
                         ForEach ( neighborBookList.sorted { $0.created!.compare($1.created!) == .orderedDescending} ) {
                             Model in
-                            NavigationLink(destination: NeighborDetailView(libModel: Model, books: searchNeighborViewModel)) {
-                                NeighborImageRow(libModel: Model, books: searchNeighborViewModel)
+                            NavigationLink(destination: DetailView(libModel: Model)) {
+                                ImageRow(libModel: Model)
                             }
                             .foregroundColor(.black)
                         }
