@@ -109,7 +109,7 @@ struct detailTop : View {
 
 struct profileDetailTop : View {
     var libModel: ViewModel
-    
+    @State var showAdd = false
     private let db = Firestore.firestore()
     let storage = Storage.storage()
     
@@ -122,7 +122,7 @@ struct profileDetailTop : View {
             Spacer()
             Menu {
                 Button(action: {
-//                    Text("asdf")
+                    self.showAdd.toggle()
                 }) {
                         Label("Edit", systemImage: "pencil")
                     }
@@ -141,6 +141,10 @@ struct profileDetailTop : View {
         }
         .padding(EdgeInsets(top: 36, leading: 16, bottom: 10, trailing: 32))
         .font(Font.custom("S-CoreDream-6Bold", size: 33))
+        .fullScreenCover(isPresented: $showAdd) {
+               EditBookInfoView(libModel: libModel)
+
+           }
         
     }
     
