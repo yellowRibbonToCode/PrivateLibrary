@@ -64,7 +64,7 @@ struct SearchBar: View {
                         LazyVGrid(columns: columns) {
                             ForEach (self.data.filter{$0.name.lowercased().contains(self.txt.lowercased()) || $0.bookname.lowercased().contains(self.txt.lowercased())}) { book in
                                 NavigationLink(destination: DetailView(libModel: book)) {
-                                    BookmarkImageRow(libModel: book)
+                                    ImageRow(libModel: book)
                                 }
                             }
                         }

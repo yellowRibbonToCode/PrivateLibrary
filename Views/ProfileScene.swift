@@ -108,7 +108,7 @@ struct ProfileScene: View { // View
                 LazyVGrid (columns: columns) {
                     ForEach (books.bookList) { book in
                         NavigationLink(destination: DetailView(libModel: book, showBookmark: false)) {
-                        BookmarkImageRow(libModel: book, showBookmark: false)
+                        ImageRow(libModel: book, showBookmark: false)
                         }
                     }
                     .foregroundColor(.black)
@@ -124,7 +124,7 @@ struct ProfileScene: View { // View
                 LazyVGrid (columns: columns) {
                     ForEach (books.bookmarkList) { book in
                         NavigationLink(destination: DetailView(libModel: book)) {
-                          BookmarkImageRow(libModel: book)
+                          ImageRow(libModel: book)
                         }
                     }
                     .foregroundColor(.black)

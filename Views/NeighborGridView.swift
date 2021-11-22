@@ -166,7 +166,7 @@ struct NeighborGridView: View {
                         ForEach ( neighborBookList.sorted { $0.created!.compare($1.created!) == .orderedDescending} ) {
                             Model in
                             NavigationLink(destination: DetailView(libModel: Model)) {
-                                BookmarkImageRow(libModel: Model)
+                                ImageRow(libModel: Model)
                             }
                             .foregroundColor(.black)
                         }
