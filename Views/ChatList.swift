@@ -33,12 +33,11 @@ struct ChatList: View {
     }
     
     var body: some View {
-//        NavigationView {
             ScrollView {
                 Divider()
                 LazyVStack(spacing: 0) {
                     ForEach(chatRooms.rooms, id:\.self) { room in
-                        NavigationLink(destination: ChatView(documentId: room)) {
+                        NavigationLink(destination: ChatView(room)) {
                                 ChatRow(roomId: room)
                         }
                     }
@@ -51,7 +50,6 @@ struct ChatList: View {
                     }
                 }
             }
-//        }
     }
 }
 

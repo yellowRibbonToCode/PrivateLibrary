@@ -23,7 +23,7 @@ struct MakeChat: View {
                     documentId.checkPresence(other, me)
                 }
         } else {
-            ChatView(documentId: documentId.id)
+            ChatView(documentId.id)
         }
         // 참가자로 검색해서 documentId가 나오면 그걸 chatView에 전해주면 되고 ok
         // 없으면 uuid로 만들어서 participants입력한 문서 firestore에 저장하고 ok

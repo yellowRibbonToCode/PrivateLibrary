@@ -114,6 +114,7 @@ struct EditView: View {
                                 } else {
                                     editProfile()
                                 }
+                                profile.image = changedImage!
                             }
                             if changedName != "" {
                                 profile.name = changedName
@@ -197,6 +198,7 @@ struct EditView: View {
             if let err = err {
                 print("an error has occurred - \(err.localizedDescription)")
             } else {
+                UserDefaults.standard.removeObject(forKey: userid)
                 print("image deleted successfully")
             }
         }
@@ -219,6 +221,7 @@ struct EditView: View {
                 if let err = err {
                     print("an error has occurred - \(err.localizedDescription)")
                 } else {
+                    UserDefaults.standard.set(imageData, forKey: userid)
                     print("image uploaded successfully")
                 }
             }

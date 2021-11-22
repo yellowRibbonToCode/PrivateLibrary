@@ -9,20 +9,35 @@ import SwiftUI
 import Firebase
 import FirebaseFirestore
 
+extension UIApplication {
+    func closeKeyboard() {
+        sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+    }
+}
+
 struct ChatView: View {
     @Environment(\.presentationMode) var presentationMode
 
     let documentId: String
     let whoami: String = Auth.auth().currentUser!.uid
-    @ObservedObject var messages = Messages()
+    @ObservedObject var messages: Messages
     @State var msg: String = ""
     let db = Firestore.firestore()
+    
+    init(_ documentId: String) {
+        self.documentId = documentId
+        self.messages = Messages(documentId: documentId)
+    }
     
     class Messages: ObservableObject {
         @Published var messages: [Message] = []
         @Published var partner: String = "??"
         let db = Firestore.firestore()
 
+        init (documentId: String) {
+            loadMessages(documentId)
+        }
+        
         func loadMessages(_ documentId: String) {
             db.collection("chatings").document(documentId).collection("messages").order(by: "sendTime").addSnapshotListener { snap, err in
                 if err != nil {
@@ -89,11 +104,11 @@ struct ChatView: View {
                         }
                     }
                 }
+                .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardDidShowNotification)) {_ in
+                    proxy.scrollTo(messages.messages.last!.id, anchor: .bottom)
+                }
                 .onAppear {
-                    print(documentId)
-                    messages.loadMessages(documentId)
-                    print(messages.messages)
-                    // or when class init
+                    proxy.scrollTo(messages.messages.last!.id , anchor: .bottom)
                 }
                 .onChange(of: messages.messages) { newValue in
                     print(newValue)
@@ -125,7 +140,10 @@ struct ChatView: View {
                         .font(Font.system(size: 32, weight: .light))
 
                 })
-            }.padding()
+            }.padding(5)
+        }
+        .onTapGesture {
+            UIApplication.shared.closeKeyboard()
         }
         .onAppear {
             messages.loadPartnerName(documentId)
@@ -157,6 +175,6 @@ struct ChatView: View {
 
 struct ChatView_Previews: PreviewProvider {
     static var previews: some View {
-        ChatView(documentId: "TE3j5N5HtGfprS4nTqe2")
+        ChatView("TE3j5N5HtGfprS4nTqe2")
     }
 }
