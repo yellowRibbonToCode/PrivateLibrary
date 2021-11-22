@@ -92,7 +92,7 @@ extension BookView {
         
         func loadBooks(completionHandler: @escaping (ViewModel) -> Void) {
             self.bookList = []
-            db.collection("libData").getDocuments() { books, err in
+            db.collection("libData").whereField("userid", isNotEqualTo: userId).getDocuments() { books, err in
                 if let err = err {
                     print("Error getting documents: \(err)")
                 } else {

@@ -109,7 +109,11 @@ struct detailTop : View {
 
 struct profileDetailTop : View {
     var libModel: ViewModel
-    @State var selectedItem: Int = 0
+    
+    private let db = Firestore.firestore()
+    let storage = Storage.storage()
+    
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
     var body : some View{
         
@@ -118,12 +122,14 @@ struct profileDetailTop : View {
             Spacer()
             Menu {
                 Button(action: {
-                    selectedItem = 1
-                }){
-                    Label("Edit", systemImage: "pencil")
-                }
+//                    Text("asdf")
+                }) {
+                        Label("Edit", systemImage: "pencil")
+                    }
                 Button(action: {
-                    selectedItem = 2
+                    deletedb()
+                    self.presentationMode.wrappedValue.dismiss()
+                    
                 }){
                     Label("Delete", systemImage: "trash.fill")
                 }
@@ -135,6 +141,30 @@ struct profileDetailTop : View {
         }
         .padding(EdgeInsets(top: 36, leading: 16, bottom: 10, trailing: 32))
         .font(Font.custom("S-CoreDream-6Bold", size: 33))
+        
+    }
+    
+    private func deletedb() {
+        storage.reference().child("images/books/\(libModel.id)").delete { error in
+            if let error = error {
+                print("Error removing document: \(error)")
+            } else {
+                print("storage successfully removed!")
+            }
+        }
+        
+        
+        
+        db.collection("libData").document(libModel.id).delete() { err in
+            if let err = err {
+                print("Error removing document: \(err)")
+            } else {
+                print("Document successfully removed!")
+            }
+        }
+        
+        
+        
         
     }
 }
