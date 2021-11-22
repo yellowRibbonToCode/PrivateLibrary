@@ -97,10 +97,11 @@ struct SearchView: View {
 class getFiterData : ObservableObject{
     
     @Published var datas = [ViewModel]()
-    
+    private let userId = Auth.auth().currentUser!.uid
+
     init() {
         let db = Firestore.firestore()
-        db.collection("libData").getDocuments { (snap, err) in
+        db.collection("libData").whereField("userid", isNotEqualTo: userId).getDocuments { (snap, err) in
             if err != nil{
                 print((err?.localizedDescription)!)
                 return
