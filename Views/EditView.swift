@@ -187,8 +187,8 @@ struct EditView: View {
     fileprivate func editProfile() {
         // photo picker
         // 1. remove prev profile
-        removeImage()
-        profile.image = changedImage!
+//        removeImage()
+//        profile.image = changedImage!
         // 2. upload new profile
         uploadImage(image: changedImage!)
     }
@@ -275,6 +275,7 @@ struct EditView: View {
                     if let err = err {
                         print("Error writing document: \(err)")
                     } else {
+                        UserDefaults.standard.set(changedName, forKey: "name")
                         print("Document successfully written!")
                     }
                 }

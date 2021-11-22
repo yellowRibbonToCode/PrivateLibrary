@@ -12,7 +12,7 @@ import FirebaseAuth
 
 struct ChatList: View {
     @ObservedObject var chatRooms = ChatRooms()
-
+    
     class ChatRooms: ObservableObject {
         @Published var rooms: [String] = []
         
@@ -30,26 +30,33 @@ struct ChatList: View {
                 self.rooms = documents.map { $0.documentID }
             }
         }
+//        func loadChatMsgs() {
+//
+//        }
+//
+//        func loadChatPartner() {
+//
+//        }
     }
     
     var body: some View {
-            ScrollView {
-                Divider()
-                LazyVStack(spacing: 0) {
-                    ForEach(chatRooms.rooms, id:\.self) { room in
-                        NavigationLink(destination: ChatView(room)) {
-                                ChatRow(roomId: room)
-                        }
-                    }
-                }
-                .navigationBarTitle(Text(""), displayMode: .inline)
-                .toolbar {
-                    ToolbarItem(placement: .navigationBarLeading) {
-                        Text("Chat")
-                            .font(.system(size: 34, weight: .bold))
+        ScrollView {
+            Divider()
+            LazyVStack(spacing: 0) {
+                ForEach(chatRooms.rooms, id:\.self) { room in
+                    NavigationLink(destination: ChatView(room)) {
+                        ChatRow(roomId: room)
                     }
                 }
             }
+            .navigationBarTitle(Text(""), displayMode: .inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Text("Chat")
+                        .font(.system(size: 34, weight: .bold))
+                }
+            }
+        }
     }
 }
 

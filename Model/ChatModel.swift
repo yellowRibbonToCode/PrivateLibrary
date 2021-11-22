@@ -53,7 +53,6 @@ struct ChatBubble<Content>: View where Content:View {
             }
             content()
                 .font(Font.custom("S-CoreDream-4Regular", size: 13))
-//                .frame(height: 36)
                 .padding(.vertical, 10)
                 .padding(.leading, 19)
                 .padding(.trailing, 19)

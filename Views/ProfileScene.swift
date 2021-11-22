@@ -412,15 +412,24 @@ extension ProfileScene {
         }
     }
     fileprivate func loadName() {
+        if let name = UserDefaults.standard.string(forKey: "name") {
+            profile.name = name
+            return
+        }
         let userInfo = users.document("\(userAuth!.uid)")
         userInfo.getDocument { (document, err) in
             if let document = document {
                 profile.name = (document.get("name") as! String)
+                UserDefaults.standard.set(profile.name, forKey: "name")
                 print("loaded name")
             }
         }
     }
     fileprivate func loadEmail() {
+        if let mail = UserDefaults.standard.string(forKey: "id") {
+            profile.email = mail
+            return
+        }
         let userInfo = users.document("\(userAuth!.uid)")
         userInfo.getDocument { (document, err) in
             if let document = document {

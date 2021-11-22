@@ -9,6 +9,7 @@ import SwiftUI
 import Firebase
 import FirebaseFirestore
 import FirebaseStorage
+import FirebaseStorageSwift
 
 struct ChatRow: View {
     let roomId: String
@@ -77,13 +78,36 @@ struct ChatRow: View {
     
     fileprivate func loadProfile(_ id: String) {
         let profileImageRef = storageRef.child("images/user_profile/\(id)")
-        profileImageRef.getData(maxSize: Int64(1 * 1024 * 1024)) { data, err in
-            if let error = err {
-                print(error)
-                self.profile = UIImage(imageLiteralResourceName: "user-g")
-            } else {
-                self.profile = UIImage(data: data!)!
-                print("loaded profile")
+        let lastUpdated = UserDefaults.standard.object(forKey: "\(id)Updated") as? Date
+        let lastProfile = UserDefaults.standard.data(forKey: id)
+        var updated : Date?
+        
+        if lastProfile != nil {
+            self.profile = UIImage(data: lastProfile!)!
+        }
+        
+        profileImageRef.getMetadata { metadata, err in
+            if let err = err {
+                print(err.localizedDescription)
+            }
+            if let data = metadata {
+                print(data.self)
+                updated = data.updated
+            }
+            if lastUpdated != nil && updated != nil && lastUpdated! >= updated! {
+                self.profile = UIImage(data: UserDefaults.standard.data(forKey: id)!)!
+                return
+            }
+            profileImageRef.getData(maxSize: Int64(1 * 1024 * 1024)) { data, err in
+                if let error = err {
+                    print(error)
+                    self.profile = UIImage(imageLiteralResourceName: "user-g")
+                } else {
+                    self.profile = UIImage(data: data!)!
+                    UserDefaults.standard.set(data, forKey: id)
+                    UserDefaults.standard.set(updated, forKey: "\(id)Updated")
+                    print("loaded profile")
+                }
             }
         }
     }
