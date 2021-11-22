@@ -16,6 +16,8 @@ struct HomeView: View {
     @State var index = 0
     @State var addbook = false
     //    var db: Firestore!
+    @ObservedObject var books = BookLists()
+
     
     var body: some View {
         VStack (spacing: 0){
@@ -32,16 +34,106 @@ struct HomeView: View {
                             ChatList()
                         }
                         else{
-                            ProfileScene()
+                            ProfileScene(books: books)
                         }
                     }
 //                    .navigationBarHidden(true)
             }
-                    CircleTab(index: self.$index)
+                    CircleTab(index: self.$index, books: books)
         }
             .edgesIgnoringSafeArea(.bottom)
         }
 //    }
+    
+    struct CircleTab : View {
+        @Binding var index : Int
+        @State var showAdd = false
+        @ObservedObject var books: HomeView.BookLists
+
+        var body : some View{
+            HStack(spacing: 0){
+                Button(action: {
+                    self.index = 0
+                }) {
+                    VStack{
+                        if self.index != 0{
+                            Image("home-alt-p")
+    //                            .resizable()
+    //                            .frame(width: 33, height: 33)
+                                .renderingMode(.template)
+                                .foregroundColor(Color.black.opacity(0.2))
+                        }
+                        else{
+                            Image("home-alt-p")
+    //                            .resizable()
+    //                            .frame(width: 33, height: 33)
+    //                            .foregroundColor(Color.mainBlue)
+                        }
+                    }
+                }
+                Spacer()
+                Button(action: {
+                    self.index = 1
+                }) {
+                    VStack{
+                        if self.index != 1{
+                            Image("search-g")
+    //                            .renderingMode(.template)
+    //                            .foregroundColor(Color.black.opacity(0.2))
+                        }
+                        else{
+                            Image("search-p")
+                        }
+                    }
+                }
+                Spacer()
+                            Button(action: {
+                                self.showAdd.toggle()
+
+                            }) {
+                                Image("plus-p")
+                            }
+                            .fullScreenCover(isPresented: $showAdd) {
+                                AddBookInfoView()
+                                    .onDisappear {
+                                        books.loadBooks()
+                                    }
+                            }
+                Spacer()
+                Button(action: {
+                    self.index = 2
+                }) {
+                    VStack{
+                        if self.index != 2{
+                            Image("chat-g")
+                        }
+                        else{
+                            Image("chat-p")
+                        }
+                    }
+                }
+                Spacer()
+                Button(action: {
+                    self.index = 3
+                }) {
+                    VStack{
+                        if self.index != 3{
+                            Image("user-g")
+                        }
+                        else{
+                            Image("user-p")
+                        }
+                    }
+                }
+                
+            }
+            .frame(height: UIScreen.main.bounds.height / 12)
+                .padding(.horizontal, 20)
+                .padding(.bottom, 34)
+                .background(Color(red: 0.961, green: 0.961, blue: 0.961))
+        }
+    }
+
 }
 
 struct HomeView_Previews: PreviewProvider {
@@ -50,87 +142,3 @@ struct HomeView_Previews: PreviewProvider {
     }
 }
 
-struct CircleTab : View {
-    @Binding var index : Int
-    @State var showAdd = false
-
-    var body : some View{
-        HStack(spacing: 0){
-            Button(action: {
-                self.index = 0
-            }) {
-                VStack{
-                    if self.index != 0{
-                        Image("home-alt-p")
-//                            .resizable()
-//                            .frame(width: 33, height: 33)
-                            .renderingMode(.template)
-                            .foregroundColor(Color.black.opacity(0.2))
-                    }
-                    else{
-                        Image("home-alt-p")
-//                            .resizable()
-//                            .frame(width: 33, height: 33)
-//                            .foregroundColor(Color.mainBlue)
-                    }
-                }
-            }
-            Spacer()
-            Button(action: {
-                self.index = 1
-            }) {
-                VStack{
-                    if self.index != 1{
-                        Image("search-g")
-//                            .renderingMode(.template)
-//                            .foregroundColor(Color.black.opacity(0.2))
-                    }
-                    else{
-                        Image("search-p")
-                    }
-                }
-            }
-            Spacer()
-                        Button(action: {
-                            self.showAdd.toggle()
-
-                        }) {
-                            Image("plus-p")
-                        }
-                        .fullScreenCover(isPresented: $showAdd) {
-                            AddBookInfoView()
-                        }
-            Spacer()
-            Button(action: {
-                self.index = 2
-            }) {
-                VStack{
-                    if self.index != 2{
-                        Image("chat-g")
-                    }
-                    else{
-                        Image("chat-p")
-                    }
-                }
-            }
-            Spacer()
-            Button(action: {
-                self.index = 3
-            }) {
-                VStack{
-                    if self.index != 3{
-                        Image("user-g")
-                    }
-                    else{
-                        Image("user-p")
-                    }
-                }
-            }
-            
-        }
-        .frame(height: UIScreen.main.bounds.height / 12)
-            .padding(.horizontal, 20)
-            .padding(.bottom, 34)
-            .background(Color(red: 0.961, green: 0.961, blue: 0.961))
-    }
-}
