@@ -64,6 +64,7 @@
 		8AE86A482733A6B200BE14DD /* EditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE86A472733A6B200BE14DD /* EditView.swift */; };
 		C1A83F44274B7EB2000BD479 /* BookMarkButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A83F43274B7EB2000BD479 /* BookMarkButton.swift */; };
 		C1A83F46274B8943000BD479 /* ImageRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A83F45274B8943000BD479 /* ImageRow.swift */; };
+		C1A83F48274BA1DB000BD479 /* EditBookInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A83F47274BA1DB000BD479 /* EditBookInfoView.swift */; };
 		EE3FB1182743834C003C761F /* S-CoreDream-3Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = EE3FB10F2743834B003C761F /* S-CoreDream-3Light.otf */; };
 		EE3FB1192743834C003C761F /* S-CoreDream-1Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = EE3FB1102743834B003C761F /* S-CoreDream-1Thin.otf */; };
 		EE3FB11A2743834C003C761F /* S-CoreDream-8Heavy.otf in Resources */ = {isa = PBXBuildFile; fileRef = EE3FB1112743834B003C761F /* S-CoreDream-8Heavy.otf */; };
@@ -123,6 +124,7 @@
 		8AE86A472733A6B200BE14DD /* EditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditView.swift; sourceTree = "<group>"; };
 		C1A83F43274B7EB2000BD479 /* BookMarkButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookMarkButton.swift; sourceTree = "<group>"; };
 		C1A83F45274B8943000BD479 /* ImageRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageRow.swift; sourceTree = "<group>"; };
+		C1A83F47274BA1DB000BD479 /* EditBookInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditBookInfoView.swift; sourceTree = "<group>"; };
 		EE3FB10F2743834B003C761F /* S-CoreDream-3Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "S-CoreDream-3Light.otf"; sourceTree = "<group>"; };
 		EE3FB1102743834B003C761F /* S-CoreDream-1Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "S-CoreDream-1Thin.otf"; sourceTree = "<group>"; };
 		EE3FB1112743834B003C761F /* S-CoreDream-8Heavy.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "S-CoreDream-8Heavy.otf"; sourceTree = "<group>"; };
@@ -281,6 +283,7 @@
 				EEAD456C27400A3100632C92 /* BookView.swift */,
 				C1A83F43274B7EB2000BD479 /* BookMarkButton.swift */,
 				C1A83F45274B8943000BD479 /* ImageRow.swift */,
+				C1A83F47274BA1DB000BD479 /* EditBookInfoView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -408,6 +411,7 @@
 				EE5DBA70273AA7AA002FA450 /* SearchView.swift in Sources */,
 				73BC055A27227DE90092B483 /* Color.swift in Sources */,
 				EEDCBFC42730313A0018B032 /* AddBookInfoView.swift in Sources */,
+				C1A83F48274BA1DB000BD479 /* EditBookInfoView.swift in Sources */,
 				73FF48F9273E930700170DD0 /* JusoModel.swift in Sources */,
 				73BFFFC427214EAE00375684 /* AppDelegate.swift in Sources */,
 				73C09B4927252F980048BC85 /* ModelData.swift in Sources */,
