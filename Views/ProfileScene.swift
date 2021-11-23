@@ -25,7 +25,7 @@ struct ProfileScene: View { // View
     @State private var showingJuso = false
     
     @State private var myORmark = false
-    @State var bookMarkList = [ViewModel]()
+//    @State var bookMarkList = [ViewModel]()
     
     
     let columns: [GridItem] = Array(repeating: GridItem(), count: 2)
@@ -122,29 +122,18 @@ struct ProfileScene: View { // View
                 }
             }
             else { // bookmark view
-                VStack {
-                    if !bookMarkList.isEmpty{
-                        LazyVGrid (columns: columns) {
-                            ForEach (bookMarkList.sorted { $0.created!.compare($1.created!) == .orderedDescending} ) { book in
-                                NavigationLink(destination: DetailView(libModel: book)) {
-                                    ImageRow(libModel: book)
-                                }
-                                .foregroundColor(.black)
-                            }
+                LazyVGrid (columns: columns) {
+                    ForEach (books.bookmarkList.sorted { $0.created!.compare($1.created!) == .orderedDescending} ) { book in
+                        NavigationLink(destination: DetailView(libModel: book)) {
+                            ImageRow(libModel: book)
                         }
-                    }
-                    else {
-                        ProgressView()
-                            .tint(.mainBlue)
+                        .foregroundColor(.black)
                     }
                 }
                 .padding()
                 .onAppear {
-                    bookMarkList = []
-                    books.takeBookmarkBook() {
-                        bookmark in
-                        bookMarkList.append(bookmark)
-                    }
+                    books.bookmarkList = []
+                    books.takeBookmarkBook()
                 }
             }
             
@@ -225,9 +214,9 @@ extension HomeView {
         @Published var bookmarkList: [ViewModel] = []
 
         private let userid = Auth.auth().currentUser!.uid
-        @Published var bookmarks = UserDefaults.standard.array(forKey: "bookmark") as? [String] ?? [String]()
         
         func loadBooks() {
+            self.bookList = []
             db.collection("libData").whereField("userid", isEqualTo: userid).getDocuments() { books, err in
                 if let err = err {
                     print("Error getting documents: \(err)")
@@ -309,8 +298,8 @@ extension HomeView {
             }
         }
         
-        func takeBookmarkBook(completionHandler: @escaping (ViewModel) -> Void) {
-            bookmarkList = []
+        func takeBookmarkBook() {
+            self.bookmarkList = []
             db.collection("libData").getDocuments() { books, err in
                 if let err = err {
                     print("Error getting documents: \(err)")
@@ -319,14 +308,15 @@ extension HomeView {
                         print("books is nil")
                         return
                     }
+                    let bookmarks = UserDefaults.standard.array(forKey: "bookmark") as? [String] ?? [String]()
                     for book in books {
-                        if !self.bookmarks.contains(book.documentID){
+                        if !bookmarks.contains(book.documentID){
                             continue
                         }
                         func getImage(bookuid : String) {
                             if let imageData = UserDefaults.standard.data(forKey: bookuid) {
                                 let bookImage = Image(uiImage: UIImage(data: imageData)!)
-                                completionHandler(ViewModel(
+                                self.bookmarkList.append(ViewModel(
                                     id: book.documentID,
                                     useruid: book.get("userid") as! String,
                                     name: book.get("username") as! String,
@@ -348,7 +338,7 @@ extension HomeView {
                                 if let _ = err as NSError? {
                                     let randInt = Int.random(in: 0...13)
                                     let bookImage = Image(RandBookImage(rawValue: randInt)!.toString())
-                                    completionHandler(ViewModel(
+                                    self.bookmarkList.append(ViewModel(
                                         id: book.documentID,
                                         useruid: book.get("userid") as! String,
                                         name: book.get("username") as! String,
@@ -370,7 +360,7 @@ extension HomeView {
                                     if let imageData = imageData {
                                         bookImage = Image(uiImage: UIImage(data: imageData)!)
                                     }
-                                    completionHandler(ViewModel(
+                                    self.bookmarkList.append(ViewModel(
                                         id: book.documentID,
                                         useruid: book.get("userid") as! String,
                                         name: book.get("username") as! String,
