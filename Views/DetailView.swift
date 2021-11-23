@@ -19,18 +19,24 @@ struct DetailView : View {
     var showBookmark: Bool = true
     
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-    @State var tapped: Bool = false
+    
+    @State var startingOffsetY: CGFloat = -UIScreen.main.bounds.height / 12
+    @State var currentDragOffsetY: CGFloat = 0
+    @State var endingOffsetY: CGFloat = 0
     
     var body : some View{
         ZStack(alignment: .topTrailing){
             VStack{
-                
                 if let image = libModel.image {
                     image
                         .resizable()
                         .frame(width: UIScreen.main.bounds.width,height: UIScreen.main.bounds.height * 0.48)
                 }
-                
+//                    VStack{
+//                        Text("\(startingOffsetY)")
+//                        Text("\(currentDragOffsetY)")
+//                        Text("\(endingOffsetY)")
+//                    }
                 
                 VStack(alignment: .leading, spacing: 0){
                     if showBookmark {
@@ -41,11 +47,32 @@ struct DetailView : View {
                     }
                     
                     detailMiddle(libModel: libModel)
-                    detailBottom(libModel: libModel, tapped: $tapped)
+                    detailBottom(libModel: libModel)
                 }
                 .background(Color.white)
                 .clipShape(Rounded())
-                .padding(.top, self.tapped ? -UIScreen.main.bounds.height / 3 : -UIScreen.main.bounds.height / 12)
+                .padding(.top, startingOffsetY)
+                .padding(.top, currentDragOffsetY)
+                .padding(.top, endingOffsetY)
+                .gesture(
+                    DragGesture()
+                        .onChanged { value in
+                            withAnimation(.spring()) {
+                                currentDragOffsetY = value.translation.height
+                            }
+                        }
+                        .onEnded { value in
+                            withAnimation(.spring()) {
+                                if currentDragOffsetY < -100 {
+                                    endingOffsetY = -UIScreen.main.bounds.height / 3 + UIScreen.main.bounds.height / 12
+                                } else if endingOffsetY != 0 && currentDragOffsetY > 100 {
+                                    endingOffsetY = 0
+                                }
+                                currentDragOffsetY = 0
+                            }
+                        }
+                )
+                
                 
                 
             }
@@ -203,7 +230,6 @@ struct detailMiddle : View {
 
 struct detailBottom : View {
     var libModel: ViewModel
-    @Binding var tapped: Bool
     
     var body : some View{
         HStack {
@@ -222,11 +248,7 @@ struct detailBottom : View {
                     .fill(Color(red: 0.745, green: 0.745, blue: 0.745, opacity: 0.15))
                     .clipShape(contentRounded())
             }.padding(EdgeInsets(top: 0, leading: 16, bottom: 16, trailing: 16))
-                .onTapGesture {
-                    withAnimation(.spring()) {
-                        self.tapped.toggle()
-                    }
-                }
+
         }
     }
 }

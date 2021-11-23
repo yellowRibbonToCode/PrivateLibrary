@@ -22,7 +22,12 @@ struct EditBookInfoView: View {
     
     let userId = Auth.auth().currentUser?.uid ?? "userId"
     
-
+    @State var startingOffsetY: CGFloat = -UIScreen.main.bounds.height / 12
+    @State var currentDragOffsetY: CGFloat = 0
+    @State var endingOffsetY: CGFloat = 0
+    
+    @FocusState private var nameIsFocused: Bool
+    
     @State var isShowPhotoLibrary = false
     
     @State private var image: UIImage?
@@ -86,7 +91,6 @@ struct EditBookInfoView: View {
     }
     
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-    @State var tapped: Bool = false
     
     //    init() {
     //        UITextView.appearance().backgroundColor = .clear
@@ -181,17 +185,13 @@ struct EditBookInfoView: View {
                             .clipShape(contentRounded())
                             .frame(height: UIScreen.main.bounds.height / 2)
                             .padding(EdgeInsets(top: 0, leading: 16, bottom: 16, trailing: 16))
-                    }           .onTapGesture {
-                        withAnimation(.spring()) {
-                            self.tapped.toggle()
-                        }
                     }
                     Button(action: {
                         updatedb()
                         self.presentationMode.wrappedValue.dismiss()
                         
                     }) {
-                        Text("수정완료 완료")
+                        Text("수정 완료")
                             .frame(width: UIScreen.main.bounds.width / 1.7, height: 35)
                             .background(Color.white)
                             .cornerRadius(20)
@@ -208,10 +208,36 @@ struct EditBookInfoView: View {
             }
             .background(Color.white)
             .clipShape(Rounded())
-            .padding(.top, self.tapped ? -UIScreen.main.bounds.height / 2.7 : -UIScreen.main.bounds.height / 12)
+//            .padding(.top, self.tapped ? -UIScreen.main.bounds.height / 2.7 : -UIScreen.main.bounds.height / 12)
+            .padding(.top, startingOffsetY)
+            .padding(.top, currentDragOffsetY)
+            .padding(.top, endingOffsetY)
+            .gesture(
+                DragGesture()
+                    .onChanged { value in
+                        withAnimation(.spring()) {
+                            currentDragOffsetY = value.translation.height
+                        }
+                    }
+                    .onEnded { value in
+                        withAnimation(.spring()) {
+                            if currentDragOffsetY < -100 {
+                                endingOffsetY = -UIScreen.main.bounds.height / 2.7 + UIScreen.main.bounds.height / 12
+                            } else if endingOffsetY != 0 && currentDragOffsetY > 100 {
+                                endingOffsetY = 0
+                            }
+                            currentDragOffsetY = 0
+                        }
+                    }
+            )
+            .onTapGesture {
+                nameIsFocused = false
+            }
             
         }
         .disableAutocorrection(true)
+        .focused($nameIsFocused)
+
         
         .sheet(isPresented: $isShowPhotoLibrary) {
             ImagePicker(sourceType: .photoLibrary, selectedImage: self.$image)
