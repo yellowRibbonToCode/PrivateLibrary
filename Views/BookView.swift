@@ -35,7 +35,8 @@ struct BookView: View {
                 }
             }
             else {
-                Image(systemName: "circle.hexagonpath.fill")
+                ProgressView()
+                    .tint(.mainBlue)
             }
             
         }

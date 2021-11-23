@@ -25,6 +25,7 @@ struct ProfileScene: View { // View
     @State private var showingJuso = false
     
     @State private var myORmark = false
+    @State var bookMarkList = [ViewModel]()
     
     
     let columns: [GridItem] = Array(repeating: GridItem(), count: 2)
@@ -32,6 +33,7 @@ struct ProfileScene: View { // View
     private let userAuth = Auth.auth().currentUser
     private let users = db.collection("users")
     private let storageRef = Storage.storage().reference()
+    
     
     var body: some View {
         ScrollView(.vertical) {
@@ -120,24 +122,29 @@ struct ProfileScene: View { // View
                 }
             }
             else { // bookmark view
-                LazyVGrid (columns: columns) {
-                    if books.bookmarks == UserDefaults.standard.array(forKey: "bookmark") as? [String] ?? [String]() {
-                    
-                    ForEach (books.bookmarkList.sorted { $0.created!.compare($1.created!) == .orderedDescending} ) { book in
-                        NavigationLink(destination: DetailView(libModel: book)) {
-                            ImageRow(libModel: book)
+                VStack {
+                    if !bookMarkList.isEmpty{
+                        LazyVGrid (columns: columns) {
+                            ForEach (bookMarkList.sorted { $0.created!.compare($1.created!) == .orderedDescending} ) { book in
+                                NavigationLink(destination: DetailView(libModel: book)) {
+                                    ImageRow(libModel: book)
+                                }
+                                .foregroundColor(.black)
+                            }
                         }
-                        
-                        .foregroundColor(.black)
                     }
+                    else {
+                        ProgressView()
+                            .tint(.mainBlue)
                     }
-                }
-                .refreshable {
-                    books.takeBookmarkBook()
                 }
                 .padding()
                 .onAppear {
-                    books.takeBookmarkBook()
+                    bookMarkList = []
+                    books.takeBookmarkBook() {
+                        bookmark in
+                        bookMarkList.append(bookmark)
+                    }
                 }
             }
             
@@ -302,7 +309,7 @@ extension HomeView {
             }
         }
         
-        func takeBookmarkBook() {
+        func takeBookmarkBook(completionHandler: @escaping (ViewModel) -> Void) {
             bookmarkList = []
             db.collection("libData").getDocuments() { books, err in
                 if let err = err {
@@ -319,7 +326,7 @@ extension HomeView {
                         func getImage(bookuid : String) {
                             if let imageData = UserDefaults.standard.data(forKey: bookuid) {
                                 let bookImage = Image(uiImage: UIImage(data: imageData)!)
-                                self.bookmarkList.append(ViewModel(
+                                completionHandler(ViewModel(
                                     id: book.documentID,
                                     useruid: book.get("userid") as! String,
                                     name: book.get("username") as! String,
@@ -341,7 +348,7 @@ extension HomeView {
                                 if let _ = err as NSError? {
                                     let randInt = Int.random(in: 0...13)
                                     let bookImage = Image(RandBookImage(rawValue: randInt)!.toString())
-                                    self.bookmarkList.append(ViewModel(
+                                    completionHandler(ViewModel(
                                         id: book.documentID,
                                         useruid: book.get("userid") as! String,
                                         name: book.get("username") as! String,
@@ -363,7 +370,7 @@ extension HomeView {
                                     if let imageData = imageData {
                                         bookImage = Image(uiImage: UIImage(data: imageData)!)
                                     }
-                                    self.bookmarkList.append(ViewModel(
+                                    completionHandler(ViewModel(
                                         id: book.documentID,
                                         useruid: book.get("userid") as! String,
                                         name: book.get("username") as! String,
@@ -441,7 +448,7 @@ extension ProfileScene {
         }
     }
 }
-
+//
 //struct ProfileScene_Previews: PreviewProvider {
 //    static var previews: some View {
 //        Group {
