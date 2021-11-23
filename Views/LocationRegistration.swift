@@ -33,9 +33,9 @@ class SearchJusoViewModel: ObservableObject {
                     
                     self.jusoList = jusoResponse.results.juso
                     print(self.jusoList)
-                    //                    for juso in jusoResponse.results.juso {
-                    //                        self.jusoList.append(Juso(roadAddr: juso.roadAddr, jibunAddr: juso.jibunAddr))
-                    //                    }
+                    for juso in jusoResponse.results.juso {
+                        self.jusoList.append(Juso(roadAddr: juso.roadAddr, jibunAddr: juso.jibunAddr))
+                    }
                 } else {
                     print("serialize error")
                 }
