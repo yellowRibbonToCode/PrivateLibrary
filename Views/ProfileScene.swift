@@ -18,7 +18,7 @@ struct Profile { // Model
 }
 
 struct ProfileScene: View { // View
-    @ObservedObject var books = BookLists()
+    @ObservedObject var books : HomeView.BookLists
     @State private var showingEdit = false
     @State var profile = Profile()    
     @State var Juso = "주소 변경"
@@ -212,7 +212,7 @@ struct ProfileScene: View { // View
     }
 }
 
-extension ProfileScene {
+extension HomeView {
     class BookLists: ObservableObject {
         @Published var bookList: [ViewModel] = []
         @Published var bookmarkList: [ViewModel] = []
@@ -221,7 +221,6 @@ extension ProfileScene {
         @Published var bookmarks = UserDefaults.standard.array(forKey: "bookmark") as? [String] ?? [String]()
         
         func loadBooks() {
-            bookList = []
             db.collection("libData").whereField("userid", isEqualTo: userid).getDocuments() { books, err in
                 if let err = err {
                     print("Error getting documents: \(err)")
@@ -443,10 +442,10 @@ extension ProfileScene {
     }
 }
 
-struct ProfileScene_Previews: PreviewProvider {
-    static var previews: some View {
-        Group {
-            ProfileScene()
-        }
-    }
-}
+//struct ProfileScene_Previews: PreviewProvider {
+//    static var previews: some View {
+//        Group {
+//            ProfileScene()
+//        }
+//    }
+//}

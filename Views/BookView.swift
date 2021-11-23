@@ -16,30 +16,11 @@ import FirebaseStorage
 
 struct BookView: View {
     var Views = ["Books", "NeighborBooks"]
-    @State var selectedView = 0
     let columns: [GridItem] = Array(repeating: GridItem(), count: 2)
     @ObservedObject var books = BookLists()
     @State var booklist = [ViewModel]()
-    @State var selectedNumber: Int = 0
-    
-    var customLabel: some View {
-        HStack {
-            Image(systemName: "paperplane")
-            Text(String(selectedNumber))
-            Spacer()
-            Text("⌵")
-                .offset(y: -4)
-        }
-        .foregroundColor(.white)
-        .font(.title)
-        .padding()
-        .frame(height: 32)
-        .background(Color.blue)
-        .cornerRadius(16)
-    }
     
     var body: some View {
-        //        NavigationView{
         VStack {
             if !booklist.isEmpty {
                 ScrollView(.vertical) {
@@ -71,21 +52,16 @@ struct BookView: View {
     }
 }
 
-
-
 struct BookView_Previews: PreviewProvider {
     static var previews: some View {
         BookView()
     }
 }
 
-
 extension BookView {
-    
     class BookLists: ObservableObject {
         let userId = Auth.auth().currentUser!.uid
         @Published var bookList: [ViewModel] = []
-        @Published var bookmarkarray: [String] = []
         
         func loadBooks(completionHandler: @escaping (ViewModel) -> Void) {
             self.bookList = []
@@ -117,8 +93,6 @@ extension BookView {
                                     sell: (book.get("sell") as! Bool),
                                     image: bookImage))
                             } else {
-                                
-                                
                                 Storage.storage().reference().child("images/books/\(bookuid)").getData(maxSize: 100 * 200 * 200) {
                                     (imageData, err) in
                                     if let _ = err as NSError? {
