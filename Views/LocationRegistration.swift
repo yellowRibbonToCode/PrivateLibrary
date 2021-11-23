@@ -25,7 +25,7 @@ class SearchJusoViewModel: ObservableObject {
         let url = "https://www.juso.go.kr/addrlink/addrLinkApi.do"
         let APIKEY = Bundle.main.object(forInfoDictionaryKey: "JUSOAPIKEY") as! String
         let body = ["confmKey": APIKEY, "currentPage": 1, "countPerPage": 20, "keyword": dong, "resultType" : "json"] as [String : Any]
-         AF.request(url, method: .post, parameters: body, encoding: URLEncoding.httpBody).responseJSON() {[weak self] response in
+        AF.request(url, method: .post, parameters: body, encoding: URLEncoding.httpBody).responseJSON() {[weak self] response in
             guard let self = self else { return }
             if let value = response.value {
                 if let jusoResponse: JusoResponse = self.toJson(object: value) {
@@ -33,9 +33,9 @@ class SearchJusoViewModel: ObservableObject {
                     
                     self.jusoList = jusoResponse.results.juso
                     print(self.jusoList)
-                    //                    for juso in jusoResponse.results.juso {
-                    //                        self.jusoList.append(Juso(roadAddr: juso.roadAddr, jibunAddr: juso.jibunAddr))
-                    //                    }
+                    for juso in jusoResponse.results.juso {
+                        self.jusoList.append(Juso(roadAddr: juso.roadAddr, jibunAddr: juso.jibunAddr))
+                    }
                 } else {
                     print("serialize error")
                 }
@@ -119,8 +119,8 @@ struct JusoSearchBar: View {
                             searching = false
                         }
                         searchViewModel.getData(dong: dongName)
-//                        print(getDistance(latitude1: "37.566381", longitude1: "126.977717", latitude2: "37.565577", longitude2: "126.978082"))
-//                        print(getDistance(latitude1: "37.504030", longitude1: "127.024099", latitude2: "37.497175", longitude2: "127.027926"))
+                        //                        print(getDistance(latitude1: "37.566381", longitude1: "126.977717", latitude2: "37.565577", longitude2: "126.978082"))
+                        //                        print(getDistance(latitude1: "37.504030", longitude1: "127.024099", latitude2: "37.497175", longitude2: "127.027926"))
                     }
                     .disableAutocorrection(true)
                 }
@@ -148,7 +148,7 @@ struct LocationRegistration: View {
     @Binding var profile: Profile
     
     let userid = Auth.auth().currentUser!.uid
-//    @Binding var showingJuso : Bool
+    //    @Binding var showingJuso : Bool
     
     //    var userLatitude: String {
     //        return "\(locationManager.lastLocation?.coordinate.latitude ?? 0)"
@@ -160,19 +160,19 @@ struct LocationRegistration: View {
     
     private func saveJuso() {
         // 1.게시글 중에 이전 유저네임이랑 같은글 전부 수정 or 그냥 un
-//        Firestore.firestore().collection("libData").whereField("userid", isEqualTo: userid).getDocuments() { infos, err in
-//            if let err = err {
-//                print("Error getting documents: \(err)")
-//            } else {
-//                guard let infos = infos?.documents else {
-//                    print("books is nil")
-//                    return
-//                }
-//                for info in infos {
-//                    info.reference.setData(["username": changedName], merge: true)
-//                }
-//            }
-//        }
+        //        Firestore.firestore().collection("libData").whereField("userid", isEqualTo: userid).getDocuments() { infos, err in
+        //            if let err = err {
+        //                print("Error getting documents: \(err)")
+        //            } else {
+        //                guard let infos = infos?.documents else {
+        //                    print("books is nil")
+        //                    return
+        //                }
+        //                for info in infos {
+        //                    info.reference.setData(["username": changedName], merge: true)
+        //                }
+        //            }
+        //        }
         // 2.db의 users의 uid같은거에서 유저네임 수정.
         db.collection("users").document("\(userid)").setData([
             "roadAddr" : searchJusoViewModel.jusodata.roadAddr ?? "",
@@ -180,7 +180,7 @@ struct LocationRegistration: View {
             "emdNm" : searchJusoViewModel.jusodata.emdNm ?? "",
             "latitude" : searchJusoViewModel.searchLatitude,
             "longitude" : searchJusoViewModel.searchLongitude]
-            , merge: true) { err in
+                                                             , merge: true) { err in
             if let err = err {
                 print("Error writing document: \(err)")
             } else {
@@ -190,37 +190,37 @@ struct LocationRegistration: View {
     }
     
     var body: some View {
-//        NavigationView{
-            VStack {
-                JusoSearchBar(dongName: $roadAddr, searching: $searching, searchViewModel: searchJusoViewModel)
-                    .onTapGesture {
-                        select = false
-                    }
-//                HStack {
-//                    Text("latitude: \(searchJusoViewModel.searchLatitude)")
-//                    Text("longitude: \(searchJusoViewModel.searchLongitude)")
-//                }
-                List{
-                    ForEach(searchJusoViewModel.jusoList, id: \.id) { juso in
-                        Text("\(juso.roadAddr)\n\(juso.jibunAddr)")
-                            .font(.callout)
-                            .onTapGesture {
-                                roadAddr = juso.roadAddr
-                                searchJusoViewModel.jusodata = juso
-                                searchJusoViewModel.getXY(roadAddr)
-                                select = true
-                            }
-                    }
+        //        NavigationView{
+        VStack {
+            JusoSearchBar(dongName: $roadAddr, searching: $searching, searchViewModel: searchJusoViewModel)
+                .onTapGesture {
+                    select = false
+                }
+            //                HStack {
+            //                    Text("latitude: \(searchJusoViewModel.searchLatitude)")
+            //                    Text("longitude: \(searchJusoViewModel.searchLongitude)")
+            //                }
+            List{
+                ForEach(searchJusoViewModel.jusoList, id: \.id) { juso in
+                    Text("\(juso.roadAddr)\n\(juso.jibunAddr)")
+                        .font(.callout)
+                        .onTapGesture {
+                            roadAddr = juso.roadAddr
+                            searchJusoViewModel.jusodata = juso
+                            searchJusoViewModel.getXY(roadAddr)
+                            select = true
+                        }
                 }
             }
-            .alert(isPresented: $select) {
-                Alert(title: Text("주소"), message: Text(roadAddr), primaryButton:  .default(Text("저장"), action:{
-                    saveJuso()
-                    profile.sggNm = searchJusoViewModel.jusodata.sggNm
-                    profile.emdNm = searchJusoViewModel.jusodata.emdNm
-                    
-                    self.presentationMode.wrappedValue.dismiss()
-                }), secondaryButton: .cancel(Text("취소")))
+        }
+        .alert(isPresented: $select) {
+            Alert(title: Text("주소"), message: Text(roadAddr), primaryButton:  .default(Text("저장"), action:{
+                saveJuso()
+                profile.sggNm = searchJusoViewModel.jusodata.sggNm
+                profile.emdNm = searchJusoViewModel.jusodata.emdNm
+                
+                self.presentationMode.wrappedValue.dismiss()
+            }), secondaryButton: .cancel(Text("취소")))
         }
     }
 }
