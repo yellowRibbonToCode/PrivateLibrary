@@ -101,6 +101,9 @@ struct DetailView : View {
 struct detailTop : View {
     var libModel: ViewModel
     @State var selectedItem: Int? = 0
+    @State var showConfirm = false
+    @State var blockConfirm = false
+    @State var reportConfirm = false
     
     
     var body : some View{
@@ -111,20 +114,62 @@ struct detailTop : View {
             NavigationLink(destination: MakeChat(other: libModel.useruid), tag: 1, selection: $selectedItem) {
                 EmptyView()
             }
+            Button(action: {
+                showConfirm = true
+            }, label: {
+                Image(systemName: "ellipsis")
+                    .foregroundColor(.mainBlue)
+            })
             
-            Menu {
-                Button(action:{
+            .confirmationDialog("", isPresented: $showConfirm) {
+                Button("대화하기") {
                     selectedItem = 1
-                    
-                    
-                }) {
-                    Label("Chat", systemImage: "message.fill")
                 }
-                
-            } label: {
-                Image(systemName: "ellipsis")}
+                Button("차단하기", role: .destructive) {
+                    selectedItem = 2
+                    blockConfirm = true
+                }
+                Button("신고하기", role: .destructive) {
+                    selectedItem = 3
+                    reportConfirm = true
+                }
+                Button("취소", role:.cancel) {
+                }
+            }
+            .confirmationDialog("차단하시겠습니까?", isPresented: $blockConfirm, titleVisibility: .visible) {
+                Button("네", role: .destructive) {
+//                    selectedItem = 1
+                }
+                Button("아니오", role:.cancel) {
+//                    selectedItem = 1
+                }
+            }
             
-            .foregroundColor(.mainBlue)
+            .confirmationDialog("신고하시겠습니까?", isPresented: $reportConfirm, titleVisibility: .visible) {
+                Button("네", role: .destructive) {
+//                    selectedItem = 1
+                }
+                Button("아니오", role: .cancel) {
+//                    selectedItem = 1
+                }
+            }
+            
+            
+//
+//
+//            Menu {
+//                Button(action:{
+//                    selectedItem = 1
+//
+//
+//                }) {
+//                    Label("Chat", systemImage: "message.fill")
+//                }
+//
+//            } label: {
+//                Image(systemName: "ellipsis")}
+            
+//            .foregroundColor(.mainBlue)
             
         }
         .padding(EdgeInsets(top: 36, leading: 16, bottom: 10, trailing: 32))
