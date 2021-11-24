@@ -104,7 +104,8 @@ struct detailTop : View {
     @State var showConfirm = false
     @State var blockConfirm = false
     @State var reportConfirm = false
-    
+    private let userid = Auth.auth().currentUser!.uid
+
     
     var body : some View{
         
@@ -126,11 +127,9 @@ struct detailTop : View {
                     selectedItem = 1
                 }
                 Button("차단하기", role: .destructive) {
-                    selectedItem = 2
                     blockConfirm = true
                 }
                 Button("신고하기", role: .destructive) {
-                    selectedItem = 3
                     reportConfirm = true
                 }
                 Button("취소", role:.cancel) {
@@ -141,41 +140,40 @@ struct detailTop : View {
 //                    selectedItem = 1
                 }
                 Button("아니오", role:.cancel) {
-//                    selectedItem = 1
                 }
             }
             
             .confirmationDialog("신고하시겠습니까?", isPresented: $reportConfirm, titleVisibility: .visible) {
                 Button("네", role: .destructive) {
-//                    selectedItem = 1
+                    updatereportdb()
                 }
                 Button("아니오", role: .cancel) {
-//                    selectedItem = 1
                 }
             }
-            
-            
-//
-//
-//            Menu {
-//                Button(action:{
-//                    selectedItem = 1
-//
-//
-//                }) {
-//                    Label("Chat", systemImage: "message.fill")
-//                }
-//
-//            } label: {
-//                Image(systemName: "ellipsis")}
-            
-//            .foregroundColor(.mainBlue)
-            
+                        
         }
         .padding(EdgeInsets(top: 36, leading: 16, bottom: 10, trailing: 32))
         .font(Font.custom("S-CoreDream-6Bold", size: 33))
         
     }
+    
+    
+    private func updatereportdb() {
+        db = Firestore.firestore()
+        let doc = db.collection("libData").document(libModel.id)
+        doc.updateData([
+            "report" : FieldValue.arrayUnion([userid])
+        ])
+        { err in
+            if let err = err {
+                print("Error updating document: \(err)")
+            } else {
+                print("Document successfully updated")
+            }
+        }
+        
+    }
+    
 }
 
 
