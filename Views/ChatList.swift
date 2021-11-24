@@ -30,13 +30,6 @@ struct ChatList: View {
                 self.rooms = documents.map { $0.documentID }
             }
         }
-//        func loadChatMsgs() {
-//
-//        }
-//
-//        func loadChatPartner() {
-//
-//        }
     }
     
     var body: some View {
