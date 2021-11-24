@@ -223,14 +223,13 @@ var body: some View {
                 showingActionSheet.toggle()
             } label: {
                 Image(systemName: "ellipsis")
-                    .resizable()
-                    .frame(width: 18, height: 12)
+                    .foregroundColor(.mainBlue)
             }
         }
         
     }
     .confirmationDialog("", isPresented: $showingActionSheet) {
-        Button("상대방 차단") {
+        Button("상대방 차단", role: .destructive) {
             if var arr = UserDefaults.standard.object(forKey: "blockuseruid") as? [String] {
                 arr.append(messages.partnerId!)
                 UserDefaults.standard.set(arr, forKey: "blockuseruid")

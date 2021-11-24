@@ -90,7 +90,19 @@ struct LoginView: View {
     
     var body: some View {
         if loginSuccess{
+            
             HomeView()
+                .onAppear {
+                    db.collection("users").document(Auth.auth().currentUser!.uid).getDocument { doc, err in
+                        if doc != nil {
+                            let arr = doc!.get("blockuseruid") as? [String]
+                            UserDefaults.standard.removeObject(forKey: "blockuseruid")
+                            if arr != nil {
+                                UserDefaults.standard.set(arr, forKey: "blockuseruid")
+                            }
+                        }
+                    }
+                }
                 .environment(\.loginStatus, $loginSuccess)
         }
         else{
@@ -147,6 +159,7 @@ struct LoginView: View {
     
     func autoLogin() {
         loginError = " "
+        
         if UserDefaults.standard.bool(forKey: "islogin")
         {
             loginSuccess = true

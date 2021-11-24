@@ -82,7 +82,7 @@ struct EditView: View {
                             print("Error signing out: %@", signOutError)
                         }
                     } label: {
-                        Text("로그 아웃")
+                        Text("로그아웃")
                             .foregroundColor(.white)
                             .font(Font.custom("S-CoreDream-5Medium", size: 15))
                             .overlay(
