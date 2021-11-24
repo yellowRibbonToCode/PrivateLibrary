@@ -15,7 +15,7 @@ import Alamofire
 class NeighborViewModel: ObservableObject {
     private let userid = Auth.auth().currentUser!.uid
     var reportarr : [String] = []
-
+    var blockArr : [String] = []
     @Published var userLatitude = ""
     private var userLongitude = ""
     var range = UserDefaults.standard.double(forKey: "range")
@@ -80,11 +80,12 @@ class NeighborViewModel: ObservableObject {
                     print("Error getting documents: \(err)")
                 }
                 else {
-                    guard let books = books?.documents else { return }
                     
+                    guard let books = books?.documents else { return }
                     for book in books {
                         self.reportarr = book.get("report") as? [String] ?? []
-                        if (self.reportarr.count  >= 2) { continue}
+                        self.blockArr = book.get("blocks") as? [String] ?? []
+                        if (self.reportarr.count  >= 2 || self.blockArr.contains(self.userid)) { continue}
                         func getImage(bookuid : String) {
                             if let imageData = UserDefaults.standard.data(forKey: bookuid) {
                                 let bookImage = Image(uiImage: UIImage(data: imageData)!)
