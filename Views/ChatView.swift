@@ -8,6 +8,7 @@
 import SwiftUI
 import Firebase
 import FirebaseFirestore
+import simd
 
 extension UIApplication {
     func closeKeyboard() {
@@ -22,21 +23,26 @@ struct ChatView: View {
     let whoami: String = Auth.auth().currentUser!.uid
     @ObservedObject var messages: Messages
     @State var msg: String = ""
+    @State var showingActionSheet = false
     
     init(_ documentId: String) {
         print("newly generated\n\n")
         self.documentId = documentId
         self.messages = Messages(documentId: documentId)
+   
     }
     
     class Messages: ObservableObject {
         @Published var messages: [Message] = []
         @Published var partner: String = "??"
         @Published var partnerImage: UIImage = UIImage(imageLiteralResourceName: "user-g")
+        @Published var partnerId: String?
         let storageRef = Storage.storage().reference()
         
         init (documentId: String) {
             loadMessages(documentId)
+            loadPartnerName(documentId)
+            loadPartnerImage(documentId)
         }
         
         func loadMessages(_ documentId: String) {
@@ -70,12 +76,14 @@ struct ChatView: View {
                 
                 if let tmp = (data.get("participants") as? [String]) {
                     if Auth.auth().currentUser!.uid == tmp[0] {
+                        self.partnerId = tmp[1]
                         db.collection("users").document(tmp[1]).getDocument { snap, err in
                             if let name = snap?.get("name") {
                                 self.partner = name as! String
                             }
                         }
                     } else {
+                        self.partnerId = tmp[0]
                         db.collection("users").document(tmp[0]).getDocument { snap, err in
                             if let name = snap?.get("name") {
                                 self.partner = name as! String
@@ -161,7 +169,9 @@ var body: some View {
                 }
             }
             .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardDidShowNotification)) {_ in
-                proxy.scrollTo(messages.messages.last!.id, anchor: .bottom)
+                if let _ = messages.messages.last {
+                    proxy.scrollTo(messages.messages.last!.id , anchor: .bottom)
+                }
             }
             .onAppear {
                 if let _ = messages.messages.last {
@@ -203,12 +213,63 @@ var body: some View {
     .onTapGesture {
         UIApplication.shared.closeKeyboard()
     }
-    .onAppear {
-        messages.loadPartnerName(documentId)
-        messages.loadPartnerImage(documentId)
-    }
     .navigationBarBackButtonHidden(true)
-    .navigationBarItems(leading: btnBack)
+    .toolbar {
+        ToolbarItem (placement: .navigationBarLeading) {
+            btnBack
+        }
+        ToolbarItem (placement: .navigationBarTrailing) {
+            Button {
+                showingActionSheet.toggle()
+            } label: {
+                Image(systemName: "ellipsis")
+                    .resizable()
+                    .frame(width: 18, height: 12)
+            }
+        }
+        
+    }
+    .confirmationDialog("", isPresented: $showingActionSheet) {
+        Button("상대방 차단") {
+            if var arr = UserDefaults.standard.object(forKey: "blockuseruid") as? [String] {
+                arr.append(messages.partnerId!)
+                UserDefaults.standard.set(arr, forKey: "blockuseruid")
+            } else {
+                var arr = [String]()
+                arr.append(messages.partnerId!)
+                UserDefaults.standard.set(arr, forKey: "blockuseruid")
+            }
+            guard let partner = messages.partnerId else { return }
+            
+            let batch = db.batch()
+            let userRef = db.collection("users").document(self.whoami)
+            batch.updateData(["blockuseruid" : FieldValue.arrayUnion([partner])], forDocument: userRef)
+            batch.commit() { err in
+                if let err = err {
+                    print("Error writing batch \(err)")
+                } else {
+                    print("Batch write succeeded")
+                }
+            }
+            self.presentationMode.wrappedValue.dismiss()
+        }
+        Button("채팅방 나가기") {
+            guard let partner = messages.partnerId else { return }
+
+            let batch = db.batch()
+            let chatRef = db.collection("chatings").document(self.documentId)
+            batch.updateData(["participants" : partner], forDocument: chatRef)
+            batch.commit() { err in
+                if let err = err {
+                    print("Error writing batch \(err)")
+                } else {
+                    print("Batch write succeeded")
+                }
+            }
+            self.presentationMode.wrappedValue.dismiss()
+        }
+        Button("취소", role: .cancel) {}
+    }
 }
 
 var btnBack : some View {
