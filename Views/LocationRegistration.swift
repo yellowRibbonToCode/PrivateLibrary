@@ -32,10 +32,10 @@ class SearchJusoViewModel: ObservableObject {
                     guard let _ = jusoResponse.results.juso else { return }
                     
                     self.jusoList = jusoResponse.results.juso
-                    print(self.jusoList)
-                    for juso in jusoResponse.results.juso {
-                        self.jusoList.append(Juso(roadAddr: juso.roadAddr, jibunAddr: juso.jibunAddr))
-                    }
+//                    print(self.jusoList)
+//                    for juso in jusoResponse.results.juso {
+//                        self.jusoList.append(Juso(roadAddr: juso.roadAddr, jibunAddr: juso.jibunAddr))
+//                    }
                 } else {
                     print("serialize error")
                 }
