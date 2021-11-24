@@ -63,6 +63,7 @@ extension BookView {
     class BookLists: ObservableObject {
         let userId = Auth.auth().currentUser!.uid
         @Published var bookList: [ViewModel] = []
+        var reportarr : [String] = []
         
         func loadBooks(completionHandler: @escaping (ViewModel) -> Void) {
             self.bookList = []
@@ -75,6 +76,9 @@ extension BookView {
                         return
                     }
                     for book in books {
+                        
+                        self.reportarr = book.get("report") as? [String] ?? []
+                        if (self.reportarr.count  >= 2) { continue}
                         func getImage(bookuid : String) {
                             if let imageData = UserDefaults.standard.data(forKey: bookuid) {
                                 let bookImage = Image(uiImage: UIImage(data: imageData)!)

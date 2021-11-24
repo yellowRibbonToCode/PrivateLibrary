@@ -98,6 +98,7 @@ class getFiterData : ObservableObject{
     
     @Published var datas = [ViewModel]()
     private let userId = Auth.auth().currentUser!.uid
+    var reportarr : [String] = []
 
     init() {
 
@@ -108,6 +109,8 @@ class getFiterData : ObservableObject{
                 return
             }
             for book in snap!.documents{
+                self.reportarr = book.get("report") as? [String] ?? []
+                if (self.reportarr.count  >= 2) { continue}
                 func getImage(bookuid : String) {
                     if let imageData = UserDefaults.standard.data(forKey: bookuid) {
                         let bookImage = Image(uiImage: UIImage(data: imageData)!)

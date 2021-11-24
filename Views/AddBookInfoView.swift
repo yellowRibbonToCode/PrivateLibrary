@@ -96,11 +96,11 @@ struct AddBookInfoView: View {
                 if let thisimage = image{
                     upload_Image(image: thisimage, docID: doc.documentID)
                 }
-                else {
-                    let randInt = Int.random(in: 0...13)
-                    let thisimage = UIImage(named:RandBookImage(rawValue: randInt)!.toString())
-                    upload_Image(image: thisimage!, docID: doc.documentID)
-                }
+//                else {
+//                    let randInt = Int.random(in: 0...13)
+//                    let thisimage = UIImage(named:RandBookImage(rawValue: randInt)!.toString())
+//                    upload_Image(image: thisimage!, docID: doc.documentID)
+//                }
                 
                 
                 //                setSuccess = true
