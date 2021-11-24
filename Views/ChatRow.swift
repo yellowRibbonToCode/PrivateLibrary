@@ -13,27 +13,60 @@ import FirebaseStorageSwift
 
 struct ChatRow: View {
     let roomId: String
-    var partner = Partner()
+    var partner: Partner
     
     @State var profile: UIImage = UIImage(imageLiteralResourceName: "user-g")
     @State var name: String = "??"
     @State var lastMsg: String = " "
     
+    @State var isBlocked: Bool
+    
+    init(roomId: String) {
+        self.roomId = roomId
+        self.partner = Partner()
+        self.isBlocked = true
+        partner.loadParticipants(roomId) { (success, id) in
+            if success {
+                loadName(id)
+                loadProfile(id)
+                loadLastMsg()
+                changeBlock1()
+            } else {
+               changeBlock2()
+            }
+        }
+    }
+    func changeBlock1() {
+        self.isBlocked = false
+    }
+    func changeBlock2() {
+        self.isBlocked = true
+    }
     private let users = db.collection("users")
     private let storageRef = Storage.storage().reference()
 
     class Partner: ObservableObject {
 //        @Published var id: String = "??"// 나중엔 배열로 받아서 프로필사진 여러개 받아서 띄우기
         
+        
         func loadParticipants(_ roomId: String, completion: @escaping (Bool, String) -> Void) {
             db.collection("chatings").document(roomId).getDocument { data, err in
                 if let data = data {
                     if let tmp = data.get("participants") as? [String] {
+                        // 새로운 기기에서 실행할 경우 db에서 불어오는 작업을 앱을 실행할때 해줘야 함.
+                        var partner: String
                         if tmp[0] == Auth.auth().currentUser!.uid {
-                            completion(true, tmp[1])
+                            partner = tmp[1]
                         } else {
-                            completion(true, tmp[0])
+                            partner = tmp[0]
                         }
+                        if let blocked = UserDefaults.standard.object(forKey: "blockuseruid") as? [String] {
+                            if blocked.contains(partner) == true {
+                                completion(false, partner)
+                                return
+                            }
+                        }
+                        completion(true, partner)
                     }
                     return
                 }
@@ -43,6 +76,9 @@ struct ChatRow: View {
     }
     
     var body: some View {
+        if isBlocked {
+            EmptyView()
+        } else {
         HStack(alignment: .center, spacing: 0) {
             Image(uiImage: profile)
                 .resizable()
@@ -65,14 +101,6 @@ struct ChatRow: View {
         }
         .padding(.leading, 27.0)
         .padding(.vertical, 9)
-        .onAppear {
-            partner.loadParticipants(roomId) { (success, id) in
-                if success {
-                    loadName(id)
-                    loadProfile(id)
-                    loadLastMsg()
-                }
-            }
         }
     }
     
