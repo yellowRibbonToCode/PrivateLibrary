@@ -64,6 +64,7 @@ extension BookView {
         let userId = Auth.auth().currentUser!.uid
         @Published var bookList: [ViewModel] = []
         var reportarr : [String] = []
+        var blockArr : [String] = []
         
         func loadBooks(completionHandler: @escaping (ViewModel) -> Void) {
             self.bookList = []
@@ -76,9 +77,9 @@ extension BookView {
                         return
                     }
                     for book in books {
-                        
                         self.reportarr = book.get("report") as? [String] ?? []
-                        if (self.reportarr.count  >= 2) { continue}
+                        self.blockArr = book.get("blocks") as? [String] ?? []
+                        if (self.reportarr.count  >= 2 || self.blockArr.contains(self.userId)) { continue}
                         func getImage(bookuid : String) {
                             if let imageData = UserDefaults.standard.data(forKey: bookuid) {
                                 let bookImage = Image(uiImage: UIImage(data: imageData)!)

@@ -137,7 +137,7 @@ struct detailTop : View {
             }
             .confirmationDialog("차단하시겠습니까?", isPresented: $blockConfirm, titleVisibility: .visible) {
                 Button("네", role: .destructive) {
-//                    selectedItem = 1
+                    updateBlock()
                 }
                 Button("아니오", role:.cancel) {
                 }
@@ -171,9 +171,22 @@ struct detailTop : View {
                 print("Document successfully updated")
             }
         }
-        
     }
     
+    private func updateBlock() {
+        db = Firestore.firestore()
+        let doc = db.collection("libData").document(libModel.id)
+        doc.updateData([
+            "blocks" : FieldValue.arrayUnion([userid])
+        ])
+        { err in
+            if let err = err {
+                print("Error updating document: \(err)")
+            } else {
+                print("Document successfully updated")
+            }
+        }
+    }
 }
 
 
