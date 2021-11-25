@@ -26,27 +26,6 @@ struct EditView: View {
     let storage = Storage.storage()
     let userid = Auth.auth().currentUser!.uid
     
-    fileprivate func logoutButton() -> some View {
-        return Button {
-            do {
-                try Auth.auth().signOut()
-                print("success log out")
-                UserDefaults.standard.removeObject(forKey: "id")
-                UserDefaults.standard.removeObject(forKey: "password")
-                UserDefaults.standard.removeObject(forKey: "islogin")
-                self.presentationMode.wrappedValue.dismiss()
-                self.loging.wrappedValue.toggle()
-            }
-            catch let signOutError as NSError {
-                print("Error signing out: %@", signOutError)
-            }
-        } label: {
-            Text("로그아웃")
-                .foregroundColor(.red)
-                .font(Font.custom("S-CoreDream-5Medium", size: 15))
-        }
-    }
-    
     fileprivate func finishEdit() -> some View {
         return Button {
             if changedImage != nil {
