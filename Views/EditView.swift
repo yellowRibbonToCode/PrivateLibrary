@@ -19,11 +19,66 @@ struct EditView: View {
     @State private var registerError = ""
     @State private var showingActionSheet = false
     @State private var removeProfile = false
+    @State private var showDialog = false
     @Environment(\.loginStatus) var loging
 
     
     let storage = Storage.storage()
     let userid = Auth.auth().currentUser!.uid
+    
+    fileprivate func logoutButton() -> some View {
+        return Button {
+            do {
+                try Auth.auth().signOut()
+                print("success log out")
+                UserDefaults.standard.removeObject(forKey: "id")
+                UserDefaults.standard.removeObject(forKey: "password")
+                UserDefaults.standard.removeObject(forKey: "islogin")
+                self.presentationMode.wrappedValue.dismiss()
+                self.loging.wrappedValue.toggle()
+            }
+            catch let signOutError as NSError {
+                print("Error signing out: %@", signOutError)
+            }
+        } label: {
+            Text("로그아웃")
+                .foregroundColor(.red)
+                .font(Font.custom("S-CoreDream-5Medium", size: 15))
+        }
+    }
+    
+    fileprivate func finishEdit() -> some View {
+        return Button {
+            if changedImage != nil {
+                if removeProfile == true {
+                    removeImage()
+                } else {
+                    editProfile()
+                }
+                profile.image = changedImage!
+            }
+            if changedName != "" {
+                profile.name = changedName
+                self.editName { isDone in
+                    if isDone {
+                        self.presentationMode.wrappedValue.dismiss()
+                    }
+                }
+            }
+            if changedName == "" {
+                self.presentationMode.wrappedValue.dismiss()
+            }
+        } label: {
+            Text("저장")
+                .foregroundColor(.white)
+                .font(Font.custom("S-CoreDream-5Medium", size: 15))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 20)
+                        .stroke(Color.white, lineWidth: 1)
+                        .frame(width: 134, height: 36)
+                )
+        }
+    }
     
     var body: some View {
         NavigationView {
@@ -67,30 +122,8 @@ struct EditView: View {
                     }
                     .padding(.top, 30)
                     .padding(.bottom, 27)
-                    
-                    Button {
-                        do {
-                            try Auth.auth().signOut()
-                            print("success log out")
-                            UserDefaults.standard.removeObject(forKey: "id")
-                            UserDefaults.standard.removeObject(forKey: "password")
-                            UserDefaults.standard.removeObject(forKey: "islogin")
-                            self.presentationMode.wrappedValue.dismiss()
-                            self.loging.wrappedValue.toggle()
-                        }
-                        catch let signOutError as NSError {
-                            print("Error signing out: %@", signOutError)
-                        }
-                    } label: {
-                        Text("로그아웃")
-                            .foregroundColor(.white)
-                            .font(Font.custom("S-CoreDream-5Medium", size: 15))
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 20)
-                                    .stroke(Color.white, lineWidth: 1)
-                                    .frame(width: 134, height: 36)
-                            )
-                    }
+                    finishEdit()
+                   
 
                     Text(registerError)
                         .padding(.top, 20)
@@ -107,31 +140,33 @@ struct EditView: View {
                         }
                     }
                     ToolbarItem (placement: .navigationBarTrailing) {
-                        Button {
-                            if changedImage != nil {
-                                if removeProfile == true {
-                                    removeImage()
-                                } else {
-                                    editProfile()
-                                }
-                                profile.image = changedImage!
-                            }
-                            if changedName != "" {
-                                profile.name = changedName
-                                self.editName { isDone in
-                                    if isDone {
-                                        self.presentationMode.wrappedValue.dismiss()
-                                    }
-                                }
-                            }
-                            if changedName == "" {
-                                self.presentationMode.wrappedValue.dismiss()
-                            }
+                        Button  {
+                            showDialog = true
                         } label: {
-                            Image("checkbox-w")
-                                .resizable()
-                                .frame(width: 17, height: 17)
+                            Image(systemName: "ellipsis")
+                                .foregroundColor(.white)
                         }
+                        .confirmationDialog("", isPresented: $showDialog) {
+                            Button("로그아웃", role: .destructive) {
+                                do {
+                                    try Auth.auth().signOut()
+                                    print("success log out")
+                                    UserDefaults.standard.removeObject(forKey: "id")
+                                    UserDefaults.standard.removeObject(forKey: "password")
+                                    UserDefaults.standard.removeObject(forKey: "islogin")
+                                    self.presentationMode.wrappedValue.dismiss()
+                                    self.loging.wrappedValue.toggle()
+                                }
+                                catch let signOutError as NSError {
+                                    print("Error signing out: %@", signOutError)
+                                }
+                            }
+                            Button("회원탈퇴", role: .destructive) {}
+                            Button("취소", role:.cancel) {}
+                        }
+                        
+                        
+//                        logoutButton()
                     }
                 }
             }
