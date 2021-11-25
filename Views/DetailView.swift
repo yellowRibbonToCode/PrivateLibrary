@@ -193,6 +193,7 @@ struct detailTop : View {
 struct profileDetailTop : View {
     var libModel: ViewModel
     @State var showAdd = false
+    @State var showConfirm = false
     private let db = Firestore.firestore()
     let storage = Storage.storage()
     
@@ -203,24 +204,24 @@ struct profileDetailTop : View {
         HStack {
             Text(libModel.bookname)
             Spacer()
-            Menu {
-                Button(action: {
+            Button(action: {
+                showConfirm = true
+            }, label: {
+                Image(systemName: "ellipsis")
+                    .foregroundColor(.mainBlue)
+            })
+            
+            .confirmationDialog("", isPresented: $showConfirm) {
+                Button("게시글 수정") {
                     self.showAdd.toggle()
-                }) {
-                        Label("Edit", systemImage: "pencil")
-                    }
-                Button(action: {
+                }
+                Button("게시글 삭제", role: .destructive) {
                     deletedb()
                     self.presentationMode.wrappedValue.dismiss()
-                    
-                }){
-                    Label("Delete", systemImage: "trash.fill")
                 }
-            } label: {
-                Image(systemName: "ellipsis")
+                Button("취소", role:.cancel) {
+                }
             }
-            .foregroundColor(.mainBlue)
-            
         }
         .padding(EdgeInsets(top: 36, leading: 16, bottom: 10, trailing: 32))
         .font(Font.custom("S-CoreDream-6Bold", size: 33))
