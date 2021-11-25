@@ -44,7 +44,9 @@ struct ForgotView: View {
     
     var body: some View {
         if sendSuccess{
-            LoginView()
+            VStack{}
+            .onAppear(){
+                self.presentationMode.wrappedValue.dismiss()}
         }
         else {
             VStack (spacing: 0){
