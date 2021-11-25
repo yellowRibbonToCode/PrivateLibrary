@@ -161,7 +161,7 @@ struct EditView: View {
                                     print("Error signing out: %@", signOutError)
                                 }
                             }
-                            Button("회원탈퇴", role: .destructive) {}
+//                            Button("회원탈퇴", role: .destructive) {}
                             Button("취소", role:.cancel) {}
                         }
                         
