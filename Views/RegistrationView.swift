@@ -17,6 +17,8 @@ struct RegistrationView: View {
     @State var username: String = ""
     @State var registerError: String?
     @State var registerSuccess: Bool = false
+    @State var privacyAgree: Bool = false
+
     @State var uid: String = ""
     
     fileprivate func emailTextField() -> some View {
@@ -100,6 +102,26 @@ struct RegistrationView: View {
     }
     
     
+    fileprivate func privacyButton() -> some View {
+        return(
+            HStack{
+                Button(action: {
+                    
+                    self.privacyAgree.toggle()
+                    
+                }) {
+                    Image(systemName: privacyAgree ? "rectangle.fill" : "rectangle")
+                        .resizable()
+                        .frame(width: 30, height: 30)
+                        .foregroundColor(.mainBlue)
+                }
+                
+                NavigationLink(destination: Privacy(privacyAgree: $privacyAgree)) {
+                    Text("개인정보 처리방침 및 이용약관에 동의합니다 >")
+                }
+            }
+        )
+    }
     
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
@@ -122,10 +144,13 @@ struct RegistrationView: View {
                     .padding(.top, 21)
                 passwordConfirmTextField()
                     .padding(.top, 21)
+                privacyButton()
+                    .padding(.top, 21)
                 registerButton()
-                    .padding(.top, 62)
+                    .padding(.top, 21)
                 Text(registerError ?? " ")
                     .foregroundColor(.red)
+                    .padding()
             }
             .padding()
             
@@ -175,7 +200,7 @@ struct RegistrationView: View {
     }
     func signUp(){
         registerError = " "
-        if password == passwordConfirm {
+        if ((password == passwordConfirm) && privacyAgree) {
             self.duplicateName() { isNotDup in
                 if (isNotDup){
                     Auth.auth().createUser(withEmail: self.email, password: self.password) { (user, error) in
@@ -193,7 +218,12 @@ struct RegistrationView: View {
             }
         }
         else {
+            if password != passwordConfirm {
             registerError = "비밀번호가 일치하지 않습니다."
+            }
+            else {
+                registerError = "개인정보 처리방침 및 이용약관에 동의가 필요합니다."
+            }
         }
     }
 }

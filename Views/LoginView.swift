@@ -132,6 +132,7 @@ struct LoginView: View {
                             .font(.footnote)
                             .foregroundColor(.red)
                             .multilineTextAlignment(.center)
+                            .padding()
                     }
                     .padding(.bottom,140)
                 }
