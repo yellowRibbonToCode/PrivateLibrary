@@ -150,6 +150,7 @@ struct RegistrationView: View {
                     .padding(.top, 21)
                 Text(registerError ?? " ")
                     .foregroundColor(.red)
+                    .padding()
             }
             .padding()
             
