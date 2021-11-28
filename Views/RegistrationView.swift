@@ -111,6 +111,8 @@ struct RegistrationView: View {
                     
                 }) {
                     Image(systemName: privacyAgree ? "rectangle.fill" : "rectangle")
+                        .resizable()
+                        .frame(width: 30, height: 30)
                         .foregroundColor(.mainBlue)
                 }
                 
