@@ -20,3 +20,4 @@ https://github.com/yellowRibbonToCode/PrivateLibrary/
 ## 2021-11-24 2차 앱등록 심사 접수 완료
 ## 2021-11-27 2차 심사 통과 못합
 ## 2021-11-28 3차 앱등록 심사 접수 완료
+## 2021-11-30 앱 등록 완료
