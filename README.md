@@ -17,9 +17,9 @@
   <br>
   <img width="512px" src="https://user-images.githubusercontent.com/42266439/144413552-4b71df23-44d5-483b-8c7e-c77920843316.png" alt="App Preview" />
 
+  <h3> 동네북에서 읽은 것을 기록하고 동네 이웃들과 공유해보세요 ! <br>기능 개선 및 추가를 위한 Issue 언제나 환영합니다.</h3>
+
 </div>
-
-
 
 
 <!-- ## Wiki
