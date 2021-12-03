@@ -26,7 +26,8 @@ struct LoginView: View {
     @State var password: String = ""
     @State private var loginSuccess: Bool = false
     @State var loginError: String?
-    
+    @State var authEmailButton: Bool = false
+    @State var sendEmail: Bool = false
     
     fileprivate func emailTextField() -> some View {
         return HStack {
@@ -128,11 +129,20 @@ struct LoginView: View {
                         }
                         .font(Font.custom("S-CoreDream-5Medium", size: 15))
                         
-                        Text(loginError ?? " ")
-                            .font(.footnote)
-                            .foregroundColor(.red)
-                            .multilineTextAlignment(.center)
-                            .padding()
+                        HStack {
+                            Text(loginError ?? " ")
+                                .foregroundColor(.red)
+                                .multilineTextAlignment(.center)
+                                .padding()
+                            if authEmailButton {
+                                Button {
+                                    sendAuthEmail()
+                                } label: {
+                                    Text("재전송")
+                                }
+                            }
+                        }
+                        .font(.footnote)
                     }
                     .padding(.bottom,140)
                 }
@@ -140,12 +150,24 @@ struct LoginView: View {
             .onAppear {
                 autoLogin()
             }
+            .alert(isPresented: $sendEmail) {
+                Alert(title: Text("인증 이메일이 전송되었습니다."), message: Text(""), dismissButton: .default(Text("확인"), action: {
+                    sendEmail = false
+                }))
+            }
         }
     }
     
     func login(){
+        Auth.auth().languageCode = "ko"
         Auth.auth().signIn(withEmail: self.username, password: self.password) { (user, error) in
+            
             if user != nil{
+                if Auth.auth().currentUser?.isEmailVerified == false {
+                    loginError = "이메일 인증이 필요합니다."
+                    authEmailButton = true
+                    return
+                }
                 UserDefaults.standard.set(self.username, forKey: "id")
                 UserDefaults.standard.set(self.password, forKey: "password")
                 UserDefaults.standard.set(true, forKey: "islogin")
@@ -154,23 +176,30 @@ struct LoginView: View {
                 loginSuccess = true
             }else{
                 loginError = error?.localizedDescription
+                authEmailButton = false
             }
         }
     }
     
+    func sendAuthEmail() {
+        Auth.auth().currentUser?.sendEmailVerification(completion: { error in
+            if (error == nil)
+            {
+                loginError = ""
+                authEmailButton = false
+                sendEmail = true
+            }
+        })
+    }
+    
     func autoLogin() {
         loginError = " "
-        
         if UserDefaults.standard.bool(forKey: "islogin")
         {
-            loginSuccess = true
+            if ((Auth.auth().currentUser?.isEmailVerified) != nil) {
+                loginSuccess = true
+            }
         }
-//        if (UserDefaults.standard.string(forKey: "id") != "" && UserDefaults.standard.string(forKey: "id") != nil)
-//        {
-//            self.username = UserDefaults.standard.string(forKey: "id")!
-//            self.password = UserDefaults.standard.string(forKey: "password")!
-//            login()
-//        }
     }
 }
 

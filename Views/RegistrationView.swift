@@ -18,12 +18,13 @@ struct RegistrationView: View {
     @State var registerError: String?
     @State var registerSuccess: Bool = false
     @State var privacyAgree: Bool = false
-
+    
     @State var uid: String = ""
+    @State var sendEmail: Bool = false
     
     fileprivate func emailTextField() -> some View {
         return TextField("이메일 주소", text: $email)
-
+        
             .font(Font.custom("S-CoreDream-2ExtraLight", size: 13))
             .padding()
             .disableAutocorrection(true)
@@ -40,7 +41,7 @@ struct RegistrationView: View {
     fileprivate func usernameTextField() -> some View {
         return TextField("이름", text: $username)
             .font(Font.custom("S-CoreDream-2ExtraLight", size: 13))
-
+        
             .padding()
             .disableAutocorrection(true)
             .keyboardType(.emailAddress)
@@ -83,7 +84,7 @@ struct RegistrationView: View {
                     .stroke(Color.mainBlue, lineWidth: 1)
             )
     }
-        
+    
     
     
     fileprivate func registerButton() -> some View {
@@ -132,7 +133,7 @@ struct RegistrationView: View {
                 self.presentationMode.wrappedValue.dismiss()}
         }
         else {
-
+            
             VStack (spacing: 0) {
                 Image("loginIcon")
                     .padding()
@@ -161,8 +162,13 @@ struct RegistrationView: View {
                 Image(systemName: "arrow.left")
                     .foregroundColor(.mainBlue)
             })
-
             
+            
+            .alert(isPresented: $sendEmail) {
+                Alert(title: Text("인증 이메일이 전송되었습니다."), message: Text(""), dismissButton: .default(Text("확인"), action: {
+                    registerSuccess = true
+                }))
+            }
         }
     }
     
@@ -205,10 +211,10 @@ struct RegistrationView: View {
                 if (isNotDup){
                     Auth.auth().createUser(withEmail: self.email, password: self.password) { (user, error) in
                         if(user != nil){
-                            print(email)
+                            Auth.auth().currentUser?.sendEmailVerification()
                             uid = user?.user.uid ?? " "
                             addUsername()
-                            registerSuccess = true
+                            sendEmail = true
                         }else{
                             registerError = error?.localizedDescription
                             print("register failed")
@@ -219,7 +225,7 @@ struct RegistrationView: View {
         }
         else {
             if password != passwordConfirm {
-            registerError = "비밀번호가 일치하지 않습니다."
+                registerError = "비밀번호가 일치하지 않습니다."
             }
             else {
                 registerError = "개인정보 처리방침 및 이용약관에 동의가 필요합니다."
