@@ -162,7 +162,7 @@ struct EditBookInfoView: View {
                 // Bottom
                 
                 HStack {
-                    Text("Username의 시선")
+                    Text("\(libModel.name)의 시선")
                         .font(Font.custom("S-CoreDream-6Bold", size: 16))
                         .foregroundColor(.mainBlue)
                     Spacer()
