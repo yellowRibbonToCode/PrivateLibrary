@@ -49,25 +49,29 @@ struct AddBookInfoView: View {
     @State var endingOffsetY: CGFloat = 0
     
     @FocusState private var nameIsFocused: Bool
-
+    
     @State private var image: UIImage?
     
-    private func setuserdb(doc: DocumentReference) {
+    private func getUsername() {
         db.collection("users").document(userId).getDocument { (document, err) in
             if let document = document {
                 
                 username = document.get("name") as! String
                 email = document.get("email") as! String
-                doc.setData([
-                    "username": username,
-                    "useremail": email
-                ], merge: true)
             } else {
                 if let err = err {
-                    print("Error getting documents: \(err)")
+                    print("Error getting user documents: \(err)")
                 }
             }
         }
+    }
+    
+    private func setuserdb(doc: DocumentReference) {
+
+        doc.setData([
+            "username": username,
+            "useremail": email
+        ], merge: true)
     }
     
     private func setdb() {
@@ -96,11 +100,11 @@ struct AddBookInfoView: View {
                 if let thisimage = image{
                     upload_Image(image: thisimage, docID: doc.documentID)
                 }
-//                else {
-//                    let randInt = Int.random(in: 0...13)
-//                    let thisimage = UIImage(named:RandBookImage(rawValue: randInt)!.toString())
-//                    upload_Image(image: thisimage!, docID: doc.documentID)
-//                }
+                //                else {
+                //                    let randInt = Int.random(in: 0...13)
+                //                    let thisimage = UIImage(named:RandBookImage(rawValue: randInt)!.toString())
+                //                    upload_Image(image: thisimage!, docID: doc.documentID)
+                //                }
                 
                 
                 //                setSuccess = true
@@ -141,35 +145,35 @@ struct AddBookInfoView: View {
     }
     
     var body: some View {
-     
+        
         VStack {
             ZStack(alignment: .topLeading){
-            Button(action: {
-                self.isShowPhotoLibrary = true
-            }) {
-                if image != nil {
-                    Image(uiImage: image!)
-                        .resizable()
-                        .frame(width: UIScreen.main.bounds.width,height: UIScreen.main.bounds.height * 0.48)
+                Button(action: {
+                    self.isShowPhotoLibrary = true
+                }) {
+                    if image != nil {
+                        Image(uiImage: image!)
+                            .resizable()
+                            .frame(width: UIScreen.main.bounds.width,height: UIScreen.main.bounds.height * 0.48)
+                    }
+                    else {
+                        
+                        Image("plus-w")
+                            .frame(width: UIScreen.main.bounds.width,height: UIScreen.main.bounds.height * 0.48)
+                            .background(Color.black.opacity(0.29))
+                        
+                    }
                 }
-                else {
-                    
-                    Image("plus-w")
-                        .frame(width: UIScreen.main.bounds.width,height: UIScreen.main.bounds.height * 0.48)
-                        .background(Color.black.opacity(0.29))
-                    
+                Button(action: {
+                    self.presentationMode.wrappedValue.dismiss()
+                }) {
+                    Image(systemName: "arrow.left")
+                        .aspectRatio(contentMode: .fit)
+                        .foregroundColor(.white)
+                        .font(.system(size: 25))
+                        .frame(width: 70, height: 70)
                 }
-            }
-                            Button(action: {
-                                self.presentationMode.wrappedValue.dismiss()
-                            }) {
-                                Image(systemName: "arrow.left")
-                                    .aspectRatio(contentMode: .fit)
-                                    .foregroundColor(.white)
-                                    .font(.system(size: 25))
-                                    .frame(width: 70, height: 70)
-                            }
-                            .padding(.top, 16)
+                .padding(.top, 16)
             }
             
             VStack(alignment: .leading, spacing: 0){
@@ -179,31 +183,31 @@ struct AddBookInfoView: View {
                     .font(Font.custom("S-CoreDream-6Bold", size: 33))
                 HorizontalLine(color: Color(red: 0.725, green: 0.725, blue: 0.725, opacity: 1))
                     .padding(.leading, 16).offset(y: -10)
-
+                
                 
                 
                 // Middle
                 
                 VStack (spacing: 0) {
                     VStack(alignment: .leading){
-                    HStack {
-                        TextField("작가", text: $author)
-                            .font(Font.custom("S-CoreDream-6Bold", size: 20))
-                        Spacer()
-                    }
-                    HorizontalLine(color: Color(red: 0.725, green: 0.725, blue: 0.725, opacity: 1))
-                    .offset(y: -10)}
+                        HStack {
+                            TextField("작가", text: $author)
+                                .font(Font.custom("S-CoreDream-6Bold", size: 20))
+                            Spacer()
+                        }
+                        HorizontalLine(color: Color(red: 0.725, green: 0.725, blue: 0.725, opacity: 1))
+                        .offset(y: -10)}
                     HStack {
                         Image("doublequoteleft")
-                            
+                        
                         VStack{
-                        TextField("제목을 입력해 주세요.", text: $title)
-                            .font(Font.custom("S-CoreDream-6Bold", size: 18))
-                            .padding(.horizontal, 34).multilineTextAlignment(.center)
-                        HorizontalLine(color: Color(red: 0.725, green: 0.725, blue: 0.725, opacity: 1))
-                        .padding(.leading, 16).offset(y: -10)}
+                            TextField("제목을 입력해 주세요.", text: $title)
+                                .font(Font.custom("S-CoreDream-6Bold", size: 18))
+                                .padding(.horizontal, 34).multilineTextAlignment(.center)
+                            HorizontalLine(color: Color(red: 0.725, green: 0.725, blue: 0.725, opacity: 1))
+                            .padding(.leading, 16).offset(y: -10)}
                         Image("doublequoterightbottom")
-                            
+                        
                     }                .padding(.horizontal, 10)
                     
                         .frame(height: UIScreen.main.bounds.height / 9)
@@ -214,7 +218,7 @@ struct AddBookInfoView: View {
                 // Bottom
                 
                 HStack {
-                    Text("Username의 시선")
+                    Text("\(username)의 시선")
                         .font(Font.custom("S-CoreDream-6Bold", size: 16))
                         .foregroundColor(.mainBlue)
                     Spacer()
@@ -224,24 +228,24 @@ struct AddBookInfoView: View {
                     ZStack(alignment: .topLeading) {
                         if content.isEmpty {
                             Text("내용을 입력해 주세요.")
-                        .font(Font.custom("S-CoreDream-3Light", size: 15))
-                        .padding()
-                        .padding(EdgeInsets(top: 10, leading: 20, bottom: 16, trailing: 16))
-                        .foregroundColor(Color.gray)
+                                .font(Font.custom("S-CoreDream-3Light", size: 15))
+                                .padding()
+                                .padding(EdgeInsets(top: 10, leading: 20, bottom: 16, trailing: 16))
+                                .foregroundColor(Color.gray)
                         }
-                TextEditor(text: $content)
-                    .font(Font.custom("S-CoreDream-3Light", size: 15))
-                    .padding()
-                    .lineSpacing(3)
-                    .background(Color(red: 0.745, green: 0.745, blue: 0.745, opacity: 0.15))
-                    .clipShape(contentRounded())
-                    .frame(height: UIScreen.main.bounds.height / 2)
-                    .padding(EdgeInsets(top: 0, leading: 16, bottom: 16, trailing: 16))
-                }          
+                        TextEditor(text: $content)
+                            .font(Font.custom("S-CoreDream-3Light", size: 15))
+                            .padding()
+                            .lineSpacing(3)
+                            .background(Color(red: 0.745, green: 0.745, blue: 0.745, opacity: 0.15))
+                            .clipShape(contentRounded())
+                            .frame(height: UIScreen.main.bounds.height / 2)
+                            .padding(EdgeInsets(top: 0, leading: 16, bottom: 16, trailing: 16))
+                    }
                     Button(action: {
                         setdb()
                         self.presentationMode.wrappedValue.dismiss()
-
+                        
                     }) {
                         Text("작성 완료")
                             .frame(width: UIScreen.main.bounds.width / 1.7, height: 35)
@@ -255,7 +259,7 @@ struct AddBookInfoView: View {
                             )
                     }
                     .padding()
-
+                    
                 }
             }
             .background(Color.white)
@@ -284,11 +288,11 @@ struct AddBookInfoView: View {
             .onTapGesture {
                 nameIsFocused = false
             }
-                        
+            
         }
         .disableAutocorrection(true)
         .focused($nameIsFocused)
-
+        
         .sheet(isPresented: $isShowPhotoLibrary) {
             ImagePicker(sourceType: .photoLibrary, selectedImage: self.$image)
                 .padding()
@@ -296,20 +300,22 @@ struct AddBookInfoView: View {
         
         
         .edgesIgnoringSafeArea(.all)
-        
+        .onAppear{
+            getUsername()
+        }
         
     }
     
 }
 
 struct HorizontalLineShape: Shape {
-
+    
     func path(in rect: CGRect) -> Path {
-
+        
         let fill = CGRect(x: 0, y: 0, width: rect.size.width, height: rect.size.height)
         var path = Path()
         path.addRoundedRect(in: fill, cornerSize: CGSize(width: 2, height: 2))
-
+        
         return path
     }
 }
@@ -317,12 +323,12 @@ struct HorizontalLineShape: Shape {
 struct HorizontalLine: View {
     private var color: Color? = nil
     private var height: CGFloat = 1.0
-
+    
     init(color: Color, height: CGFloat = 1.0) {
         self.color = color
         self.height = height
     }
-
+    
     var body: some View {
         HorizontalLineShape().fill(self.color!).frame(minWidth: 0, maxWidth: UIScreen.main.bounds.width / 1.5, minHeight: height, maxHeight: height)
     }
