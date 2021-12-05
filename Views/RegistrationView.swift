@@ -69,7 +69,6 @@ struct RegistrationView: View {
             )
     }
     
-    
     fileprivate func passwordConfirmTextField() -> some View {
         return SecureField("비밀번호 확인", text: $passwordConfirm)
             .font(Font.custom("S-CoreDream-2ExtraLight", size: 13))
@@ -85,8 +84,6 @@ struct RegistrationView: View {
             )
     }
     
-    
-    
     fileprivate func registerButton() -> some View {
         return Button(action: {signUp()}) {
             Text("회원가입")
@@ -101,7 +98,6 @@ struct RegistrationView: View {
                 .cornerRadius(20)
         }
     }
-    
     
     fileprivate func privacyButton() -> some View {
         return(
@@ -133,42 +129,46 @@ struct RegistrationView: View {
                 self.presentationMode.wrappedValue.dismiss()}
         }
         else {
-            
-            VStack (spacing: 0) {
-                Image("loginIcon")
-                    .padding()
-                emailTextField()
-                    .padding(.top, 30)
-                usernameTextField()
-                    .padding(.top, 21)
-                passwordTextField()
-                    .padding(.top, 21)
-                passwordConfirmTextField()
-                    .padding(.top, 21)
-                privacyButton()
-                    .padding(.top, 21)
-                registerButton()
-                    .padding(.top, 21)
-                Text(registerError ?? " ")
-                    .foregroundColor(.red)
-                    .padding()
+            ScrollView {
+                VStack (spacing: 0) {
+                    Image("loginIcon")
+                        .padding()
+                    emailTextField()
+                        .padding(.top, 30)
+                    usernameTextField()
+                        .padding(.top, 21)
+                    passwordTextField()
+                        .padding(.top, 21)
+                    passwordConfirmTextField()
+                        .padding(.top, 21)
+                    privacyButton()
+                        .padding(.top, 21)
+                    registerButton()
+                        .padding(.top, 21)
+                    Text(registerError ?? " ")
+                        .foregroundColor(.red)
+                        .padding()
+                }
+                .padding()
+                
+                .navigationBarBackButtonHidden(true)
+                .navigationBarItems(leading: Button(action: {
+                    self.presentationMode.wrappedValue.dismiss()
+                }){
+                    Image(systemName: "arrow.left")
+                        .foregroundColor(.mainBlue)
+                })
+                
+                .alert(isPresented: $sendEmail) {
+                    Alert(title: Text("인증 이메일이 전송되었습니다."), message: Text(""), dismissButton: .default(Text("확인"), action: {
+                        registerSuccess = true
+                    }))
+                }
             }
-            .padding()
-            
-            .navigationBarBackButtonHidden(true)
-            .navigationBarItems(leading: Button(action: {
-                self.presentationMode.wrappedValue.dismiss()
-            }){
-                Image(systemName: "arrow.left")
-                    .foregroundColor(.mainBlue)
-            })
-            
-            
-            .alert(isPresented: $sendEmail) {
-                Alert(title: Text("인증 이메일이 전송되었습니다."), message: Text(""), dismissButton: .default(Text("확인"), action: {
-                    registerSuccess = true
-                }))
+            .onTapGesture {
+                UIApplication.shared.closeKeyboard()
             }
+
         }
     }
     
