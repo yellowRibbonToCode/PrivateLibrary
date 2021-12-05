@@ -17,39 +17,27 @@ import FirebaseStorage
 struct BookView: View {
     var Views = ["Books", "NeighborBooks"]
     let columns: [GridItem] = Array(repeating: GridItem(), count: 2)
-    @ObservedObject var books = BookLists()
+    @ObservedObject var books = getBookList()
     @State var booklist = [ViewModel]()
     
     var body: some View {
         VStack {
-            if !booklist.isEmpty {
+            if !books.bookList.isEmpty {
                 ScrollView(.vertical) {
                     LazyVGrid(columns: columns) {
-                        ForEach (booklist.sorted { $0.created!.compare($1.created!) == .orderedDescending }) { book in
+                        ForEach (books.bookList.sorted { $0.created!.compare($1.created!) == .orderedDescending }) { book in
                             NavigationLink(destination: DetailView(libModel: book)) {
                                 ImageRow(libModel: book)
                             }
                         }
                     }
-                    .padding()
                 }
             }
             else {
                 ProgressView()
                     .tint(.mainBlue)
             }
-            
         }
-        
-        .onAppear(perform: {
-            booklist = []
-            books.loadBooks(){
-                Book in
-                booklist.append(Book)
-            }
-            print("load books")
-        })
-
     }
 }
 
@@ -59,96 +47,64 @@ struct BookView_Previews: PreviewProvider {
     }
 }
 
-extension BookView {
-    class BookLists: ObservableObject {
-        let userId = Auth.auth().currentUser!.uid
-        @Published var bookList: [ViewModel] = []
-        var reportarr : [String] = []
-        var blockArr : [String] = []
-        
-        func loadBooks(completionHandler: @escaping (ViewModel) -> Void) {
-            self.bookList = []
-            db.collection("libData").getDocuments() { books, err in
-                if let err = err {
-                    print("Error getting documents: \(err)")
-                } else {
-                    guard let books = books?.documents else {
-                        print("books is nil")
-                        return
-                    }
-                    for book in books {
-                        self.reportarr = book.get("report") as? [String] ?? []
-                        self.blockArr = book.get("blocks") as? [String] ?? []
-                        if (self.reportarr.count  >= 2 || self.blockArr.contains(self.userId)) { continue}
-                        func getImage(bookuid : String) {
-                            if let imageData = UserDefaults.standard.data(forKey: bookuid) {
-                                let bookImage = Image(uiImage: UIImage(data: imageData)!)
-                                completionHandler(ViewModel(
-                                    id: book.documentID,
-                                    useruid: book.get("userid") as! String,
-                                    name: book.get("username") as! String,
-                                    email: book.get("useremail") as! String,
-                                    bookname: book.get("bookname") as! String,
-                                    author: book.get("author") as! String,
-                                    title: book.get("title") as! String,
-                                    content: book.get("content") as! String,
-                                    created: (book.get("created") as! Timestamp).dateValue(),
-                                    edited: (book.get("edited") as! Timestamp).dateValue(),
-                                    price: book.get("price") as? Int,
-                                    exchange: (book.get("exchange") as! Bool),
-                                    sell: (book.get("sell") as! Bool),
-                                    image: bookImage))
-                            } else {
-                                Storage.storage().reference().child("images/books/\(bookuid)").getData(maxSize: 100 * 200 * 200) {
-                                    (imageData, err) in
-                                    if let _ = err as NSError? {
-                                        let randInt = Int.random(in: 0...13)
-                                        let bookImage = Image(RandBookImage(rawValue: randInt)!.toString())
-                                        completionHandler(ViewModel(
-                                            id: book.documentID,
-                                            useruid: book.get("userid") as! String,
-                                            name: book.get("username") as! String,
-                                            email: book.get("useremail") as! String,
-                                            bookname: book.get("bookname") as! String,
-                                            author: book.get("author") as! String,
-                                            title: book.get("title") as! String,
-                                            content: book.get("content") as! String,
-                                            created: (book.get("created") as! Timestamp).dateValue(),
-                                            edited: (book.get("edited") as! Timestamp).dateValue(),
-                                            price: book.get("price") as? Int,
-                                            exchange: (book.get("exchange") as! Bool),
-                                            sell: (book.get("sell") as! Bool),
-                                            image: bookImage))
-                                    }
-                                    else {
-                                        let randInt = Int.random(in: 0...13)
-                                        var bookImage = Image(RandBookImage(rawValue: randInt)!.toString())
-                                        if let imageData = imageData {
-                                            bookImage = Image(uiImage: UIImage(data: imageData)!)
-                                        }
-                                        UserDefaults.standard.set(imageData, forKey: bookuid)
-                                        completionHandler(ViewModel(
-                                            id: book.documentID,
-                                            useruid: book.get("userid") as! String,
-                                            name: book.get("username") as! String,
-                                            email: book.get("useremail") as! String,
-                                            bookname: book.get("bookname") as! String,
-                                            author: book.get("author") as! String,
-                                            title: book.get("title") as! String,
-                                            content: book.get("content") as! String,
-                                            created: (book.get("created") as! Timestamp).dateValue(),
-                                            edited: (book.get("edited") as! Timestamp).dateValue(),
-                                            price: book.get("price") as? Int,
-                                            exchange: (book.get("exchange") as! Bool),
-                                            sell: (book.get("sell") as! Bool),
-                                            image: bookImage))
-                                    }
-                                }
-                            }
-                        }
-                        getImage(bookuid: book.documentID)
-                    }
+class GetBookImage: ObservableObject {
+    @Published var bookImage = Image(systemName: "book")
+    func getImage(bookuid : String){
+        if let imageData = UserDefaults.standard.data(forKey: bookuid) {
+            self.bookImage = Image(uiImage: UIImage(data: imageData)!)
+        } else {
+            Storage.storage().reference().child("images/books/\(bookuid)").getData(maxSize: 100 * 200 * 200) {
+                (imageData, err) in
+                if let _ = err as NSError? {
+                    let randInt = Int.random(in: 0...13)
+                    self.bookImage = Image(RandBookImage(rawValue: randInt)!.toString())
                 }
+                else {
+                    let randInt = Int.random(in: 0...13)
+                    self.bookImage = Image(RandBookImage(rawValue: randInt)!.toString())
+                    if let imageData = imageData {
+                        self.bookImage = Image(uiImage: UIImage(data: imageData)!)
+                    }
+                    UserDefaults.standard.set(imageData, forKey: bookuid)
+                }
+            }
+        }
+    }
+}
+
+class getBookList: ObservableObject {
+    @Published var bookList: [ViewModel] = []
+    @ObservedObject var getBookImage = GetBookImage()
+    
+    init () {
+        loadBookList()
+    }
+    
+    func loadBookList() {
+        db.collection("libData").addSnapshotListener {
+            (snapshot, err) in
+            guard let documents = snapshot?.documents else {
+                print("Error fetching snapshots: \(err!)")
+                return
+            }
+            self.bookList = documents.map{ QueryDocumentSnapshot in
+                let data = QueryDocumentSnapshot.data()
+                let id = QueryDocumentSnapshot.documentID
+                let useruid = data["userid"] as? String ?? ""
+                let name = data["username"] as? String ?? ""
+                let email = data["useremail"] as? String ?? ""
+                let bookname = data["bookname"] as? String ?? ""
+                let author = data["author"] as? String ?? ""
+                let title = data["title"] as? String ?? ""
+                let content = data["content"] as? String ?? ""
+                let created = (data["created"] as? Timestamp)?.dateValue()
+                let edited = (data["edited"] as? Timestamp)?.dateValue()
+                let price = data["price"] as? Int
+                let exchange = data["exchange"] as? Bool ?? false
+                let sell = data["sell"] as? Bool ?? false
+                self.getBookImage.getImage(bookuid: id)
+                let bookimage = self.getBookImage.bookImage
+                return ViewModel(id: id, useruid: useruid, name: name, email: email, bookname: bookname, author: author, title: title, content: content, created: created, edited: edited, price: price, exchange: exchange, sell: sell, image: bookimage)
             }
         }
     }
