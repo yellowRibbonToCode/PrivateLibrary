@@ -4,9 +4,9 @@
   <a href="https://apps.apple.com/kr/app/%EB%8F%99%EB%84%A4%EB%B6%81/id1594994831">
     <img src="https://img.shields.io/badge/App%20Store-동네북-7a72e7?style=for-the-badge&logo=App%20Store&logoColor=0D96F6"/>
   </a>
-  <a href="./LICENSE">
+<!--   <a href="./LICENSE">
     <img src="https://img.shields.io/github/license/Ileriayo/markdown-badges?style=for-the-badge"/>
-  </a>
+  </a> -->
   <br>
   <img src="https://img.shields.io/badge/swift%20UI-040F7F?style=for-the-badge&logo=swift&logoColor=white"/>
   <img src="https://img.shields.io/badge/Xcode-007ACC?style=for-the-badge&logo=Xcode&logoColor=white"/>
@@ -17,9 +17,9 @@
   <br>
   <img width="512px" src="https://user-images.githubusercontent.com/42266439/144413552-4b71df23-44d5-483b-8c7e-c77920843316.png" alt="App Preview" />
 
+  <h3> 동네북에서 읽은 것을 기록하고 동네 이웃들과 공유해보세요 ! <br>기능 개선 및 추가를 위한 Issue 언제나 환영합니다.</h3>
+
 </div>
-
-
 
 
 <!-- ## Wiki
