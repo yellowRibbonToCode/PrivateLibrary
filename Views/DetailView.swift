@@ -16,7 +16,8 @@ import FirebaseStorage
 
 struct DetailView : View {
     var libModel: ViewModel
-    var showBookmark: Bool = true
+//    var showBookmark: Bool = true
+    let useruid = Auth.auth().currentUser!.uid
     
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
@@ -39,7 +40,7 @@ struct DetailView : View {
 //                    }
                 
                 VStack(alignment: .leading, spacing: 0){
-                    if showBookmark {
+                    if libModel.useruid != useruid {
                         detailTop(libModel: libModel)
                     }
                     else {
@@ -78,7 +79,7 @@ struct DetailView : View {
             }
             .navigationBarBackButtonHidden(true)
             
-            .navigationBarItems(leading: btnBack, trailing: (showBookmark == true ? BookMarkButton(bookuid: libModel.id) : nil))
+            .navigationBarItems(leading: btnBack, trailing: BookMarkButton(bookuid: libModel.id))
             
             .edgesIgnoringSafeArea(.all)
             

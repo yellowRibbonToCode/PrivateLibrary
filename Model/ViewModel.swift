@@ -27,6 +27,8 @@ struct ViewModel: Identifiable{
     var price: Int?                  // 가격
     var exchange: Bool           // 교환 가능 여부
     var sell: Bool            // 판매 가능 여부
-    var image: Image?
     
+    var blocks: [String]?
+    var reports: [String]?
+    var image: Image?
 }

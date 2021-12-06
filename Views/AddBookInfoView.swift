@@ -125,6 +125,7 @@ struct AddBookInfoView: View {
     func upload_Image(image:UIImage, docID: String){
         let image : UIImage = resizeImage(image: image, targetSize: CGSize(width: 512, height: 512))
         if let imageData = image.jpegData(compressionQuality: 1){
+            UserDefaults.standard.set(imageData, forKey: docID)
             let storage = Storage.storage()
             storage.reference().child("images/books/\(docID)").putData(imageData, metadata: nil){
                 (_, err) in
