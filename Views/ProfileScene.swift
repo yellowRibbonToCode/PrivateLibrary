@@ -109,8 +109,8 @@ struct ProfileScene: View { // View
             if !myORmark {
                 LazyVGrid (columns: columns) {
                     ForEach (books.bookList.sorted { $0.created!.compare($1.created!) == .orderedDescending} ) { book in
-                        NavigationLink(destination: DetailView(libModel: book, showBookmark: false)) {
-                        ImageRow(libModel: book, showBookmark: false)
+                        NavigationLink(destination: DetailView(libModel: book)) {
+                        ImageRow(libModel: book)
                         }
                     }
                     .foregroundColor(.black)

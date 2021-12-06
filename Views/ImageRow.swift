@@ -16,7 +16,7 @@ struct ImageRow: View {
         
         
         VStack(alignment: .leading, spacing: 10){
-            ZStack(alignment: .topTrailing ){
+            ZStack(alignment: .topTrailing){
                 if let image = libModel.image {
                     image
                         .resizable()
@@ -24,15 +24,8 @@ struct ImageRow: View {
                         .cornerRadius(19)
                         .shadow(color: Color(red: 0.0, green: 0.0, blue: 0.0, opacity: 0.1), radius: 6, x: 0, y: 3)
                 }
-                if showBookmark{
-                    BookMarkButton(bookuid: libModel.id)
-                        .padding(EdgeInsets(top: 10, leading: 0, bottom: 0, trailing: 10))
-                }
-                else
-                {
-                    EmptyView()
-                }
-                
+                BookMarkButton(bookuid: libModel.id)
+                    .padding(EdgeInsets(top: 10, leading: 0, bottom: 0, trailing: 10))
             }
             HStack {
                 if libModel.bookname.count > 15 {
