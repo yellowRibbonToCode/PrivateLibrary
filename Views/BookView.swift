@@ -17,6 +17,7 @@ import FirebaseStorage
 struct BookView: View {
     var Views = ["Books", "NeighborBooks"]
     let columns: [GridItem] = Array(repeating: GridItem(), count: 2)
+    let useruid = Auth.auth().currentUser!.uid
     @ObservedObject var books = getBookList()
     @State var booklist = [ViewModel]()
     
@@ -26,11 +27,14 @@ struct BookView: View {
                 ScrollView(.vertical) {
                     LazyVGrid(columns: columns) {
                         ForEach (books.bookList.sorted { $0.created!.compare($1.created!) == .orderedDescending }) { book in
-                            NavigationLink(destination: DetailView(libModel: book)) {
-                                ImageRow(libModel: book)
+                            if (!book.reports!.contains(useruid) && !book.blocks!.contains(useruid)) {
+                                NavigationLink(destination: DetailView(libModel: book)) {
+                                    ImageRow(libModel: book)
+                                }
                             }
                         }
                     }
+                    .padding()
                 }
             }
             else {
@@ -102,9 +106,11 @@ class getBookList: ObservableObject {
                 let price = data["price"] as? Int
                 let exchange = data["exchange"] as? Bool ?? false
                 let sell = data["sell"] as? Bool ?? false
+                let blocks = data["blocks"] as? [String] ?? []
+                let reports = data["report"] as? [String] ?? []
                 self.getBookImage.getImage(bookuid: id)
                 let bookimage = self.getBookImage.bookImage
-                return ViewModel(id: id, useruid: useruid, name: name, email: email, bookname: bookname, author: author, title: title, content: content, created: created, edited: edited, price: price, exchange: exchange, sell: sell, image: bookimage)
+                return ViewModel(id: id, useruid: useruid, name: name, email: email, bookname: bookname, author: author, title: title, content: content, created: created, edited: edited, price: price, exchange: exchange, sell: sell, blocks:blocks, reports: reports, image: bookimage)
             }
         }
     }
