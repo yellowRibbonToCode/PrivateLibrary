@@ -76,17 +76,20 @@ struct FirstTabView: View {
                                 Button("3Km") {
                                     setDistance = 3.0
                                     UserDefaults.standard.set(setDistance, forKey: "range")
-                                    selectedView = 2
+                                    neighborGridView.searchNeighborViewModel.makeNeighborList()
+//                                    selectedView = 2
                                 }
                                 Button("5Km") {
                                     setDistance = 5.0
                                     UserDefaults.standard.set(setDistance, forKey: "range")
-                                    selectedView = 3
+                                    neighborGridView.searchNeighborViewModel.makeNeighborList()
+//                                    selectedView = 3
                                 }
                                 Button("10Km") {
                                     setDistance = 10.0
                                     UserDefaults.standard.set(setDistance, forKey: "range")
-                                    selectedView = 4
+                                    neighborGridView.searchNeighborViewModel.makeNeighborList()
+//                                    selectedView = 4
                                 }
                             }
                         
